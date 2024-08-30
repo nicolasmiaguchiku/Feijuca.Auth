@@ -13,6 +13,9 @@ on:
 env:
   VERSION_UPDATE_TYPE: "value"
 
+permissions:
+  contents: write
+  
 jobs:
   build-project:
     runs-on: ubuntu-latest
