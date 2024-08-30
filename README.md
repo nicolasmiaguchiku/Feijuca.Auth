@@ -110,7 +110,7 @@ With this package you can:
    
         And with this configuration you should be able to use Keycloak following a multi tenancy contenxt using .NET.
        
-        Following this [link](https://github.com/fmattioli/Feijuca.Keycloak.AuthServices/blob/main/src/Feijuca.Keycloak.Auth.MultiTenancy/Feijuca.Keycloak.MultiTenancy/Extensions/AuthExtensions.cs) you can understand what is the logic           used to validate the token received.
+        Following this [link](https://github.com/fmattioli/Feijuca.Keycloak.AuthServices/blob/main/src/Feijuca.Keycloak.Auth.MultiTenancy/Feijuca.Keycloak.MultiTenancy/Extensions/AuthExtensions.cs) you can understand what is the logic used to validate the token received.
   
 ## Feijuca.Keycloak.TokenManager 👨🏽‍💻
 Managing certain actions in the Keycloak API can be complicated. For example, creating a new user involves several steps: obtaining a token, creating the user, setting attributes, and setting a password. Feijuca.Keycloak.TokenManager aims to simplify these processes and abstract the complexity related to Keycloak API calls.
@@ -128,6 +128,27 @@ Over time, the goal is to encapsulate multiple Keycloak endpoints, making it eas
      - 1. **Giving permissions to the realm:**
         To be possible manage users using the Keycloak Api, it is necessary to provide some permissions on your keycloak client.  You can handle it on an existing realm, or you can create a new realm. 
         You can follow this [link](https://steve-mu.medium.com/create-new-user-in-keycloak-with-admin-restful-api-e6e868b836b4) to understand how provide these permissions.
+
+     - 2. Once you created/configureted a realm to have permissions related to users handling, enough you change the appsettings setting the values related to the created/configured realm.
+           ```sh
+           {
+            "Settings": {
+              "AuthSettings": {
+                "Realms": [
+                  {
+                     "Name": "yourTenantName1",
+                     "Audience": "your-audience-defined-on-step1",
+                     "Issuer": "https://url-keycloakt/realms/yourTenantName1"
+                  }
+                ],
+                 "ClientId": "your-client-id",
+                 "ClientSecret": "your-client-secret",                
+                 "Resource": "",
+                 "AuthServerUrl": ""
+              }
+            }
+          }
+           ```
    
 ## Contributing
 This is a project in costant evolution, therefore, if you have some suggestion, enter in contact with me or open a pull request and we can discuss.
