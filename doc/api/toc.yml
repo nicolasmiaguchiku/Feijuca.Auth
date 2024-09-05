@@ -1,0 +1,8 @@
+### YamlMime:TableOfContent
+items:
+- uid: TokenManager.Api.Controllers
+  name: TokenManager.Api.Controllers
+  items:
+  - uid: TokenManager.Api.Controllers.UserController
+    name: UserController
+memberLayout: SamePage
