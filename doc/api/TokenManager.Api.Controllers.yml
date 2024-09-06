@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: TokenManager.Api.Controllers
+  commentId: N:TokenManager.Api.Controllers
+  id: TokenManager.Api.Controllers
+  children:
+  - TokenManager.Api.Controllers.UserController
+  langs:
+  - csharp
+  - vb
+  name: TokenManager.Api.Controllers
+  nameWithType: TokenManager.Api.Controllers
+  fullName: TokenManager.Api.Controllers
+  type: Namespace
+  assemblies:
+  - TokenManager.Api
+references:
+- uid: TokenManager.Api.Controllers.UserController
+  commentId: T:TokenManager.Api.Controllers.UserController
+  href: TokenManager.Api.Controllers.UserController.html
+  name: UserController
+  nameWithType: UserController
+  fullName: TokenManager.Api.Controllers.UserController

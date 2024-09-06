@@ -1,0 +1,8 @@
+{
+  "TokenManager.Api.Controllers": "TokenManager.Api.Controllers.yml",
+  "TokenManager.Api.Controllers.UserController": "TokenManager.Api.Controllers.UserController.yml",
+  "TokenManager.Api.Controllers.UserController.#ctor(MediatR.IMediator)": "TokenManager.Api.Controllers.UserController.yml",
+  "TokenManager.Api.Controllers.UserController.CreateUser(System.String,TokenManager.Application.Services.Requests.User.AddUserRequest,System.Threading.CancellationToken)": "TokenManager.Api.Controllers.UserController.yml",
+  "TokenManager.Api.Controllers.UserController.Login(System.String,TokenManager.Application.Services.Requests.User.LoginUserRequest,System.Threading.CancellationToken)": "TokenManager.Api.Controllers.UserController.yml",
+  "TokenManager.Api.Controllers.UserController.RefreshToken(System.String,TokenManager.Application.Services.Requests.User.RefreshTokenRequest,System.Threading.CancellationToken)": "TokenManager.Api.Controllers.UserController.yml"
+}

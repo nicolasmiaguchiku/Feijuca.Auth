@@ -1,0 +1,82 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: TokenManager.Api.Controllers
+  name: TokenManager.Api.Controllers
+  href: api/TokenManager.Api.Controllers.html
+  commentId: N:TokenManager.Api.Controllers
+  fullName: TokenManager.Api.Controllers
+  nameWithType: TokenManager.Api.Controllers
+- uid: TokenManager.Api.Controllers.UserController
+  name: UserController
+  href: api/TokenManager.Api.Controllers.UserController.html
+  commentId: T:TokenManager.Api.Controllers.UserController
+  fullName: TokenManager.Api.Controllers.UserController
+  nameWithType: UserController
+- uid: TokenManager.Api.Controllers.UserController.#ctor(MediatR.IMediator)
+  name: UserController(IMediator)
+  href: api/TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController__ctor_MediatR_IMediator_
+  commentId: M:TokenManager.Api.Controllers.UserController.#ctor(MediatR.IMediator)
+  name.vb: New(IMediator)
+  fullName: TokenManager.Api.Controllers.UserController.UserController(MediatR.IMediator)
+  fullName.vb: TokenManager.Api.Controllers.UserController.New(MediatR.IMediator)
+  nameWithType: UserController.UserController(IMediator)
+  nameWithType.vb: UserController.New(IMediator)
+- uid: TokenManager.Api.Controllers.UserController.#ctor*
+  name: UserController
+  href: api/TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController__ctor_
+  commentId: Overload:TokenManager.Api.Controllers.UserController.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: TokenManager.Api.Controllers.UserController.UserController
+  fullName.vb: TokenManager.Api.Controllers.UserController.New
+  nameWithType: UserController.UserController
+  nameWithType.vb: UserController.New
+- uid: TokenManager.Api.Controllers.UserController.CreateUser(System.String,TokenManager.Application.Services.Requests.User.AddUserRequest,System.Threading.CancellationToken)
+  name: CreateUser(string, AddUserRequest, CancellationToken)
+  href: api/TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController_CreateUser_System_String_TokenManager_Application_Services_Requests_User_AddUserRequest_System_Threading_CancellationToken_
+  commentId: M:TokenManager.Api.Controllers.UserController.CreateUser(System.String,TokenManager.Application.Services.Requests.User.AddUserRequest,System.Threading.CancellationToken)
+  name.vb: CreateUser(String, AddUserRequest, CancellationToken)
+  fullName: TokenManager.Api.Controllers.UserController.CreateUser(string, TokenManager.Application.Services.Requests.User.AddUserRequest, System.Threading.CancellationToken)
+  fullName.vb: TokenManager.Api.Controllers.UserController.CreateUser(String, TokenManager.Application.Services.Requests.User.AddUserRequest, System.Threading.CancellationToken)
+  nameWithType: UserController.CreateUser(string, AddUserRequest, CancellationToken)
+  nameWithType.vb: UserController.CreateUser(String, AddUserRequest, CancellationToken)
+- uid: TokenManager.Api.Controllers.UserController.CreateUser*
+  name: CreateUser
+  href: api/TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController_CreateUser_
+  commentId: Overload:TokenManager.Api.Controllers.UserController.CreateUser
+  isSpec: "True"
+  fullName: TokenManager.Api.Controllers.UserController.CreateUser
+  nameWithType: UserController.CreateUser
+- uid: TokenManager.Api.Controllers.UserController.Login(System.String,TokenManager.Application.Services.Requests.User.LoginUserRequest,System.Threading.CancellationToken)
+  name: Login(string, LoginUserRequest, CancellationToken)
+  href: api/TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController_Login_System_String_TokenManager_Application_Services_Requests_User_LoginUserRequest_System_Threading_CancellationToken_
+  commentId: M:TokenManager.Api.Controllers.UserController.Login(System.String,TokenManager.Application.Services.Requests.User.LoginUserRequest,System.Threading.CancellationToken)
+  name.vb: Login(String, LoginUserRequest, CancellationToken)
+  fullName: TokenManager.Api.Controllers.UserController.Login(string, TokenManager.Application.Services.Requests.User.LoginUserRequest, System.Threading.CancellationToken)
+  fullName.vb: TokenManager.Api.Controllers.UserController.Login(String, TokenManager.Application.Services.Requests.User.LoginUserRequest, System.Threading.CancellationToken)
+  nameWithType: UserController.Login(string, LoginUserRequest, CancellationToken)
+  nameWithType.vb: UserController.Login(String, LoginUserRequest, CancellationToken)
+- uid: TokenManager.Api.Controllers.UserController.Login*
+  name: Login
+  href: api/TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController_Login_
+  commentId: Overload:TokenManager.Api.Controllers.UserController.Login
+  isSpec: "True"
+  fullName: TokenManager.Api.Controllers.UserController.Login
+  nameWithType: UserController.Login
+- uid: TokenManager.Api.Controllers.UserController.RefreshToken(System.String,TokenManager.Application.Services.Requests.User.RefreshTokenRequest,System.Threading.CancellationToken)
+  name: RefreshToken(string, RefreshTokenRequest, CancellationToken)
+  href: api/TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController_RefreshToken_System_String_TokenManager_Application_Services_Requests_User_RefreshTokenRequest_System_Threading_CancellationToken_
+  commentId: M:TokenManager.Api.Controllers.UserController.RefreshToken(System.String,TokenManager.Application.Services.Requests.User.RefreshTokenRequest,System.Threading.CancellationToken)
+  name.vb: RefreshToken(String, RefreshTokenRequest, CancellationToken)
+  fullName: TokenManager.Api.Controllers.UserController.RefreshToken(string, TokenManager.Application.Services.Requests.User.RefreshTokenRequest, System.Threading.CancellationToken)
+  fullName.vb: TokenManager.Api.Controllers.UserController.RefreshToken(String, TokenManager.Application.Services.Requests.User.RefreshTokenRequest, System.Threading.CancellationToken)
+  nameWithType: UserController.RefreshToken(string, RefreshTokenRequest, CancellationToken)
+  nameWithType.vb: UserController.RefreshToken(String, RefreshTokenRequest, CancellationToken)
+- uid: TokenManager.Api.Controllers.UserController.RefreshToken*
+  name: RefreshToken
+  href: api/TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController_RefreshToken_
+  commentId: Overload:TokenManager.Api.Controllers.UserController.RefreshToken
+  isSpec: "True"
+  fullName: TokenManager.Api.Controllers.UserController.RefreshToken
+  nameWithType: UserController.RefreshToken
