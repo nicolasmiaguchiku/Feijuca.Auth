@@ -36,11 +36,14 @@ jobs:
     - run: dotnet tool update -g docfx
     - run: docfx doc/docfx.json
 
+    - name: Create .nojekyll file
+      run: echo "" > docs/_site/.nojekyll
+  
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
         # Upload entire repository
-        path: 'doc/_site/public'
+        path: 'doc/_site'
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
