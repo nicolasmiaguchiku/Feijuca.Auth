@@ -20,7 +20,7 @@ namespace TokenManager.Application.Commands.Users
             var accessTokenResult = await _tokenRepository.GetAccessTokenAsync(request.Tenant);
             if (accessTokenResult.IsSuccess)
             {
-                var accessToken = accessTokenResult.Data.AccessToken;
+                var accessToken = accessTokenResult.Data.Access_Token;
                 var user = request.AddUserRequest.ToDomain();
 
                 var (IsSuccessStatusCode, contentRequest) = await _userRepository.CreateNewUserAsync(request.Tenant, user, accessToken);

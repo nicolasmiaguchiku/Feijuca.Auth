@@ -45,7 +45,7 @@ namespace TokenManager.UnitTests.Handlers
 
             DataHandle.Data.AccessToken
                 .Should()
-                .Be(tokenDetails.AccessToken);
+                .Be(tokenDetails.Access_Token);
 
             DataHandle.Data.ExpiresIn
                 .Should()

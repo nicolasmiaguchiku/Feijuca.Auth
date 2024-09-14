@@ -42,7 +42,7 @@ namespace TokenManager.UnitTests.Handlers
 
             resultHandle.Data.AccessToken
                 .Should()
-                .Be(tokenDetails.AccessToken);
+                .Be(tokenDetails.Access_Token);
 
             resultHandle.Data.ExpiresIn
                 .Should()

@@ -27,7 +27,7 @@ namespace TokenManager.Application.Mappers
         {
             var tokenDetailsResponse = new TokenDetailsResponse
             {
-                AccessToken = tokenDetails.Data.AccessToken,
+                AccessToken = tokenDetails.Data.Access_Token,
                 ExpiresIn = tokenDetails.Data.Expires_In,
                 RefreshToken = tokenDetails.Data.Refresh_Token,
                 RefreshExpiresIn = tokenDetails.Data.Refresh_Expires_In,

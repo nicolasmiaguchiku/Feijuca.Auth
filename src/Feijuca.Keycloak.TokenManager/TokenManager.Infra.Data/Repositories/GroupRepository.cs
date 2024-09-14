@@ -18,7 +18,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result> CreateGroupAsync(string tenant, string name, Dictionary<string, string[]> attributes)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.AccessToken);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -48,7 +48,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<IEnumerable<Group>>> GetAllGroups(string tenant)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.AccessToken);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")

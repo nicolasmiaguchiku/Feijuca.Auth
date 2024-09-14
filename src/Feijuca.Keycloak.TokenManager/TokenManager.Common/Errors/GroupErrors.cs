@@ -11,6 +11,11 @@ namespace TokenManager.Domain.Errors
             $"An error occurred while trying creating the group: {TechnicalMessage}"
         );
 
+        public static Error GetGroupsError => new(
+            "Group.GetGroupsError",
+            $"An error occurred while trying get the groups: {TechnicalMessage}"
+        );
+
         public static void SetTechnicalMessage(string technicalMessage)
         {
             TechnicalMessage = technicalMessage;

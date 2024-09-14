@@ -16,7 +16,7 @@ namespace TokenManager.Application.Queries
             var accessTokenResult = await _tokenRepository.GetAccessTokenAsync(request.Tenant);
             if (accessTokenResult.IsSuccess)
             {
-                var accessToken = accessTokenResult.Data.AccessToken;
+                var accessToken = accessTokenResult.Data.Access_Token;
                 var result = await _userRepository.GetAllUsers(request.Tenant, accessToken);
 
                 if (result.IsSuccess)
