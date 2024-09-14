@@ -33,5 +33,27 @@ namespace TokenManager.Api.Controllers
             var responseError = Result<string>.Failure(result.Error);
             return BadRequest(responseError);
         }
+
+        /// <summary>
+        /// Add a user to a specific group in the Keycloak realm.
+        /// </summary>
+        /// <returns>A status code related to the operation.</returns>
+        [HttpDelete]
+        [Route("removeUserFromGroup/{tenant}/{userId:guid}/{groupId:guid}", Name = nameof(RemoveUserFromGroup))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> RemoveUserFromGroup([FromRoute] string tenant, [FromRoute] Guid userId, [FromRoute] Guid groupId, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new RemoveUserFromGroupCommand(tenant, userId, groupId), cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                return Accepted();
+            }
+
+            var responseError = Result<string>.Failure(result.Error);
+            return BadRequest(responseError);
+        }
     }
 }
