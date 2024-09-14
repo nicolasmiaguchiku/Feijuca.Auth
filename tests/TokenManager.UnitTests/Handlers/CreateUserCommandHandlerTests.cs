@@ -97,11 +97,11 @@ namespace TokenManager.UnitTests.Handlers
 
             resultHandle.Error.Description
                 .Should()
-                .Contain(result.Error.Description);
+                .Be(UserErrors.WrongPasswordDefinition.Description);
 
             resultHandle.Error.Code
                 .Should()
-                .Contain(result.Error.Code);
+                .Be(UserErrors.WrongPasswordDefinition.Code);
         }
 
         [Fact]

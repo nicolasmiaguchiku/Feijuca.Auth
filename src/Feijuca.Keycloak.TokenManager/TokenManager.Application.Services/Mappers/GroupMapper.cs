@@ -9,5 +9,10 @@ namespace TokenManager.Application.Mappers
         {
             return group.Select(x => new GroupResponse(x.Id, x.Name, x.Path));
         }
+        
+        public static GroupResponse ToResponse(this Group group)
+        {
+            return new GroupResponse(group.Id, group.Name, group.Path);
+        }
     }
 }

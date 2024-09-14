@@ -18,7 +18,12 @@ namespace TokenManager.Application.Mappers
             return new User(userRequest.Username, userRequest.Password, userRequest.Email!, userRequest.FirstName!, userRequest.LastName!, atributtes);
         }
 
-        public static User ToDomain(this LoginUserRequest loginUserRequest)
+        public static IEnumerable<UserResponse> ToResponse(this IEnumerable<User> users)
+        {
+            return users.Select(x => new UserResponse(x.Id, x.Username, x.Password, x.Email!, x.FirstName!, x.LastName!, x.Attributes!));
+        }
+
+        public static User ToLoginUserDomain(this LoginUserRequest loginUserRequest)
         {
             return new User(loginUserRequest.Username, loginUserRequest.Password);
         }

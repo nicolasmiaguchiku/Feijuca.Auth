@@ -1,8 +1,8 @@
 ﻿using MediatR;
+using TokenManager.Application.Responses;
 using TokenManager.Common.Models;
-using TokenManager.Domain.Entities;
 
 namespace TokenManager.Application.Queries.Users
 {
-    public record GetAllUsersQuery(string Tenant) : IRequest<Result<IEnumerable<User>>>;
+    public record GetAllUsersQuery(string Tenant) : IRequest<Result<IEnumerable<UserResponse>>>;
 }

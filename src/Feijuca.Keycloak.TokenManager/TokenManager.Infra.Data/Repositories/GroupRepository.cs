@@ -1,5 +1,7 @@
 ﻿using Flurl;
 using Newtonsoft.Json;
+
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using TokenManager.Common.Errors;
@@ -84,11 +86,38 @@ namespace TokenManager.Infra.Data.Repositories
             return Result.Failure(GroupErrors.DeletionGroupError);
         }
 
+        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string tenant, string id)
+        {
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
+            var url = httpClient.BaseAddress
+                    .AppendPathSegment("admin")
+                    .AppendPathSegment("realms")
+                    .AppendPathSegment(tenant)
+                    .AppendPathSegment("groups")
+                    .AppendPathSegment(id)
+                    .AppendPathSegment("members");
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var users = JsonConvert.DeserializeObject<IEnumerable<User>>(responseContent);
+
+                return Result<IEnumerable<User>>.Success(users!);
+            }
+
+            return Result<IEnumerable<User>>.Failure(GroupErrors.GetUsersInGroupsError);
+        }
+
         private HttpClient CreateHttpClientWithHeaders(string accessToken)
         {
             var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             return httpClient;
         }
+
     }
 }
