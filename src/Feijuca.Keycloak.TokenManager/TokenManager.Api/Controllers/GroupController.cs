@@ -15,7 +15,7 @@ namespace TokenManager.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         /// <summary>
-        /// Add a new group on the keycloak realm.
+        /// Get all groups existing on the keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpGet]

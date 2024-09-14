@@ -1,6 +1,6 @@
 ﻿using TokenManager.Common.Models;
 
-namespace TokenManager.Domain.Errors
+namespace TokenManager.Common.Errors
 {
     public static class GroupErrors
     {

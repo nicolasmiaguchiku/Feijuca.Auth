@@ -16,7 +16,7 @@ namespace TokenManager.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         /// <summary>
-        /// Add a new user on the keycloak realm.
+        /// Get all user existing on the keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpGet]

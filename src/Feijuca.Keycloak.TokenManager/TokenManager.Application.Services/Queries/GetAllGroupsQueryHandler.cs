@@ -1,8 +1,9 @@
 ﻿using MediatR;
+
 using TokenManager.Application.Mappers;
 using TokenManager.Application.Responses;
+using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
-using TokenManager.Domain.Errors;
 using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Application.Queries

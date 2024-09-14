@@ -1,11 +1,13 @@
 ﻿using Flurl;
+
 using Newtonsoft.Json;
 
 using System.Net.Http.Headers;
 using System.Text;
+
+using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
-using TokenManager.Domain.Errors;
 using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
