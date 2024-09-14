@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TokenManager.Domain.Entities;
+using TokenManager.Common.Models;
 using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Application.Services.Commands.Users

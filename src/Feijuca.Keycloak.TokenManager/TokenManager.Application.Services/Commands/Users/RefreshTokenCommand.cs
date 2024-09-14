@@ -1,7 +1,9 @@
 ﻿using MediatR;
-using TokenManager.Application.Services.Responses;
 
-namespace TokenManager.Application.Services.Commands.Users
+using TokenManager.Application.Services.Responses;
+using TokenManager.Common.Models;
+
+namespace TokenManager.Application.Commands.Users
 {
-    public record RefreshTokenCommand(string Tenant, string RefreshToken) : IRequest<ResponseResult<TokenDetailsResponse>>;
+    public record RefreshTokenCommand(string Tenant, string RefreshToken) : IRequest<Result<TokenDetailsResponse>>;
 }

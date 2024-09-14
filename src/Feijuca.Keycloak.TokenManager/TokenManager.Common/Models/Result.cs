@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Domain.Entities
+﻿namespace TokenManager.Common.Models
 {
     public class Result
     {
@@ -27,15 +27,15 @@
 
     public class Result<T> : Result
     {
-        private readonly T _value;
+        private readonly T _data;
 
         private Result(T value, bool isSuccess, Error error)
             : base(isSuccess, error)
         {
-            _value = value;
+            _data = value;
         }
 
-        public T Value
+        public T Data
         {
             get
             {
@@ -44,7 +44,7 @@
                     throw new InvalidOperationException("No value available for failure result.");
                 }
 
-                return _value;
+                return _data;
             }
         }
 

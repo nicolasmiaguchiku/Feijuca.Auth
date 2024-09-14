@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Text;
+using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
 using TokenManager.Domain.Errors;
 using TokenManager.Domain.Interfaces;
@@ -82,6 +83,23 @@ namespace TokenManager.Infra.Data.Repositories
             var responseMessage = await response.Content.ReadAsStringAsync();
             UserErrors.SetTechnicalMessage(responseMessage);
             return Result<TokenDetails>.Failure(UserErrors.InvalidRefreshToken);
+        }
+
+        public async Task<Result<IEnumerable<User>>> GetAllUsers(string tenant, string tokenAccess)
+        {
+            var httpClient = CreateHttpClientWithHeaders(tokenAccess);
+
+            var urlGetUsers = httpClient.BaseAddress
+                .AppendPathSegment("admin")
+                .AppendPathSegment("realms")
+                .AppendPathSegment(tenant)
+                .AppendPathSegment("users");
+
+            var response = await httpClient.GetAsync(urlGetUsers);
+            var keycloakUserContent = await response.Content.ReadAsStringAsync();
+            var users = JsonConvert.DeserializeObject<IEnumerable<User>>(keycloakUserContent)!;
+
+            return Result<IEnumerable<User>>.Success(users);
         }
 
         public async Task<(bool result, string content)> CreateNewUserAsync(string tenant, User user, string accessToken)
@@ -195,5 +213,6 @@ namespace TokenManager.Infra.Data.Repositories
             var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
             return httpClient;
         }
-    }    
+
+    }
 }

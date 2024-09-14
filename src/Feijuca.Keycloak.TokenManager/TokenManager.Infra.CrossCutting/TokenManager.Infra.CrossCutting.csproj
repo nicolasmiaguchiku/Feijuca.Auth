@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TokenManager.Application.Services\TokenManager.Application.Services.csproj" />
+    <ProjectReference Include="..\TokenManager.Application.Services\TokenManager.Application.csproj" />
     <ProjectReference Include="..\TokenManager.Infra.Data\TokenManager.Infra.Data.csproj" />
   </ItemGroup>
 

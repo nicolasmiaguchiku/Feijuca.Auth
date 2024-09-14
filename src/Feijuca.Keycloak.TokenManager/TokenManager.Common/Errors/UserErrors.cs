@@ -1,4 +1,4 @@
-﻿using TokenManager.Domain.Entities;
+﻿using TokenManager.Common.Models;
 
 namespace TokenManager.Domain.Errors
 {
@@ -24,6 +24,11 @@ namespace TokenManager.Domain.Errors
         public static Error WrongPasswordDefinition => new(
             "User.WrongPasswordDefinition",
             $"An error occurred while trying to add a new password to the user. {TechnicalMessage}"
+        );
+
+        public static Error GetAllUsersError => new(
+            "User.GetAllUsersError",
+            $"An error occurred while trying get all users. {TechnicalMessage}"
         );
 
         public static void SetTechnicalMessage(string technicalMessage)

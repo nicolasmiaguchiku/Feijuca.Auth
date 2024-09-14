@@ -1,6 +1,9 @@
 ﻿using Flurl;
 using Newtonsoft.Json;
+
+using System.Net.Http.Headers;
 using System.Text;
+using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
 using TokenManager.Domain.Errors;
 using TokenManager.Domain.Interfaces;
@@ -14,7 +17,8 @@ namespace TokenManager.Infra.Data.Repositories
 
         public async Task<Result> CreateGroupAsync(string tenant, string name, Dictionary<string, string[]> attributes)
         {
-            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.AccessToken);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -28,10 +32,6 @@ namespace TokenManager.Infra.Data.Repositories
                 attributes
             };
 
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
-
-            httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenDetails.Value.Access_Token}");
-
             var jsonContent = JsonConvert.SerializeObject(group);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
@@ -43,6 +43,31 @@ namespace TokenManager.Infra.Data.Repositories
 
             GroupErrors.SetTechnicalMessage(response.ReasonPhrase!);
             return Result.Failure(GroupErrors.CreationGroupError);
+        }
+
+        public async Task<Result<IEnumerable<Group>>> GetAllGroups(string tenant)
+        {
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.AccessToken);
+
+            var url = httpClient.BaseAddress
+                    .AppendPathSegment("admin")
+                    .AppendPathSegment("realms")
+                    .AppendPathSegment(tenant)
+                    .AppendPathSegment("groups");
+
+            var response = await httpClient.GetAsync(url);
+            var groups = await response.Content.ReadAsStringAsync();
+            var users = JsonConvert.DeserializeObject<IEnumerable<Group>>(groups)!;
+
+            return Result<IEnumerable<Group>>.Success(users);
+        }
+
+        private HttpClient CreateHttpClientWithHeaders(string accessToken)
+        {
+            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            return httpClient;
         }
     }
 }

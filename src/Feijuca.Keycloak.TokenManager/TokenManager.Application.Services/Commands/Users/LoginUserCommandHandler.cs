@@ -1,15 +1,17 @@
 ﻿using MediatR;
-using TokenManager.Application.Services.Mappers;
+
+using TokenManager.Application.Mappers;
 using TokenManager.Application.Services.Responses;
+using TokenManager.Common.Models;
 using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Application.Services.Commands.Users
+namespace TokenManager.Application.Commands.Users
 {
-    public class LoginUserCommandHandler(IUserRepository userRepository) : IRequestHandler<LoginUserCommand, ResponseResult<TokenDetailsResponse>>
+    public class LoginUserCommandHandler(IUserRepository userRepository) : IRequestHandler<LoginUserCommand, Result<TokenDetailsResponse>>
     {
         private readonly IUserRepository _userRepository = userRepository;
 
-        public async Task<ResponseResult<TokenDetailsResponse>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+        public async Task<Result<TokenDetailsResponse>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
             var user = request.LoginUser.ToDomain();
             var tokenDetailsResult = await _userRepository.LoginAsync(request.Tenant, user);
@@ -18,7 +20,7 @@ namespace TokenManager.Application.Services.Commands.Users
                 return tokenDetailsResult.ToTokenResponse();
             }
 
-            return ResponseResult<TokenDetailsResponse>.Failure(tokenDetailsResult.Error);
+            return Result<TokenDetailsResponse>.Failure(tokenDetailsResult.Error);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using TokenManager.Domain.Entities;
+﻿using TokenManager.Common.Models;
 
 namespace TokenManager.Domain.Errors
 {

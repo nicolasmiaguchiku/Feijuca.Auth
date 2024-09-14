@@ -1,7 +1,8 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Moq;
-using TokenManager.Application.Services.Commands.Users;
+using TokenManager.Application.Commands.Users;
+using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
 using TokenManager.Domain.Interfaces;
 
@@ -39,23 +40,23 @@ namespace TokenManager.UnitTests.Handlers
                 .Should()
                 .Be(true);
 
-            resultHandle.Result.AccessToken
+            resultHandle.Data.AccessToken
                 .Should()
-                .Be(tokenDetails.Access_Token);
+                .Be(tokenDetails.AccessToken);
 
-            resultHandle.Result.ExpiresIn
+            resultHandle.Data.ExpiresIn
                 .Should()
                 .Be(tokenDetails.Expires_In);
 
-            resultHandle.Result.RefreshExpiresIn
+            resultHandle.Data.RefreshExpiresIn
                 .Should()
                 .Be(tokenDetails.Refresh_Expires_In);
 
-            resultHandle.Result.RefreshToken
+            resultHandle.Data.RefreshToken
                 .Should()
                 .Be(tokenDetails.Refresh_Token);
 
-            resultHandle.Result.TokenType
+            resultHandle.Data.TokenType
                 .Should()
                 .Be(tokenDetails.Token_Type);
         }

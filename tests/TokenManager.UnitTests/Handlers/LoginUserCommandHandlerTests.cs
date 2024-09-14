@@ -1,7 +1,11 @@
 ﻿using AutoFixture;
+
 using FluentAssertions;
+
 using Moq;
-using TokenManager.Application.Services.Commands.Users;
+
+using TokenManager.Application.Commands.Users;
+using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
 using TokenManager.Domain.Interfaces;
 
@@ -25,37 +29,37 @@ namespace TokenManager.UnitTests.Handlers
             var loginUserCommand = _autoFixture.Create<LoginUserCommand>();
 
             var tokenDetails = _autoFixture.Create<TokenDetails>();
-            var successResult = Result<TokenDetails>.Success(tokenDetails);
+            var successData = Result<TokenDetails>.Success(tokenDetails);
 
             _userRepositoryMock
                 .Setup(x => x.LoginAsync(It.IsAny<string>(), It.IsAny<User>()))
-                .ReturnsAsync(successResult);
+                .ReturnsAsync(successData);
 
             //Act
-            var resultHandle = await _loginUserCommandHandler.Handle(loginUserCommand, CancellationToken.None);
+            var DataHandle = await _loginUserCommandHandler.Handle(loginUserCommand, CancellationToken.None);
 
             //Assert
-            resultHandle.IsSuccess
+            DataHandle.IsSuccess
                 .Should()
                 .Be(true);
 
-            resultHandle.Result.AccessToken
+            DataHandle.Data.AccessToken
                 .Should()
-                .Be(tokenDetails.Access_Token);
+                .Be(tokenDetails.AccessToken);
 
-            resultHandle.Result.ExpiresIn
+            DataHandle.Data.ExpiresIn
                 .Should()
                 .Be(tokenDetails.Expires_In);
 
-            resultHandle.Result.RefreshExpiresIn
+            DataHandle.Data.RefreshExpiresIn
                 .Should()
                 .Be(tokenDetails.Refresh_Expires_In);
 
-            resultHandle.Result.RefreshToken
+            DataHandle.Data.RefreshToken
                 .Should()
                 .Be(tokenDetails.Refresh_Token);
 
-            resultHandle.Result.TokenType
+            DataHandle.Data.TokenType
                 .Should()
                 .Be(tokenDetails.Token_Type);
         }
@@ -67,25 +71,25 @@ namespace TokenManager.UnitTests.Handlers
             var loginUserCommand = _autoFixture.Create<LoginUserCommand>();
 
             var error = _autoFixture.Create<Error>();
-            var failureResult = Result<TokenDetails>.Failure(error);
+            var failureData = Result<TokenDetails>.Failure(error);
 
             _userRepositoryMock
                 .Setup(x => x.LoginAsync(It.IsAny<string>(), It.IsAny<User>()))
-                .ReturnsAsync(failureResult);
+                .ReturnsAsync(failureData);
 
             //Act
-            var resultHandle = await _loginUserCommandHandler.Handle(loginUserCommand, CancellationToken.None);
+            var DataHandle = await _loginUserCommandHandler.Handle(loginUserCommand, CancellationToken.None);
 
             //Assert
-            resultHandle.IsSuccess
+            DataHandle.IsSuccess
                 .Should()
                 .Be(false);
 
-            resultHandle.Error.Description
+            DataHandle.Error.Description
                 .Should()
                 .Contain(error.Description);
 
-            resultHandle.Error.Code
+            DataHandle.Error.Code
                 .Should()
                 .Contain(error.Code);
         }

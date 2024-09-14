@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Domain.Entities
+﻿namespace TokenManager.Common.Models
 {
     public sealed record Error(string Code, string Description)
     {

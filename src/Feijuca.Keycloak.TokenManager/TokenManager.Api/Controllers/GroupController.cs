@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using TokenManager.Application.Services.Commands.Users;
 using TokenManager.Application.Services.Requests.User;
-using TokenManager.Application.Services.Responses;
+using TokenManager.Common.Models;
 
 namespace TokenManager.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    public class GroupController(IMediator mediator) : Controller
+    public class GroupController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
 
@@ -27,11 +27,11 @@ namespace TokenManager.Api.Controllers
             
             if (result.IsSuccess)
             {
-                var response = ResponseResult<string>.Success("Group created successfully");
+                var response = Result<string>.Success("Group created successfully");
                 return Created("/createUser", response);
             }
 
-            var responseError = ResponseResult<string>.Failure(result.Error);
+            var responseError = Result<string>.Failure(result.Error);
             return BadRequest(responseError);
         }
     }

@@ -1,7 +1,12 @@
 ﻿using AutoFixture;
+
 using FluentAssertions;
+
 using Moq;
+
+using TokenManager.Application.Commands.Users;
 using TokenManager.Application.Services.Commands.Users;
+using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
 using TokenManager.Domain.Errors;
 using TokenManager.Domain.Interfaces;

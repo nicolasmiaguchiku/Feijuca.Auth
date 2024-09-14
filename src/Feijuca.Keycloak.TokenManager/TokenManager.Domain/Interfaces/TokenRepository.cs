@@ -1,5 +1,7 @@
 ﻿using Flurl;
+
 using Newtonsoft.Json;
+using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
 using TokenManager.Domain.Errors;
 using TokenManager.Infra.Data.Models;

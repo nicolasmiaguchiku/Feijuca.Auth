@@ -1,4 +1,5 @@
-﻿using TokenManager.Domain.Entities;
+﻿using TokenManager.Common.Models;
+using TokenManager.Domain.Entities;
 
 namespace TokenManager.Domain.Interfaces
 {
