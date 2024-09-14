@@ -36,7 +36,7 @@ namespace TokenManager.Api.Controllers
         }
 
         /// <summary>
-        /// Add a user to a specific group in the Keycloak realm.
+        /// Get all users presents on a group in the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpGet]

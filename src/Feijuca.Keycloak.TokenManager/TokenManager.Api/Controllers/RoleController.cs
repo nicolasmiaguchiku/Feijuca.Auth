@@ -27,7 +27,7 @@ namespace TokenManager.Api.Controllers
             if (result.IsSuccess)
             {
                 var response = Result<string>.Success("Group created successfully");
-                return Created("/createGroup", response);
+                return Ok(response);
             }
 
             var responseError = Result<string>.Failure(result.Error);
