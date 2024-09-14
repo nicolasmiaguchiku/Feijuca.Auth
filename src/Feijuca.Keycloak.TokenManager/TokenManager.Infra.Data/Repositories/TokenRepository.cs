@@ -1,12 +1,11 @@
 ﻿using Flurl;
-
 using Newtonsoft.Json;
-
 using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
+using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Domain.Interfaces
+namespace TokenManager.Infra.Data.Repositories
 {
     public class TokenRepository(TokenCredentials tokenCredentials, IHttpClientFactory httpClientFactory) : ITokenRepository
     {

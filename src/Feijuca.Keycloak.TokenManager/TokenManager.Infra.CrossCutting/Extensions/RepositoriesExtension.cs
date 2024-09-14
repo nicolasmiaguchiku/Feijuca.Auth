@@ -1,5 +1,7 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Services;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using TokenManager.Domain.Entities;
 using TokenManager.Domain.Interfaces;
 using TokenManager.Infra.Data.Repositories;
@@ -13,6 +15,7 @@ namespace TokenManager.Infra.CrossCutting.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITokenRepository, TokenRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IUserGroupRepository, UserGroupRepository>();
 
             var serviceProvider = services.BuildServiceProvider();
             var authService = serviceProvider.GetRequiredService<IAuthService>();
