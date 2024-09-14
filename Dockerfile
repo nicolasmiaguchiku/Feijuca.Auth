@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["src/Feijuca.Keycloak.TokenManager/TokenManager.Api/TokenManager.Api.csproj", "TokenManager.Api/"]
 COPY ["src/Feijuca.Keycloak.TokenManager/TokenManager.Infra.CrossCutting/TokenManager.Infra.CrossCutting.csproj", "TokenManager.Infra.CrossCutting/"]
-COPY ["src/Feijuca.Keycloak.TokenManager/TokenManager.Application.Services/TokenManager.Application.csproj", "TokenManager.Application/"]
+COPY ["src/Feijuca.Keycloak.TokenManager/TokenManager.Application/TokenManager.Application.csproj", "TokenManager.Application/"]
 COPY ["src/Feijuca.Keycloak.TokenManager/TokenManager.Infra.Data/TokenManager.Infra.Data.csproj", "TokenManager.Infra.Data/"]
 COPY ["src/Feijuca.Keycloak.TokenManager/TokenManager.Domain/TokenManager.Domain.csproj", "TokenManager.Domain/"]
 RUN dotnet restore "TokenManager.Api/TokenManager.Api.csproj"
