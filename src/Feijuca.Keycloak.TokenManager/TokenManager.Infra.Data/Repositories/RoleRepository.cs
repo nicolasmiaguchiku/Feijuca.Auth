@@ -1,14 +1,50 @@
 ﻿
+using Flurl;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
+using TokenManager.Domain.Entities;
 using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
 {
-    public class RoleRepository : IRoleRepository
+    public class RoleRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository) : IRoleRepository
     {
-        public Task<Result> GetRolesForClientAsync(string tenant, string clientId)
+        private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
+        private readonly ITokenRepository _tokenRepository = tokenRepository;
+
+        public async Task<Result> GetRolesForClientAsync(string tenant, string clientId)
         {
-            throw new NotImplementedException();
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
+            var url = httpClient.BaseAddress
+                    .AppendPathSegment("admin")
+                    .AppendPathSegment("realms")
+                    .AppendPathSegment(tenant)
+                    .AppendPathSegment("clients")
+                    .AppendPathSegment(clientId)
+                    .AppendPathSegment("roles");
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<IEnumerable<Role>>(responseContent);
+
+                return Result<IEnumerable<Role>>.Success(result!);
+            }
+
+            return Result<IEnumerable<Role>>.Failure(RoleErrors.GetRoleErrors);
+        }
+
+        private HttpClient CreateHttpClientWithHeaders(string accessToken)
+        {
+            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            return httpClient;
         }
     }
 }
