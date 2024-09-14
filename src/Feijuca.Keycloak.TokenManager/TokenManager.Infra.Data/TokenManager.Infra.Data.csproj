@@ -6,14 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Flurl" Version="4.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+  <ItemGroup>    
     <PackageReference Include="Feijuca.Keycloak.MultiTenancy" Version="1.5.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TokenManager.Domain\TokenManager.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

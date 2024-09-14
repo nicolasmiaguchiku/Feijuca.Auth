@@ -1,5 +1,4 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Services;
-using Feijuca.Keycloak.MultiTenancy.Services.Models;
 using Microsoft.Extensions.DependencyInjection;
 using TokenManager.Domain.Interfaces;
 using TokenManager.Infra.Data.Models;
@@ -9,14 +8,11 @@ namespace TokenManager.Infra.CrossCutting.Extensions
 {
     public static class RepositoriesExtension
     {
-        public static IServiceCollection AddRepositories(this IServiceCollection services, AuthSettings authSettings)
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            services.AddHttpClient("KeycloakClient", client =>
-            {
-                client.BaseAddress = new Uri(authSettings.AuthServerUrl!);
-            });
-
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITokenRepository, TokenRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
 
             var serviceProvider = services.BuildServiceProvider();
             var authService = serviceProvider.GetRequiredService<IAuthService>();

@@ -6,22 +6,23 @@ using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Application.Services.Commands.Users
 {
-    public class CreateUserCommandHandler(IUserRepository userRepository) : IRequestHandler<CreateUserCommand, Result>
+    public class CreateUserCommandHandler(IUserRepository userRepository, ITokenRepository tokenRepository) : IRequestHandler<CreateUserCommand, Result>
     {
         private readonly IUserRepository _userRepository = userRepository;
-
+        private readonly ITokenRepository _tokenRepository = tokenRepository;
         public async Task<Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             AddTenantToRequest(request);
-            var accessTokenResult = await _userRepository.GetAccessTokenAsync(request.Tenant);
+            var accessTokenResult = await _tokenRepository.GetAccessTokenAsync(request.Tenant);
             if (accessTokenResult.IsSuccess)
             {
+                var accessToken = accessTokenResult.Value.Access_Token;
                 var user = request.AddUserRequest.ToDomain();
 
-                var (IsSuccessStatusCode, contentRequest) = await _userRepository.CreateNewUserAsync(request.Tenant, user);
+                var (IsSuccessStatusCode, contentRequest) = await _userRepository.CreateNewUserAsync(request.Tenant, user, accessToken);
                 if (IsSuccessStatusCode)
                 {
-                    await SetUserPasswordAsync(user);
+                    await SetUserPasswordAsync(request.Tenant, user, accessToken);
                     return Result.Success();
                 }
 
@@ -34,13 +35,13 @@ namespace TokenManager.Application.Services.Commands.Users
 
         private static void AddTenantToRequest(CreateUserCommand request)
         {
-            request.AddUserRequest.Attributes.Add("tenant", [request.Tenant]);
+            request.AddUserRequest.Attributes.Add("tenant", request.Tenant);
         }
 
-        private async Task SetUserPasswordAsync(User user)
+        private async Task SetUserPasswordAsync(string tenant, User user, string accessToken)
         {
-            var keycloakUser = await _userRepository.GetUserAsync(user.Username!);
-            await _userRepository.ResetPasswordAsync(keycloakUser.Value.Id!, user.Password!);
+            var keycloakUser = await _userRepository.GetUserAsync(tenant, user.Username, accessToken);
+            await _userRepository.ResetPasswordAsync(tenant, keycloakUser.Value.Id!, user.Password, accessToken);
         }
     }
 }

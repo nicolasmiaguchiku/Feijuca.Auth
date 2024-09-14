@@ -9,7 +9,7 @@ namespace TokenManager.Domain.Entities
         public string? Id { get; set; }
         public bool Enabled { get; set; }
         public bool EmailVerified { get; set; }
-        public string? Username { get; set; } = null!;
+        public string Username { get; set; } = null!;
         public string? Email { get; set; }        
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

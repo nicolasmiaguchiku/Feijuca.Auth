@@ -28,7 +28,8 @@ builder.Services
     .AddApiAuthentication(applicationSettings.AuthSettings)
     .AddLoggingDependency()
     .AddMediator()
-    .AddRepositories(applicationSettings.AuthSettings)
+    .AddRepositories()
+    .AddHttpClients(applicationSettings.AuthSettings)
     .AddEndpointsApiExplorer()    
     .AddCors(options =>
     {

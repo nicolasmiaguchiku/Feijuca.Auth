@@ -8,7 +8,7 @@ namespace TokenManager.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    public class UserController(IMediator mediator) : Controller
+    public class UserController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
 

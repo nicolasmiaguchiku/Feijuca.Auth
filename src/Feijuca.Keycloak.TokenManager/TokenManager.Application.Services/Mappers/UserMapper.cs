@@ -8,7 +8,13 @@ namespace TokenManager.Application.Services.Mappers
     {
         public static User ToDomain(this AddUserRequest userRequest)
         {
-            return new User(userRequest.Username!, userRequest.Password, userRequest.Email!, userRequest.FirstName!, userRequest.LastName!, userRequest.Attributes);
+            var atributtes = new Dictionary<string, string[]>();
+            foreach (var item in userRequest.Attributes)
+            {
+                atributtes.Add(item.Key, [item.Value]);
+            }
+            
+            return new User(userRequest.Username, userRequest.Password, userRequest.Email!, userRequest.FirstName!, userRequest.LastName!, atributtes);
         }
 
         public static User ToDomain(this LoginUserRequest loginUserRequest)
