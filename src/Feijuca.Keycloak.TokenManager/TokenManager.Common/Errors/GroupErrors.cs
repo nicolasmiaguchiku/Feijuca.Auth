@@ -21,6 +21,11 @@ namespace TokenManager.Common.Errors
             $"An error occurred while trying get the groups: {TechnicalMessage}"
         );
 
+        public static Error GetUsersInGroupsError => new(
+            "Group.GetUsersInGroupsError",
+            $"An error occurred while trying get the users in groups: {TechnicalMessage}"
+        );
+
         public static void SetTechnicalMessage(string technicalMessage)
         {
             TechnicalMessage = technicalMessage;
