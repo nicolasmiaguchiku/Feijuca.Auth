@@ -1,7 +1,7 @@
 ﻿using MediatR;
 
 using TokenManager.Application.Mappers;
-using TokenManager.Application.Services.Responses;
+using TokenManager.Application.Responses;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Interfaces;
 

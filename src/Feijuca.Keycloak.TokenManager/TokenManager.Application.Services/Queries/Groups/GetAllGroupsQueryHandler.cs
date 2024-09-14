@@ -1,12 +1,11 @@
 ﻿using MediatR;
-
 using TokenManager.Application.Mappers;
 using TokenManager.Application.Responses;
 using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Application.Queries
+namespace TokenManager.Application.Queries.Groups
 {
     public class GetAllGroupsQueryHandler(IGroupRepository groupRepository) : IRequestHandler<GetAllGroupsQuery, Result<IEnumerable<GroupResponse>>>
     {
@@ -14,7 +13,7 @@ namespace TokenManager.Application.Queries
 
         public async Task<Result<IEnumerable<GroupResponse>>> Handle(GetAllGroupsQuery request, CancellationToken cancellationToken)
         {
-            var result = await _groupRepository.GetAllGroups(request.Tenant);
+            var result = await _groupRepository.GetAllAsync(request.Tenant);
 
             if (result.IsSuccess)
             {

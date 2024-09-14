@@ -2,7 +2,7 @@
 using TokenManager.Common.Models;
 using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Application.Services.Commands.Users
+namespace TokenManager.Application.Commands.Groups
 {
     public class CreateGroupCommandHandler(IGroupRepository groupRepository) : IRequestHandler<CreateGroupCommand, Result>
     {
@@ -10,7 +10,7 @@ namespace TokenManager.Application.Services.Commands.Users
 
         public async Task<Result> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
         {
-            var result = await _groupRepository.CreateGroupAsync(request.Tenant, request.AddGroupRequest.Name, request.AddGroupRequest.Attributes);
+            var result = await _groupRepository.CreateAsync(request.Tenant, request.AddGroupRequest.Name, request.AddGroupRequest.Attributes);
             if (result.IsSuccess)
             {
                 return Result.Success();

@@ -1,10 +1,10 @@
 ﻿using Flurl;
 
 using Newtonsoft.Json;
+
+using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
-using TokenManager.Domain.Errors;
-using TokenManager.Infra.Data.Models;
 
 namespace TokenManager.Domain.Interfaces
 {

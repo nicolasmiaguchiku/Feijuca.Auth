@@ -10,6 +10,11 @@ namespace TokenManager.Common.Errors
             "Group.CreationGroupError",
             $"An error occurred while trying creating the group: {TechnicalMessage}"
         );
+        
+        public static Error DeletionGroupError => new(
+            "Group.DeletionGroupError",
+            $"An error occurred while trying delete the group: {TechnicalMessage}"
+        );
 
         public static Error GetGroupsError => new(
             "Group.GetGroupsError",

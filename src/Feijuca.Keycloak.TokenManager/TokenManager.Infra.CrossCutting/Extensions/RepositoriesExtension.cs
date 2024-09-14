@@ -1,7 +1,7 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Services;
 using Microsoft.Extensions.DependencyInjection;
+using TokenManager.Domain.Entities;
 using TokenManager.Domain.Interfaces;
-using TokenManager.Infra.Data.Models;
 using TokenManager.Infra.Data.Repositories;
 
 namespace TokenManager.Infra.CrossCutting.Extensions

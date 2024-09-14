@@ -7,10 +7,11 @@ namespace TokenManager.Domain.Interfaces
     {
         Task<Result<TokenDetails>> LoginAsync(string tenant, User user);
         Task<Result<TokenDetails>> RefreshTokenAsync(string tenant, string refreshToken);
-        Task<Result<IEnumerable<User>>> GetAllUsers(string tenant, string tokenAccess);
-        Task<(bool result, string content)> CreateNewUserAsync(string tenant, User user, string accessToken);
-        Task<Result<User>> GetUserAsync(string tenant, string userName, string accessToken);
-        Task<Result> ResetPasswordAsync(string tenant, string userId, string password, string accessToken);
-        Task<Result> SendEmailVerificationAsync(string tenant, string userId, string accessToken);
+        Task<Result<IEnumerable<User>>> GetAllAsync(string tenant);
+        Task<Result<bool>> DeleteAsync(string tenant, Guid id);
+        Task<(bool result, string content)> CreateAsync(string tenant, User user);
+        Task<Result<User>> GetAsync(string tenant, string userName);
+        Task<Result> ResetPasswordAsync(string tenant, string userId, string password);
+        Task<Result> SendEmailVerificationAsync(string tenant, string userId);
     }
 }

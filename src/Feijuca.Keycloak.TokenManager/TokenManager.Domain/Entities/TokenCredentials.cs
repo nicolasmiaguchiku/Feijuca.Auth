@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Infra.Data.Models
+﻿namespace TokenManager.Domain.Entities
 {
     public class TokenCredentials
     {

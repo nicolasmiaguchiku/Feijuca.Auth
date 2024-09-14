@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TokenManager.Application.Services.Commands.Users;
+
+using TokenManager.Application.Commands.Users;
 
 namespace TokenManager.Infra.CrossCutting.Extensions
 {

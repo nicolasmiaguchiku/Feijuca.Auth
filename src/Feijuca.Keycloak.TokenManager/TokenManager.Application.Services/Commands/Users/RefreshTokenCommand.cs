@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-using TokenManager.Application.Services.Responses;
+using TokenManager.Application.Responses;
 using TokenManager.Common.Models;
 
 namespace TokenManager.Application.Commands.Users

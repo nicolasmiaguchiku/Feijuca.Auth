@@ -1,51 +1,42 @@
 ﻿using MediatR;
 
 using TokenManager.Application.Mappers;
-using TokenManager.Application.Services.Commands.Users;
+using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
-using TokenManager.Domain.Errors;
 using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Application.Commands.Users
 {
-    public class CreateUserCommandHandler(IUserRepository userRepository, ITokenRepository tokenRepository) : IRequestHandler<CreateUserCommand, Result>
+    public class CreateUserCommandHandler(IUserRepository userRepository) : IRequestHandler<CreateUserCommand, Result>
     {
         private readonly IUserRepository _userRepository = userRepository;
-        private readonly ITokenRepository _tokenRepository = tokenRepository;
 
         public async Task<Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             AddTenantToRequest(request);
-            var accessTokenResult = await _tokenRepository.GetAccessTokenAsync(request.Tenant);
-            if (accessTokenResult.IsSuccess)
+            var user = request.AddUserRequest.ToDomain();
+
+            var (IsSuccessStatusCode, contentRequest) = await _userRepository.CreateAsync(request.Tenant, user);
+            if (IsSuccessStatusCode)
             {
-                var accessToken = accessTokenResult.Data.Access_Token;
-                var user = request.AddUserRequest.ToDomain();
-
-                var (IsSuccessStatusCode, contentRequest) = await _userRepository.CreateNewUserAsync(request.Tenant, user, accessToken);
-                if (IsSuccessStatusCode)
-                {
-                    await SetUserPasswordAsync(request.Tenant, user, accessToken);
-                    return Result.Success();
-                }
-
-                UserErrors.SetTechnicalMessage(contentRequest);
-                return Result.Failure(UserErrors.WrongPasswordDefinition);
+                await SetUserPasswordAsync(request.Tenant, user);
+                return Result.Success();
             }
 
-            return Result.Failure(UserErrors.TokenGenerationError);
+            UserErrors.SetTechnicalMessage(contentRequest);
+            return Result.Failure(UserErrors.WrongPasswordDefinition);
         }
 
         private static void AddTenantToRequest(CreateUserCommand request)
         {
-            request.AddUserRequest.Attributes.Add("tenant", request.Tenant);
+            request.AddUserRequest.Attributes.Add("Tenant", request.Tenant);
         }
 
-        private async Task SetUserPasswordAsync(string tenant, User user, string accessToken)
+        private async Task SetUserPasswordAsync(string tenant, User user)
         {
-            var keycloakUser = await _userRepository.GetUserAsync(tenant, user.Username, accessToken);
-            await _userRepository.ResetPasswordAsync(tenant, keycloakUser.Data.Id!, user.Password, accessToken);
+            var keycloakUser = await _userRepository.GetAsync(tenant, user.Username);
+            await _userRepository.ResetPasswordAsync(tenant, keycloakUser.Data.Id!, user.Password);
         }
     }
 }

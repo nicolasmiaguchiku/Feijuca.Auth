@@ -1,6 +1,6 @@
 ﻿using TokenManager.Common.Models;
 
-namespace TokenManager.Domain.Errors
+namespace TokenManager.Common.Errors
 {
     public static class UserErrors
     {
@@ -15,7 +15,7 @@ namespace TokenManager.Domain.Errors
             "User.InvalidUserNameOrPassword",
             $"An error occurred while trying to get JWT token. Please check username and password. {TechnicalMessage}"
         );
-        
+
         public static Error InvalidRefreshToken => new(
             "User.InvalidRefreshTokenProvided",
             $"An error occurred while trying to refresh token. {TechnicalMessage}"
@@ -29,6 +29,11 @@ namespace TokenManager.Domain.Errors
         public static Error GetAllUsersError => new(
             "User.GetAllUsersError",
             $"An error occurred while trying get all users. {TechnicalMessage}"
+        );
+
+        public static Error DeletionUserError => new(
+            "Group.DeletionUserError",
+            $"An error occurred while trying delete the user: {TechnicalMessage}"
         );
 
         public static void SetTechnicalMessage(string technicalMessage)

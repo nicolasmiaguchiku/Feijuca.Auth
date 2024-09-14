@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace TokenManager.Application.Services.Responses
+namespace TokenManager.Application.Responses
 {
     public class TokenDetailsResponse
     {

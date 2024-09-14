@@ -1,10 +1,11 @@
 ﻿using MediatR;
+
 using Microsoft.AspNetCore.Mvc;
+
 using TokenManager.Application.Commands.Users;
-using TokenManager.Application.Queries;
-using TokenManager.Application.Services.Commands.Users;
-using TokenManager.Application.Services.Requests.User;
-using TokenManager.Application.Services.Responses;
+using TokenManager.Application.Queries.Users;
+using TokenManager.Application.Requests.User;
+using TokenManager.Application.Responses;
 using TokenManager.Common.Models;
 
 namespace TokenManager.Api.Controllers
@@ -16,15 +17,15 @@ namespace TokenManager.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         /// <summary>
-        /// Get all user existing on the keycloak realm.
+        /// Get all users existing on the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpGet]
-        [Route("getAllUsers/{tenant}", Name = nameof(GetAllUsers))]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [Route("getUsers/{tenant}", Name = nameof(GetUsers))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetAllUsers([FromRoute] string tenant, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsers([FromRoute] string tenant, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetAllUsersQuery(tenant), cancellationToken);
 
@@ -38,22 +39,44 @@ namespace TokenManager.Api.Controllers
         }
 
         /// <summary>
-        /// Add a new user on the keycloak realm.
+        /// Add a new user on the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("createUser/{tenant}", Name = nameof(CreateUser))]
+        [Route("createUser/{tenant}", Name = nameof(Create))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateUser([FromRoute] string tenant, [FromBody] AddUserRequest addUserRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create([FromRoute] string tenant, [FromBody] AddUserRequest addUserRequest, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new CreateUserCommand(tenant, addUserRequest), cancellationToken);
-            
+
             if (result.IsSuccess)
             {
                 var response = Result<string>.Success("User created successfully");
                 return Created("/createUser", response);
+            }
+
+            var responseError = Result<string>.Failure(result.Error);
+            return BadRequest(responseError);
+        }
+
+        /// <summary>
+        /// DeleteGroup an existing user on the Keycloak realm.
+        /// </summary>
+        /// <returns>A status code related to the operation.</returns>
+        [HttpDelete]
+        [Route("deleteUser/{tenant}/{id:guid}", Name = nameof(Delete))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Delete([FromRoute] string tenant, [FromRoute] Guid id, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new DeleteUserCommand(tenant, id), cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                return NoContent();
             }
 
             var responseError = Result<string>.Failure(result.Error);
@@ -66,13 +89,13 @@ namespace TokenManager.Api.Controllers
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
         [Route("login/{tenant}", Name = nameof(Login))]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]        
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Login([FromRoute] string tenant, [FromBody] LoginUserRequest loginUserRequest, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new LoginUserCommand(tenant, loginUserRequest), cancellationToken);
-            
+
             if (result.IsSuccess)
             {
                 var response = Result<TokenDetailsResponse>.Success(result.Data);
@@ -89,7 +112,7 @@ namespace TokenManager.Api.Controllers
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
         [Route("refreshToken/{tenant}", Name = nameof(RefreshToken))]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RefreshToken([FromRoute] string tenant, [FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)

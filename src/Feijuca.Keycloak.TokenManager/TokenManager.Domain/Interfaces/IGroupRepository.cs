@@ -5,7 +5,8 @@ namespace TokenManager.Domain.Interfaces
 {
     public interface IGroupRepository
     {
-        Task<Result<IEnumerable<Group>>> GetAllGroups(string tenant);
-        Task<Result> CreateGroupAsync(string tenant, string name, Dictionary<string, string[]> attributes);
+        Task<Result<IEnumerable<Group>>> GetAllAsync(string tenant);
+        Task<Result> CreateAsync(string tenant, string name, Dictionary<string, string[]> attributes);
+        Task<Result> DeleteAsync(string tenant, Guid id);
     }
 }

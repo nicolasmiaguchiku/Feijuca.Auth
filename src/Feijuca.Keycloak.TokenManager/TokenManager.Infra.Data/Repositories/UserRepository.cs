@@ -1,19 +1,24 @@
 ﻿using Flurl;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+
 using System.Net.Http.Headers;
 using System.Text;
+
+using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
-using TokenManager.Domain.Errors;
 using TokenManager.Domain.Interfaces;
-using TokenManager.Infra.Data.Models;
 
 namespace TokenManager.Infra.Data.Repositories
 {
-    public class UserRepository(IHttpClientFactory httpClientFactory, TokenCredentials tokenCredentials) : IUserRepository
+    public class UserRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository, TokenCredentials tokenCredentials) 
+        : IUserRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
+        private readonly ITokenRepository _tokenRepository = tokenRepository;
+
         private readonly TokenCredentials _tokenCredentials = tokenCredentials;
         private static readonly JsonSerializerSettings Settings = new()
         {
@@ -85,9 +90,10 @@ namespace TokenManager.Infra.Data.Repositories
             return Result<TokenDetails>.Failure(UserErrors.InvalidRefreshToken);
         }
 
-        public async Task<Result<IEnumerable<User>>> GetAllUsers(string tenant, string tokenAccess)
+        public async Task<Result<IEnumerable<User>>> GetAllAsync(string tenant)
         {
-            var httpClient = CreateHttpClientWithHeaders(tokenAccess);
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var urlGetUsers = httpClient.BaseAddress
                 .AppendPathSegment("admin")
@@ -102,9 +108,32 @@ namespace TokenManager.Infra.Data.Repositories
             return Result<IEnumerable<User>>.Success(users);
         }
 
-        public async Task<(bool result, string content)> CreateNewUserAsync(string tenant, User user, string accessToken)
+        public async Task<Result<bool>> DeleteAsync(string tenant, Guid id)
         {
-            var httpClient = CreateHttpClientWithHeaders(accessToken);
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
+            var url = httpClient.BaseAddress
+                .AppendPathSegment("admin")
+                .AppendPathSegment("realms")
+                .AppendPathSegment(tenant)
+                .AppendPathSegment("users")
+                .AppendPathSegment(id);
+
+            var response = await httpClient.DeleteAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                return Result<bool>.Success(true);
+            }
+
+            UserErrors.SetTechnicalMessage(response.ReasonPhrase!);
+            return Result<bool>.Failure(UserErrors.DeletionUserError);
+        }
+
+        public async Task<(bool result, string content)> CreateAsync(string tenant, User user)
+        {
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -118,9 +147,10 @@ namespace TokenManager.Infra.Data.Repositories
             return (response.IsSuccessStatusCode, await response.Content.ReadAsStringAsync());
         }
 
-        public async Task<Result<User>> GetUserAsync(string tenant, string userName, string accessToken)
+        public async Task<Result<User>> GetAsync(string tenant, string userName)
         {
-            var httpClient = CreateHttpClientWithHeaders(accessToken);
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -137,9 +167,10 @@ namespace TokenManager.Infra.Data.Repositories
             return Result<User>.Success(user[0]);
         }
 
-        public async Task<Result> ResetPasswordAsync(string tenant, string userId, string password, string accessToken)
+        public async Task<Result> ResetPasswordAsync(string tenant, string userId, string password)
         {
-            var httpClient = CreateHttpClientWithHeaders(accessToken);
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -168,9 +199,10 @@ namespace TokenManager.Infra.Data.Repositories
             return Result.Failure(UserErrors.InvalidUserNameOrPasswordError);
         }
 
-        public async Task<Result> SendEmailVerificationAsync(string tenant, string userId, string accessToken)
+        public async Task<Result> SendEmailVerificationAsync(string tenant, string userId)
         {
-            var httpClient = CreateHttpClientWithHeaders(accessToken);
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress!
                 .ToString()
@@ -213,6 +245,5 @@ namespace TokenManager.Infra.Data.Repositories
             var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
             return httpClient;
         }
-
     }
 }

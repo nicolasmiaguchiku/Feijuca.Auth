@@ -5,10 +5,9 @@ using FluentAssertions;
 using Moq;
 
 using TokenManager.Application.Commands.Users;
-using TokenManager.Application.Services.Commands.Users;
+using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
-using TokenManager.Domain.Errors;
 using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.UnitTests.Handlers
@@ -22,7 +21,7 @@ namespace TokenManager.UnitTests.Handlers
 
         public CreateUserCommandHandlerTests()
         {
-            _createUserCommandHandler = new(_userRepositoryMock.Object, _tokenRepository.Object);
+            _createUserCommandHandler = new(_userRepositoryMock.Object);
         }
 
         [Fact]
@@ -36,18 +35,18 @@ namespace TokenManager.UnitTests.Handlers
             (bool result, string content) createUserResult = (true, "Success message");
 
             _userRepositoryMock
-                .Setup(x => x.CreateNewUserAsync(It.IsAny<string>(), It.IsAny<User>(), It.IsAny<string>()))
+                .Setup(x => x.CreateAsync(It.IsAny<string>(), It.IsAny<User>()))
                 .ReturnsAsync(createUserResult);
 
             var user = _autoFixture.Create<User>();
             var userResult = Result<User>.Success(user);
 
             _userRepositoryMock
-                .Setup(x => x.GetUserAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(userResult);
             
             _userRepositoryMock
-                .Setup(x => x.ResetPasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Setup(x => x.ResetPasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(userResult);
 
             _tokenRepository
@@ -63,13 +62,13 @@ namespace TokenManager.UnitTests.Handlers
                 .Be(true);
 
             _userRepositoryMock
-                .Verify(x => x.CreateNewUserAsync(It.IsAny<string>(), It.IsAny<User>(), It.IsAny<string>()), Times.Once);
+                .Verify(x => x.CreateAsync(It.IsAny<string>(), It.IsAny<User>()), Times.Once);
             
             _userRepositoryMock
-                .Verify(x => x.GetUserAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+                .Verify(x => x.GetAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
 
             _userRepositoryMock
-                .Verify(x => x.ResetPasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+                .Verify(x => x.ResetPasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
 
             _userRepositoryMock.VerifyNoOtherCalls();
         }
@@ -117,7 +116,7 @@ namespace TokenManager.UnitTests.Handlers
             UserErrors.SetTechnicalMessage(errorMessage);
 
             _userRepositoryMock
-                .Setup(x => x.CreateNewUserAsync(It.IsAny<string>(), It.IsAny<User>(), It.IsAny<string>()))
+                .Setup(x => x.CreateAsync(It.IsAny<string>(), It.IsAny<User>()))
                 .ReturnsAsync((false, "Some error"));
 
             _tokenRepository
