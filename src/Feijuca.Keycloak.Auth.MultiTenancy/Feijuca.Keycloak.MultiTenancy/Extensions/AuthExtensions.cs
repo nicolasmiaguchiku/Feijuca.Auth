@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Feijuca.Keycloak.MultiTenancy.Services;
+using Feijuca.Keycloak.MultiTenancy.Services.Models;
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
-using Feijuca.Keycloak.MultiTenancy.Services;
-using Feijuca.Keycloak.MultiTenancy.Services.Models;
-using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Feijuca.Keycloak.MultiTenancy.Extensions
 {
@@ -75,11 +75,6 @@ namespace Feijuca.Keycloak.MultiTenancy.Extensions
                         return;
                     }
 
-                    if (!ValidateRoles(authSettings, context, tokenInfos))
-                    {
-                        return;
-                    }
-
                     var tokenValidationParameters = await GetTokenValidationParameters(tenantRealm);
                     var claims = _tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
 
@@ -137,33 +132,6 @@ namespace Feijuca.Keycloak.MultiTenancy.Extensions
                 context.HttpContext.Items["AuthStatusCode"] = 401;
                 return false;
             }
-            return true;
-        }
-
-        private static bool ValidateRoles(AuthSettings authSettings, MessageReceivedContext context, JwtSecurityToken tokenInfos)
-        {
-            if (!authSettings.Roles!.Any())
-            {
-                return true;
-            }
-
-            var resourceAccessClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "resource_access");
-            if (resourceAccessClaim == null)
-            {
-                context.HttpContext.Items["AuthError"] = "Token missing resource access claim!";
-                context.HttpContext.Items["AuthStatusCode"] = 403;
-                return false;
-            }
-
-            var resourceAccess = JObject.Parse(resourceAccessClaim.Value);
-            var roles = resourceAccess[authSettings.ClientId]?["roles"]?.ToObject<List<string>>();
-            if (roles == null || !roles.Exists(authSettings.Roles!.Contains))
-            {
-                context.HttpContext.Items["AuthError"] = "Token does not contain required roles!";
-                context.HttpContext.Items["AuthStatusCode"] = 403;
-                return false;
-            }
-
             return true;
         }
 
