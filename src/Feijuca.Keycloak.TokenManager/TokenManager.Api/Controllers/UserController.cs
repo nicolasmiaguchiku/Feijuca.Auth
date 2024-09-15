@@ -103,7 +103,7 @@ namespace TokenManager.Api.Controllers
             if (result.IsSuccess)
             {
                 var response = Result<TokenDetailsResponse>.Success(result.Data);
-                return Ok(response);
+                return Ok(response.Data);
             }
 
             var responseError = Result<TokenDetailsResponse>.Failure(result.Error);
