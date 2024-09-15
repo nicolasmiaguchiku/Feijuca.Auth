@@ -11,8 +11,7 @@ using TokenManager.Common.Models;
 namespace TokenManager.Api.Controllers
 {
     [Route("api/v1")]
-    [ApiController]
-    [Authorize]
+    [ApiController]    
     public class UserController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
@@ -26,6 +25,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
         public async Task<IActionResult> GetUsers([FromRoute] string tenant, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetAllUsersQuery(tenant), cancellationToken);
@@ -49,6 +49,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
+        [Authorize]
         public async Task<IActionResult> Create([FromRoute] string tenant, [FromBody] AddUserRequest addUserRequest, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new CreateUserCommand(tenant, addUserRequest), cancellationToken);
@@ -73,6 +74,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] string tenant, [FromRoute] Guid id, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new DeleteUserCommand(tenant, id), cancellationToken);
@@ -95,7 +97,6 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> Login([FromRoute] string tenant, [FromBody] LoginUserRequest loginUserRequest, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new LoginUserCommand(tenant, loginUserRequest), cancellationToken);
@@ -120,6 +121,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
+        [Authorize]
         public async Task<IActionResult> RefreshToken([FromRoute] string tenant, [FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new RefreshTokenCommand(tenant, request.RefreshToken), cancellationToken);
