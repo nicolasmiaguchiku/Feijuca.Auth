@@ -29,7 +29,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> AddRoleToGroup([FromRoute] string tenant, [FromBody] AddRoleToGroupRequest addRoleToGroup, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddRoleToGroup([FromRoute] string tenant, [FromBody] RoleToGroupRequest addRoleToGroup, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new AddRoleToGroupCommand(tenant, addRoleToGroup), cancellationToken);
 
@@ -41,7 +41,30 @@ namespace TokenManager.Api.Controllers
             var responseError = Result<string>.Failure(result.Error);
             return BadRequest(responseError);
         }
-        
+
+        /// <summary>
+        /// Remove a role to a specific group in the Keycloak realm.
+        /// </summary>
+        /// <returns>A status code related to the operation.</returns>
+        [HttpDelete]
+        [Route("removeRoleToGroup/{tenant}", Name = nameof(RemoveRoleToGroup))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiWriter")]
+        public async Task<IActionResult> RemoveRoleToGroup([FromRoute] string tenant, [FromBody] RoleToGroupRequest removeRoleFromGroup, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new AddRoleToGroupCommand(tenant, removeRoleFromGroup), cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                return Created();
+            }
+
+            var responseError = Result<string>.Failure(result.Error);
+            return BadRequest(responseError);
+        }
+
         /// <summary>
         /// Get a roles associated to a group.
         /// </summary>
