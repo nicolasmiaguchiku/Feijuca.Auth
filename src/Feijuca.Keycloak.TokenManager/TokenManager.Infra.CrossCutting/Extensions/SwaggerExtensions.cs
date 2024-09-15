@@ -1,4 +1,6 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
+using Flurl;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using TokenManager.Infra.CrossCutting.Filters;
@@ -20,7 +22,7 @@ namespace TokenManager.Infra.CrossCutting.Extensions
                     {
                         Password = new OpenApiOAuthFlow
                         {
-                            TokenUrl = new Uri(keyCloakSettings.AuthServerUrl!),
+                            TokenUrl = new Uri(keyCloakSettings.AuthServerUrl.AppendPathSegment("realms/smartconsig/protocol/openid-connect/token")),
                             Scopes = keyCloakSettings.Scopes!.Distinct().ToDictionary(key => key, value => value)
                         }
                     }

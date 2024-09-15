@@ -1,7 +1,7 @@
-﻿using MediatR;
-
+﻿using Feijuca.Keycloak.MultiTenancy.Attributes;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using TokenManager.Application.Commands.Users;
 using TokenManager.Application.Queries.Users;
 using TokenManager.Application.Requests.User;
@@ -12,6 +12,7 @@ namespace TokenManager.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize]
     public class UserController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
@@ -47,6 +48,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> Create([FromRoute] string tenant, [FromBody] AddUserRequest addUserRequest, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new CreateUserCommand(tenant, addUserRequest), cancellationToken);
@@ -70,6 +72,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> Delete([FromRoute] string tenant, [FromRoute] Guid id, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new DeleteUserCommand(tenant, id), cancellationToken);
@@ -92,6 +95,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> Login([FromRoute] string tenant, [FromBody] LoginUserRequest loginUserRequest, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new LoginUserCommand(tenant, loginUserRequest), cancellationToken);
@@ -115,6 +119,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> RefreshToken([FromRoute] string tenant, [FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new RefreshTokenCommand(tenant, request.RefreshToken), cancellationToken);

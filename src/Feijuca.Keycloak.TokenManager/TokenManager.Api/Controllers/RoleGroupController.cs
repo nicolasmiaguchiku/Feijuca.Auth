@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Feijuca.Keycloak.MultiTenancy.Attributes;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TokenManager.Application.Commands.RoleGroup;
 using TokenManager.Application.Requests.RoleGroup;
@@ -8,10 +10,10 @@ namespace TokenManager.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize]
     public class RoleGroupController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
-
 
         /// <summary>
         /// Add a role to a specific group in the Keycloak realm.
@@ -22,6 +24,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> AddRoleToGroup([FromRoute] string tenant, [FromBody] AddRoleToGroupRequest addRoleToGroup, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new AddRoleToGroupCommand(tenant, addRoleToGroup), cancellationToken);

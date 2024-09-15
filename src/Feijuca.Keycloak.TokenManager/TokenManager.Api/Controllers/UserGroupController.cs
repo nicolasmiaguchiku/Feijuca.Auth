@@ -1,6 +1,7 @@
-﻿using MediatR;
+﻿using Feijuca.Keycloak.MultiTenancy.Attributes;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using TokenManager.Application.Commands.UserGroup;
 using TokenManager.Application.Queries.UserGroup;
 using TokenManager.Common.Models;
@@ -9,6 +10,7 @@ namespace TokenManager.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize]
     public class UserGroupController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
@@ -22,6 +24,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> AddUserToGroup([FromRoute] string tenant, [FromRoute] Guid userId, [FromRoute] Guid groupId, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new AddUserToGroupCommand(tenant, userId, groupId), cancellationToken);
@@ -44,6 +47,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiReader")]
         public async Task<IActionResult> GetUsersInGroup([FromRoute] string tenant, string groupName, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetUsersGroupQuery(tenant, groupName), cancellationToken);
@@ -66,6 +70,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> RemoveUserFromGroup([FromRoute] string tenant, [FromRoute] Guid userId, [FromRoute] Guid groupId, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new RemoveUserFromGroupCommand(tenant, userId, groupId), cancellationToken);

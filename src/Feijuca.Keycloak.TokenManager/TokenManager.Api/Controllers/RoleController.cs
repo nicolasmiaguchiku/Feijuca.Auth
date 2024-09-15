@@ -1,4 +1,8 @@
-﻿using MediatR;
+﻿using Feijuca.Keycloak.MultiTenancy.Attributes;
+
+using MediatR;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TokenManager.Application.Commands.Role;
 using TokenManager.Application.Queries.Permissions;
@@ -9,6 +13,7 @@ namespace TokenManager.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize]
     public class RoleController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
@@ -22,6 +27,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiReader")]
         public async Task<IActionResult> GetRoles([FromRoute] string tenant, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetRolesQuery(tenant), cancellationToken);
@@ -44,6 +50,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> AddRole([FromRoute] string tenant, [FromBody] AddRoleRequest addRoleRequest, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new AddRoleCommand(tenant, addRoleRequest), cancellationToken);
