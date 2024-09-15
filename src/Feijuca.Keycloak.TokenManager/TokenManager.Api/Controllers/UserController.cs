@@ -1,7 +1,10 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Attributes;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using TokenManager.Application.Commands.Users;
 using TokenManager.Application.Queries.Users;
 using TokenManager.Application.Requests.User;

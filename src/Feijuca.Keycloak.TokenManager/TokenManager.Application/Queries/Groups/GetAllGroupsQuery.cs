@@ -1,4 +1,5 @@
 ﻿using MediatR;
+
 using TokenManager.Application.Responses;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;

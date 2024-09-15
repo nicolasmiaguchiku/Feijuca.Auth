@@ -1,9 +1,12 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Attributes;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TokenManager.Application.Commands.UserGroup;
-using TokenManager.Application.Queries.UserGroup;
+
+using TokenManager.Application.Commands.GroupUser;
+using TokenManager.Application.Queries.GroupUser;
 using TokenManager.Common.Models;
 
 namespace TokenManager.Api.Controllers
@@ -11,7 +14,7 @@ namespace TokenManager.Api.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize]
-    public class UserGroupController(IMediator mediator) : ControllerBase
+    public class GroupUsersController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
 
@@ -48,9 +51,9 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetUsersInGroup([FromRoute] string tenant, string groupName, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsersInGroup([FromRoute] string tenant, string groupId, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetUsersGroupQuery(tenant, groupName), cancellationToken);
+            var result = await _mediator.Send(new GetUsersGroupQuery(tenant, groupId), cancellationToken);
 
             if (result.IsSuccess)
             {

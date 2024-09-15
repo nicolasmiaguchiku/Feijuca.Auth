@@ -1,9 +1,10 @@
 ﻿using MediatR;
+
 using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Application.Commands.Groups
+namespace TokenManager.Application.Commands.Group
 {
     public class DeleteGroupCommandHandler(IGroupRepository groupRepository) : IRequestHandler<DeleteGroupCommand, Result<bool>>
     {

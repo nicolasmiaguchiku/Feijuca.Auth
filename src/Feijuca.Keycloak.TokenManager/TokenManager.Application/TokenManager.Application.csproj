@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Commands\PermissionGroup\" />
-    <Folder Include="Queries\PermissionGroup\" />
+    <Folder Include="Queries\GroupPermission\" />
   </ItemGroup>
 
 </Project>

@@ -2,8 +2,11 @@
 {
     public class Role
     {
-        public string Id { get; set; } = null!;
-        public string Name { get; set; } = null!;
-        public string Description { get; set; } = null!;
+        public required string Id { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+        public bool Composite { get; set; }
+        public bool ClientRole { get; set; }
+        public required string ContainerId { get; set; }
     }
 }

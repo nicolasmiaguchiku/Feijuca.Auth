@@ -13,10 +13,10 @@ namespace TokenManager.Infra.CrossCutting.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITokenRepository, TokenRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
-            services.AddScoped<IUserGroupRepository, UserGroupRepository>();
+            services.AddScoped<IGroupUsersRepository, UserGroupRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();
-            services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
+            services.AddScoped<IGroupRolesRepository, GroupRolesRepository>();
 
             var serviceProvider = services.BuildServiceProvider();
             var authService = serviceProvider.GetRequiredService<IAuthService>();

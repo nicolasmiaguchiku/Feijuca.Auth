@@ -1,12 +1,13 @@
 ﻿using MediatR;
+
 using TokenManager.Common.Models;
 using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Application.Commands.UserGroup
+namespace TokenManager.Application.Commands.GroupUser
 {
-    public class RemoveUserFromGroupCommandHandler(IUserGroupRepository userGroupRepository) : IRequestHandler<RemoveUserFromGroupCommand, Result<bool>>
+    public class RemoveUserFromGroupCommandHandler(IGroupUsersRepository userGroupRepository) : IRequestHandler<RemoveUserFromGroupCommand, Result<bool>>
     {
-        private readonly IUserGroupRepository _userGroupRepository = userGroupRepository;
+        private readonly IGroupUsersRepository _userGroupRepository = userGroupRepository;
 
         public async Task<Result<bool>> Handle(RemoveUserFromGroupCommand request, CancellationToken cancellationToken)
         {

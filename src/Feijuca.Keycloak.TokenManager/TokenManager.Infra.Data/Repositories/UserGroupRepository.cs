@@ -6,7 +6,7 @@ using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
 {
-    public class UserGroupRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository) : IUserGroupRepository
+    public class UserGroupRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository) : IGroupUsersRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly ITokenRepository _tokenRepository = tokenRepository;

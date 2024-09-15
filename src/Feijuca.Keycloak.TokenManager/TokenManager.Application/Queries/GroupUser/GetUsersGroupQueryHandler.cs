@@ -5,7 +5,7 @@ using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Application.Queries.UserGroup
+namespace TokenManager.Application.Queries.GroupUser
 {
     public class GetUsersGroupQueryHandler(IGroupRepository groupRepository) : IRequestHandler<GetUsersGroupQuery, Result<UserGroupResponse>>
     {
@@ -17,7 +17,7 @@ namespace TokenManager.Application.Queries.UserGroup
 
             if (result.IsSuccess)
             {
-                var groupSearched = result.Data.FirstOrDefault(x => x.Name == request.GroupName);
+                var groupSearched = result.Data.FirstOrDefault(x => x.Id == request.GroupId);
                 if (groupSearched != null)
                 {
                     var resultMembers = await _groupRepository.GetUsersInGroupAsync(request.Tenant, groupSearched.Id);

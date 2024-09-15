@@ -8,11 +8,11 @@ using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Application.Commands.Users
 {
-    public class CreateUserCommandHandler(IUserRepository userRepository) : IRequestHandler<CreateUserCommand, Result>
+    public class CreateUserCommandHandler(IUserRepository userRepository) : IRequestHandler<CreateUserCommand, Common.Models.Result>
     {
         private readonly IUserRepository _userRepository = userRepository;
 
-        public async Task<Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Common.Models.Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             AddTenantToRequest(request);
             var user = request.AddUserRequest.ToDomain();
@@ -21,11 +21,11 @@ namespace TokenManager.Application.Commands.Users
             if (IsSuccessStatusCode)
             {
                 await SetUserPasswordAsync(request.Tenant, user);
-                return Result.Success();
+                return Common.Models.Result.Success();
             }
 
             UserErrors.SetTechnicalMessage(contentRequest);
-            return Result.Failure(UserErrors.WrongPasswordDefinition);
+            return Common.Models.Result.Failure(UserErrors.WrongPasswordDefinition);
         }
 
         private static void AddTenantToRequest(CreateUserCommand request)

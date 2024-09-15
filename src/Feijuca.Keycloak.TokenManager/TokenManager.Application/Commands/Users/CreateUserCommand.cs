@@ -5,5 +5,5 @@ using TokenManager.Common.Models;
 
 namespace TokenManager.Application.Commands.Users
 {
-    public record CreateUserCommand(string Tenant, AddUserRequest AddUserRequest) : IRequest<Result>;
+    public record CreateUserCommand(string Tenant, AddUserRequest AddUserRequest) : IRequest<Common.Models.Result>;
 }

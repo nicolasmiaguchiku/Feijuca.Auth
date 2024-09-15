@@ -1,12 +1,13 @@
 ﻿using MediatR;
+
 using TokenManager.Common.Models;
 using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Application.Commands.UserGroup
+namespace TokenManager.Application.Commands.GroupUser
 {
-    public class AddUserToGroupCommandHandler(IUserGroupRepository userGroupRepository) : IRequestHandler<AddUserToGroupCommand, Result<bool>>
+    public class AddUserToGroupCommandHandler(IGroupUsersRepository userGroupRepository) : IRequestHandler<AddUserToGroupCommand, Result<bool>>
     {
-        private readonly IUserGroupRepository _userGroupRepository = userGroupRepository;
+        private readonly IGroupUsersRepository _userGroupRepository = userGroupRepository;
 
         public async Task<Result<bool>> Handle(AddUserToGroupCommand request, CancellationToken cancellationToken)
         {

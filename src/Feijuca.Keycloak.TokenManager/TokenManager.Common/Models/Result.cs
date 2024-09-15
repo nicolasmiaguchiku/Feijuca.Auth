@@ -39,11 +39,6 @@
         {
             get
             {
-                if (!IsSuccess)
-                {
-                    throw new InvalidOperationException("No value available for failure result.");
-                }
-
                 return _data;
             }
         }
