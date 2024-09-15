@@ -4,5 +4,5 @@ using TokenManager.Common.Models;
 
 namespace TokenManager.Application.Queries.Permissions
 {
-    public record GetRolesQuery(string Tenant) : IRequest<Result<IEnumerable<RoleResponse>>>;
+    public record GetRolesQuery(string Tenant) : IRequest<Result<IEnumerable<ClientRoleResponse>>>;
 }

@@ -62,7 +62,7 @@ namespace TokenManager.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("createGroup/{Tenant}", Name = nameof(CreateGroup))]
+        [Route("createGroup/{tenant}", Name = nameof(CreateGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

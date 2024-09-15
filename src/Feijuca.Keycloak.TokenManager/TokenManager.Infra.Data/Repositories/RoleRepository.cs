@@ -14,7 +14,7 @@ namespace TokenManager.Infra.Data.Repositories
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly ITokenRepository _tokenRepository = tokenRepository;
 
-        public async Task<Result> GetRolesForClientAsync(string tenant, string clientId)
+        public async Task<Result<IEnumerable<Role>>> GetRolesForClientAsync(string tenant, string clientId)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -32,9 +32,10 @@ namespace TokenManager.Infra.Data.Repositories
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<IEnumerable<Role>>(responseContent);
-
-                return Result<IEnumerable<Role>>.Success(result!);
+                var result = JsonConvert.DeserializeObject<IEnumerable<Role>>(responseContent)!;
+                var defaultRoles = new List<string> { "uma_protection"};
+                var rolesWithoutDefaultRoles = result.Where(role => !defaultRoles.Contains(role.Name)).ToList();
+                return Result<IEnumerable<Role>>.Success(rolesWithoutDefaultRoles!);
             }
 
             return Result<IEnumerable<Role>>.Failure(RoleErrors.GetRoleErrors);

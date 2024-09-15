@@ -2,19 +2,19 @@
 using Flurl;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text;
 using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
-using TokenManager.Domain.Entities;
 using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
 {
-    public class ClientRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository) : IClientRepository
+    public class RoleGroupRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository) : IRoleGroupRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly ITokenRepository _tokenRepository = tokenRepository;
 
-        public async Task<Result<IEnumerable<Client>>> GetClientsAsync(string tenant)
+        public async Task<Result<bool>> AddRoleToGroupAsync(string tenant, string groupId, string clientId, string roleId, string roleName)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -23,20 +23,27 @@ namespace TokenManager.Infra.Data.Repositories
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
                     .AppendPathSegment(tenant)
-                    .AppendPathSegment("clients");
+                    .AppendPathSegment("groups")
+                    .AppendPathSegment(groupId)
+                    .AppendPathSegment("role-mappings")
+                    .AppendPathSegment("clients")
+                    .AppendPathSegment(clientId);
 
-            var response = await httpClient.GetAsync(url);
+            var roleData = new[]
+            {
+                new { id = roleId, name = roleName }
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(roleData), Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PostAsync(url, content);
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<IEnumerable<Client>>(responseContent)!;
-                var defaultClients = new List<string> { "account", "admin-cli", "broker", "realm-management", "security-admin-console", "account-console" };
-                var clientsWithoutDefaultClients = result.Where(client => !defaultClients.Contains(client.ClientId)).ToList();
-                return Result<IEnumerable<Client>>.Success(clientsWithoutDefaultClients!);
+                return Result<bool>.Success(true);
             }
 
-            return Result<IEnumerable<Client>>.Failure(ClientErrors.GetClientsErrors);
+            return Result<bool>.Failure(RoleGroupErrors.ErrorAddRoleToGroup);
         }
 
         private HttpClient CreateHttpClientWithHeaders(string accessToken)
