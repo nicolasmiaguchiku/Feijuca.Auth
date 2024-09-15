@@ -32,27 +32,5 @@ namespace TokenManager.Api.Controllers
             var responseError = Result<string>.Failure(result.Error);
             return BadRequest(responseError);
         }
-
-        /// <summary>
-        /// Get all permitions available in all clients.
-        /// </summary>
-        /// <returns>A status code related to the operation.</returns>
-        [HttpGet]
-        [Route("addRoleToGroup/{tenant}", Name = nameof(AddRoleToGroup))]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddRoleToGroup([FromRoute] string tenant, CancellationToken cancellationToken)
-        {
-            var result = await _mediator.Send(new GetRolesQuery(tenant), cancellationToken);
-
-            if (result.IsSuccess)
-            {
-                return Ok(result.Data);
-            }
-
-            var responseError = Result<string>.Failure(result.Error);
-            return BadRequest(responseError);
-        }
     }
 }
