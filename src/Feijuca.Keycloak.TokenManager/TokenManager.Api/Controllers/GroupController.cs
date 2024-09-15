@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TokenManager.Application.Commands.Groups;
 using TokenManager.Application.Queries.Groups;
@@ -9,6 +10,7 @@ namespace TokenManager.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize]
     public class GroupController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
@@ -22,6 +24,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[RequiredRole("Feijuca.ApiReaderr")]
         public async Task<IActionResult> GetGroups([FromRoute] string tenant, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetAllGroupsQuery(tenant), cancellationToken);
@@ -44,6 +47,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> DeleteGroup([FromRoute] string tenant, [FromRoute] Guid id, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new DeleteGroupCommand(tenant, id), cancellationToken);
@@ -66,6 +70,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> CreateGroup([FromRoute] string tenant, [FromBody] AddGroupRequest addGroupRequest, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new CreateGroupCommand(tenant, addGroupRequest), cancellationToken);

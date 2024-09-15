@@ -7,7 +7,7 @@ namespace TokenManager.Infra.CrossCutting.Extensions
 {
     public static class SwaggerExtensions
     {
-        public static void AddSwagger(this IServiceCollection services, AuthSettings keyCloakSettings)
+        public static IServiceCollection AddSwagger(this IServiceCollection services, AuthSettings keyCloakSettings)
         {
             services.AddSwaggerGen(c =>
             {
@@ -29,6 +29,8 @@ namespace TokenManager.Infra.CrossCutting.Extensions
                 c.OperationFilter<AuthorizeCheckOperationFilter>();
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "TokenManager.Api.xml"));
             });
+
+            return services;
         }
     }
 }

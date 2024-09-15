@@ -29,6 +29,7 @@ builder.Services
     .AddLoggingDependency()
     .AddMediator()
     .AddRepositories()
+    .AddSwagger(applicationSettings.AuthSettings)
     .AddHttpClients(applicationSettings.AuthSettings)
     .AddEndpointsApiExplorer()    
     .AddCors(options =>
@@ -47,7 +48,12 @@ var app = builder.Build();
 app.UseCors("AllowAllOrigins")
    .UseExceptionHandler()
    .UseSwagger()
-   .UseSwaggerUI();
+   .UseSwaggerUI(c =>
+   {
+       c.SwaggerEndpoint("/swagger/v1/swagger.json", "TokenManager.Api");
+       c.OAuthClientId(applicationSettings!.AuthSettings!.ClientId);
+       c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
+   });
 
 app.UseHttpsRedirection()
    .UseAuthorization();

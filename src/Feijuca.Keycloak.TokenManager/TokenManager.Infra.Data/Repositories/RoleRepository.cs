@@ -2,6 +2,8 @@
 using Flurl;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text;
+
 using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
@@ -39,6 +41,38 @@ namespace TokenManager.Infra.Data.Repositories
             }
 
             return Result<IEnumerable<Role>>.Failure(RoleErrors.GetRoleErrors);
+        }
+
+
+        public async Task<Result<bool>> AddRoleAsync(string tenant, string clientId, string name, string description)
+        {
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
+            var url = httpClient.BaseAddress
+                    .AppendPathSegment("admin")
+                    .AppendPathSegment("realms")
+                    .AppendPathSegment(tenant)
+                    .AppendPathSegment("clients")
+                    .AppendPathSegment(clientId)
+                    .AppendPathSegment("roles");
+
+            var roleData = new
+            {
+                name,
+                description,
+                composite = false
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(roleData), Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return Result<bool>.Success(true);
+            }
+
+            return Result<bool>.Failure(RoleErrors.AddRoleErrors);
         }
 
         private HttpClient CreateHttpClientWithHeaders(string accessToken)
