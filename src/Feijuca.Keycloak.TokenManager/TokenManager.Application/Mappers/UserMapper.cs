@@ -12,7 +12,7 @@ namespace TokenManager.Application.Mappers
             var atributtes = new Dictionary<string, string[]>();
             foreach (var item in userRequest.Attributes)
             {
-                atributtes.Add(item.Key, [item.Value]);
+                atributtes.Add(item.Key, item.Value);
             }
 
             return new User(userRequest.Username, userRequest.Password, userRequest.Email!, userRequest.FirstName!, userRequest.LastName!, atributtes);

@@ -30,7 +30,7 @@ namespace TokenManager.Application.Commands.Users
 
         private static void AddTenantToRequest(CreateUserCommand request)
         {
-            request.AddUserRequest.Attributes.Add("Tenant", request.Tenant);
+            request.AddUserRequest.Attributes.Add("Tenant", [request.Tenant]);
         }
 
         private async Task SetUserPasswordAsync(string tenant, User user)
