@@ -14,7 +14,7 @@ using TokenManager.Common.Models;
 namespace TokenManager.Api.Controllers
 {
     [Route("api/v1")]
-    [ApiController]    
+    [ApiController]
     public class UserController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
@@ -60,11 +60,11 @@ namespace TokenManager.Api.Controllers
             if (result.IsSuccess)
             {
                 var response = Result<string>.Success("User created successfully");
-                return Created("/createUser", response);
+                return Created("/createUser", response.Data);
             }
 
             var responseError = Result<string>.Failure(result.Error);
-            return BadRequest(responseError);
+            return BadRequest(responseError.Error);
         }
 
         /// <summary>
