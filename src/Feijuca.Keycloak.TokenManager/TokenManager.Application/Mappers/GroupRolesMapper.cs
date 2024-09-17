@@ -13,10 +13,10 @@ namespace TokenManager.Application.Mappers
                     .Select(mapping => new RoleResponse(
                         mapping.Id,
                         mapping.Name,
-                        mapping.Description,
+                        mapping.Description ?? "",
                         mapping.Composite,
                         mapping.ClientRole,
-                        mapping.ContainerId
+                        mapping.ContainerId ?? ""
                     ));
 
                 return new GroupRolesResponse(clientMapping.Id, clientMapping.Client, roles.ToList());

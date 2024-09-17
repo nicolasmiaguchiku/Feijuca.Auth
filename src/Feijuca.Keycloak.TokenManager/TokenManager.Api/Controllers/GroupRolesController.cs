@@ -1,13 +1,11 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Attributes;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using TokenManager.Application.Commands.GroupRoles;
 using TokenManager.Application.Queries.GroupRoles;
-using TokenManager.Application.Requests.RoleGroup;
+using TokenManager.Application.Requests.Group;
+using TokenManager.Application.Requests.GroupRoles;
 using TokenManager.Common.Models;
 
 namespace TokenManager.Api.Controllers
@@ -70,14 +68,14 @@ namespace TokenManager.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpGet]
-        [Route("getGroupRoles/{tenant}/{groupId}", Name = nameof(GetGroupRoles))]
+        [Route("getGroupRoles/{tenant}", Name = nameof(GetGroupRoles))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetGroupRoles([FromRoute] string tenant, [FromRoute] string groupId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetGroupRoles([FromRoute] string tenant, [FromBody] GetGroupRequest group, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetGroupRolesQuery(tenant, groupId), cancellationToken);
+            var result = await _mediator.Send(new GetGroupRolesQuery(tenant, group.GroupId), cancellationToken);
 
             if (result.IsSuccess)
             {

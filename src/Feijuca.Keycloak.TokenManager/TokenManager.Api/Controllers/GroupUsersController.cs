@@ -1,12 +1,11 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Attributes;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using TokenManager.Application.Commands.GroupUser;
 using TokenManager.Application.Queries.GroupUser;
+using TokenManager.Application.Requests.Group;
+using TokenManager.Application.Requests.GroupUsers;
 using TokenManager.Common.Models;
 
 namespace TokenManager.Api.Controllers
@@ -23,14 +22,14 @@ namespace TokenManager.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("addUserToGroup/{tenant}/{userId:guid}/{groupId:guid}", Name = nameof(AddUserToGroup))]
+        [Route("addUserToGroup/{tenant}", Name = nameof(AddUserToGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> AddUserToGroup([FromRoute] string tenant, [FromRoute] Guid userId, [FromRoute] Guid groupId, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddUserToGroup([FromRoute] string tenant, [FromRoute] AddUserToGroupRequest addUserToGroupRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddUserToGroupCommand(tenant, userId, groupId), cancellationToken);
+            var result = await _mediator.Send(new AddUserToGroupCommand(tenant, addUserToGroupRequest.UserId, addUserToGroupRequest.GroupId), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -46,14 +45,14 @@ namespace TokenManager.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpGet]
-        [Route("getUsersInGroup/{tenant}/{groupId}", Name = nameof(GetUsersInGroup))]
+        [Route("getUsersInGroup/{tenant}", Name = nameof(GetUsersInGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetUsersInGroup([FromRoute] string tenant, string groupId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsersInGroup([FromRoute] string tenant, [FromBody] GetGroupRequest group, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetUsersGroupQuery(tenant, groupId), cancellationToken);
+            var result = await _mediator.Send(new GetUsersGroupQuery(tenant, group.GroupId), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -69,14 +68,14 @@ namespace TokenManager.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpDelete]
-        [Route("removeUserFromGroup/{tenant}/{userId:guid}/{groupId:guid}", Name = nameof(RemoveUserFromGroup))]
+        [Route("removeUserFromGroup/{tenant}", Name = nameof(RemoveUserFromGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> RemoveUserFromGroup([FromRoute] string tenant, [FromRoute] Guid userId, [FromRoute] Guid groupId, CancellationToken cancellationToken)
+        public async Task<IActionResult> RemoveUserFromGroup([FromRoute] string tenant, [FromBody] RemoveUserFromGroupRequest removeUserFromGroup, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new RemoveUserFromGroupCommand(tenant, userId, groupId), cancellationToken);
+            var result = await _mediator.Send(new RemoveUserFromGroupCommand(tenant, removeUserFromGroup.UserId, removeUserFromGroup.GroupId), cancellationToken);
 
             if (result.IsSuccess)
             {

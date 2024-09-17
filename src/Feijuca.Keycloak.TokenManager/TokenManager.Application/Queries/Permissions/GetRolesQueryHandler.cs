@@ -24,7 +24,7 @@ namespace TokenManager.Application.Queries.Permissions
 
                     if (rolesResult.IsSuccess)
                     {
-                        var rolesResponse = rolesResult.Data.Select(x => new RoleResponse(x.Id, x.Name, x.Description, false, false, string.Empty));
+                        var rolesResponse = rolesResult.Data.Select(x => new RoleResponse(x.Id, x.Name, x.Description ?? "", false, false, string.Empty));
                         roleResponse.Add(new ClientRoleResponse(client.ClientId, client.Id, rolesResponse));
                     }
                 }

@@ -2,8 +2,8 @@
 {
     public class Client
     {
-        public string Id { get; set; } = null!;
-        public string ClientId { get; set; } = null!;
+        public Guid Id { get; set; }
+        public required string ClientId { get; set; }
         public bool Enabled { get; set; }
     }
 }

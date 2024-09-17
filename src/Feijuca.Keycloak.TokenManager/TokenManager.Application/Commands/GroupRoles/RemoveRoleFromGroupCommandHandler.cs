@@ -17,12 +17,14 @@ public class RemoveRoleFromGroupCommandHandler(IGroupRepository groupRepository,
         if (groupsResult.IsSuccess && groupsResult.Data.Any(x => x.Id == command.RemoveRoleFromGroupRequest.GroupId))
         {
             var rolesResult = await _roleRepository.GetRolesForClientAsync(command.Tenant, command.RemoveRoleFromGroupRequest.ClientId);
-            if (rolesResult.IsSuccess && rolesResult.Data.Any(x => x.Id == command.RemoveRoleFromGroupRequest.RoleId))
+            var existingRule = rolesResult.Data.FirstOrDefault(x => x.Id == command.RemoveRoleFromGroupRequest.RoleId);
+            if (rolesResult.IsSuccess && existingRule != null)
             {
                 await _roleGroupRepository.RemoveRoleFromGroupAsync(command.Tenant, 
                     command.RemoveRoleFromGroupRequest.ClientId, 
-                    command.RemoveRoleFromGroupRequest.GroupId, 
-                    command.RemoveRoleFromGroupRequest.RoleId);
+                    command.RemoveRoleFromGroupRequest.GroupId,
+                    existingRule.Id,
+                    existingRule.Name);
             }
         }
 

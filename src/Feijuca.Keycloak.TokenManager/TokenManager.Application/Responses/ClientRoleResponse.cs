@@ -1,5 +1,5 @@
 ﻿namespace TokenManager.Application.Responses
 {
-    public record ClientRoleResponse(string ClientName, string ClientId, IEnumerable<RoleResponse> Roles);
-    public record RoleResponse(string Id, string Name, string Description, bool Composite, bool ClientRole, string ContainerId);
+    public record ClientRoleResponse(string ClientId, Guid Id, IEnumerable<RoleResponse> Roles);
+    public record RoleResponse(Guid Id, string Name, string Description, bool Composite, bool ClientRole, string ContainerId);
 }

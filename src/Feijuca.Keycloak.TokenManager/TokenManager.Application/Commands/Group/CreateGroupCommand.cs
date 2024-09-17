@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using TokenManager.Application.Requests.RoleGroup;
 using TokenManager.Application.Requests.User;
 using TokenManager.Common.Models;
 

@@ -17,7 +17,7 @@ namespace TokenManager.Infra.Data.Repositories
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly ITokenRepository _tokenRepository = tokenRepository;
 
-        public async Task<Result<bool>> AddRoleToGroupAsync(string tenant, string groupId, string clientId, string roleId, string roleName)
+        public async Task<Result<bool>> AddRoleToGroupAsync(string tenant, Guid groupId, Guid clientId, Guid roleId, string roleName)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -49,7 +49,7 @@ namespace TokenManager.Infra.Data.Repositories
             return Result<bool>.Failure(GroupRolesErrors.ErrorAddRoleToGroup);
         }
 
-        public async Task<Result<IEnumerable<ClientMapping>>> GetGroupRolesAsync(string tenant, string groupId)
+        public async Task<Result<IEnumerable<ClientMapping>>> GetGroupRolesAsync(string tenant, Guid groupId)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -79,7 +79,7 @@ namespace TokenManager.Infra.Data.Repositories
             return Result<IEnumerable<ClientMapping>>.Failure(GroupRolesErrors.ErrorGetGroupRoles);
         }
 
-        public async Task<Result> RemoveRoleFromGroupAsync(string tenant, string clientId, string groupId, string roleId)
+        public async Task<Result> RemoveRoleFromGroupAsync(string tenant, Guid clientId, Guid groupId, Guid roleId, string roleName)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -91,9 +91,23 @@ namespace TokenManager.Infra.Data.Repositories
                     .AppendPathSegment("groups")
                     .AppendPathSegment(groupId)
                     .AppendPathSegment("role-mappings")
-                    .AppendPathSegment("realm");
+                    .AppendPathSegment("clients")
+                    .AppendPathSegment(clientId);
 
-            var response = await httpClient.DeleteAsync(url);
+            var xx = JsonConvert.SerializeObject(new[]
+            {
+                new { 
+                    id = roleId,
+                    name = roleName
+                }
+            });
+
+            var request = new HttpRequestMessage(HttpMethod.Delete, url)
+            {
+                Content = new StringContent(xx, Encoding.UTF8, "application/json")
+            };
+
+            var response = await httpClient.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
             {

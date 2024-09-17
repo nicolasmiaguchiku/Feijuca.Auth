@@ -72,15 +72,15 @@ namespace TokenManager.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpDelete]
-        [Route("deleteUser/{tenant}/{id:guid}", Name = nameof(Delete))]
+        [Route("deleteUser/{tenant}", Name = nameof(Delete))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
         [Authorize]
-        public async Task<IActionResult> Delete([FromRoute] string tenant, [FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete([FromRoute] string tenant, [FromRoute] DeleteUserRequest deleteUserRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new DeleteUserCommand(tenant, id), cancellationToken);
+            var result = await _mediator.Send(new DeleteUserCommand(tenant, deleteUserRequest.Id), cancellationToken);
 
             if (result.IsSuccess)
             {

@@ -86,7 +86,7 @@ namespace TokenManager.Infra.Data.Repositories
             return Result.Failure(GroupErrors.DeletionGroupError);
         }
 
-        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string tenant, string id)
+        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string tenant, Guid id)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);

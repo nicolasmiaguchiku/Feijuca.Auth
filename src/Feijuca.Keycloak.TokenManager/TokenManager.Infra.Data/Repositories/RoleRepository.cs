@@ -3,7 +3,6 @@ using Flurl;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
-
 using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
@@ -16,7 +15,7 @@ namespace TokenManager.Infra.Data.Repositories
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly ITokenRepository _tokenRepository = tokenRepository;
 
-        public async Task<Result<IEnumerable<Role>>> GetRolesForClientAsync(string tenant, string clientId)
+        public async Task<Result<IEnumerable<Role>>> GetRolesForClientAsync(string tenant, Guid clientId)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -44,7 +43,7 @@ namespace TokenManager.Infra.Data.Repositories
         }
 
 
-        public async Task<Result<bool>> AddRoleAsync(string tenant, string clientId, string name, string description)
+        public async Task<Result<bool>> AddRoleAsync(string tenant, Guid clientId, string name, string description)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);

@@ -4,5 +4,5 @@ using TokenManager.Common.Models;
 
 namespace TokenManager.Application.Queries.GroupUser
 {
-    public record GetUsersGroupQuery(string Tenant, string GroupId) : IRequest<Result<UserGroupResponse>>;
+    public record GetUsersGroupQuery(string Tenant, Guid GroupId) : IRequest<Result<UserGroupResponse>>;
 }

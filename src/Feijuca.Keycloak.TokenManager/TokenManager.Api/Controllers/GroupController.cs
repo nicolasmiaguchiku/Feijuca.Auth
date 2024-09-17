@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TokenManager.Application.Commands.Group;
 using TokenManager.Application.Queries.Groups;
-using TokenManager.Application.Requests.RoleGroup;
+using TokenManager.Application.Requests.Group;
 using TokenManager.Application.Requests.User;
 using TokenManager.Common.Models;
 
@@ -45,14 +45,14 @@ namespace TokenManager.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpDelete]
-        [Route("deleteGroup/{tenant}/{id:guid}", Name = nameof(DeleteGroup))]
+        [Route("deleteGroup/{tenant}", Name = nameof(DeleteGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> DeleteGroup([FromRoute] string tenant, [FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteGroup([FromRoute] string tenant, [FromBody] DeleteGroupRequest deleteGroupRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new DeleteGroupCommand(tenant, id), cancellationToken);
+            var result = await _mediator.Send(new DeleteGroupCommand(tenant, deleteGroupRequest.Id), cancellationToken);
 
             if (result.IsSuccess)
             {

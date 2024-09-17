@@ -32,7 +32,7 @@ namespace TokenManager.Infra.Data.Repositories
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<IEnumerable<Client>>(responseContent)!;
                 var defaultClients = new List<string> { "account", "admin-cli", "broker", "realm-management", "security-admin-console", "account-console" };
-                var clientsWithoutDefaultClients = result.Where(client => !defaultClients.Contains(client.ClientId)).ToList();
+                var clientsWithoutDefaultClients = result.Where(client => !defaultClients.Contains(client.ClientId.ToString())).ToList();
                 return Result<IEnumerable<Client>>.Success(clientsWithoutDefaultClients!);
             }
 
