@@ -54,7 +54,7 @@ namespace TokenManager.Api.Controllers
         [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> RemoveRoleToGroup([FromRoute] string tenant, [FromBody] RoleToGroupRequest removeRoleFromGroup, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddRoleToGroupCommand(tenant, removeRoleFromGroup), cancellationToken);
+            var result = await _mediator.Send(new RemoveRoleFromGroupCommand(tenant, removeRoleFromGroup), cancellationToken);
 
             if (result.IsSuccess)
             {

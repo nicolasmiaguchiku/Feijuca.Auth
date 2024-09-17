@@ -2,6 +2,7 @@
 using Flurl;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Data;
 using System.Net.Http.Headers;
 using System.Text;
 using TokenManager.Common.Errors;
@@ -76,6 +77,30 @@ namespace TokenManager.Infra.Data.Repositories
             }
 
             return Result<IEnumerable<ClientMapping>>.Failure(GroupRolesErrors.ErrorGetGroupRoles);
+        }
+
+        public async Task<Result> RemoveRoleFromGroupAsync(string tenant, string clientId, string groupId, string roleId)
+        {
+            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
+            var url = httpClient.BaseAddress
+                    .AppendPathSegment("admin")
+                    .AppendPathSegment("realms")
+                    .AppendPathSegment(tenant)
+                    .AppendPathSegment("groups")
+                    .AppendPathSegment(groupId)
+                    .AppendPathSegment("role-mappings")
+                    .AppendPathSegment("realm");
+
+            var response = await httpClient.DeleteAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return Result<bool>.Success(true);
+            }
+
+            return Result<bool>.Failure(GroupRolesErrors.RemovingRoleFromGroupError);
         }
 
         private HttpClient CreateHttpClientWithHeaders(string accessToken)

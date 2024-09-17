@@ -5,38 +5,27 @@ using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Application.Commands.GroupRoles;
 
-public class RemoveRoleFromGroupCommandHandler(IGroupRepository groupRepository, IGroupRolesRepository roleGroupRepository, IRoleRepository roleRepository) : IRequestHandler<AddRoleToGroupCommand, Result<bool>>
+public class RemoveRoleFromGroupCommandHandler(IGroupRepository groupRepository, IGroupRolesRepository roleGroupRepository, IRoleRepository roleRepository) : IRequestHandler<RemoveRoleFromGroupCommand, Result<bool>>
 {
     private readonly IGroupRepository _groupRepository = groupRepository;
     private readonly IGroupRolesRepository _roleGroupRepository = roleGroupRepository;
     private readonly IRoleRepository _roleRepository = roleRepository;
 
-    public async Task<Result<bool>> Handle(AddRoleToGroupCommand request, CancellationToken cancellationToken)
+    public async Task<Result<bool>> Handle(RemoveRoleFromGroupCommand command, CancellationToken cancellationToken)
     {
-        var groupsResult = await _groupRepository.GetAllAsync(request.Tenant);
-        var rolesResult = await _roleRepository.GetRolesForClientAsync(request.Tenant, request.AddRoleToGroupRequest.ClientId);
-
-        if (groupsResult.IsSuccess && rolesResult.IsSuccess)
+        var groupsResult = await _groupRepository.GetAllAsync(command.Tenant);
+        if (groupsResult.IsSuccess && groupsResult.Data.Any(x => x.Id == command.RemoveRoleFromGroupRequest.GroupId))
         {
-            var group = groupsResult.Data.FirstOrDefault(x => x.Id == request.AddRoleToGroupRequest.GroupId);
-            var role = rolesResult.Data.FirstOrDefault(x => x.Id == request.AddRoleToGroupRequest.RoleId);
-
-            if (group != null && role != null)
+            var rolesResult = await _roleRepository.GetRolesForClientAsync(command.Tenant, command.RemoveRoleFromGroupRequest.ClientId);
+            if (rolesResult.IsSuccess && rolesResult.Data.Any(x => x.Id == command.RemoveRoleFromGroupRequest.RoleId))
             {
-
-                var result = await _roleGroupRepository.AddRoleToGroupAsync(request.Tenant,
-                    group.Id,
-                    request.AddRoleToGroupRequest.ClientId,
-                    role.Id,
-                    role.Name);
-
-                if (result.IsSuccess)
-                {
-                    return Result<bool>.Success(true);
-                }
+                await _roleGroupRepository.RemoveRoleFromGroupAsync(command.Tenant, 
+                    command.RemoveRoleFromGroupRequest.ClientId, 
+                    command.RemoveRoleFromGroupRequest.GroupId, 
+                    command.RemoveRoleFromGroupRequest.RoleId);
             }
         }
 
-        return Result<bool>.Failure(GroupRolesErrors.ErrorAddRoleToGroup);
+        return Result<bool>.Failure(GroupRolesErrors.RemovingRoleFromGroupError);
     }
 }

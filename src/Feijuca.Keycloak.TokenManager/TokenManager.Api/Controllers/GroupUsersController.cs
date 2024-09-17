@@ -46,7 +46,7 @@ namespace TokenManager.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpGet]
-        [Route("getUsersInGroup/{tenant}/{groupName}", Name = nameof(GetUsersInGroup))]
+        [Route("getUsersInGroup/{tenant}/{groupId}", Name = nameof(GetUsersInGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

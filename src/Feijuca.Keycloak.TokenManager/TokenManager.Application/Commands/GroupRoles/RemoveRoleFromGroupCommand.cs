@@ -5,5 +5,5 @@ using TokenManager.Common.Models;
 
 namespace TokenManager.Application.Commands.GroupRoles
 {
-    public record RemoveRoleFromGroupCommand(string Tenant, RoleToGroupRequest AddRoleToGroupRequest) : IRequest<Result<bool>>;
+    public record RemoveRoleFromGroupCommand(string Tenant, RoleToGroupRequest RemoveRoleFromGroupRequest) : IRequest<Result<bool>>;
 }

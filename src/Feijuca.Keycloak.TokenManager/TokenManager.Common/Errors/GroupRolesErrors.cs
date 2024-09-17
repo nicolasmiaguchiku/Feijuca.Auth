@@ -15,5 +15,10 @@ namespace TokenManager.Common.Errors
             "GroupRoles.ErrorGetGroupRoles",
             $"An error occurred while trying adding get group roles: {TechnicalMessage}"
         );
+
+        public static Error RemovingRoleFromGroupError => new(
+            "Group.RemovingRoleFromGroupError",
+            $"An error occurred while trying remove the role from the group: {TechnicalMessage}"
+        );
     }
 }

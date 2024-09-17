@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TokenManager.Application.Commands.Group;
 using TokenManager.Application.Queries.Groups;
+using TokenManager.Application.Requests.RoleGroup;
 using TokenManager.Application.Requests.User;
 using TokenManager.Common.Models;
 
