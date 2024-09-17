@@ -21,6 +21,11 @@ namespace TokenManager.Common.Errors
             $"An error occurred while trying to refresh token. {TechnicalMessage}"
         );
 
+        public static Error UserCreationError => new(
+            "User.UserCreationError",
+            $"An error occurred while trying create a user. {TechnicalMessage}"
+        );
+
         public static Error WrongPasswordDefinition => new(
             "User.WrongPasswordDefinition",
             $"An error occurred while trying to add a new password to the user. {TechnicalMessage}"

@@ -1,42 +1,37 @@
 ﻿using MediatR;
-
 using TokenManager.Application.Mappers;
-using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
-using TokenManager.Domain.Entities;
 using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Application.Commands.Users
 {
-    public class CreateUserCommandHandler(IUserRepository userRepository) : IRequestHandler<CreateUserCommand, Common.Models.Result>
+    public class CreateUserCommandHandler(IUserRepository userRepository) : IRequestHandler<CreateUserCommand, Result>
     {
         private readonly IUserRepository _userRepository = userRepository;
 
-        public async Task<Common.Models.Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             AddTenantToRequest(request);
             var user = request.AddUserRequest.ToDomain();
+            var result = await _userRepository.CreateAsync(request.Tenant, user);
 
-            var (IsSuccessStatusCode, contentRequest) = await _userRepository.CreateAsync(request.Tenant, user);
-            if (IsSuccessStatusCode)
+            if (result.IsSuccess)
             {
-                await SetUserPasswordAsync(request.Tenant, user);
-                return Common.Models.Result.Success();
+                var keycloakUser = await _userRepository.GetAsync(request.Tenant, user.Username);
+                result = await _userRepository.ResetPasswordAsync(request.Tenant, keycloakUser.Data.Id, user.Password);
+
+                if (result.IsSuccess)
+                {
+                    return result;
+                }
             }
 
-            UserErrors.SetTechnicalMessage(contentRequest);
-            return Common.Models.Result.Failure(UserErrors.WrongPasswordDefinition);
+            return Result.Failure(result.Error);
         }
 
         private static void AddTenantToRequest(CreateUserCommand request)
         {
             request.AddUserRequest.Attributes.Add("Tenant", [request.Tenant]);
-        }
-
-        private async Task SetUserPasswordAsync(string tenant, User user)
-        {
-            var keycloakUser = await _userRepository.GetAsync(tenant, user.Username);
-            await _userRepository.ResetPasswordAsync(tenant, keycloakUser.Data.Id!, user.Password);
         }
     }
 }

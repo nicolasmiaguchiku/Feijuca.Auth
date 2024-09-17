@@ -13,7 +13,7 @@ using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
 {
-    public class UserRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository, TokenCredentials tokenCredentials) 
+    public class UserRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository, TokenCredentials tokenCredentials)
         : IUserRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
@@ -130,7 +130,7 @@ namespace TokenManager.Infra.Data.Repositories
             return Result<bool>.Failure(UserErrors.DeletionUserError);
         }
 
-        public async Task<(bool result, string content)> CreateAsync(string tenant, User user)
+        public async Task<Result<bool>> CreateAsync(string tenant, User user)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -144,7 +144,12 @@ namespace TokenManager.Infra.Data.Repositories
             var json = JsonConvert.SerializeObject(user, Settings);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync(url, httpContent);
-            return (response.IsSuccessStatusCode, await response.Content.ReadAsStringAsync());
+            if (response.IsSuccessStatusCode)
+            {
+                return Result<bool>.Success(true);
+            }
+
+            return Result<bool>.Failure(UserErrors.UserCreationError);
         }
 
         public async Task<Result<User>> GetAsync(string tenant, string userName)
@@ -167,7 +172,7 @@ namespace TokenManager.Infra.Data.Repositories
             return Result<User>.Success(user[0]);
         }
 
-        public async Task<Result> ResetPasswordAsync(string tenant, string userId, string password)
+        public async Task<Result<bool>> ResetPasswordAsync(string tenant, string userId, string password)
         {
             var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -176,7 +181,9 @@ namespace TokenManager.Infra.Data.Repositories
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
                     .AppendPathSegment(tenant)
-                    .AppendPathSegment("users");
+                    .AppendPathSegment("users")
+                    .AppendPathSegment(userId)
+                    .AppendPathSegment("reset-password");
 
             var passwordData = new
             {
@@ -191,12 +198,12 @@ namespace TokenManager.Infra.Data.Repositories
 
             if (response.IsSuccessStatusCode)
             {
-                return Result.Success();
+                return Result<bool>.Success(true);
             }
 
             var responseMessage = await response.Content.ReadAsStringAsync();
             UserErrors.SetTechnicalMessage(responseMessage);
-            return Result.Failure(UserErrors.InvalidUserNameOrPasswordError);
+            return Result<bool>.Failure(UserErrors.WrongPasswordDefinition);
         }
 
         public async Task<Result> SendEmailVerificationAsync(string tenant, string userId)
