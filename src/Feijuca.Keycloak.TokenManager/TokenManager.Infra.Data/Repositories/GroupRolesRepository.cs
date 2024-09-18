@@ -94,9 +94,9 @@ namespace TokenManager.Infra.Data.Repositories
                     .AppendPathSegment("clients")
                     .AppendPathSegment(clientId);
 
-            var xx = JsonConvert.SerializeObject(new[]
+            var body = JsonConvert.SerializeObject(new[]
             {
-                new { 
+                new {
                     id = roleId,
                     name = roleName
                 }
@@ -104,7 +104,7 @@ namespace TokenManager.Infra.Data.Repositories
 
             var request = new HttpRequestMessage(HttpMethod.Delete, url)
             {
-                Content = new StringContent(xx, Encoding.UTF8, "application/json")
+                Content = new StringContent(body, Encoding.UTF8, "application/json")
             };
 
             var response = await httpClient.SendAsync(request);

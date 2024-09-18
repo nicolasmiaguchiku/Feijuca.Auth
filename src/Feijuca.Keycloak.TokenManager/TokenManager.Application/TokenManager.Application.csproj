@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Commands\PermissionGroup\**" />
+    <Compile Remove="Queries\GroupPermission\**" />
+    <EmbeddedResource Remove="Commands\PermissionGroup\**" />
+    <EmbeddedResource Remove="Queries\GroupPermission\**" />
+    <None Remove="Commands\PermissionGroup\**" />
+    <None Remove="Queries\GroupPermission\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Serilog" Version="4.0.1" />
@@ -17,11 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TokenManager.Domain\TokenManager.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Commands\PermissionGroup\" />
-    <Folder Include="Queries\GroupPermission\" />
   </ItemGroup>
 
 </Project>

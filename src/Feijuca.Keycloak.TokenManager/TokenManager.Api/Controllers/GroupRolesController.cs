@@ -12,7 +12,6 @@ namespace TokenManager.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    [Authorize]
     public class GroupRolesController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
@@ -49,7 +48,6 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> RemoveRoleToGroup([FromRoute] string tenant, [FromBody] RoleToGroupRequest removeRoleFromGroup, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new RemoveRoleFromGroupCommand(tenant, removeRoleFromGroup), cancellationToken);

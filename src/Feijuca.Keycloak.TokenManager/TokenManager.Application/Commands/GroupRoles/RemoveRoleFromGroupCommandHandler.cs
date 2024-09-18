@@ -20,11 +20,13 @@ public class RemoveRoleFromGroupCommandHandler(IGroupRepository groupRepository,
             var existingRule = rolesResult.Data.FirstOrDefault(x => x.Id == command.RemoveRoleFromGroupRequest.RoleId);
             if (rolesResult.IsSuccess && existingRule != null)
             {
-                await _roleGroupRepository.RemoveRoleFromGroupAsync(command.Tenant, 
-                    command.RemoveRoleFromGroupRequest.ClientId, 
+                await _roleGroupRepository.RemoveRoleFromGroupAsync(command.Tenant,
+                    command.RemoveRoleFromGroupRequest.ClientId,
                     command.RemoveRoleFromGroupRequest.GroupId,
                     existingRule.Id,
                     existingRule.Name);
+
+                return Result<bool>.Success(true);
             }
         }
 
