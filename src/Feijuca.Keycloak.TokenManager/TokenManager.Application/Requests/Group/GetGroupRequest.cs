@@ -1,4 +1,10 @@
-﻿namespace TokenManager.Application.Requests.Group
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace TokenManager.Application.Requests.Group
 {
-    public record GetGroupRequest(Guid GroupId);
+    public class GetGroupRequest
+    {
+        [FromQuery]
+        public Guid GroupId { get; set; }
+    }
 }

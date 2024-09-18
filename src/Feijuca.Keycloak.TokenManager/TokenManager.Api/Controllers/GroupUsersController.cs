@@ -27,7 +27,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> AddUserToGroup([FromRoute] string tenant, [FromRoute] AddUserToGroupRequest addUserToGroupRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddUserToGroup([FromRoute] string tenant, [FromBody] AddUserToGroupRequest addUserToGroupRequest, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new AddUserToGroupCommand(tenant, addUserToGroupRequest.UserId, addUserToGroupRequest.GroupId), cancellationToken);
 
@@ -50,7 +50,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetUsersInGroup([FromRoute] string tenant, [FromBody] GetGroupRequest group, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsersInGroup([FromRoute] string tenant, [FromRoute] GetGroupRequest group, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetUsersGroupQuery(tenant, group.GroupId), cancellationToken);
 

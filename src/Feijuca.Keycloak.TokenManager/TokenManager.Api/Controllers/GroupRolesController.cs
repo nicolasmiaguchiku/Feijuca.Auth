@@ -73,7 +73,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetGroupRoles([FromRoute] string tenant, [FromBody] GetGroupRequest group, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetGroupRoles([FromRoute] string tenant, [FromRoute] GetGroupRequest group, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetGroupRolesQuery(tenant, group.GroupId), cancellationToken);
 
