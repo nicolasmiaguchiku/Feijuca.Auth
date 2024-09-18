@@ -29,6 +29,7 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize]
+        [RequiredRole("Feijuca.ApiReader")]
         public async Task<IActionResult> GetUsers([FromRoute] string tenant, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetAllUsersQuery(tenant), cancellationToken);
