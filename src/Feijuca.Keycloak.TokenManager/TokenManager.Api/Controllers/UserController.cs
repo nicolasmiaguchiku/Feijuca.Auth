@@ -79,9 +79,9 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
         [Authorize]
-        public async Task<IActionResult> Delete([FromRoute] string tenant, [FromRoute] DeleteUserRequest deleteUserRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete([FromRoute] string tenant, [FromBody] DeleteUserRequest deleteUserRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new DeleteUserCommand(tenant, deleteUserRequest.Id), cancellationToken);
+            var result = await _mediator.Send(new DeleteUserCommand(tenant, deleteUserRequest.UserId), cancellationToken);
 
             if (result.IsSuccess)
             {

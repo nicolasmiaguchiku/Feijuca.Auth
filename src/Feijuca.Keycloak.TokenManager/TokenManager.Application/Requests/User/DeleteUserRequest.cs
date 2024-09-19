@@ -1,4 +1,7 @@
 ﻿namespace TokenManager.Application.Requests.User
 {
-    public record DeleteUserRequest(Guid Id);
+    public class DeleteUserRequest
+    {
+        public Guid UserId { get; set; }
+    }
 }
