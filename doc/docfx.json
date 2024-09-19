@@ -36,8 +36,9 @@
       "modern"
     ],
     "globalMetadata": {
-      "_appName": "Feijuca.Keycloak.AuthServices-doc",
-      "_appTitle": "Feijuca.Keycloak.AuthServices-doc",
+      "_appName": "Feijuca.Keycloak",
+      "_appTitle": "Feijuca.Keycloak",
+      "logo": "docs/images/sky.png",
       "_enableSearch": true,
       "pdf": true
     }

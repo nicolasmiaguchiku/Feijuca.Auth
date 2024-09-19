@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>WIP | Feijuca.Keycloak </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="WIP | Feijuca.Keycloak ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/doc/docs/FeijucaKeycloakAuthMultiTenancy.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Feijuca.Keycloak">
+            Feijuca.Keycloak
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="wip">WIP</h1>
+
+<p><a href="https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge" alt="MIT License"></a></p>
+<h3 id="built-with-">Built with: <img src="https://img.shields.io/badge/dotnet8-blue"></h3>
+<h3 id="prerequisites-">Prerequisites: 📋</h3>
+<p>This project was made with the purpose to attend only applications that follows the current <a href="https://dotnet.microsoft.com/en-us/download/dotnet">.Net Supported versions.</a></p>
+<h2 id="why-feijuca-">Why Feijuca? 🫘</h2>
+<p>Feijuca is a nickname for a famous Brazilian dish called <a href="https://theculturetrip.com/south-america/brazil/articles/a-brief-introduction-to-feijoada-brazils-national-dish">Feijoada</a>. I wanted to use a name representing my country on this project, and Feijuca was chosen.</p>
+<h2 id="about-the-project-"><strong>About the project: 🧾</strong></h2>
+<p>This repository aims to provide a configuration option for .NET projects that are using or planning to use Keycloak for authentication and authorization. The project consists of two distinct parts:</p>
+<ol>
+<li><strong>Feijuca.Keycloak.Auth.MultiTenancy</strong></li>
+<li><strong>Feijuca.Keycloak.TokenManager</strong></li>
+</ol>
+<p><strong>Attention: 🫵</strong></p>
+<p><strong>The projects work in isolation way</strong>, there is no dependency between them. <strong>You do not need use one to use other</strong>, note that each project has different purpose.</p>
+<p><strong>Below, you can understand better the purpose about which one project. 👇</strong></p>
+<h2 id="feijucakeycloakauthmultitenancy-">Feijuca.Keycloak.Auth.MultiTenancy 💻</h2>
+<p>It is a <a href="https://www.nuget.org/packages/Feijuca.Keycloak.MultiTenancy">NuGet</a> package that enables the implementation of multi-tenancy concepts using Keycloak. With this package, each realm acts as a different tenant, allowing for unique configurations for each one. This ensures that each tenant within your application can have its own settings and configurations within Keycloak.</p>
+<h3 id="features-">Features ⛲</h3>
+<p>With this package you can:</p>
+<ul>
+<li>Use all Keycloak features following a multi-tenancy concept based on your realms, so you can handle different configurations based on each tenant (realm).</li>
+<li>Get information from a token, such as: finding claims, finding out which tenant this token belongs to, which user this token belongs to, and so on.
+(<a href="src/Feijuca.Keycloak.Auth.MultiTenancy/Feijuca.Keycloak.MultiTenancy/Services/AuthService.cs">See more</a>)</li>
+<li><strong>(If you want to implement a feature to retrieve something else related to the token, open a PR)</strong></li>
+</ul>
+<h2 id="getting-started-on-feijucakeycloakauthmultitenancy">Getting Started on Feijuca.Keycloak.Auth.MultiTenancy</h2>
+<ul>
+<li><p>Prerequisites
+It is assumed that you already have your Keycloak instance configured, including the creation of clients with their respective settings (scopes, etc.).</p>
+</li>
+<li><p>Keycloak configuration steps:</p>
+<ul>
+<li>
+<ol>
+<li><strong>Configuring audience</strong>:
+Create a new audience related to the scopes used your client and include the audience on your client:
+<img src="https://github.com/fmattioli/Feijuca.Keycloak.AuthServices/assets/27566574/6b7b437e-fa29-4776-b29f-4dba8e6d1f21" alt="image">
+<strong>This step is important and mandatory because on each request received the tool will validate the token audience.</strong></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>Project configurations steps:</p>
+<ul>
+<li>
+<ol>
+<li>appsettings.json
+Filled out appsettings file on your application, relate all of yours realms (tenants)
+<code>sh { &quot;AuthSettings&quot;: { &quot;Realms&quot;: [ { &quot;Name&quot;: &quot;yourTenantName1&quot;, &quot;Audience&quot;: &quot;your-audience-defined-on-step1&quot;, &quot;Issuer&quot;: &quot;https://url-keycloakt/realms/yourTenantName1&quot; }, { &quot;Name&quot;: &quot;yourTenantName2&quot;, &quot;Audience&quot;: &quot;your-audience-defined, &quot;Issuer&quot;: &quot;https://url-keycloakt/realms/yourTenantName2&quot; }, { &quot;Name&quot;: &quot;yourTenantName3&quot;, &quot;Audience&quot;: &quot;your-audience-defined&quot;, &quot;Issuer&quot;: &quot;https://url-keycloakt/realms/yourTenantName3&quot; } ], &quot;ClientId&quot;: &quot;your-client-id&quot;, &quot;ClientSecret&quot;: &quot;your-client-secret&quot;, &quot;AuthServerUrl&quot;: &quot;https://url-keycloak&quot; } } </code></li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><p>Get appsettings values:</p>
+<p>Map appsettings configurations values (Note that AuthSettings is a model defined on <strong>Feijuca.Keycloak.Auth.MultiTenancy</strong>, I recommend you use the GetSection method to map the appsettings configs to the AuthSettings model:</p>
+<pre><code class="lang-sh">var settings = configuration.GetSection(&quot;AuthSettings&quot;).Get&lt;AuthSettings&gt;();
+</code></pre>
+</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li><p>Add dependency:</p>
+<p>Add the service to the service collection from your application, I recommend you create a new extension method as below:</p>
+</li>
+</ol>
+<pre><code class="lang-sh">public static class AuthExtension
+ {
+     public static IServiceCollection AddApiAuthentication(this IServiceCollection services, AuthSettings authSettings)
+     {
+         services.AddHttpContextAccessor();
+         services.AddSingleton&lt;JwtSecurityTokenHandler&gt;();
+         services.AddKeyCloakAuth(authSettings!);
+
+         return services;
+     }
+ }  
+</code></pre>
+<p>And after it, call it on your Program.cs:</p>
+<pre><code class="lang-sh">builder.Services.AddApiAuthentication(applicationSettings.AuthSettings);      
+</code></pre>
+</li>
+<li>
+<ol start="4">
+<li><p>Conclusion:</p>
+<p>Your configs should be like:</p>
+<p><img src="https://github.com/user-attachments/assets/d26958e1-d842-4c31-a306-7a8968d1cb66" alt="image"></p>
+<p>And with this configuration you should be able to use Keycloak following a multi tenancy contenxt using .NET.</p>
+<p>Following this <a href="https://github.com/fmattioli/Feijuca.Keycloak.AuthServices/blob/main/src/Feijuca.Keycloak.Auth.MultiTenancy/Feijuca.Keycloak.MultiTenancy/Extensions/AuthExtensions.cs">link</a> you can understand what is the logic used to validate the token received.</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="feijucakeycloaktokenmanager-">Feijuca.Keycloak.TokenManager 👨🏽‍💻</h2>
+<p>Managing certain actions in the Keycloak API can be complicated. For example, creating a new user involves several steps: obtaining a token, creating the user, setting attributes, and setting a password. Feijuca.Keycloak.TokenManager aims to simplify these processes and abstract the complexity related to Keycloak API calls.</p>
+<p><strong>Feijuca.Keycloak.TokenManager</strong> is an API that abstracts, facilitates and simplifies calls to perform actions in Keycloak.
+Over time, the goal is to encapsulate multiple Keycloak endpoints, making it easier to perform actions that would be more complex using just the Keycloak API.</p>
+<h3 id="features--1">Features ⛲</h3>
+<ul>
+<li>Every action in one place. Forget about call multiples endpoints to do actions about users on keycloak. Do actions related to the user (Creation, remotion, e-mail confirming, password redefinition, and so on) based on predefined endpoints.</li>
+<li>Custom endpoints based on your necessities (If you think it could be helpful to the project, open a PR to discuss additional features).</li>
+</ul>
+<h2 id="getting-started---using-token-manager-api">Getting Started - Using Token Manager Api</h2>
+<ul>
+<li>Keycloak configuration steps:
+<ul>
+<li>
+<ol>
+<li><strong>Giving permissions to the realm:</strong>
+To be possible manage users using the Keycloak Api, it is necessary to provide some permissions on your keycloak client.  You can handle it on an existing realm, or you can create a new realm.
+You can follow this <a href="https://steve-mu.medium.com/create-new-user-in-keycloak-with-admin-restful-api-e6e868b836b4">link</a> to understand how provide these permissions.</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Once you created/configureted a realm to have permissions related to users handling, enough you change the appsettings setting the values related to the created/configured realm.
+<pre><code class="lang-sh">{
+ &quot;Settings&quot;: {
+   &quot;AuthSettings&quot;: {
+     &quot;Realms&quot;: [
+       {
+          &quot;Name&quot;: &quot;yourTenantName1&quot;,
+          &quot;Audience&quot;: &quot;your-audience-defined-on-step1&quot;,
+          &quot;Issuer&quot;: &quot;https://url-keycloakt/realms/yourTenantName1&quot;
+       }
+     ],
+      &quot;ClientId&quot;: &quot;your-client-id&quot;,
+      &quot;ClientSecret&quot;: &quot;your-client-secret&quot;,                
+      &quot;Resource&quot;: &quot;&quot;,
+      &quot;AuthServerUrl&quot;: &quot;&quot;
+   }
+ }
+}
+</code></pre>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="contributing">Contributing</h2>
+<p>This is a project in costant evolution, therefore, if you have some suggestion, enter in contact with me or open a pull request and we can discuss.</p>
+<h2 id="license">License</h2>
+<p>Distributed under the MIT License. See <code>LICENSE.txt</code> for more information.</p>
+<h2 id="contact">Contact</h2>
+<p><a href="https://www.linkedin.com/in/felipemattioli/"><img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&amp;logo=linkedin&amp;colorB=555" alt="LinkedIn"></a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/doc/docs/FeijucaKeycloakAuthMultiTenancy.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

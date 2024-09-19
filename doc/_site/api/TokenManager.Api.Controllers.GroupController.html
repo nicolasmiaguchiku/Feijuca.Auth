@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class UserController | Feijuca.Keycloak </title>
+      <title>Class GroupController | Feijuca.Keycloak </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class UserController | Feijuca.Keycloak ">
+      <meta name="title" content="Class GroupController | Feijuca.Keycloak ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/new/feat-Moving_Documentation/apiSpec/new?filename=TokenManager_Api_Controllers_UserController.md&amp;value=---%0Auid%3A%20TokenManager.Api.Controllers.UserController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/new/feat-Moving_Documentation/apiSpec/new?filename=TokenManager_Api_Controllers_GroupController.md&amp;value=---%0Auid%3A%20TokenManager.Api.Controllers.GroupController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,12 +84,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="TokenManager.Api.Controllers.UserController">
+        <article data-uid="TokenManager.Api.Controllers.GroupController">
 
 
 
-  <h1 id="TokenManager_Api_Controllers_UserController" data-uid="TokenManager.Api.Controllers.UserController" class="text-break">
-Class UserController  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <h1 id="TokenManager_Api_Controllers_GroupController" data-uid="TokenManager.Api.Controllers.GroupController" class="text-break">
+Class GroupController  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -103,7 +103,8 @@ Class UserController  <a class="header-action link-secondary" title="View source
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Route(&quot;api/v1&quot;)]
 [ApiController]
-public class UserController : ControllerBase</code></pre>
+[Authorize]
+public class GroupController : ControllerBase</code></pre>
   </div>
 
 
@@ -114,7 +115,7 @@ public class UserController : ControllerBase</code></pre>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controllerbase">ControllerBase</a></div>
-      <div><span class="xref">UserController</span></div>
+      <div><span class="xref">GroupController</span></div>
     </dd>
   </dl>
 
@@ -674,18 +675,18 @@ public class UserController : ControllerBase</code></pre>
 </h2>
 
 
-  <a id="TokenManager_Api_Controllers_UserController__ctor_" data-uid="TokenManager.Api.Controllers.UserController.#ctor*"></a>
+  <a id="TokenManager_Api_Controllers_GroupController__ctor_" data-uid="TokenManager.Api.Controllers.GroupController.#ctor*"></a>
 
-  <h3 id="TokenManager_Api_Controllers_UserController__ctor_MediatR_IMediator_" data-uid="TokenManager.Api.Controllers.UserController.#ctor(MediatR.IMediator)">
-  UserController(IMediator)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <h3 id="TokenManager_Api_Controllers_GroupController__ctor_MediatR_IMediator_" data-uid="TokenManager.Api.Controllers.GroupController.#ctor(MediatR.IMediator)">
+  GroupController(IMediator)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UserController(IMediator mediator)</code></pre>
+    <pre><code class="lang-csharp hljs">public GroupController(IMediator mediator)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -709,33 +710,32 @@ public class UserController : ControllerBase</code></pre>
 </h2>
 
 
-  <a id="TokenManager_Api_Controllers_UserController_Create_" data-uid="TokenManager.Api.Controllers.UserController.Create*"></a>
+  <a id="TokenManager_Api_Controllers_GroupController_CreateGroup_" data-uid="TokenManager.Api.Controllers.GroupController.CreateGroup*"></a>
 
-  <h3 id="TokenManager_Api_Controllers_UserController_Create_System_String_TokenManager_Application_Requests_User_AddUserRequest_System_Threading_CancellationToken_" data-uid="TokenManager.Api.Controllers.UserController.Create(System.String,TokenManager.Application.Requests.User.AddUserRequest,System.Threading.CancellationToken)">
-  Create(string, AddUserRequest, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  <h3 id="TokenManager_Api_Controllers_GroupController_CreateGroup_System_String_TokenManager_Application_Requests_User_AddGroupRequest_System_Threading_CancellationToken_" data-uid="TokenManager.Api.Controllers.GroupController.CreateGroup(System.String,TokenManager.Application.Requests.User.AddGroupRequest,System.Threading.CancellationToken)">
+  CreateGroup(string, AddGroupRequest, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs/#L70"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Add a new user on the Keycloak realm.</p>
+  <div class="markdown level1 summary"><p>Add a new group on the keycloak realm.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[HttpPost]
-[Route(&quot;createUser/{tenant}&quot;, Name = &quot;Create&quot;)]
+[Route(&quot;createGroup/{tenant}&quot;, Name = &quot;CreateGroup&quot;)]
 [ProducesResponseType(201)]
 [ProducesResponseType(500)]
 [ProducesResponseType(400)]
 [RequiredRole(&quot;Feijuca.ApiWriter&quot;)]
-[Authorize]
-public Task&lt;IActionResult&gt; Create(string tenant, AddUserRequest addUserRequest, CancellationToken cancellationToken)</code></pre>
+public Task&lt;IActionResult&gt; CreateGroup(string tenant, AddGroupRequest addGroupRequest, CancellationToken cancellationToken)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>tenant</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
-    <dt><code>addUserRequest</code> <span class="xref">AddUserRequest</span></dt>
+    <dt><code>addGroupRequest</code> <span class="xref">AddGroupRequest</span></dt>
     <dd></dd>
     <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
     <dd></dd>
@@ -758,26 +758,25 @@ public Task&lt;IActionResult&gt; Create(string tenant, AddUserRequest addUserReq
 
 
 
-  <a id="TokenManager_Api_Controllers_UserController_Delete_" data-uid="TokenManager.Api.Controllers.UserController.Delete*"></a>
+  <a id="TokenManager_Api_Controllers_GroupController_DeleteGroup_" data-uid="TokenManager.Api.Controllers.GroupController.DeleteGroup*"></a>
 
-  <h3 id="TokenManager_Api_Controllers_UserController_Delete_System_String_System_Guid_System_Threading_CancellationToken_" data-uid="TokenManager.Api.Controllers.UserController.Delete(System.String,System.Guid,System.Threading.CancellationToken)">
-  Delete(string, Guid, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  <h3 id="TokenManager_Api_Controllers_GroupController_DeleteGroup_System_String_System_Guid_System_Threading_CancellationToken_" data-uid="TokenManager.Api.Controllers.GroupController.DeleteGroup(System.String,System.Guid,System.Threading.CancellationToken)">
+  DeleteGroup(string, Guid, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>DeleteGroup an existing user on the Keycloak realm.</p>
+  <div class="markdown level1 summary"><p>Delete an existing group on the keycloak realm.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[HttpDelete]
-[Route(&quot;deleteUser/{tenant}/{id:guid}&quot;, Name = &quot;Delete&quot;)]
-[ProducesResponseType(204)]
+[Route(&quot;deleteGroup/{tenant}/{id:guid}&quot;, Name = &quot;DeleteGroup&quot;)]
+[ProducesResponseType(201)]
 [ProducesResponseType(500)]
 [ProducesResponseType(400)]
 [RequiredRole(&quot;Feijuca.ApiWriter&quot;)]
-[Authorize]
-public Task&lt;IActionResult&gt; Delete(string tenant, Guid id, CancellationToken cancellationToken)</code></pre>
+public Task&lt;IActionResult&gt; DeleteGroup(string tenant, Guid id, CancellationToken cancellationToken)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -807,126 +806,30 @@ public Task&lt;IActionResult&gt; Delete(string tenant, Guid id, CancellationToke
 
 
 
-  <a id="TokenManager_Api_Controllers_UserController_GetUsers_" data-uid="TokenManager.Api.Controllers.UserController.GetUsers*"></a>
+  <a id="TokenManager_Api_Controllers_GroupController_GetGroups_" data-uid="TokenManager.Api.Controllers.GroupController.GetGroups*"></a>
 
-  <h3 id="TokenManager_Api_Controllers_UserController_GetUsers_System_String_System_Threading_CancellationToken_" data-uid="TokenManager.Api.Controllers.UserController.GetUsers(System.String,System.Threading.CancellationToken)">
-  GetUsers(string, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <h3 id="TokenManager_Api_Controllers_GroupController_GetGroups_System_String_System_Threading_CancellationToken_" data-uid="TokenManager.Api.Controllers.GroupController.GetGroups(System.String,System.Threading.CancellationToken)">
+  GetGroups(string, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Get all users existing on the Keycloak realm.</p>
+  <div class="markdown level1 summary"><p>Get all groups existing on the keycloak realm.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[HttpGet]
-[Route(&quot;getUsers/{tenant}&quot;, Name = &quot;GetUsers&quot;)]
+[Route(&quot;getGroups/{tenant}&quot;, Name = &quot;GetGroups&quot;)]
 [ProducesResponseType(200)]
 [ProducesResponseType(500)]
 [ProducesResponseType(400)]
-[Authorize]
-public Task&lt;IActionResult&gt; GetUsers(string tenant, CancellationToken cancellationToken)</code></pre>
+[RequiredRole(&quot;Feijuca.ApiReader&quot;)]
+public Task&lt;IActionResult&gt; GetGroups(string tenant, CancellationToken cancellationToken)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>tenant</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a>&gt;</dt>
-    <dd><p>A status code related to the operation.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="TokenManager_Api_Controllers_UserController_Login_" data-uid="TokenManager.Api.Controllers.UserController.Login*"></a>
-
-  <h3 id="TokenManager_Api_Controllers_UserController_Login_System_String_TokenManager_Application_Requests_User_LoginUserRequest_System_Threading_CancellationToken_" data-uid="TokenManager.Api.Controllers.UserController.Login(System.String,TokenManager.Application.Requests.User.LoginUserRequest,System.Threading.CancellationToken)">
-  Login(string, LoginUserRequest, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs/#L98"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Return a valid JWT token and details about them.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPost]
-[Route(&quot;login/{tenant}&quot;, Name = &quot;Login&quot;)]
-[ProducesResponseType(200)]
-[ProducesResponseType(500)]
-[ProducesResponseType(400)]
-public Task&lt;IActionResult&gt; Login(string tenant, LoginUserRequest loginUserRequest, CancellationToken cancellationToken)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>tenant</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>loginUserRequest</code> <span class="xref">LoginUserRequest</span></dt>
-    <dd></dd>
-    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a>&gt;</dt>
-    <dd><p>A status code related to the operation.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="TokenManager_Api_Controllers_UserController_RefreshToken_" data-uid="TokenManager.Api.Controllers.UserController.RefreshToken*"></a>
-
-  <h3 id="TokenManager_Api_Controllers_UserController_RefreshToken_System_String_TokenManager_Application_Requests_User_RefreshTokenRequest_System_Threading_CancellationToken_" data-uid="TokenManager.Api.Controllers.UserController.RefreshToken(System.String,TokenManager.Application.Requests.User.RefreshTokenRequest,System.Threading.CancellationToken)">
-  RefreshToken(string, RefreshTokenRequest, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs/#L121"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Return a valid JWT token and details about them refreshed.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPost]
-[Route(&quot;refreshToken/{tenant}&quot;, Name = &quot;RefreshToken&quot;)]
-[ProducesResponseType(200)]
-[ProducesResponseType(500)]
-[ProducesResponseType(400)]
-[RequiredRole(&quot;Feijuca.ApiWriter&quot;)]
-[Authorize]
-public Task&lt;IActionResult&gt; RefreshToken(string tenant, RefreshTokenRequest request, CancellationToken cancellationToken)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>tenant</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>request</code> <span class="xref">RefreshTokenRequest</span></dt>
     <dd></dd>
     <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
     <dd></dd>
@@ -953,7 +856,7 @@ public Task&lt;IActionResult&gt; RefreshToken(string tenant, RefreshTokenRequest
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs/#L16" class="edit-link">Edit this page</a>
+          <a href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/feat-Moving_Documentation/src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
 

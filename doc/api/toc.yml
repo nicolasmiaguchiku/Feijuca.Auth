@@ -3,6 +3,16 @@ items:
 - uid: TokenManager.Api.Controllers
   name: TokenManager.Api.Controllers
   items:
+  - uid: TokenManager.Api.Controllers.ClientController
+    name: ClientController
+  - uid: TokenManager.Api.Controllers.GroupController
+    name: GroupController
+  - uid: TokenManager.Api.Controllers.GroupRolesController
+    name: GroupRolesController
+  - uid: TokenManager.Api.Controllers.GroupUsersController
+    name: GroupUsersController
+  - uid: TokenManager.Api.Controllers.RoleController
+    name: RoleController
   - uid: TokenManager.Api.Controllers.UserController
     name: UserController
 memberLayout: SamePage
