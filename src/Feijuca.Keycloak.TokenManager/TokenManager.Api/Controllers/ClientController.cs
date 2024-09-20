@@ -13,13 +13,13 @@ namespace TokenManager.Api.Controllers
     public class ClientController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
-     
+
         /// <summary>
-        /// Get all clients existing on the keycloak realm.
+        /// Get all clients existing on the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpGet]
-        [Route("getClients/{tenant}", Name = nameof(GetClients))]
+        [Route("clients/{tenant}", Name = nameof(GetClients))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -36,5 +36,6 @@ namespace TokenManager.Api.Controllers
             var responseError = Result<string>.Failure(result.Error);
             return BadRequest(responseError);
         }
+
     }
 }

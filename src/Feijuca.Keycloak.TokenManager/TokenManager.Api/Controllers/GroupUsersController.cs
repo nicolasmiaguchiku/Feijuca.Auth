@@ -4,13 +4,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TokenManager.Application.Commands.GroupUser;
 using TokenManager.Application.Queries.GroupUser;
-using TokenManager.Application.Requests.Group;
 using TokenManager.Application.Requests.GroupUsers;
 using TokenManager.Common.Models;
 
 namespace TokenManager.Api.Controllers
 {
-    [Route("api/v1")]
+    [Route("api/v1/auth/{tenant}/groups")]
     [ApiController]
     [Authorize]
     public class GroupUsersController(IMediator mediator) : ControllerBase
@@ -21,15 +20,14 @@ namespace TokenManager.Api.Controllers
         /// Add a user to a specific group in the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
-        [HttpPost]
-        [Route("addUserToGroup/{tenant}", Name = nameof(AddUserToGroup))]
+        [HttpPost("{groupId}/users", Name = nameof(AddUserToGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> AddUserToGroup([FromRoute] string tenant, [FromBody] AddUserToGroupRequest addUserToGroupRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddUserToGroup([FromRoute] string tenant, [FromRoute] Guid groupId, [FromBody] AddUserToGroupRequest addUserToGroupRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddUserToGroupCommand(tenant, addUserToGroupRequest.UserId, addUserToGroupRequest.GroupId), cancellationToken);
+            var result = await _mediator.Send(new AddUserToGroupCommand(tenant, addUserToGroupRequest.UserId, groupId), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -41,18 +39,17 @@ namespace TokenManager.Api.Controllers
         }
 
         /// <summary>
-        /// Get all users presents on a group in the Keycloak realm.
+        /// Get all users present in a specific group in the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
-        [HttpGet]
-        [Route("getUsersInGroup/{tenant}", Name = nameof(GetUsersInGroup))]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("{groupId}/users", Name = nameof(GetUsersInGroup))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetUsersInGroup([FromRoute] string tenant, [FromRoute] GetGroupRequest group, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsersInGroup([FromRoute] string tenant, [FromRoute] Guid groupId, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetUsersGroupQuery(tenant, group.GroupId), cancellationToken);
+            var result = await _mediator.Send(new GetUsersGroupQuery(tenant, groupId), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -64,22 +61,21 @@ namespace TokenManager.Api.Controllers
         }
 
         /// <summary>
-        /// Add a user to a specific group in the Keycloak realm.
+        /// Remove a user from a specific group in the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
-        [HttpDelete]
-        [Route("removeUserFromGroup/{tenant}", Name = nameof(RemoveUserFromGroup))]
+        [HttpDelete("{groupId}/users", Name = nameof(RemoveUserFromGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> RemoveUserFromGroup([FromRoute] string tenant, [FromBody] RemoveUserFromGroupRequest removeUserFromGroup, CancellationToken cancellationToken)
+        public async Task<IActionResult> RemoveUserFromGroup([FromRoute] string tenant, [FromRoute] Guid groupId, [FromBody] RemoveUserFromGroupRequest removeUserFromGroup, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new RemoveUserFromGroupCommand(tenant, removeUserFromGroup.UserId, removeUserFromGroup.GroupId), cancellationToken);
+            var result = await _mediator.Send(new RemoveUserFromGroupCommand(tenant, removeUserFromGroup.UserId, groupId), cancellationToken);
 
             if (result.IsSuccess)
             {
-                return Accepted();
+                return NoContent();
             }
 
             var responseError = Result<string>.Failure(result.Error);

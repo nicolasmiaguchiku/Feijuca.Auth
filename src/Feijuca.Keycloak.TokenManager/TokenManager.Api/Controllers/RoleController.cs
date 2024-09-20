@@ -1,7 +1,5 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Attributes;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TokenManager.Application.Commands.Role;
@@ -11,7 +9,7 @@ using TokenManager.Common.Models;
 
 namespace TokenManager.Api.Controllers
 {
-    [Route("api/v1")]
+    [Route("api/v1/auth")]
     [ApiController]
     [Authorize]
     public class RoleController(IMediator mediator) : ControllerBase
@@ -21,10 +19,9 @@ namespace TokenManager.Api.Controllers
         /// <summary>
         /// Get all roles available in all clients.
         /// </summary>
-        /// <returns>A status code related to the operation.</returns>
         [HttpGet]
-        [Route("getRoles/{tenant}", Name = nameof(GetRoles))]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [Route("{tenant}/roles", Name = nameof(GetRoles))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
@@ -37,16 +34,14 @@ namespace TokenManager.Api.Controllers
                 return Ok(result.Data);
             }
 
-            var responseError = Result<string>.Failure(result.Error);
-            return BadRequest(responseError);
+            return BadRequest(Result<string>.Failure(result.Error));
         }
 
         /// <summary>
         /// Add a new role to a client.
         /// </summary>
-        /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("addRole/{tenant}", Name = nameof(AddRole))]
+        [Route("{tenant}/roles", Name = nameof(AddRole))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -57,11 +52,10 @@ namespace TokenManager.Api.Controllers
 
             if (result.IsSuccess)
             {
-                return Ok(result.Data);
+                return CreatedAtRoute(nameof(GetRoles), new { tenant }, result.Data); // Retorna 201 Created
             }
 
-            var responseError = Result<string>.Failure(result.Error);
-            return BadRequest(responseError);
+            return BadRequest(Result<string>.Failure(result.Error));
         }
     }
 }

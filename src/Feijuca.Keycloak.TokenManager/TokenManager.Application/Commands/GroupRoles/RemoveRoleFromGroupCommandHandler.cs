@@ -14,7 +14,7 @@ public class RemoveRoleFromGroupCommandHandler(IGroupRepository groupRepository,
     public async Task<Result<bool>> Handle(RemoveRoleFromGroupCommand command, CancellationToken cancellationToken)
     {
         var groupsResult = await _groupRepository.GetAllAsync(command.Tenant);
-        if (groupsResult.IsSuccess && groupsResult.Data.Any(x => x.Id == command.RemoveRoleFromGroupRequest.GroupId))
+        if (groupsResult.IsSuccess && groupsResult.Data.Any(x => x.Id == command.GroupId))
         {
             var rolesResult = await _roleRepository.GetRolesForClientAsync(command.Tenant, command.RemoveRoleFromGroupRequest.ClientId);
             var existingRule = rolesResult.Data.FirstOrDefault(x => x.Id == command.RemoveRoleFromGroupRequest.RoleId);
@@ -22,7 +22,7 @@ public class RemoveRoleFromGroupCommandHandler(IGroupRepository groupRepository,
             {
                 await _roleGroupRepository.RemoveRoleFromGroupAsync(command.Tenant,
                     command.RemoveRoleFromGroupRequest.ClientId,
-                    command.RemoveRoleFromGroupRequest.GroupId,
+                    command.GroupId,
                     existingRule.Id,
                     existingRule.Name);
 

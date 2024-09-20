@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TokenManager.Application.Commands.Group;
 using TokenManager.Application.Queries.Groups;
-using TokenManager.Application.Requests.Group;
 using TokenManager.Application.Requests.User;
 using TokenManager.Common.Models;
 
@@ -18,11 +17,11 @@ namespace TokenManager.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         /// <summary>
-        /// Get all groups existing on the keycloak realm.
+        /// Get all groups existing on the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpGet]
-        [Route("getGroups/{tenant}", Name = nameof(GetGroups))]
+        [Route("groups/{tenant}", Name = nameof(GetGroups))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -41,18 +40,18 @@ namespace TokenManager.Api.Controllers
         }
 
         /// <summary>
-        /// Delete an existing group on the keycloak realm.
+        /// Delete an existing group on the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpDelete]
-        [Route("deleteGroup/{tenant}", Name = nameof(DeleteGroup))]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [Route("groups/{tenant}/{groupId}", Name = nameof(DeleteGroup))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> DeleteGroup([FromRoute] string tenant, [FromBody] DeleteGroupRequest deleteGroupRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteGroup([FromRoute] string tenant, [FromRoute] Guid groupId, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new DeleteGroupCommand(tenant, deleteGroupRequest.Id), cancellationToken);
+            var result = await _mediator.Send(new DeleteGroupCommand(tenant, groupId), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -63,12 +62,8 @@ namespace TokenManager.Api.Controllers
             return BadRequest(responseError);
         }
 
-        /// <summary>
-        /// Add a new group on the keycloak realm.
-        /// </summary>
-        /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("createGroup/{tenant}", Name = nameof(CreateGroup))]
+        [Route("groups/{tenant}", Name = nameof(CreateGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -76,7 +71,7 @@ namespace TokenManager.Api.Controllers
         public async Task<IActionResult> CreateGroup([FromRoute] string tenant, [FromBody] AddGroupRequest addGroupRequest, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new CreateGroupCommand(tenant, addGroupRequest), cancellationToken);
-            
+
             if (result.IsSuccess)
             {
                 var response = Result<string>.Success("Group created successfully");

@@ -18,7 +18,7 @@ public class AddRoleToGroupCommandHandler(IGroupRepository groupRepository, IGro
 
         if (groupsResult.IsSuccess && rolesResult.IsSuccess)
         {
-            var group = groupsResult.Data.FirstOrDefault(x => x.Id == request.AddRoleToGroupRequest.GroupId);
+            var group = groupsResult.Data.FirstOrDefault(x => x.Id == request.GroupId);
             var role = rolesResult.Data.FirstOrDefault(x => x.Id == request.AddRoleToGroupRequest.RoleId);
 
             if (group != null && role != null)
