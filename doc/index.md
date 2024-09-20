@@ -16,8 +16,8 @@ Feijuca is a nickname for a famous Brazilian dish called [Feijoada](https://thec
 
 ## **About the project: 🧾**
 This repository aims to provide a configuration option for .NET projects that are using or planning to use Keycloak for authentication and authorization. The project consists of two distinct parts:
-1. **Feijuca.Keycloak.Auth.MultiTenancy**
-2. **Feijuca.Keycloak.TokenManager**
+1. [**Feijuca.Keycloak.Auth.MultiTenancy**](docs/FeijucaKeycloakAuthMultiTenancy.html)
+2. [**Feijuca.Keycloak.TokenManager**](docs/FeijucaKeycloakTokenManager.html)
 
 
 **Attention: 🫵**

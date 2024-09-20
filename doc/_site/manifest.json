@@ -11,6 +11,26 @@
       }
     },
     {
+      "type": "Resource",
+      "source_relative_path": "Images/sky.png",
+      "output": {
+        "resource": {
+          "relative_path": "Images/sky.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Images/sky.svg",
+      "output": {
+        "resource": {
+          "relative_path": "Images/sky.svg"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "ManagedReference",
       "source_relative_path": "api/TokenManager.Api.Controllers.ClientController.yml",
       "output": {
@@ -192,6 +212,26 @@
       "output": {
         ".html": {
           "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "sky.svg",
+      "output": {
+        "resource": {
+          "relative_path": "sky.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "styles/main.css",
+      "output": {
+        "resource": {
+          "relative_path": "styles/main.css"
         }
       },
       "version": ""
