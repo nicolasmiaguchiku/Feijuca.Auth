@@ -26,9 +26,7 @@
     "resource": [
       {
         "files": [
-          "images/**",
-          "styles/*.css",
-          "sky.svg"
+          "images/**"
         ]
       }
     ],
@@ -40,12 +38,8 @@
     "globalMetadata": {
       "_appName": "Feijuca.Keycloak",
       "_appTitle": "Feijuca.Keycloak",
-      "_appLogoPath": "images/sky.svg",
       "_enableSearch": true,
       "pdf": true
     }
-  },
-  "styles":[
-      "styles/main.css"
-    ]
+  }
 }
