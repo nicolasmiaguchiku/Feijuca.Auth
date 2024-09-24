@@ -1,4 +1,19 @@
-- name: Introduction
-  href: introduction.md
-- name: Getting Started
-  href: getting-started.md
+- name: Feijuca.Keycloak.Auth.MultiTenancy
+  href: FeijucaKeycloakAuthMultiTenancy.md
+  items:
+    - name: Configuring application
+      href: configuringApplicationMultiTenancy.md
+    - name: Configuring keycloak
+      href: configuringKeycloak.md
+    
+- name: Feijuca.Keycloak.TokenManager
+  href: feijucaKeycloakTokenManager.md
+  items:
+    - name: Configuring Application
+      href: configuringApplicationTokenManager.md
+    - name: Using Endpoints
+      href: usingEndpoints.md
+    - name: Creating Users
+      href: creatingUsers.md
+    - name: Deleting Users
+      href: deletingUsers.md

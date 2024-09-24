@@ -1,31 +1,29 @@
 ### YamlMime:ManagedReference
 items:
-- uid: TokenManager.Api.Controllers.UserController
-  commentId: T:TokenManager.Api.Controllers.UserController
-  id: UserController
+- uid: TokenManager.Api.Controllers.GroupController
+  commentId: T:TokenManager.Api.Controllers.GroupController
+  id: GroupController
   parent: TokenManager.Api.Controllers
   children:
-  - TokenManager.Api.Controllers.UserController.#ctor(MediatR.IMediator)
-  - TokenManager.Api.Controllers.UserController.Create(System.String,TokenManager.Application.Requests.User.AddUserRequest,System.Threading.CancellationToken)
-  - TokenManager.Api.Controllers.UserController.Delete(System.String,System.Guid,System.Threading.CancellationToken)
-  - TokenManager.Api.Controllers.UserController.GetUsers(System.String,System.Threading.CancellationToken)
-  - TokenManager.Api.Controllers.UserController.Login(System.String,TokenManager.Application.Requests.User.LoginUserRequest,System.Threading.CancellationToken)
-  - TokenManager.Api.Controllers.UserController.RefreshToken(System.String,TokenManager.Application.Requests.User.RefreshTokenRequest,System.Threading.CancellationToken)
+  - TokenManager.Api.Controllers.GroupController.#ctor(MediatR.IMediator)
+  - TokenManager.Api.Controllers.GroupController.CreateGroup(System.String,TokenManager.Application.Requests.User.AddGroupRequest,System.Threading.CancellationToken)
+  - TokenManager.Api.Controllers.GroupController.DeleteGroup(System.String,System.Guid,System.Threading.CancellationToken)
+  - TokenManager.Api.Controllers.GroupController.GetGroups(System.String,System.Threading.CancellationToken)
   langs:
   - csharp
   - vb
-  name: UserController
-  nameWithType: UserController
-  fullName: TokenManager.Api.Controllers.UserController
+  name: GroupController
+  nameWithType: GroupController
+  fullName: TokenManager.Api.Controllers.GroupController
   type: Class
   source:
     remote:
-      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
+      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs
       branch: feat-Moving_Documentation
       repo: https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices.git
-    id: UserController
-    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
-    startLine: 15
+    id: GroupController
+    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs
+    startLine: 12
   assemblies:
   - TokenManager.Api
   namespace: TokenManager.Api.Controllers
@@ -35,13 +33,17 @@ items:
 
       [ApiController]
 
-      public class UserController : ControllerBase
+      [Authorize]
+
+      public class GroupController : ControllerBase
     content.vb: >-
       <Route("api/v1")>
 
       <ApiController>
 
-      Public Class UserController Inherits ControllerBase
+      <Authorize>
+
+      Public Class GroupController Inherits ControllerBase
   inheritance:
   - System.Object
   - Microsoft.AspNetCore.Mvc.ControllerBase
@@ -235,67 +237,70 @@ items:
   - type: Microsoft.AspNetCore.Mvc.ApiControllerAttribute
     ctor: Microsoft.AspNetCore.Mvc.ApiControllerAttribute.#ctor
     arguments: []
-- uid: TokenManager.Api.Controllers.UserController.#ctor(MediatR.IMediator)
-  commentId: M:TokenManager.Api.Controllers.UserController.#ctor(MediatR.IMediator)
+  - type: Microsoft.AspNetCore.Authorization.AuthorizeAttribute
+    ctor: Microsoft.AspNetCore.Authorization.AuthorizeAttribute.#ctor
+    arguments: []
+- uid: TokenManager.Api.Controllers.GroupController.#ctor(MediatR.IMediator)
+  commentId: M:TokenManager.Api.Controllers.GroupController.#ctor(MediatR.IMediator)
   id: '#ctor(MediatR.IMediator)'
-  parent: TokenManager.Api.Controllers.UserController
+  parent: TokenManager.Api.Controllers.GroupController
   langs:
   - csharp
   - vb
-  name: UserController(IMediator)
-  nameWithType: UserController.UserController(IMediator)
-  fullName: TokenManager.Api.Controllers.UserController.UserController(MediatR.IMediator)
+  name: GroupController(IMediator)
+  nameWithType: GroupController.GroupController(IMediator)
+  fullName: TokenManager.Api.Controllers.GroupController.GroupController(MediatR.IMediator)
   type: Constructor
   source:
     remote:
-      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
+      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs
       branch: feat-Moving_Documentation
       repo: https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices.git
     id: .ctor
-    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
-    startLine: 15
+    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs
+    startLine: 12
   assemblies:
   - TokenManager.Api
   namespace: TokenManager.Api.Controllers
   syntax:
-    content: public UserController(IMediator mediator)
+    content: public GroupController(IMediator mediator)
     parameters:
     - id: mediator
       type: MediatR.IMediator
     content.vb: Public Sub New(mediator As IMediator)
-  overload: TokenManager.Api.Controllers.UserController.#ctor*
-  nameWithType.vb: UserController.New(IMediator)
-  fullName.vb: TokenManager.Api.Controllers.UserController.New(MediatR.IMediator)
+  overload: TokenManager.Api.Controllers.GroupController.#ctor*
+  nameWithType.vb: GroupController.New(IMediator)
+  fullName.vb: TokenManager.Api.Controllers.GroupController.New(MediatR.IMediator)
   name.vb: New(IMediator)
-- uid: TokenManager.Api.Controllers.UserController.GetUsers(System.String,System.Threading.CancellationToken)
-  commentId: M:TokenManager.Api.Controllers.UserController.GetUsers(System.String,System.Threading.CancellationToken)
-  id: GetUsers(System.String,System.Threading.CancellationToken)
-  parent: TokenManager.Api.Controllers.UserController
+- uid: TokenManager.Api.Controllers.GroupController.GetGroups(System.String,System.Threading.CancellationToken)
+  commentId: M:TokenManager.Api.Controllers.GroupController.GetGroups(System.String,System.Threading.CancellationToken)
+  id: GetGroups(System.String,System.Threading.CancellationToken)
+  parent: TokenManager.Api.Controllers.GroupController
   langs:
   - csharp
   - vb
-  name: GetUsers(string, CancellationToken)
-  nameWithType: UserController.GetUsers(string, CancellationToken)
-  fullName: TokenManager.Api.Controllers.UserController.GetUsers(string, System.Threading.CancellationToken)
+  name: GetGroups(string, CancellationToken)
+  nameWithType: GroupController.GetGroups(string, CancellationToken)
+  fullName: TokenManager.Api.Controllers.GroupController.GetGroups(string, System.Threading.CancellationToken)
   type: Method
   source:
     remote:
-      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
+      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs
       branch: feat-Moving_Documentation
       repo: https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices.git
-    id: GetUsers
-    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
-    startLine: 25
+    id: GetGroups
+    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs
+    startLine: 23
   assemblies:
   - TokenManager.Api
   namespace: TokenManager.Api.Controllers
-  summary: Get all users existing on the Keycloak realm.
+  summary: Get all groups existing on the keycloak realm.
   example: []
   syntax:
     content: >-
       [HttpGet]
 
-      [Route("getUsers/{tenant}", Name = "GetUsers")]
+      [Route("getGroups/{tenant}", Name = "GetGroups")]
 
       [ProducesResponseType(200)]
 
@@ -303,9 +308,9 @@ items:
 
       [ProducesResponseType(400)]
 
-      [Authorize]
+      [RequiredRole("Feijuca.ApiReader")]
 
-      public Task<IActionResult> GetUsers(string tenant, CancellationToken cancellationToken)
+      public Task<IActionResult> GetGroups(string tenant, CancellationToken cancellationToken)
     parameters:
     - id: tenant
       type: System.String
@@ -321,7 +326,7 @@ items:
     content.vb: >-
       <HttpGet>
 
-      <Route("getUsers/{tenant}", Name:="GetUsers")>
+      <Route("getGroups/{tenant}", Name:="GetGroups")>
 
       <ProducesResponseType(200)>
 
@@ -329,10 +334,10 @@ items:
 
       <ProducesResponseType(400)>
 
-      <Authorize>
+      <RequiredRole("Feijuca.ApiReader")>
 
-      Public Function GetUsers(tenant As String, cancellationToken As CancellationToken) As Task(Of IActionResult)
-  overload: TokenManager.Api.Controllers.UserController.GetUsers*
+      Public Function GetGroups(tenant As String, cancellationToken As CancellationToken) As Task(Of IActionResult)
+  overload: TokenManager.Api.Controllers.GroupController.GetGroups*
   attributes:
   - type: Microsoft.AspNetCore.Mvc.HttpGetAttribute
     ctor: Microsoft.AspNetCore.Mvc.HttpGetAttribute.#ctor
@@ -341,11 +346,11 @@ items:
     ctor: Microsoft.AspNetCore.Mvc.RouteAttribute.#ctor(System.String)
     arguments:
     - type: System.String
-      value: getUsers/{tenant}
+      value: getGroups/{tenant}
     namedArguments:
     - name: Name
       type: System.String
-      value: GetUsers
+      value: GetGroups
   - type: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute
     ctor: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute.#ctor(System.Int32)
     arguments:
@@ -361,41 +366,43 @@ items:
     arguments:
     - type: System.Int32
       value: 400
-  - type: Microsoft.AspNetCore.Authorization.AuthorizeAttribute
-    ctor: Microsoft.AspNetCore.Authorization.AuthorizeAttribute.#ctor
-    arguments: []
-  nameWithType.vb: UserController.GetUsers(String, CancellationToken)
-  fullName.vb: TokenManager.Api.Controllers.UserController.GetUsers(String, System.Threading.CancellationToken)
-  name.vb: GetUsers(String, CancellationToken)
-- uid: TokenManager.Api.Controllers.UserController.Create(System.String,TokenManager.Application.Requests.User.AddUserRequest,System.Threading.CancellationToken)
-  commentId: M:TokenManager.Api.Controllers.UserController.Create(System.String,TokenManager.Application.Requests.User.AddUserRequest,System.Threading.CancellationToken)
-  id: Create(System.String,TokenManager.Application.Requests.User.AddUserRequest,System.Threading.CancellationToken)
-  parent: TokenManager.Api.Controllers.UserController
+  - type: Feijuca.Keycloak.MultiTenancy.Attributes.RequiredRoleAttribute
+    ctor: Feijuca.Keycloak.MultiTenancy.Attributes.RequiredRoleAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Feijuca.ApiReader
+  nameWithType.vb: GroupController.GetGroups(String, CancellationToken)
+  fullName.vb: TokenManager.Api.Controllers.GroupController.GetGroups(String, System.Threading.CancellationToken)
+  name.vb: GetGroups(String, CancellationToken)
+- uid: TokenManager.Api.Controllers.GroupController.DeleteGroup(System.String,System.Guid,System.Threading.CancellationToken)
+  commentId: M:TokenManager.Api.Controllers.GroupController.DeleteGroup(System.String,System.Guid,System.Threading.CancellationToken)
+  id: DeleteGroup(System.String,System.Guid,System.Threading.CancellationToken)
+  parent: TokenManager.Api.Controllers.GroupController
   langs:
   - csharp
   - vb
-  name: Create(string, AddUserRequest, CancellationToken)
-  nameWithType: UserController.Create(string, AddUserRequest, CancellationToken)
-  fullName: TokenManager.Api.Controllers.UserController.Create(string, TokenManager.Application.Requests.User.AddUserRequest, System.Threading.CancellationToken)
+  name: DeleteGroup(string, Guid, CancellationToken)
+  nameWithType: GroupController.DeleteGroup(string, Guid, CancellationToken)
+  fullName: TokenManager.Api.Controllers.GroupController.DeleteGroup(string, System.Guid, System.Threading.CancellationToken)
   type: Method
   source:
     remote:
-      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
+      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs
       branch: feat-Moving_Documentation
       repo: https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices.git
-    id: Create
-    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
-    startLine: 48
+    id: DeleteGroup
+    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs
+    startLine: 46
   assemblies:
   - TokenManager.Api
   namespace: TokenManager.Api.Controllers
-  summary: Add a new user on the Keycloak realm.
+  summary: Delete an existing group on the keycloak realm.
   example: []
   syntax:
     content: >-
-      [HttpPost]
+      [HttpDelete]
 
-      [Route("createUser/{tenant}", Name = "Create")]
+      [Route("deleteGroup/{tenant}/{id:guid}", Name = "DeleteGroup")]
 
       [ProducesResponseType(201)]
 
@@ -405,124 +412,7 @@ items:
 
       [RequiredRole("Feijuca.ApiWriter")]
 
-      [Authorize]
-
-      public Task<IActionResult> Create(string tenant, AddUserRequest addUserRequest, CancellationToken cancellationToken)
-    parameters:
-    - id: tenant
-      type: System.String
-      attributes:
-      - type: Microsoft.AspNetCore.Mvc.FromRouteAttribute
-        ctor: Microsoft.AspNetCore.Mvc.FromRouteAttribute.#ctor
-        arguments: []
-    - id: addUserRequest
-      type: TokenManager.Application.Requests.User.AddUserRequest
-      attributes:
-      - type: Microsoft.AspNetCore.Mvc.FromBodyAttribute
-        ctor: Microsoft.AspNetCore.Mvc.FromBodyAttribute.#ctor
-        arguments: []
-    - id: cancellationToken
-      type: System.Threading.CancellationToken
-    return:
-      type: System.Threading.Tasks.Task{Microsoft.AspNetCore.Mvc.IActionResult}
-      description: A status code related to the operation.
-    content.vb: >-
-      <HttpPost>
-
-      <Route("createUser/{tenant}", Name:="Create")>
-
-      <ProducesResponseType(201)>
-
-      <ProducesResponseType(500)>
-
-      <ProducesResponseType(400)>
-
-      <RequiredRole("Feijuca.ApiWriter")>
-
-      <Authorize>
-
-      Public Function Create(tenant As String, addUserRequest As AddUserRequest, cancellationToken As CancellationToken) As Task(Of IActionResult)
-  overload: TokenManager.Api.Controllers.UserController.Create*
-  attributes:
-  - type: Microsoft.AspNetCore.Mvc.HttpPostAttribute
-    ctor: Microsoft.AspNetCore.Mvc.HttpPostAttribute.#ctor
-    arguments: []
-  - type: Microsoft.AspNetCore.Mvc.RouteAttribute
-    ctor: Microsoft.AspNetCore.Mvc.RouteAttribute.#ctor(System.String)
-    arguments:
-    - type: System.String
-      value: createUser/{tenant}
-    namedArguments:
-    - name: Name
-      type: System.String
-      value: Create
-  - type: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute
-    ctor: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute.#ctor(System.Int32)
-    arguments:
-    - type: System.Int32
-      value: 201
-  - type: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute
-    ctor: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute.#ctor(System.Int32)
-    arguments:
-    - type: System.Int32
-      value: 500
-  - type: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute
-    ctor: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute.#ctor(System.Int32)
-    arguments:
-    - type: System.Int32
-      value: 400
-  - type: Feijuca.Keycloak.MultiTenancy.Attributes.RequiredRoleAttribute
-    ctor: Feijuca.Keycloak.MultiTenancy.Attributes.RequiredRoleAttribute.#ctor(System.String)
-    arguments:
-    - type: System.String
-      value: Feijuca.ApiWriter
-  - type: Microsoft.AspNetCore.Authorization.AuthorizeAttribute
-    ctor: Microsoft.AspNetCore.Authorization.AuthorizeAttribute.#ctor
-    arguments: []
-  nameWithType.vb: UserController.Create(String, AddUserRequest, CancellationToken)
-  fullName.vb: TokenManager.Api.Controllers.UserController.Create(String, TokenManager.Application.Requests.User.AddUserRequest, System.Threading.CancellationToken)
-  name.vb: Create(String, AddUserRequest, CancellationToken)
-- uid: TokenManager.Api.Controllers.UserController.Delete(System.String,System.Guid,System.Threading.CancellationToken)
-  commentId: M:TokenManager.Api.Controllers.UserController.Delete(System.String,System.Guid,System.Threading.CancellationToken)
-  id: Delete(System.String,System.Guid,System.Threading.CancellationToken)
-  parent: TokenManager.Api.Controllers.UserController
-  langs:
-  - csharp
-  - vb
-  name: Delete(string, Guid, CancellationToken)
-  nameWithType: UserController.Delete(string, Guid, CancellationToken)
-  fullName: TokenManager.Api.Controllers.UserController.Delete(string, System.Guid, System.Threading.CancellationToken)
-  type: Method
-  source:
-    remote:
-      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
-      branch: feat-Moving_Documentation
-      repo: https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices.git
-    id: Delete
-    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
-    startLine: 73
-  assemblies:
-  - TokenManager.Api
-  namespace: TokenManager.Api.Controllers
-  summary: DeleteGroup an existing user on the Keycloak realm.
-  example: []
-  syntax:
-    content: >-
-      [HttpDelete]
-
-      [Route("deleteUser/{tenant}/{id:guid}", Name = "Delete")]
-
-      [ProducesResponseType(204)]
-
-      [ProducesResponseType(500)]
-
-      [ProducesResponseType(400)]
-
-      [RequiredRole("Feijuca.ApiWriter")]
-
-      [Authorize]
-
-      public Task<IActionResult> Delete(string tenant, Guid id, CancellationToken cancellationToken)
+      public Task<IActionResult> DeleteGroup(string tenant, Guid id, CancellationToken cancellationToken)
     parameters:
     - id: tenant
       type: System.String
@@ -544,9 +434,9 @@ items:
     content.vb: >-
       <HttpDelete>
 
-      <Route("deleteUser/{tenant}/{id:guid}", Name:="Delete")>
+      <Route("deleteGroup/{tenant}/{id:guid}", Name:="DeleteGroup")>
 
-      <ProducesResponseType(204)>
+      <ProducesResponseType(201)>
 
       <ProducesResponseType(500)>
 
@@ -554,10 +444,8 @@ items:
 
       <RequiredRole("Feijuca.ApiWriter")>
 
-      <Authorize>
-
-      Public Function Delete(tenant As String, id As Guid, cancellationToken As CancellationToken) As Task(Of IActionResult)
-  overload: TokenManager.Api.Controllers.UserController.Delete*
+      Public Function DeleteGroup(tenant As String, id As Guid, cancellationToken As CancellationToken) As Task(Of IActionResult)
+  overload: TokenManager.Api.Controllers.GroupController.DeleteGroup*
   attributes:
   - type: Microsoft.AspNetCore.Mvc.HttpDeleteAttribute
     ctor: Microsoft.AspNetCore.Mvc.HttpDeleteAttribute.#ctor
@@ -566,16 +454,16 @@ items:
     ctor: Microsoft.AspNetCore.Mvc.RouteAttribute.#ctor(System.String)
     arguments:
     - type: System.String
-      value: deleteUser/{tenant}/{id:guid}
+      value: deleteGroup/{tenant}/{id:guid}
     namedArguments:
     - name: Name
       type: System.String
-      value: Delete
+      value: DeleteGroup
   - type: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute
     ctor: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute.#ctor(System.Int32)
     arguments:
     - type: System.Int32
-      value: 204
+      value: 201
   - type: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute
     ctor: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute.#ctor(System.Int32)
     arguments:
@@ -591,142 +479,40 @@ items:
     arguments:
     - type: System.String
       value: Feijuca.ApiWriter
-  - type: Microsoft.AspNetCore.Authorization.AuthorizeAttribute
-    ctor: Microsoft.AspNetCore.Authorization.AuthorizeAttribute.#ctor
-    arguments: []
-  nameWithType.vb: UserController.Delete(String, Guid, CancellationToken)
-  fullName.vb: TokenManager.Api.Controllers.UserController.Delete(String, System.Guid, System.Threading.CancellationToken)
-  name.vb: Delete(String, Guid, CancellationToken)
-- uid: TokenManager.Api.Controllers.UserController.Login(System.String,TokenManager.Application.Requests.User.LoginUserRequest,System.Threading.CancellationToken)
-  commentId: M:TokenManager.Api.Controllers.UserController.Login(System.String,TokenManager.Application.Requests.User.LoginUserRequest,System.Threading.CancellationToken)
-  id: Login(System.String,TokenManager.Application.Requests.User.LoginUserRequest,System.Threading.CancellationToken)
-  parent: TokenManager.Api.Controllers.UserController
+  nameWithType.vb: GroupController.DeleteGroup(String, Guid, CancellationToken)
+  fullName.vb: TokenManager.Api.Controllers.GroupController.DeleteGroup(String, System.Guid, System.Threading.CancellationToken)
+  name.vb: DeleteGroup(String, Guid, CancellationToken)
+- uid: TokenManager.Api.Controllers.GroupController.CreateGroup(System.String,TokenManager.Application.Requests.User.AddGroupRequest,System.Threading.CancellationToken)
+  commentId: M:TokenManager.Api.Controllers.GroupController.CreateGroup(System.String,TokenManager.Application.Requests.User.AddGroupRequest,System.Threading.CancellationToken)
+  id: CreateGroup(System.String,TokenManager.Application.Requests.User.AddGroupRequest,System.Threading.CancellationToken)
+  parent: TokenManager.Api.Controllers.GroupController
   langs:
   - csharp
   - vb
-  name: Login(string, LoginUserRequest, CancellationToken)
-  nameWithType: UserController.Login(string, LoginUserRequest, CancellationToken)
-  fullName: TokenManager.Api.Controllers.UserController.Login(string, TokenManager.Application.Requests.User.LoginUserRequest, System.Threading.CancellationToken)
+  name: CreateGroup(string, AddGroupRequest, CancellationToken)
+  nameWithType: GroupController.CreateGroup(string, AddGroupRequest, CancellationToken)
+  fullName: TokenManager.Api.Controllers.GroupController.CreateGroup(string, TokenManager.Application.Requests.User.AddGroupRequest, System.Threading.CancellationToken)
   type: Method
   source:
     remote:
-      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
+      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs
       branch: feat-Moving_Documentation
       repo: https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices.git
-    id: Login
-    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
-    startLine: 97
+    id: CreateGroup
+    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/GroupController.cs
+    startLine: 69
   assemblies:
   - TokenManager.Api
   namespace: TokenManager.Api.Controllers
-  summary: Return a valid JWT token and details about them.
+  summary: Add a new group on the keycloak realm.
   example: []
   syntax:
     content: >-
       [HttpPost]
 
-      [Route("login/{tenant}", Name = "Login")]
+      [Route("createGroup/{tenant}", Name = "CreateGroup")]
 
-      [ProducesResponseType(200)]
-
-      [ProducesResponseType(500)]
-
-      [ProducesResponseType(400)]
-
-      public Task<IActionResult> Login(string tenant, LoginUserRequest loginUserRequest, CancellationToken cancellationToken)
-    parameters:
-    - id: tenant
-      type: System.String
-      attributes:
-      - type: Microsoft.AspNetCore.Mvc.FromRouteAttribute
-        ctor: Microsoft.AspNetCore.Mvc.FromRouteAttribute.#ctor
-        arguments: []
-    - id: loginUserRequest
-      type: TokenManager.Application.Requests.User.LoginUserRequest
-      attributes:
-      - type: Microsoft.AspNetCore.Mvc.FromBodyAttribute
-        ctor: Microsoft.AspNetCore.Mvc.FromBodyAttribute.#ctor
-        arguments: []
-    - id: cancellationToken
-      type: System.Threading.CancellationToken
-    return:
-      type: System.Threading.Tasks.Task{Microsoft.AspNetCore.Mvc.IActionResult}
-      description: A status code related to the operation.
-    content.vb: >-
-      <HttpPost>
-
-      <Route("login/{tenant}", Name:="Login")>
-
-      <ProducesResponseType(200)>
-
-      <ProducesResponseType(500)>
-
-      <ProducesResponseType(400)>
-
-      Public Function Login(tenant As String, loginUserRequest As LoginUserRequest, cancellationToken As CancellationToken) As Task(Of IActionResult)
-  overload: TokenManager.Api.Controllers.UserController.Login*
-  attributes:
-  - type: Microsoft.AspNetCore.Mvc.HttpPostAttribute
-    ctor: Microsoft.AspNetCore.Mvc.HttpPostAttribute.#ctor
-    arguments: []
-  - type: Microsoft.AspNetCore.Mvc.RouteAttribute
-    ctor: Microsoft.AspNetCore.Mvc.RouteAttribute.#ctor(System.String)
-    arguments:
-    - type: System.String
-      value: login/{tenant}
-    namedArguments:
-    - name: Name
-      type: System.String
-      value: Login
-  - type: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute
-    ctor: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute.#ctor(System.Int32)
-    arguments:
-    - type: System.Int32
-      value: 200
-  - type: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute
-    ctor: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute.#ctor(System.Int32)
-    arguments:
-    - type: System.Int32
-      value: 500
-  - type: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute
-    ctor: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute.#ctor(System.Int32)
-    arguments:
-    - type: System.Int32
-      value: 400
-  nameWithType.vb: UserController.Login(String, LoginUserRequest, CancellationToken)
-  fullName.vb: TokenManager.Api.Controllers.UserController.Login(String, TokenManager.Application.Requests.User.LoginUserRequest, System.Threading.CancellationToken)
-  name.vb: Login(String, LoginUserRequest, CancellationToken)
-- uid: TokenManager.Api.Controllers.UserController.RefreshToken(System.String,TokenManager.Application.Requests.User.RefreshTokenRequest,System.Threading.CancellationToken)
-  commentId: M:TokenManager.Api.Controllers.UserController.RefreshToken(System.String,TokenManager.Application.Requests.User.RefreshTokenRequest,System.Threading.CancellationToken)
-  id: RefreshToken(System.String,TokenManager.Application.Requests.User.RefreshTokenRequest,System.Threading.CancellationToken)
-  parent: TokenManager.Api.Controllers.UserController
-  langs:
-  - csharp
-  - vb
-  name: RefreshToken(string, RefreshTokenRequest, CancellationToken)
-  nameWithType: UserController.RefreshToken(string, RefreshTokenRequest, CancellationToken)
-  fullName: TokenManager.Api.Controllers.UserController.RefreshToken(string, TokenManager.Application.Requests.User.RefreshTokenRequest, System.Threading.CancellationToken)
-  type: Method
-  source:
-    remote:
-      path: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
-      branch: feat-Moving_Documentation
-      repo: https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices.git
-    id: RefreshToken
-    path: ../src/Feijuca.Keycloak.TokenManager/TokenManager.Api/Controllers/UserController.cs
-    startLine: 120
-  assemblies:
-  - TokenManager.Api
-  namespace: TokenManager.Api.Controllers
-  summary: Return a valid JWT token and details about them refreshed.
-  example: []
-  syntax:
-    content: >-
-      [HttpPost]
-
-      [Route("refreshToken/{tenant}", Name = "RefreshToken")]
-
-      [ProducesResponseType(200)]
+      [ProducesResponseType(201)]
 
       [ProducesResponseType(500)]
 
@@ -734,9 +520,7 @@ items:
 
       [RequiredRole("Feijuca.ApiWriter")]
 
-      [Authorize]
-
-      public Task<IActionResult> RefreshToken(string tenant, RefreshTokenRequest request, CancellationToken cancellationToken)
+      public Task<IActionResult> CreateGroup(string tenant, AddGroupRequest addGroupRequest, CancellationToken cancellationToken)
     parameters:
     - id: tenant
       type: System.String
@@ -744,8 +528,8 @@ items:
       - type: Microsoft.AspNetCore.Mvc.FromRouteAttribute
         ctor: Microsoft.AspNetCore.Mvc.FromRouteAttribute.#ctor
         arguments: []
-    - id: request
-      type: TokenManager.Application.Requests.User.RefreshTokenRequest
+    - id: addGroupRequest
+      type: TokenManager.Application.Requests.User.AddGroupRequest
       attributes:
       - type: Microsoft.AspNetCore.Mvc.FromBodyAttribute
         ctor: Microsoft.AspNetCore.Mvc.FromBodyAttribute.#ctor
@@ -758,9 +542,9 @@ items:
     content.vb: >-
       <HttpPost>
 
-      <Route("refreshToken/{tenant}", Name:="RefreshToken")>
+      <Route("createGroup/{tenant}", Name:="CreateGroup")>
 
-      <ProducesResponseType(200)>
+      <ProducesResponseType(201)>
 
       <ProducesResponseType(500)>
 
@@ -768,10 +552,8 @@ items:
 
       <RequiredRole("Feijuca.ApiWriter")>
 
-      <Authorize>
-
-      Public Function RefreshToken(tenant As String, request As RefreshTokenRequest, cancellationToken As CancellationToken) As Task(Of IActionResult)
-  overload: TokenManager.Api.Controllers.UserController.RefreshToken*
+      Public Function CreateGroup(tenant As String, addGroupRequest As AddGroupRequest, cancellationToken As CancellationToken) As Task(Of IActionResult)
+  overload: TokenManager.Api.Controllers.GroupController.CreateGroup*
   attributes:
   - type: Microsoft.AspNetCore.Mvc.HttpPostAttribute
     ctor: Microsoft.AspNetCore.Mvc.HttpPostAttribute.#ctor
@@ -780,16 +562,16 @@ items:
     ctor: Microsoft.AspNetCore.Mvc.RouteAttribute.#ctor(System.String)
     arguments:
     - type: System.String
-      value: refreshToken/{tenant}
+      value: createGroup/{tenant}
     namedArguments:
     - name: Name
       type: System.String
-      value: RefreshToken
+      value: CreateGroup
   - type: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute
     ctor: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute.#ctor(System.Int32)
     arguments:
     - type: System.Int32
-      value: 200
+      value: 201
   - type: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute
     ctor: Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute.#ctor(System.Int32)
     arguments:
@@ -805,12 +587,9 @@ items:
     arguments:
     - type: System.String
       value: Feijuca.ApiWriter
-  - type: Microsoft.AspNetCore.Authorization.AuthorizeAttribute
-    ctor: Microsoft.AspNetCore.Authorization.AuthorizeAttribute.#ctor
-    arguments: []
-  nameWithType.vb: UserController.RefreshToken(String, RefreshTokenRequest, CancellationToken)
-  fullName.vb: TokenManager.Api.Controllers.UserController.RefreshToken(String, TokenManager.Application.Requests.User.RefreshTokenRequest, System.Threading.CancellationToken)
-  name.vb: RefreshToken(String, RefreshTokenRequest, CancellationToken)
+  nameWithType.vb: GroupController.CreateGroup(String, AddGroupRequest, CancellationToken)
+  fullName.vb: TokenManager.Api.Controllers.GroupController.CreateGroup(String, TokenManager.Application.Requests.User.AddGroupRequest, System.Threading.CancellationToken)
+  name.vb: CreateGroup(String, AddGroupRequest, CancellationToken)
 references:
 - uid: TokenManager.Api.Controllers
   commentId: N:TokenManager.Api.Controllers
@@ -9807,14 +9586,14 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
   - name: )
-- uid: TokenManager.Api.Controllers.UserController.#ctor*
-  commentId: Overload:TokenManager.Api.Controllers.UserController.#ctor
-  href: TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController__ctor_MediatR_IMediator_
-  name: UserController
-  nameWithType: UserController.UserController
-  fullName: TokenManager.Api.Controllers.UserController.UserController
-  nameWithType.vb: UserController.New
-  fullName.vb: TokenManager.Api.Controllers.UserController.New
+- uid: TokenManager.Api.Controllers.GroupController.#ctor*
+  commentId: Overload:TokenManager.Api.Controllers.GroupController.#ctor
+  href: TokenManager.Api.Controllers.GroupController.html#TokenManager_Api_Controllers_GroupController__ctor_MediatR_IMediator_
+  name: GroupController
+  nameWithType: GroupController.GroupController
+  fullName: TokenManager.Api.Controllers.GroupController.GroupController
+  nameWithType.vb: GroupController.New
+  fullName.vb: TokenManager.Api.Controllers.GroupController.New
   name.vb: New
 - uid: MediatR.IMediator
   commentId: T:MediatR.IMediator
@@ -9829,12 +9608,12 @@ references:
   name: MediatR
   nameWithType: MediatR
   fullName: MediatR
-- uid: TokenManager.Api.Controllers.UserController.GetUsers*
-  commentId: Overload:TokenManager.Api.Controllers.UserController.GetUsers
-  href: TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController_GetUsers_System_String_System_Threading_CancellationToken_
-  name: GetUsers
-  nameWithType: UserController.GetUsers
-  fullName: TokenManager.Api.Controllers.UserController.GetUsers
+- uid: TokenManager.Api.Controllers.GroupController.GetGroups*
+  commentId: Overload:TokenManager.Api.Controllers.GroupController.GetGroups
+  href: TokenManager.Api.Controllers.GroupController.html#TokenManager_Api_Controllers_GroupController_GetGroups_System_String_System_Threading_CancellationToken_
+  name: GetGroups
+  nameWithType: GroupController.GetGroups
+  fullName: TokenManager.Api.Controllers.GroupController.GetGroups
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -9981,18 +9760,32 @@ references:
     name: Tasks
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
-- uid: TokenManager.Api.Controllers.UserController.Create*
-  commentId: Overload:TokenManager.Api.Controllers.UserController.Create
-  href: TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController_Create_System_String_TokenManager_Application_Requests_User_AddUserRequest_System_Threading_CancellationToken_
-  name: Create
-  nameWithType: UserController.Create
-  fullName: TokenManager.Api.Controllers.UserController.Create
-- uid: TokenManager.Application.Requests.User.AddUserRequest
-  commentId: T:TokenManager.Application.Requests.User.AddUserRequest
+- uid: TokenManager.Api.Controllers.GroupController.DeleteGroup*
+  commentId: Overload:TokenManager.Api.Controllers.GroupController.DeleteGroup
+  href: TokenManager.Api.Controllers.GroupController.html#TokenManager_Api_Controllers_GroupController_DeleteGroup_System_String_System_Guid_System_Threading_CancellationToken_
+  name: DeleteGroup
+  nameWithType: GroupController.DeleteGroup
+  fullName: TokenManager.Api.Controllers.GroupController.DeleteGroup
+- uid: System.Guid
+  commentId: T:System.Guid
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: Guid
+  nameWithType: Guid
+  fullName: System.Guid
+- uid: TokenManager.Api.Controllers.GroupController.CreateGroup*
+  commentId: Overload:TokenManager.Api.Controllers.GroupController.CreateGroup
+  href: TokenManager.Api.Controllers.GroupController.html#TokenManager_Api_Controllers_GroupController_CreateGroup_System_String_TokenManager_Application_Requests_User_AddGroupRequest_System_Threading_CancellationToken_
+  name: CreateGroup
+  nameWithType: GroupController.CreateGroup
+  fullName: TokenManager.Api.Controllers.GroupController.CreateGroup
+- uid: TokenManager.Application.Requests.User.AddGroupRequest
+  commentId: T:TokenManager.Application.Requests.User.AddGroupRequest
   parent: TokenManager.Application.Requests.User
-  name: AddUserRequest
-  nameWithType: AddUserRequest
-  fullName: TokenManager.Application.Requests.User.AddUserRequest
+  name: AddGroupRequest
+  nameWithType: AddGroupRequest
+  fullName: TokenManager.Application.Requests.User.AddGroupRequest
 - uid: TokenManager.Application.Requests.User
   commentId: N:TokenManager.Application.Requests.User
   name: TokenManager.Application.Requests.User
@@ -10022,41 +9815,3 @@ references:
   - name: .
   - uid: TokenManager.Application.Requests.User
     name: User
-- uid: TokenManager.Api.Controllers.UserController.Delete*
-  commentId: Overload:TokenManager.Api.Controllers.UserController.Delete
-  href: TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController_Delete_System_String_System_Guid_System_Threading_CancellationToken_
-  name: Delete
-  nameWithType: UserController.Delete
-  fullName: TokenManager.Api.Controllers.UserController.Delete
-- uid: System.Guid
-  commentId: T:System.Guid
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.guid
-  name: Guid
-  nameWithType: Guid
-  fullName: System.Guid
-- uid: TokenManager.Api.Controllers.UserController.Login*
-  commentId: Overload:TokenManager.Api.Controllers.UserController.Login
-  href: TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController_Login_System_String_TokenManager_Application_Requests_User_LoginUserRequest_System_Threading_CancellationToken_
-  name: Login
-  nameWithType: UserController.Login
-  fullName: TokenManager.Api.Controllers.UserController.Login
-- uid: TokenManager.Application.Requests.User.LoginUserRequest
-  commentId: T:TokenManager.Application.Requests.User.LoginUserRequest
-  parent: TokenManager.Application.Requests.User
-  name: LoginUserRequest
-  nameWithType: LoginUserRequest
-  fullName: TokenManager.Application.Requests.User.LoginUserRequest
-- uid: TokenManager.Api.Controllers.UserController.RefreshToken*
-  commentId: Overload:TokenManager.Api.Controllers.UserController.RefreshToken
-  href: TokenManager.Api.Controllers.UserController.html#TokenManager_Api_Controllers_UserController_RefreshToken_System_String_TokenManager_Application_Requests_User_RefreshTokenRequest_System_Threading_CancellationToken_
-  name: RefreshToken
-  nameWithType: UserController.RefreshToken
-  fullName: TokenManager.Api.Controllers.UserController.RefreshToken
-- uid: TokenManager.Application.Requests.User.RefreshTokenRequest
-  commentId: T:TokenManager.Application.Requests.User.RefreshTokenRequest
-  parent: TokenManager.Application.Requests.User
-  name: RefreshTokenRequest
-  nameWithType: RefreshTokenRequest
-  fullName: TokenManager.Application.Requests.User.RefreshTokenRequest

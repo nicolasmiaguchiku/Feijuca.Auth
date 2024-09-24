@@ -4,6 +4,11 @@ items:
   commentId: N:TokenManager.Api.Controllers
   id: TokenManager.Api.Controllers
   children:
+  - TokenManager.Api.Controllers.ClientController
+  - TokenManager.Api.Controllers.GroupController
+  - TokenManager.Api.Controllers.GroupRolesController
+  - TokenManager.Api.Controllers.GroupUsersController
+  - TokenManager.Api.Controllers.RoleController
   - TokenManager.Api.Controllers.UserController
   langs:
   - csharp
@@ -15,6 +20,36 @@ items:
   assemblies:
   - TokenManager.Api
 references:
+- uid: TokenManager.Api.Controllers.ClientController
+  commentId: T:TokenManager.Api.Controllers.ClientController
+  href: TokenManager.Api.Controllers.ClientController.html
+  name: ClientController
+  nameWithType: ClientController
+  fullName: TokenManager.Api.Controllers.ClientController
+- uid: TokenManager.Api.Controllers.GroupController
+  commentId: T:TokenManager.Api.Controllers.GroupController
+  href: TokenManager.Api.Controllers.GroupController.html
+  name: GroupController
+  nameWithType: GroupController
+  fullName: TokenManager.Api.Controllers.GroupController
+- uid: TokenManager.Api.Controllers.GroupRolesController
+  commentId: T:TokenManager.Api.Controllers.GroupRolesController
+  href: TokenManager.Api.Controllers.GroupRolesController.html
+  name: GroupRolesController
+  nameWithType: GroupRolesController
+  fullName: TokenManager.Api.Controllers.GroupRolesController
+- uid: TokenManager.Api.Controllers.GroupUsersController
+  commentId: T:TokenManager.Api.Controllers.GroupUsersController
+  href: TokenManager.Api.Controllers.GroupUsersController.html
+  name: GroupUsersController
+  nameWithType: GroupUsersController
+  fullName: TokenManager.Api.Controllers.GroupUsersController
+- uid: TokenManager.Api.Controllers.RoleController
+  commentId: T:TokenManager.Api.Controllers.RoleController
+  href: TokenManager.Api.Controllers.RoleController.html
+  name: RoleController
+  nameWithType: RoleController
+  fullName: TokenManager.Api.Controllers.RoleController
 - uid: TokenManager.Api.Controllers.UserController
   commentId: T:TokenManager.Api.Controllers.UserController
   href: TokenManager.Api.Controllers.UserController.html
