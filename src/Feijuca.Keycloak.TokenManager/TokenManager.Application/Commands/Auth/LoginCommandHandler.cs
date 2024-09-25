@@ -1,20 +1,19 @@
 ﻿using MediatR;
-
 using TokenManager.Application.Mappers;
 using TokenManager.Application.Responses;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Application.Commands.Users
+namespace TokenManager.Application.Commands.Auth
 {
-    public class LoginUserCommandHandler(IUserRepository userRepository) : IRequestHandler<LoginUserCommand, Result<TokenDetailsResponse>>
+    public class LoginCommandHandler(IAuthRepository authRepository) : IRequestHandler<LoginCommand, Result<TokenDetailsResponse>>
     {
-        private readonly IUserRepository _userRepository = userRepository;
+        private readonly IAuthRepository _authRepository = authRepository;
 
-        public async Task<Result<TokenDetailsResponse>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+        public async Task<Result<TokenDetailsResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var user = request.LoginUser.ToLoginUserDomain();
-            var tokenDetailsResult = await _userRepository.LoginAsync(request.Tenant, user);
+            var tokenDetailsResult = await _authRepository.LoginAsync(request.Tenant, user);
             if (tokenDetailsResult.IsSuccess)
             {
                 return tokenDetailsResult.ToTokenResponse();

@@ -9,10 +9,10 @@ using TokenManager.Common.Models;
 
 namespace TokenManager.Api.Controllers
 {
-    [Route("api/v1/auth/{tenant}/groups")]
+    [Route("api/v1")]
     [ApiController]
     [Authorize]
-    public class GroupUsersController(IMediator mediator) : ControllerBase
+    public class GroupUserController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
 
@@ -20,7 +20,7 @@ namespace TokenManager.Api.Controllers
         /// Add a user to a specific group in the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
-        [HttpPost("{groupId}/users", Name = nameof(AddUserToGroup))]
+        [HttpPost("{tenant}/groups/{groupId}/users", Name = nameof(AddUserToGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -42,7 +42,7 @@ namespace TokenManager.Api.Controllers
         /// Get all users present in a specific group in the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
-        [HttpGet("{groupId}/users", Name = nameof(GetUsersInGroup))]
+        [HttpGet("{tenant}/groups/{groupId}/users", Name = nameof(GetUsersInGroup))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -64,7 +64,7 @@ namespace TokenManager.Api.Controllers
         /// Remove a user from a specific group in the Keycloak realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
-        [HttpDelete("{groupId}/users", Name = nameof(RemoveUserFromGroup))]
+        [HttpDelete("{tenant}/groups/{groupId}/users", Name = nameof(RemoveUserFromGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

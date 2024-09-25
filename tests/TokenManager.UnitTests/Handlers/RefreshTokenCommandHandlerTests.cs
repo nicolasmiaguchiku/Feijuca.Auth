@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Moq;
-using TokenManager.Application.Commands.Users;
+using TokenManager.Application.Commands.Auth;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
 using TokenManager.Domain.Interfaces;
@@ -11,12 +11,12 @@ namespace TokenManager.UnitTests.Handlers
     public class RefreshTokenCommandHandlerTests
     {
         private readonly Fixture _autoFixture = new();
-        private readonly Mock<IUserRepository> _userRepositoryMock = new();
+        private readonly Mock<IAuthRepository> _authRepository = new();
         private readonly RefreshTokenCommandHandler _refreshTokenCommandHandler;
 
         public RefreshTokenCommandHandlerTests()
         {
-            _refreshTokenCommandHandler = new(_userRepositoryMock.Object);
+            _refreshTokenCommandHandler = new(_authRepository.Object);
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace TokenManager.UnitTests.Handlers
             var tokenDetails = _autoFixture.Create<TokenDetails>();
             var successResult = Result<TokenDetails>.Success(tokenDetails);
 
-            _userRepositoryMock
+            _authRepository
                 .Setup(x => x.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(successResult);
 
@@ -70,7 +70,7 @@ namespace TokenManager.UnitTests.Handlers
             var error = _autoFixture.Create<Error>();
             var failureResult = Result<TokenDetails>.Failure(error);
 
-            _userRepositoryMock
+            _authRepository
                 .Setup(x => x.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(failureResult);
 

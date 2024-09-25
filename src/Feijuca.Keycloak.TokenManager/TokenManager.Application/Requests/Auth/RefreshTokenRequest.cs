@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Application.Requests.User
+﻿namespace TokenManager.Application.Requests.Auth
 {
     public record RefreshTokenRequest(string RefreshToken);
 }

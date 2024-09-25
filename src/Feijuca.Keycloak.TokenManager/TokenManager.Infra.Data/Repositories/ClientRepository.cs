@@ -9,14 +9,14 @@ using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
 {
-    public class ClientRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository) : IClientRepository
+    public class ClientRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IClientRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
-        private readonly ITokenRepository _tokenRepository = tokenRepository;
+        private readonly IAuthRepository _authRepository = authRepository;
 
         public async Task<Result<IEnumerable<Client>>> GetClientsAsync(string tenant)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress

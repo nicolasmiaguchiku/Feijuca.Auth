@@ -10,14 +10,14 @@ using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
 {
-    public class RoleRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository) : IRoleRepository
+    public class RoleRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IRoleRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
-        private readonly ITokenRepository _tokenRepository = tokenRepository;
+        private readonly IAuthRepository _authRepository = authRepository;
 
         public async Task<Result<IEnumerable<Role>>> GetRolesForClientAsync(string tenant, Guid clientId)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -45,7 +45,7 @@ namespace TokenManager.Infra.Data.Repositories
 
         public async Task<Result<bool>> AddRoleAsync(string tenant, Guid clientId, string name, string description)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress

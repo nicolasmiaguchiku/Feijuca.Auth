@@ -1,4 +1,5 @@
-﻿using TokenManager.Application.Requests.User;
+﻿using TokenManager.Application.Requests.Auth;
+using TokenManager.Application.Requests.User;
 using TokenManager.Application.Responses;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;

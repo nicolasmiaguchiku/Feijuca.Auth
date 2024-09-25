@@ -6,14 +6,14 @@ using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
 {
-    public class UserGroupRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository) : IGroupUsersRepository
+    public class UserGroupRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IGroupUsersRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
-        private readonly ITokenRepository _tokenRepository = tokenRepository;
+        private readonly IAuthRepository _authRepository = authRepository;
 
         public async Task<Result<bool>> AddUserToGroupAsync(string tenant, Guid userId, Guid groupId)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -37,7 +37,7 @@ namespace TokenManager.Infra.Data.Repositories
 
         public async Task<Result<bool>> RemoveUserFromGroupAsync(string tenant, Guid userId, Guid groupId)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress

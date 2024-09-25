@@ -13,7 +13,7 @@ namespace TokenManager.UnitTests.Handlers
     {
         private readonly Fixture _autoFixture = new();
         private readonly Mock<IUserRepository> _userRepositoryMock = new();
-        private readonly Mock<ITokenRepository> _tokenRepository = new();
+        private readonly Mock<IAuthRepository> _authRepository = new();
         private readonly CreateUserCommandHandler _createUserCommandHandler;
 
         public CreateUserCommandHandlerTests()

@@ -1,7 +1,5 @@
 ﻿using Flurl;
 using Newtonsoft.Json;
-
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using TokenManager.Common.Errors;
@@ -11,14 +9,14 @@ using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
 {
-    public class GroupRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository) : IGroupRepository
+    public class GroupRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IGroupRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
-        private readonly ITokenRepository _tokenRepository = tokenRepository;
+        private readonly IAuthRepository _authRepository = authRepository;
 
         public async Task<Result<IEnumerable<Group>>> GetAllAsync(string tenant)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -36,7 +34,7 @@ namespace TokenManager.Infra.Data.Repositories
 
         public async Task<Result> CreateAsync(string tenant, string name, Dictionary<string, string[]> attributes)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -66,7 +64,7 @@ namespace TokenManager.Infra.Data.Repositories
 
         public async Task<Result> DeleteAsync(string tenant, Guid id)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -88,7 +86,7 @@ namespace TokenManager.Infra.Data.Repositories
 
         public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string tenant, Guid id)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress

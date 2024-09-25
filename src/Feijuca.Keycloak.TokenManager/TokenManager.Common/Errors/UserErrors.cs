@@ -21,6 +21,11 @@ namespace TokenManager.Common.Errors
             $"An error occurred while trying to refresh token. {TechnicalMessage}"
         );
 
+        public static Error SignOutError => new(
+            "User.SignOutError",
+            $"An error occurred while trying to do a sign out {TechnicalMessage}"
+        );
+
         public static Error UserCreationError => new(
             "User.UserCreationError",
             $"An error occurred while trying create a user. {TechnicalMessage}"

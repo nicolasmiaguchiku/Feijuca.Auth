@@ -11,7 +11,7 @@ namespace TokenManager.Infra.CrossCutting.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ITokenRepository, TokenRepository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IGroupUsersRepository, UserGroupRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();

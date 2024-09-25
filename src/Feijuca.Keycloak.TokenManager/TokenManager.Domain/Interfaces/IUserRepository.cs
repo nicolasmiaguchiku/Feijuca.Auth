@@ -5,8 +5,6 @@ namespace TokenManager.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        Task<Result<TokenDetails>> LoginAsync(string tenant, User user);
-        Task<Result<TokenDetails>> RefreshTokenAsync(string tenant, string refreshToken);
         Task<Result<IEnumerable<User>>> GetAllAsync(string tenant);
         Task<Result<bool>> DeleteAsync(string tenant, Guid id);
         Task<Result<bool>> CreateAsync(string tenant, User user);

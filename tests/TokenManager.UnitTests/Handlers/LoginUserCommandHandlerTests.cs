@@ -1,10 +1,7 @@
 ﻿using AutoFixture;
-
 using FluentAssertions;
-
 using Moq;
-
-using TokenManager.Application.Commands.Users;
+using TokenManager.Application.Commands.Auth;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
 using TokenManager.Domain.Interfaces;
@@ -14,24 +11,24 @@ namespace TokenManager.UnitTests.Handlers
     public class LoginUserCommandHandlerTests
     {
         private readonly Fixture _autoFixture = new();
-        private readonly Mock<IUserRepository> _userRepositoryMock = new();
-        private readonly LoginUserCommandHandler _loginUserCommandHandler;
+        private readonly Mock<IAuthRepository> _authRepositoryMock = new();
+        private readonly LoginCommandHandler _loginUserCommandHandler;
 
         public LoginUserCommandHandlerTests()
         {
-            _loginUserCommandHandler = new(_userRepositoryMock.Object);
+            _loginUserCommandHandler = new(_authRepositoryMock.Object);
         }
 
         [Fact]
         public async Task HandleWhenInformAValidUser_ShouldLoggedAndGenerateNewTokenDetails()
         {
             // Arrange
-            var loginUserCommand = _autoFixture.Create<LoginUserCommand>();
+            var loginUserCommand = _autoFixture.Create<LoginCommand>();
 
             var tokenDetails = _autoFixture.Create<TokenDetails>();
             var successData = Result<TokenDetails>.Success(tokenDetails);
 
-            _userRepositoryMock
+            _authRepositoryMock
                 .Setup(x => x.LoginAsync(It.IsAny<string>(), It.IsAny<User>()))
                 .ReturnsAsync(successData);
 
@@ -68,12 +65,12 @@ namespace TokenManager.UnitTests.Handlers
         public async Task HandleWhenInformAInvalidUser_ShouldNotBeLoggedAndShouldReturnsAnError()
         {
             // Arrange
-            var loginUserCommand = _autoFixture.Create<LoginUserCommand>();
+            var loginUserCommand = _autoFixture.Create<LoginCommand>();
 
             var error = _autoFixture.Create<Error>();
             var failureData = Result<TokenDetails>.Failure(error);
 
-            _userRepositoryMock
+            _authRepositoryMock
                 .Setup(x => x.LoginAsync(It.IsAny<string>(), It.IsAny<User>()))
                 .ReturnsAsync(failureData);
 

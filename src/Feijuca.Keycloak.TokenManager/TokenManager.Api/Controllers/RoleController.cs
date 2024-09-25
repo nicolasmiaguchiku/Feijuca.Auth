@@ -9,7 +9,7 @@ using TokenManager.Common.Models;
 
 namespace TokenManager.Api.Controllers
 {
-    [Route("api/v1/auth")]
+    [Route("api/v1")]
     [ApiController]
     [Authorize]
     public class RoleController(IMediator mediator) : ControllerBase

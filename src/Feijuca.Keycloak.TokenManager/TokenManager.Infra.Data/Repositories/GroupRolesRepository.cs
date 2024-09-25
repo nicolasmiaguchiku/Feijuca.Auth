@@ -12,14 +12,14 @@ using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
 {
-    public class GroupRolesRepository(IHttpClientFactory httpClientFactory, ITokenRepository tokenRepository) : IGroupRolesRepository
+    public class GroupRolesRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IGroupRolesRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
-        private readonly ITokenRepository _tokenRepository = tokenRepository;
+        private readonly IAuthRepository _authRepository = authRepository;
 
         public async Task<Result<bool>> AddRoleToGroupAsync(string tenant, Guid groupId, Guid clientId, Guid roleId, string roleName)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -51,7 +51,7 @@ namespace TokenManager.Infra.Data.Repositories
 
         public async Task<Result<IEnumerable<ClientMapping>>> GetGroupRolesAsync(string tenant, Guid groupId)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -81,7 +81,7 @@ namespace TokenManager.Infra.Data.Repositories
 
         public async Task<Result> RemoveRoleFromGroupAsync(string tenant, Guid clientId, Guid groupId, Guid roleId, string roleName)
         {
-            var tokenDetails = await _tokenRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
