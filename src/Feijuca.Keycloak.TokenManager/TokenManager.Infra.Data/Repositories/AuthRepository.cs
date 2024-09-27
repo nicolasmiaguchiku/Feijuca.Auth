@@ -80,6 +80,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<bool>> SignoutAsync(string tenant, string refreshToken)
         {
             var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
+
             var urlGetToken = httpClient.BaseAddress.AppendPathSegment("realms")
                 .AppendPathSegment(tenant)
                 .AppendPathSegment("protocol")
@@ -89,7 +90,8 @@ namespace TokenManager.Infra.Data.Repositories
             var requestData = new FormUrlEncodedContent(
             [
                 new KeyValuePair<string, string>("client_id", _tokenCredentials.Client_Id),
-                new KeyValuePair<string, string>("refresh_token", refreshToken)
+                new KeyValuePair<string, string>("refresh_token", refreshToken),
+                new KeyValuePair<string, string>("client_secret", _tokenCredentials.Client_Secret)
             ]);
 
             var response = await httpClient.PostAsync(urlGetToken, requestData);
