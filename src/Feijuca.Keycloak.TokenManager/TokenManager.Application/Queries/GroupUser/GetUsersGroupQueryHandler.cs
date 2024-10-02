@@ -23,7 +23,7 @@ namespace TokenManager.Application.Queries.GroupUser
                     var resultMembers = await _groupRepository.GetUsersInGroupAsync(request.Tenant, groupSearched.Id);
                     if (resultMembers.IsSuccess)
                     {
-                        var usersInGroup = new UserGroupResponse(groupSearched.ToResponse(), resultMembers.Data.ToResponse());
+                        var usersInGroup = new UserGroupResponse(groupSearched.ToResponse(), resultMembers.Data.ToUsersResponse());
                         return Result<UserGroupResponse>.Success(usersInGroup);
                     }
                 }

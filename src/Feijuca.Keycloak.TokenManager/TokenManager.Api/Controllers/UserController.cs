@@ -26,9 +26,9 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetUsers([FromRoute] string tenant, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsers([FromRoute] string tenant, [FromQuery] GetUsersRequest getUsersRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetAllUsersQuery(tenant), cancellationToken);
+            var result = await _mediator.Send(new GetUsersQuery(tenant, getUsersRequest), cancellationToken);
 
             if (result.IsSuccess)
             {

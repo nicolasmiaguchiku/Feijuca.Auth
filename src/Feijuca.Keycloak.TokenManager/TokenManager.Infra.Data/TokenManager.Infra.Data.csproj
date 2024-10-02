@@ -20,4 +20,8 @@
     <ProjectReference Include="..\TokenManager.Domain\TokenManager.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Filters\" />
+  </ItemGroup>
+
 </Project>

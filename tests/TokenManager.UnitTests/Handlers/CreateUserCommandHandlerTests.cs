@@ -40,7 +40,7 @@ namespace TokenManager.UnitTests.Handlers
                 .ReturnsAsync(Result<User>.Success(user));
 
             _userRepositoryMock
-                .Setup(x => x.ResetPasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Setup(x => x.ResetPasswordAsync(It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<string>()))
                 .ReturnsAsync(Result<bool>.Success(true));
 
             //Act
@@ -58,7 +58,7 @@ namespace TokenManager.UnitTests.Handlers
                 .Verify(x => x.GetAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
 
             _userRepositoryMock
-                .Verify(x => x.ResetPasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+                .Verify(x => x.ResetPasswordAsync(It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<string>()), Times.Once);
 
             _userRepositoryMock.VerifyNoOtherCalls();
         }
@@ -87,7 +87,7 @@ namespace TokenManager.UnitTests.Handlers
 
             _userRepositoryMock.Verify(x => x.CreateAsync(It.IsAny<string>(), It.IsAny<User>()), Times.Once);
             _userRepositoryMock.Verify(x => x.GetAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-            _userRepositoryMock.Verify(x => x.ResetPasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            _userRepositoryMock.Verify(x => x.ResetPasswordAsync(It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<string>()), Times.Never);
         }
     }
 }

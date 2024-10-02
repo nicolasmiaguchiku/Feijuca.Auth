@@ -6,6 +6,7 @@ using System.Text;
 using TokenManager.Common.Errors;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
+using TokenManager.Domain.Filters;
 using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
@@ -22,7 +23,30 @@ namespace TokenManager.Infra.Data.Repositories
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore
         };
 
-        public async Task<Result<IEnumerable<User>>> GetAllAsync(string tenant)
+        public async Task<Result<IEnumerable<User>>> GetUsersAsync(string tenant, UserFilters userFilters)
+        {
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
+            int first = (userFilters.PageFilter.PageNumber - 1) * userFilters.PageFilter.PageSize;
+
+            var urlGetUsers = httpClient.BaseAddress
+                .AppendPathSegment("admin")
+                .AppendPathSegment("realms")
+                .AppendPathSegment(tenant)
+                .AppendPathSegment("users")
+                .SetQueryParam("first", first)
+                .SetQueryParam("max", userFilters.PageFilter.PageSize)
+                .SetQueryParam("username", userFilters.Emails);
+
+            var response = await httpClient.GetAsync(urlGetUsers);
+            var keycloakUserContent = await response.Content.ReadAsStringAsync();
+            var users = JsonConvert.DeserializeObject<IEnumerable<User>>(keycloakUserContent)!;
+
+            return Result<IEnumerable<User>>.Success(users);
+        }
+
+        public async Task<Result<int>> GetTotalUsersAsync(string tenant)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -31,13 +55,15 @@ namespace TokenManager.Infra.Data.Repositories
                 .AppendPathSegment("admin")
                 .AppendPathSegment("realms")
                 .AppendPathSegment(tenant)
-                .AppendPathSegment("users");
+                .AppendPathSegment("users")
+                .SetQueryParam("first", 0)
+                .SetQueryParam("max", 99999);
 
             var response = await httpClient.GetAsync(urlGetUsers);
             var keycloakUserContent = await response.Content.ReadAsStringAsync();
             var users = JsonConvert.DeserializeObject<IEnumerable<User>>(keycloakUserContent)!;
 
-            return Result<IEnumerable<User>>.Success(users);
+            return Result<int>.Success(users.Count());
         }
 
         public async Task<Result<bool>> DeleteAsync(string tenant, Guid id)
@@ -104,7 +130,7 @@ namespace TokenManager.Infra.Data.Repositories
             return Result<User>.Success(user[0]);
         }
 
-        public async Task<Result<bool>> ResetPasswordAsync(string tenant, string userId, string password)
+        public async Task<Result<bool>> ResetPasswordAsync(string tenant, Guid id, string password)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -114,7 +140,7 @@ namespace TokenManager.Infra.Data.Repositories
                     .AppendPathSegment("realms")
                     .AppendPathSegment(tenant)
                     .AppendPathSegment("users")
-                    .AppendPathSegment(userId)
+                    .AppendPathSegment(id)
                     .AppendPathSegment("reset-password");
 
             var passwordData = new
