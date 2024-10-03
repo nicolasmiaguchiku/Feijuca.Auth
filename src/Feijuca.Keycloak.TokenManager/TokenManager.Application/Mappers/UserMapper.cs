@@ -1,4 +1,5 @@
 ﻿using TokenManager.Application.Requests.Auth;
+using TokenManager.Application.Requests.GroupUsers;
 using TokenManager.Application.Requests.Pagination;
 using TokenManager.Application.Requests.User;
 using TokenManager.Application.Responses;
@@ -51,8 +52,14 @@ namespace TokenManager.Application.Mappers
             var pageFilter = new PageFilter(getUsersRequest.PageFilter.Page, getUsersRequest.PageFilter.PageSize);
             return new UserFilters(pageFilter, getUsersRequest.Ids, getUsersRequest.Emails);
         }
+        
+        public static UserFilters ToUserFilters(this GetUsersGroupRequest getUsersRequest)
+        {
+            var pageFilter = new PageFilter(getUsersRequest.PageFilter.Page, getUsersRequest.PageFilter.PageSize);
+            return new UserFilters(pageFilter, [], getUsersRequest.Emails);
+        }
 
-        public static PagedResult<UserResponse> ToResponse(this IEnumerable<User> results, PageFilterRequest pageFilter, int totalResults)
+        public static PagedResult<UserResponse> ToUserResponse(this IEnumerable<User> results, PageFilterRequest pageFilter, int totalResults)
         {
             return new PagedResult<UserResponse>
             {

@@ -4,6 +4,7 @@ using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Text;
 using TokenManager.Common.Errors;
+using TokenManager.Common.Extensions;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
 using TokenManager.Domain.Filters;
@@ -37,7 +38,7 @@ namespace TokenManager.Infra.Data.Repositories
                 .AppendPathSegment("users")
                 .SetQueryParam("first", first)
                 .SetQueryParam("max", userFilters.PageFilter.PageSize)
-                .SetQueryParam("username", userFilters.Emails);
+                .SetCollectionQueryParam("username", userFilters.Emails);
 
             var response = await httpClient.GetAsync(urlGetUsers);
             var keycloakUserContent = await response.Content.ReadAsStringAsync();
@@ -46,7 +47,7 @@ namespace TokenManager.Infra.Data.Repositories
             return Result<IEnumerable<User>>.Success(users);
         }
 
-        public async Task<Result<int>> GetTotalUsersAsync(string tenant)
+        public async Task<int> GetTotalUsersAsync(string tenant)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -63,7 +64,7 @@ namespace TokenManager.Infra.Data.Repositories
             var keycloakUserContent = await response.Content.ReadAsStringAsync();
             var users = JsonConvert.DeserializeObject<IEnumerable<User>>(keycloakUserContent)!;
 
-            return Result<int>.Success(users.Count());
+            return users.Count();
         }
 
         public async Task<Result<bool>> DeleteAsync(string tenant, Guid id)

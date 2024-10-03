@@ -7,7 +7,7 @@ namespace TokenManager.Domain.Interfaces
     public interface IUserRepository
     {
         Task<Result<IEnumerable<User>>> GetUsersAsync(string tenant, UserFilters userFilters);
-        Task<Result<int>> GetTotalUsersAsync(string tenant);
+        Task<int> GetTotalUsersAsync(string tenant);
         Task<Result<bool>> DeleteAsync(string tenant, Guid id);
         Task<Result<bool>> CreateAsync(string tenant, User user);
         Task<Result<User>> GetAsync(string tenant, string userName);

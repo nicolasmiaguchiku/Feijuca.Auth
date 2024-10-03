@@ -1,4 +1,5 @@
-﻿using TokenManager.Application.Responses;
+﻿using TokenManager.Application.Requests.Pagination;
+using TokenManager.Application.Responses;
 using TokenManager.Domain.Entities;
 
 namespace TokenManager.Application.Mappers
@@ -13,6 +14,17 @@ namespace TokenManager.Application.Mappers
         public static GroupResponse ToResponse(this Group group)
         {
             return new GroupResponse(group.Id, group.Name, group.Path);
+        }
+
+        public static PagedResult<UserGroupResponse> ToResponse(this UserGroupResponse results, PageFilterRequest pageFilter, int totalResults)
+        {
+            return new PagedResult<UserGroupResponse>
+            {
+                PageNumber = pageFilter.Page,
+                PageSize = pageFilter.PageSize,
+                Results = [results],
+                TotalResults = totalResults
+            };
         }
     }
 }

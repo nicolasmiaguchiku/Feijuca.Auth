@@ -17,8 +17,8 @@ namespace TokenManager.Application.Queries.Users
 
             if (result.IsSuccess)
             {
-                var totalUsers = _userRepository.GetTotalUsersAsync(request.Tenant);
-                return Result<PagedResult<UserResponse>>.Success(result.Data.ToResponse(request.GetUsersRequest.PageFilter, totalUsers.Result.Data));
+                var totalUsers = await _userRepository.GetTotalUsersAsync(request.Tenant);
+                return Result<PagedResult<UserResponse>>.Success(result.Data.ToUserResponse(request.GetUsersRequest.PageFilter, totalUsers));
             }
 
             return Result<PagedResult<UserResponse>>.Failure(UserErrors.GetAllUsersError);

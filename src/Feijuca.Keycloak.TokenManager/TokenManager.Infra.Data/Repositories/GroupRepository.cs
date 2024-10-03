@@ -3,8 +3,10 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
 using TokenManager.Common.Errors;
+using TokenManager.Common.Extensions;
 using TokenManager.Common.Models;
 using TokenManager.Domain.Entities;
+using TokenManager.Domain.Filters;
 using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.Infra.Data.Repositories
@@ -16,20 +18,26 @@ namespace TokenManager.Infra.Data.Repositories
 
         public async Task<Result<IEnumerable<Group>>> GetAllAsync(string tenant)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var tokenDetailsResult = await _authRepository.GetAccessTokenAsync(tenant);
 
-            var url = httpClient.BaseAddress
-                    .AppendPathSegment("admin")
-                    .AppendPathSegment("realms")
-                    .AppendPathSegment(tenant)
-                    .AppendPathSegment("groups");
+            if (tokenDetailsResult.IsSuccess)
+            {
+                var httpClient = CreateHttpClientWithHeaders(tokenDetailsResult.Data.Access_Token);
 
-            var response = await httpClient.GetAsync(url);
-            var groups = await response.Content.ReadAsStringAsync();
-            var users = JsonConvert.DeserializeObject<IEnumerable<Group>>(groups)!;
+                var url = httpClient.BaseAddress
+                        .AppendPathSegment("admin")
+                        .AppendPathSegment("realms")
+                        .AppendPathSegment(tenant)
+                        .AppendPathSegment("groups");
 
-            return Result<IEnumerable<Group>>.Success(users);
+                var response = await httpClient.GetAsync(url);
+                var groups = await response.Content.ReadAsStringAsync();
+                var users = JsonConvert.DeserializeObject<IEnumerable<Group>>(groups)!;
+
+                return Result<IEnumerable<Group>>.Success(users);
+            }
+
+            return Result<IEnumerable<Group>>.Failure(tokenDetailsResult.Error);
         }
 
         public async Task<Result> CreateAsync(string tenant, string name, Dictionary<string, string[]> attributes)
@@ -84,10 +92,11 @@ namespace TokenManager.Infra.Data.Repositories
             return Result.Failure(GroupErrors.DeletionGroupError);
         }
 
-        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string tenant, Guid id)
+        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string tenant, Guid id, UserFilters userFilters)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            int first = (userFilters.PageFilter.PageNumber - 1) * userFilters.PageFilter.PageSize;
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -95,7 +104,10 @@ namespace TokenManager.Infra.Data.Repositories
                     .AppendPathSegment(tenant)
                     .AppendPathSegment("groups")
                     .AppendPathSegment(id)
-                    .AppendPathSegment("members");
+                    .AppendPathSegment("members")
+                    .SetQueryParam("first", first)
+                    .SetQueryParam("max", userFilters.PageFilter.PageSize)
+                    .SetCollectionQueryParam("username", userFilters.Emails);
 
             var response = await httpClient.GetAsync(url);
 

@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TokenManager.Application.Requests.Pagination;
 
-namespace TokenManager.Application.Requests.User
+namespace TokenManager.Application.Requests.GroupUsers
 {
-    public class GetUsersRequest
+    public class GetUsersGroupRequest
     {
-        public GetUsersRequest()
+        public GetUsersGroupRequest()
         {
             PageFilter = new PageFilterRequest { Page = 1, PageSize = 60, };
         }
@@ -14,7 +14,7 @@ namespace TokenManager.Application.Requests.User
         public PageFilterRequest PageFilter { get; set; }
 
         [FromQuery]
-        public IEnumerable<Guid>? Ids { get; set; }
+        public Guid GroupId { get; set; }
 
         [FromQuery]
         public IEnumerable<string>? Emails { get; set; }

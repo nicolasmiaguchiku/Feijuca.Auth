@@ -19,21 +19,21 @@ namespace TokenManager.Api.Controllers
         /// <summary>
         /// Add a role to a specific group in the Keycloak realm.
         /// </summary>
-        [HttpPost("{tenant}/groups/{groupId}/roles", Name = nameof(AddRoleToGroup))]
+        [HttpPost("{tenant}/groups/{id}/roles", Name = nameof(AddRoleToGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> AddRoleToGroup(
             [FromRoute] string tenant,
-            [FromRoute] Guid groupId,
+            [FromRoute] Guid id,
             [FromBody] RoleToGroupRequest addRoleToGroup,
             CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddRoleToGroupCommand(tenant, groupId, addRoleToGroup), cancellationToken);
+            var result = await _mediator.Send(new AddRoleToGroupCommand(tenant, id, addRoleToGroup), cancellationToken);
 
             if (result.IsSuccess)
             {
-                return CreatedAtAction(nameof(GetGroupRoles), new { tenant, groupId }, null);
+                return CreatedAtAction(nameof(GetGroupRoles), new { tenant, id }, null);
             }
 
             return BadRequest(Result<string>.Failure(result.Error));
@@ -42,18 +42,18 @@ namespace TokenManager.Api.Controllers
         /// <summary>
         /// Remove a role from a specific group in the Keycloak realm.
         /// </summary>
-        [HttpDelete("{tenant}/groups/{groupId}/roles/{roleId}", Name = nameof(RemoveRoleFromGroup))]
+        [HttpDelete("{tenant}/groups/{groupid}/roles/{roleid}", Name = nameof(RemoveRoleFromGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> RemoveRoleFromGroup(
             [FromRoute] string tenant,
-            [FromRoute] Guid groupId,
-            [FromRoute] Guid roleId,
+            [FromRoute] Guid groupid,
+            [FromRoute] Guid roleid,
             CancellationToken cancellationToken)
         {
-            var roleToGroupRequest = new RoleToGroupRequest(groupId, roleId); // Ajuste no construtor
-            var result = await _mediator.Send(new RemoveRoleFromGroupCommand(tenant, groupId, roleToGroupRequest), cancellationToken);
+            var roleToGroupRequest = new RoleToGroupRequest(groupid, roleid);
+            var result = await _mediator.Send(new RemoveRoleFromGroupCommand(tenant, groupid, roleToGroupRequest), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -66,16 +66,16 @@ namespace TokenManager.Api.Controllers
         /// <summary>
         /// Get roles associated with a group.
         /// </summary>
-        [HttpGet("{tenant}/groups/{groupId}/roles", Name = nameof(GetGroupRoles))]
+        [HttpGet("{tenant}/groups/{id}/roles", Name = nameof(GetGroupRoles))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
         public async Task<IActionResult> GetGroupRoles(
             [FromRoute] string tenant,
-            [FromRoute] Guid groupId,
+            [FromRoute] Guid id,
             CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetGroupRolesQuery(tenant, groupId), cancellationToken);
+            var result = await _mediator.Send(new GetGroupRolesQuery(tenant, id), cancellationToken);
 
             if (result.IsSuccess)
             {
