@@ -44,7 +44,7 @@ namespace TokenManager.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpDelete]
-        [Route("{tenant}/groups/{id}", Name = nameof(DeleteGroup))]
+        [Route("{tenant}/group/{id}", Name = nameof(DeleteGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -63,7 +63,7 @@ namespace TokenManager.Api.Controllers
         }
 
         [HttpPost]
-        [Route("{tenant}/groups", Name = nameof(CreateGroup))]
+        [Route("{tenant}/group", Name = nameof(CreateGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

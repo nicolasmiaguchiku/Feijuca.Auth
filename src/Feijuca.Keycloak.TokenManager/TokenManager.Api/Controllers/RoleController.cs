@@ -41,7 +41,7 @@ namespace TokenManager.Api.Controllers
         /// Add a new role to a client.
         /// </summary>
         [HttpPost]
-        [Route("{tenant}/roles", Name = nameof(AddRole))]
+        [Route("{tenant}/role", Name = nameof(AddRole))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

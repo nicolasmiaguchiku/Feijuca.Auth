@@ -44,7 +44,7 @@ namespace TokenManager.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("{tenant}/users", Name = nameof(CreateUser))]
+        [Route("{tenant}/user", Name = nameof(CreateUser))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,7 +69,7 @@ namespace TokenManager.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpDelete]
-        [Route("{tenant}/users/{id}", Name = nameof(DeleteUser))]
+        [Route("{tenant}/user/{id}", Name = nameof(DeleteUser))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

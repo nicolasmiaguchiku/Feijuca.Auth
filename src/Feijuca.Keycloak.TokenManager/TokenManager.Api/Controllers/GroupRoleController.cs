@@ -19,7 +19,7 @@ namespace TokenManager.Api.Controllers
         /// <summary>
         /// Add a role to a specific group in the Keycloak realm.
         /// </summary>
-        [HttpPost("{tenant}/groups/{id}/roles", Name = nameof(AddRoleToGroup))]
+        [HttpPost("{tenant}/group/{id}/role", Name = nameof(AddRoleToGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
@@ -42,7 +42,7 @@ namespace TokenManager.Api.Controllers
         /// <summary>
         /// Remove a role from a specific group in the Keycloak realm.
         /// </summary>
-        [HttpDelete("{tenant}/groups/{groupid}/roles/{roleid}", Name = nameof(RemoveRoleFromGroup))]
+        [HttpDelete("{tenant}/group/{groupid}/role/{roleid}", Name = nameof(RemoveRoleFromGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
@@ -66,7 +66,7 @@ namespace TokenManager.Api.Controllers
         /// <summary>
         /// Get roles associated with a group.
         /// </summary>
-        [HttpGet("{tenant}/groups/{id}/roles", Name = nameof(GetGroupRoles))]
+        [HttpGet("{tenant}/group/{id}/roles", Name = nameof(GetGroupRoles))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
