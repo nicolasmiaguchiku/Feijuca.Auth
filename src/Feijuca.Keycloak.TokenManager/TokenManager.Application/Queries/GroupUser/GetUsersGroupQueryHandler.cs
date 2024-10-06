@@ -19,14 +19,14 @@ namespace TokenManager.Application.Queries.GroupUser
 
             if (allGroupsResult.IsSuccess)
             {
-                var groupSearched = allGroupsResult.Data.FirstOrDefault(x => x.Id == request.GetUsersGroupRequest.GroupId);
+                var groupSearched = allGroupsResult.Response.FirstOrDefault(x => x.Id == request.GetUsersGroupRequest.GroupId);
                 if (groupSearched != null)
                 {
                     var resultMembers = await _groupRepository.GetUsersInGroupAsync(request.Tenant,
                         groupSearched.Id,
                         request.GetUsersGroupRequest.ToUserFilters());
 
-                    var usersInGroup = new UserGroupResponse(groupSearched.ToResponse(), resultMembers.Data.ToUsersResponse());
+                    var usersInGroup = new UserGroupResponse(groupSearched.ToResponse(), resultMembers.Response.ToUsersResponse());
                     var totalUsers = await _userRepository.GetTotalUsersAsync(request.Tenant);
                     var result = usersInGroup.ToResponse(request.GetUsersGroupRequest.PageFilter, totalUsers);
                     return Result<PagedResult<UserGroupResponse>>.Success(result);

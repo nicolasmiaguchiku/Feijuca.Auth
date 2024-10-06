@@ -40,23 +40,23 @@ namespace TokenManager.UnitTests.Handlers
                 .Should()
                 .Be(true);
 
-            resultHandle.Data.AccessToken
+            resultHandle.Response.AccessToken
                 .Should()
                 .Be(tokenDetails.Access_Token);
 
-            resultHandle.Data.ExpiresIn
+            resultHandle.Response.ExpiresIn
                 .Should()
                 .Be(tokenDetails.Expires_In);
 
-            resultHandle.Data.RefreshExpiresIn
+            resultHandle.Response.RefreshExpiresIn
                 .Should()
                 .Be(tokenDetails.Refresh_Expires_In);
 
-            resultHandle.Data.RefreshToken
+            resultHandle.Response.RefreshToken
                 .Should()
                 .Be(tokenDetails.Refresh_Token);
 
-            resultHandle.Data.TokenType
+            resultHandle.Response.TokenType
                 .Should()
                 .Be(tokenDetails.Token_Type);
         }

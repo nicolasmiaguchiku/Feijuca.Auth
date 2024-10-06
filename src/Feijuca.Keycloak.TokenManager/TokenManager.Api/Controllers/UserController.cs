@@ -32,7 +32,7 @@ namespace TokenManager.Api.Controllers
 
             if (result.IsSuccess)
             {
-                return Ok(result.Data);
+                return Ok(result.Response);
             }
 
             var responseError = Result<string>.Failure(result.Error);
@@ -57,7 +57,7 @@ namespace TokenManager.Api.Controllers
             if (result.IsSuccess)
             {
                 var response = Result<string>.Success("User created successfully");
-                return Created($"/api/v1/users/{tenant}", response.Data);
+                return Created($"/api/v1/users/{tenant}", response.Response);
             }
 
             var responseError = Result<string>.Failure(result.Error);

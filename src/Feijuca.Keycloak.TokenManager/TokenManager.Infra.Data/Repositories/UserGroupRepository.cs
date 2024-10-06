@@ -14,7 +14,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<bool>> AddUserToGroupAsync(string tenant, Guid userId, Guid groupId)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -38,7 +38,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<bool>> RemoveUserFromGroupAsync(string tenant, Guid userId, Guid groupId)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")

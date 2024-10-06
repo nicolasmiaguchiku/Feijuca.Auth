@@ -36,12 +36,12 @@ namespace TokenManager.Application.Mappers
         {
             var tokenDetailsResponse = new TokenDetailsResponse
             {
-                AccessToken = tokenDetails.Data.Access_Token,
-                ExpiresIn = tokenDetails.Data.Expires_In,
-                RefreshToken = tokenDetails.Data.Refresh_Token,
-                RefreshExpiresIn = tokenDetails.Data.Refresh_Expires_In,
-                TokenType = tokenDetails.Data.Token_Type,
-                Scopes = tokenDetails.Data.Scopes
+                AccessToken = tokenDetails.Response.Access_Token,
+                ExpiresIn = tokenDetails.Response.Expires_In,
+                RefreshToken = tokenDetails.Response.Refresh_Token,
+                RefreshExpiresIn = tokenDetails.Response.Refresh_Expires_In,
+                TokenType = tokenDetails.Response.Token_Type,
+                Scopes = tokenDetails.Response.Scopes
             };
 
             return Result<TokenDetailsResponse>.Success(tokenDetailsResponse);

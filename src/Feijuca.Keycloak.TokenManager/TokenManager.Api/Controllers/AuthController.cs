@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TokenManager.Application.Commands.Auth;
 using TokenManager.Application.Requests.Auth;
 using TokenManager.Application.Responses;
@@ -29,8 +30,8 @@ namespace TokenManager.Api.Controllers
 
             if (result.IsSuccess)
             {
-                var response = Result<TokenDetailsResponse>.Success(result.Data);
-                return Ok(response.Data); // Retorna o token e os detalhes
+                var response = Result<TokenDetailsResponse>.Success(result.Response);
+                return Ok(response.Response); // Retorna o token e os detalhes
             }
 
             var responseError = Result<TokenDetailsResponse>.Failure(result.Error);
@@ -76,10 +77,41 @@ namespace TokenManager.Api.Controllers
 
             if (result.IsSuccess)
             {
-                return Ok(result.Data); // Retorna o token atualizado
+                return Ok(result.Response); // Retorna o token atualizado
             }
 
             return BadRequest(result.Error);
+        }
+
+        /// <summary>
+        /// Return a valid JWT token and details about them refreshed.
+        /// </summary>
+        /// <returns>A status code related to the operation.</returns>
+        [HttpGet]
+        [Route("/auth/decode", Name = nameof(DecodeToken))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserResponse))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
+        public IActionResult DecodeToken()
+        {
+            if (HttpContext.User.Identity is not ClaimsIdentity identity)
+            {
+                return BadRequest();
+            }
+
+
+            var usuarioId = identity.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+            var username = identity.FindFirst("preferred_username")!.Value;
+            var email = identity.FindFirst(ClaimTypes.Email)!.Value;
+            var fullName = identity.FindFirst("name")!.Value;
+
+            var nameParts = fullName.Split(' ');
+            var firstName = nameParts.FirstOrDefault();
+            var lastName = nameParts.Length > 1 ? nameParts[^1] : null;
+
+            var userResponse = new UserResponse(Guid.Parse(usuarioId), username, email, firstName!, lastName!);
+            return Ok(userResponse);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace TokenManager.Application.Commands.GroupUser
 
             if (result.IsSuccess)
             {
-                return Result<bool>.Success(result.Data);
+                return Result<bool>.Success(result.Response);
             }
 
             return Result<bool>.Failure(result.Error);

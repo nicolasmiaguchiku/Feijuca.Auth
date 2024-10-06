@@ -31,7 +31,7 @@ namespace TokenManager.Api.Controllers
 
             if (result.IsSuccess)
             {
-                return Ok(result.Data);
+                return Ok(result.Response);
             }
 
             return BadRequest(Result<string>.Failure(result.Error));
@@ -52,7 +52,7 @@ namespace TokenManager.Api.Controllers
 
             if (result.IsSuccess)
             {
-                return CreatedAtRoute(nameof(GetRoles), new { tenant }, result.Data); // Retorna 201 Created
+                return CreatedAtRoute(nameof(GetRoles), new { tenant }, result.Response); // Retorna 201 Created
             }
 
             return BadRequest(Result<string>.Failure(result.Error));

@@ -22,7 +22,7 @@ namespace TokenManager.Infra.Data.Repositories
 
             if (tokenDetailsResult.IsSuccess)
             {
-                var httpClient = CreateHttpClientWithHeaders(tokenDetailsResult.Data.Access_Token);
+                var httpClient = CreateHttpClientWithHeaders(tokenDetailsResult.Response.Access_Token);
 
                 var url = httpClient.BaseAddress
                         .AppendPathSegment("admin")
@@ -43,7 +43,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result> CreateAsync(string tenant, string name, Dictionary<string, string[]> attributes)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -73,7 +73,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result> DeleteAsync(string tenant, Guid id)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -95,7 +95,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string tenant, Guid id, UserFilters userFilters)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
             int first = (userFilters.PageFilter.PageNumber - 1) * userFilters.PageFilter.PageSize;
 
             var url = httpClient.BaseAddress

@@ -18,7 +18,7 @@ namespace TokenManager.Application.Queries.Groups
 
             if (result.IsSuccess)
             {
-                return Result<IEnumerable<GroupResponse>>.Success(result.Data.ToResponse());
+                return Result<IEnumerable<GroupResponse>>.Success(result.Response.ToResponse());
             }
 
             return Result<IEnumerable<GroupResponse>>.Failure(GroupErrors.CreationGroupError);

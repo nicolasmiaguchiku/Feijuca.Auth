@@ -18,7 +18,7 @@ namespace TokenManager.Application.Queries.GroupRoles
             
             if (groupsRolesResult.IsSuccess)
             {
-                return Result<IEnumerable<GroupRolesResponse>>.Success(groupsRolesResult.Data.ToResponse());
+                return Result<IEnumerable<GroupRolesResponse>>.Success(groupsRolesResult.Response.ToResponse());
             }
 
             return Result<IEnumerable<GroupRolesResponse>>.Failure(GroupErrors.GetUsersInGroupsError);

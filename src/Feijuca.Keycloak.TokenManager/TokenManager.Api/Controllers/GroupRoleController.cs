@@ -79,7 +79,7 @@ namespace TokenManager.Api.Controllers
 
             if (result.IsSuccess)
             {
-                return Ok(result.Data);
+                return Ok(result.Response);
             }
 
             return BadRequest(Result<string>.Failure(result.Error));

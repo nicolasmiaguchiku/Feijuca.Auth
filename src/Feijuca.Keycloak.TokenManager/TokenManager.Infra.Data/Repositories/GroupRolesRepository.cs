@@ -20,7 +20,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<bool>> AddRoleToGroupAsync(string tenant, Guid groupId, Guid clientId, Guid roleId, string roleName)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -52,7 +52,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<IEnumerable<ClientMapping>>> GetGroupRolesAsync(string tenant, Guid groupId)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -82,7 +82,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result> RemoveRoleFromGroupAsync(string tenant, Guid clientId, Guid groupId, Guid roleId, string roleName)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")

@@ -17,7 +17,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<IEnumerable<Client>>> GetClientsAsync(string tenant)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")

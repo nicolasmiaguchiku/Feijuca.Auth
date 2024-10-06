@@ -27,7 +27,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<IEnumerable<User>>> GetUsersAsync(string tenant, UserFilters userFilters)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             int first = (userFilters.PageFilter.PageNumber - 1) * userFilters.PageFilter.PageSize;
 
@@ -50,7 +50,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<int> GetTotalUsersAsync(string tenant)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var urlGetUsers = httpClient.BaseAddress
                 .AppendPathSegment("admin")
@@ -70,7 +70,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<bool>> DeleteAsync(string tenant, Guid id)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")
@@ -92,7 +92,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<bool>> CreateAsync(string tenant, User user)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -114,7 +114,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<User>> GetAsync(string tenant, string userName)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -134,7 +134,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result<bool>> ResetPasswordAsync(string tenant, Guid id, string password)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -168,7 +168,7 @@ namespace TokenManager.Infra.Data.Repositories
         public async Task<Result> SendEmailVerificationAsync(string tenant, string userId)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
-            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress!
                 .ToString()

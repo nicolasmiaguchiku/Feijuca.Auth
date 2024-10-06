@@ -18,7 +18,7 @@ namespace TokenManager.Application.Commands.Users
             if (result.IsSuccess)
             {
                 var keycloakUser = await _userRepository.GetAsync(request.Tenant, user.Username);
-                result = await _userRepository.ResetPasswordAsync(request.Tenant, keycloakUser.Data.Id, user.Password);
+                result = await _userRepository.ResetPasswordAsync(request.Tenant, keycloakUser.Response.Id, user.Password);
 
                 if (result.IsSuccess)
                 {

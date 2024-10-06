@@ -30,7 +30,7 @@ namespace TokenManager.Api.Controllers
 
             if (result.IsSuccess)
             {
-                return Ok(result.Data);
+                return Ok(result.Response);
             }
 
             var responseError = Result<string>.Failure(result.Error);
