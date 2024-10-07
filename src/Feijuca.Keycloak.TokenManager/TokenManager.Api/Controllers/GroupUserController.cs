@@ -72,11 +72,10 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> RemoveUserFromGroup([FromRoute] string tenant, 
-            [FromRoute] Guid groupId, 
             [FromBody] RemoveUserFromGroupRequest removeUserFromGroup, 
             CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new RemoveUserFromGroupCommand(tenant, removeUserFromGroup.UserId, groupId), cancellationToken);
+            var result = await _mediator.Send(new RemoveUserFromGroupCommand(tenant, removeUserFromGroup.UserId, removeUserFromGroup.GroupId), cancellationToken);
 
             if (result.IsSuccess)
             {
