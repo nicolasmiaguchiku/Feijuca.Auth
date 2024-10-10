@@ -6,14 +6,14 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Company>coderaw.io</Company>
-    <Description>Feijuca.AuthServices simplifies Keycloak integration for user management and multi-tenancy. It features TokenManager for centralized API calls to manage users and AuthServices for handling multiple tenants using Keycloak realms. Check the documentation for more details! </Description>
+    <Description>Feijuca.Auth simplifies Keycloak integration for user management and multi-tenancy. It features TokenManager for centralized API calls to manage users and AuthServices for handling multiple tenants using Keycloak realms. Check the documentation for more details! </Description>
     <PackageProjectUrl>https://github.com/coderaw-io/Feijuca.AuthServices</PackageProjectUrl>
     <PackageIcon>sky.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/coderaw-io/Feijuca.AuthServices</RepositoryUrl>
     <PackageTags>keycloak</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.1.0</Version>
+    <Version>1.0.0</Version>
     <Authors>coderaw.io</Authors>
   </PropertyGroup>
 
