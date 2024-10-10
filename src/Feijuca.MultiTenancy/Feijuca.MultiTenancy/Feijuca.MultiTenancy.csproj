@@ -6,11 +6,11 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Company>Felipe Mattioli</Company>
-    <Description>This project aims be a way to use multi tenancy concept using Keycloak, Based on realm concept, each realm could be used as a different tenant. </Description>
+    <Description>Feijuca.Keycloak simplifies Keycloak integration for user management and multi-tenancy. It features TokenManager for centralized API calls to manage users and AuthServices for handling multiple tenants using Keycloak realms. Check the documentation for more details! </Description>
     <PackageProjectUrl>https://github.com/fmattioli/Feijuca.Keycloak.MultiTenancyAuthServices/tree/main</PackageProjectUrl>
     <PackageIcon>sky.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/fmattioli/Feijuca.Keycloak.MultiTenancyAuthServices/tree/main</RepositoryUrl>
+    <RepositoryUrl>https://github.com/coderaw-io/Feijuca.AuthServices</RepositoryUrl>
     <PackageTags>keycloak</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>1.11.0</Version>
