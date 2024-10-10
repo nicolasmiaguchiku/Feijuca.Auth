@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/coderaw-io/Feijuca.AuthServices</RepositoryUrl>
     <PackageTags>keycloak</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.11.0</Version>
+    <Version>1.12.0</Version>
     <Authors>coderaw.io</Authors>
   </PropertyGroup>
 
