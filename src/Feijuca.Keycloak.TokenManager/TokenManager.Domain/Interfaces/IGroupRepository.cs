@@ -1,8 +1,8 @@
-﻿using TokenManager.Common.Models;
-using TokenManager.Domain.Entities;
-using TokenManager.Domain.Filters;
+﻿using Common.Models;
+using Domain.Entities;
+using Domain.Filters;
 
-namespace TokenManager.Domain.Interfaces
+namespace Domain.Interfaces
 {
     public interface IGroupRepository
     {

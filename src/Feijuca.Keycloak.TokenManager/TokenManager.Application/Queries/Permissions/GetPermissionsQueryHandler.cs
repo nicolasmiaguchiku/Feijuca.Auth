@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Application.Queries.Permissions
+﻿namespace Application.Queries.Permissions
 {
     internal class GetPermissionsQueryHandler
     {

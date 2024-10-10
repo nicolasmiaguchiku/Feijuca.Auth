@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TokenManager.Application.Requests.Pagination;
+﻿using Application.Requests.Pagination;
+using Microsoft.AspNetCore.Mvc;
 
-namespace TokenManager.Application.Requests.GroupUsers
+namespace Application.Requests.GroupUsers
 {
     public class GetUsersGroupRequest
     {

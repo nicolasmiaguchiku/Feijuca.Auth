@@ -1,9 +1,9 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
+using Infra.CrossCutting.Config;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using TokenManager.Infra.CrossCutting.Config;
 
-namespace TokenManager.Infra.CrossCutting.Extensions
+namespace Infra.CrossCutting.Extensions
 {
     public static class ConfigurationBuilderExtensions
     {
@@ -16,9 +16,9 @@ namespace TokenManager.Infra.CrossCutting.Extensions
                 settings.AuthSettings.Realms =
                 [
                     new Realm
-                    { 
+                    {
                         Name = GetEnvironmentVariableFromRender("Realm.Name"),
-                        Audience = GetEnvironmentVariableFromRender("Realm.Audience"), 
+                        Audience = GetEnvironmentVariableFromRender("Realm.Audience"),
                         Issuer = GetEnvironmentVariableFromRender("Realm.Issuer")
                     }
                 ];

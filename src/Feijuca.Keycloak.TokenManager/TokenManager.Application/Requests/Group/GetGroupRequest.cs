@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TokenManager.Application.Requests.Group
+namespace Application.Requests.Group
 {
     public class GetGroupRequest
     {

@@ -1,8 +1,7 @@
-﻿using MediatR;
+﻿using Common.Models;
+using MediatR;
 
-using TokenManager.Common.Models;
-
-namespace TokenManager.Application.Commands.Group
+namespace Application.Commands.Group
 {
     public record DeleteGroupCommand(string Tenant, Guid Id) : IRequest<Result<bool>>;
 }

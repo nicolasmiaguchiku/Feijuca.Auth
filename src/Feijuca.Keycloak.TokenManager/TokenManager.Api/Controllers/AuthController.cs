@@ -1,13 +1,13 @@
-﻿using MediatR;
+﻿using Application.Commands.Auth;
+using Application.Requests.Auth;
+using Application.Responses;
+using Common.Models;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using TokenManager.Application.Commands.Auth;
-using TokenManager.Application.Requests.Auth;
-using TokenManager.Application.Responses;
-using TokenManager.Common.Models;
 
-namespace TokenManager.Api.Controllers
+namespace Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]

@@ -1,13 +1,13 @@
-﻿using Feijuca.Keycloak.MultiTenancy.Attributes;
+﻿using Application.Commands.Group;
+using Application.Queries.Groups;
+using Application.Requests.User;
+using Common.Models;
+using Feijuca.Keycloak.MultiTenancy.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TokenManager.Application.Commands.Group;
-using TokenManager.Application.Queries.Groups;
-using TokenManager.Application.Requests.User;
-using TokenManager.Common.Models;
 
-namespace TokenManager.Api.Controllers
+namespace Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]

@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Application.Responses
+﻿namespace Application.Responses
 {
     public class PagedResult<T>
     {

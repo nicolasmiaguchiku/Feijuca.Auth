@@ -1,11 +1,10 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
 using Flurl;
-
+using Infra.CrossCutting.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using TokenManager.Infra.CrossCutting.Filters;
 
-namespace TokenManager.Infra.CrossCutting.Extensions
+namespace Infra.CrossCutting.Extensions
 {
     public static class SwaggerExtensions
     {

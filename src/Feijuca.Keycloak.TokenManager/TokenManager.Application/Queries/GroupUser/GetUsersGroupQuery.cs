@@ -1,9 +1,9 @@
-﻿using MediatR;
-using TokenManager.Application.Requests.GroupUsers;
-using TokenManager.Application.Responses;
-using TokenManager.Common.Models;
+﻿using Application.Requests.GroupUsers;
+using Application.Responses;
+using Common.Models;
+using MediatR;
 
-namespace TokenManager.Application.Queries.GroupUser
+namespace Application.Queries.GroupUser
 {
     public record GetUsersGroupQuery(string Tenant, GetUsersGroupRequest GetUsersGroupRequest) : IRequest<Result<PagedResult<UserGroupResponse>>>;
 }

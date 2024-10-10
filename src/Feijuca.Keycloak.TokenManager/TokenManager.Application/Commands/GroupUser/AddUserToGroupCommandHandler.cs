@@ -1,9 +1,8 @@
-﻿using MediatR;
+﻿using Common.Models;
+using Domain.Interfaces;
+using MediatR;
 
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
-
-namespace TokenManager.Application.Commands.GroupUser
+namespace Application.Commands.GroupUser
 {
     public class AddUserToGroupCommandHandler(IGroupUsersRepository userGroupRepository) : IRequestHandler<AddUserToGroupCommand, Result<bool>>
     {

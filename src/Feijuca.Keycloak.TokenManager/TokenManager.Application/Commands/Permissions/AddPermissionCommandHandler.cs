@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Application.Commands.Permissions
+﻿namespace Application.Commands.Permissions
 {
     internal class AddPermissionCommandHandler
     {

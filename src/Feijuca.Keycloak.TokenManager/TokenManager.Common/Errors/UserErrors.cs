@@ -1,6 +1,6 @@
-﻿using TokenManager.Common.Models;
+﻿using Common.Models;
 
-namespace TokenManager.Common.Errors
+namespace Common.Errors
 {
     public static class UserErrors
     {

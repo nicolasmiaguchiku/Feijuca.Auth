@@ -1,6 +1,6 @@
-﻿using TokenManager.Common.Models;
+﻿using Common.Models;
 
-namespace TokenManager.Common.Errors
+namespace Common.Errors
 {
     public static class RoleErrors
     {
@@ -10,12 +10,12 @@ namespace TokenManager.Common.Errors
             "Role.GetRoleErrors",
             $"An error occurred while trying get roles {TechnicalMessage}"
         );
-        
+
         public static Error AddRoleErrors => new(
             "Role.AddRoleErrors",
             $"An error occurred while trying add a new role {TechnicalMessage}"
         );
-        
+
         public static void SetTechnicalMessage(string technicalMessage)
         {
             TechnicalMessage = technicalMessage;

@@ -1,13 +1,13 @@
-﻿using TokenManager.Application.Requests.Auth;
-using TokenManager.Application.Requests.GroupUsers;
-using TokenManager.Application.Requests.Pagination;
-using TokenManager.Application.Requests.User;
-using TokenManager.Application.Responses;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Entities;
-using TokenManager.Domain.Filters;
+﻿using Application.Requests.Auth;
+using Application.Requests.GroupUsers;
+using Application.Requests.Pagination;
+using Application.Requests.User;
+using Application.Responses;
+using Common.Models;
+using Domain.Entities;
+using Domain.Filters;
 
-namespace TokenManager.Application.Mappers
+namespace Application.Mappers
 {
     public static class UserMapper
     {
@@ -52,7 +52,7 @@ namespace TokenManager.Application.Mappers
             var pageFilter = new PageFilter(getUsersRequest.PageFilter.Page, getUsersRequest.PageFilter.PageSize);
             return new UserFilters(pageFilter, getUsersRequest.Ids, getUsersRequest.Emails);
         }
-        
+
         public static UserFilters ToUserFilters(this GetUsersGroupRequest getUsersRequest)
         {
             var pageFilter = new PageFilter(getUsersRequest.PageFilter.Page, getUsersRequest.PageFilter.PageSize);

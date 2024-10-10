@@ -1,8 +1,8 @@
-﻿using MediatR;
-using TokenManager.Application.Requests.User;
-using TokenManager.Common.Models;
+﻿using Application.Requests.User;
+using Common.Models;
+using MediatR;
 
-namespace TokenManager.Application.Commands.Group
+namespace Application.Commands.Group
 {
     public record CreateGroupCommand(string Tenant, AddGroupRequest AddGroupRequest) : IRequest<Result>;
 }

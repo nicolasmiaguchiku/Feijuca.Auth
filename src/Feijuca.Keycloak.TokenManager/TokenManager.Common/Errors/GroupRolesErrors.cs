@@ -1,6 +1,6 @@
-﻿using TokenManager.Common.Models;
+﻿using Common.Models;
 
-namespace TokenManager.Common.Errors
+namespace Common.Errors
 {
     public static class GroupRolesErrors
     {
@@ -10,7 +10,7 @@ namespace TokenManager.Common.Errors
             "GroupRoles.ErrorAddRoleToGroup",
             $"An error occurred while trying adding a new role to the group: {TechnicalMessage}"
         );
-        
+
         public static Error ErrorGetGroupRoles => new(
             "GroupRoles.ErrorGetGroupRoles",
             $"An error occurred while trying adding get group roles: {TechnicalMessage}"

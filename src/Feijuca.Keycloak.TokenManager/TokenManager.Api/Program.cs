@@ -1,6 +1,6 @@
-using TokenManager.Infra.CrossCutting.Config;
-using TokenManager.Infra.CrossCutting.Extensions;
-using TokenManager.Infra.CrossCutting.Handlers;
+using Infra.CrossCutting.Config;
+using Infra.CrossCutting.Extensions;
+using Infra.CrossCutting.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");

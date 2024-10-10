@@ -1,9 +1,9 @@
-﻿using MediatR;
-using TokenManager.Common.Errors;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
+﻿using Common.Errors;
+using Common.Models;
+using Domain.Interfaces;
+using MediatR;
 
-namespace TokenManager.Application.Commands.GroupRoles;
+namespace Application.Commands.GroupRoles;
 
 public class RemoveRoleFromGroupCommandHandler(IGroupRepository groupRepository, IGroupRolesRepository roleGroupRepository, IRoleRepository roleRepository) : IRequestHandler<RemoveRoleFromGroupCommand, Result<bool>>
 {

@@ -1,7 +1,7 @@
+using Application.Requests.Pagination;
 using Microsoft.AspNetCore.Mvc;
-using TokenManager.Application.Requests.Pagination;
 
-namespace TokenManager.Application.Requests.User
+namespace Application.Requests.User
 {
     public class GetUsersRequest
     {

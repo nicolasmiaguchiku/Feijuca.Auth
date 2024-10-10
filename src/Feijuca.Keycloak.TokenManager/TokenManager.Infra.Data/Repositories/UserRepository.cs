@@ -1,16 +1,16 @@
-﻿using Flurl;
+﻿using Common.Errors;
+using Common.Extensions;
+using Common.Models;
+using Domain.Entities;
+using Domain.Filters;
+using Domain.Interfaces;
+using Flurl;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Text;
-using TokenManager.Common.Errors;
-using TokenManager.Common.Extensions;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Entities;
-using TokenManager.Domain.Filters;
-using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Infra.Data.Repositories
+namespace Infra.Data.Repositories
 {
     public class UserRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository)
         : IUserRepository

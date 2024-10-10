@@ -5,7 +5,7 @@ using Serilog;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 
-namespace TokenManager.Infra.CrossCutting.Handlers
+namespace Infra.CrossCutting.Handlers
 {
     public sealed class GlobalExceptionHandler(ILogger logger) : IExceptionHandler
     {

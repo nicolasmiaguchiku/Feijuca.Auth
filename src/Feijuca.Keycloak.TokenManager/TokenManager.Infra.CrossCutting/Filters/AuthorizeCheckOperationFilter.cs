@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace TokenManager.Infra.CrossCutting.Filters
+namespace Infra.CrossCutting.Filters
 {
     public class AuthorizeCheckOperationFilter : IOperationFilter
     {

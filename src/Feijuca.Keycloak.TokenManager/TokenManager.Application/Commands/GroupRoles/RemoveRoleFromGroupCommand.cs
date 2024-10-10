@@ -1,9 +1,8 @@
-﻿using MediatR;
+﻿using Application.Requests.GroupRoles;
+using Common.Models;
+using MediatR;
 
-using TokenManager.Application.Requests.GroupRoles;
-using TokenManager.Common.Models;
-
-namespace TokenManager.Application.Commands.GroupRoles
+namespace Application.Commands.GroupRoles
 {
     public record RemoveRoleFromGroupCommand(string Tenant, Guid GroupId, RoleToGroupRequest RemoveRoleFromGroupRequest) : IRequest<Result<bool>>;
 }

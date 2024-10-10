@@ -1,8 +1,8 @@
-﻿using TokenManager.Application.Requests.Pagination;
-using TokenManager.Application.Responses;
-using TokenManager.Domain.Entities;
+﻿using Application.Requests.Pagination;
+using Application.Responses;
+using Domain.Entities;
 
-namespace TokenManager.Application.Mappers
+namespace Application.Mappers
 {
     public static class GroupMapper
     {
@@ -10,7 +10,7 @@ namespace TokenManager.Application.Mappers
         {
             return group.Select(x => new GroupResponse(x.Id, x.Name, x.Path));
         }
-        
+
         public static GroupResponse ToResponse(this Group group)
         {
             return new GroupResponse(group.Id, group.Name, group.Path);

@@ -1,10 +1,10 @@
-﻿using AutoFixture;
+﻿using Application.Commands.Auth;
+using AutoFixture;
+using Common.Models;
+using Domain.Entities;
+using Domain.Interfaces;
 using FluentAssertions;
 using Moq;
-using TokenManager.Application.Commands.Auth;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Entities;
-using TokenManager.Domain.Interfaces;
 
 namespace TokenManager.UnitTests.Handlers
 {

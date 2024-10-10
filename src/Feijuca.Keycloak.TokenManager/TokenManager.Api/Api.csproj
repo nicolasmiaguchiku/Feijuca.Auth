@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TokenManager.Infra.CrossCutting\TokenManager.Infra.CrossCutting.csproj" />
+    <ProjectReference Include="..\TokenManager.Infra.CrossCutting\Infra.CrossCutting.csproj" />
   </ItemGroup>
 
 </Project>

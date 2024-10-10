@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 
-namespace TokenManager.Domain.Entities
+namespace Domain.Entities
 {
     public class User
     {
         [JsonIgnore]
         public string Password { get; set; }
-        public Guid Id { get; set;}
+        public Guid Id { get; set; }
         public bool Enabled { get; set; }
         public bool EmailVerified { get; set; }
         public string Username { get; set; }

@@ -1,11 +1,10 @@
-﻿using MediatR;
+﻿using Application.Responses;
+using Common.Errors;
+using Common.Models;
+using Domain.Interfaces;
+using MediatR;
 
-using TokenManager.Application.Responses;
-using TokenManager.Common.Errors;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
-
-namespace TokenManager.Application.Queries.Permissions
+namespace Application.Queries.Permissions
 {
     public class GetRolesQueryHandler(IClientRepository clientRepository, IRoleRepository roleRepository) : IRequestHandler<GetRolesQuery, Result<IEnumerable<ClientRoleResponse>>>
     {

@@ -3,7 +3,7 @@ using Serilog.Formatting.Json;
 using Serilog;
 using Serilog.Exceptions;
 
-namespace TokenManager.Infra.CrossCutting.Extensions
+namespace Infra.CrossCutting.Extensions
 {
     public static class LogExtension
     {

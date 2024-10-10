@@ -1,7 +1,7 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace TokenManager.Infra.CrossCutting.Extensions
+namespace Infra.CrossCutting.Extensions
 {
     public static class HttpClientExtensions
     {

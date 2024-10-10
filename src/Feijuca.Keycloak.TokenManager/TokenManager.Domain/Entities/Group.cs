@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Domain.Entities
+﻿namespace Domain.Entities
 {
     public class Group
     {

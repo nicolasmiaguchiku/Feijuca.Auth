@@ -1,12 +1,11 @@
-﻿using MediatR;
+﻿using Application.Mappers;
+using Application.Responses;
+using Common.Errors;
+using Common.Models;
+using Domain.Interfaces;
+using MediatR;
 
-using TokenManager.Application.Mappers;
-using TokenManager.Application.Responses;
-using TokenManager.Common.Errors;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
-
-namespace TokenManager.Application.Queries.GroupUser
+namespace Application.Queries.GroupUser
 {
     public class GetUsersGroupQueryHandler(IGroupRepository groupRepository, IUserRepository userRepository) : IRequestHandler<GetUsersGroupQuery, Result<PagedResult<UserGroupResponse>>>
     {

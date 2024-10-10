@@ -1,9 +1,9 @@
-﻿using MediatR;
-using TokenManager.Application.Mappers;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
+﻿using Application.Mappers;
+using Common.Models;
+using Domain.Interfaces;
+using MediatR;
 
-namespace TokenManager.Application.Commands.Users
+namespace Application.Commands.Users
 {
     public class CreateUserCommandHandler(IUserRepository userRepository) : IRequestHandler<CreateUserCommand, Result>
     {

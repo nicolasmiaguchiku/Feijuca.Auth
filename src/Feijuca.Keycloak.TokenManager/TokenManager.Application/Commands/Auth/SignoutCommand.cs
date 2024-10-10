@@ -1,7 +1,7 @@
-﻿using MediatR;
-using TokenManager.Common.Models;
+﻿using Common.Models;
+using MediatR;
 
-namespace TokenManager.Application.Commands.Auth
+namespace Application.Commands.Auth
 {
     public record SignoutCommand(string Tenant, string RefreshToken) : IRequest<Result<bool>>;
 }

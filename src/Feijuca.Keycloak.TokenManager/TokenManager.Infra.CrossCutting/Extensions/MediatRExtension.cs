@@ -1,8 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Application.Commands.Users;
+using Microsoft.Extensions.DependencyInjection;
 
-using TokenManager.Application.Commands.Users;
-
-namespace TokenManager.Infra.CrossCutting.Extensions
+namespace Infra.CrossCutting.Extensions
 {
     public static class MediatRExtension
     {

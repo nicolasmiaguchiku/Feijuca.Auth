@@ -1,10 +1,9 @@
-﻿using MediatR;
+﻿using Common.Errors;
+using Common.Models;
+using Domain.Interfaces;
+using MediatR;
 
-using TokenManager.Common.Errors;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
-
-namespace TokenManager.Application.Commands.Users
+namespace Application.Commands.Users
 {
     public class DeleteUserCommandHandler(IUserRepository UserRepository) : IRequestHandler<DeleteUserCommand, Result<bool>>
     {

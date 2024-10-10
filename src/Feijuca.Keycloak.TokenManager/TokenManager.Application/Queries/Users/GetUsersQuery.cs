@@ -1,9 +1,9 @@
-﻿using MediatR;
-using TokenManager.Application.Requests.User;
-using TokenManager.Application.Responses;
-using TokenManager.Common.Models;
+﻿using Application.Requests.User;
+using Application.Responses;
+using Common.Models;
+using MediatR;
 
-namespace TokenManager.Application.Queries.Users
+namespace Application.Queries.Users
 {
     public record GetUsersQuery(string Tenant, GetUsersRequest GetUsersRequest) : IRequest<Result<PagedResult<UserResponse>>>;
 }

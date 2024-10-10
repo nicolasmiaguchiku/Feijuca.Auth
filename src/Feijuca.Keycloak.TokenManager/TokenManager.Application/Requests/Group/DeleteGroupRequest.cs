@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Application.Requests.Group
+﻿namespace Application.Requests.Group
 {
     public record DeleteGroupRequest(Guid Id);
 }

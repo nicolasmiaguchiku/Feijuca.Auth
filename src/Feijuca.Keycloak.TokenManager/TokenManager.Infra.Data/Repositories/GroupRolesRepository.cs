@@ -1,16 +1,16 @@
 ﻿
+using Common.Errors;
+using Common.Models;
+using Domain.Entities;
+using Domain.Interfaces;
 using Flurl;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Net.Http.Headers;
 using System.Text;
-using TokenManager.Common.Errors;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Entities;
-using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Infra.Data.Repositories
+namespace Infra.Data.Repositories
 {
     public class GroupRolesRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IGroupRolesRepository
     {

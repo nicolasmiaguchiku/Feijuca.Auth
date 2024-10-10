@@ -1,6 +1,6 @@
-﻿using TokenManager.Common.Models;
+﻿using Common.Models;
 
-namespace TokenManager.Common.Errors
+namespace Common.Errors
 {
     public static class ClientErrors
     {
@@ -10,7 +10,7 @@ namespace TokenManager.Common.Errors
             "Clients.GetClientsErrors",
             $"An error occurred while trying get clients {TechnicalMessage}"
         );
-        
+
         public static void SetTechnicalMessage(string technicalMessage)
         {
             TechnicalMessage = technicalMessage;

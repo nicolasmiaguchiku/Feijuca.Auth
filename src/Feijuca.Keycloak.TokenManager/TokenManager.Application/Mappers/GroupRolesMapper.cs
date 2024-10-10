@@ -1,7 +1,7 @@
-﻿using TokenManager.Application.Responses;
-using TokenManager.Domain.Entities;
+﻿using Application.Responses;
+using Domain.Entities;
 
-namespace TokenManager.Application.Mappers
+namespace Application.Mappers
 {
     public static class GroupRolesMapper
     {

@@ -1,11 +1,11 @@
-﻿using MediatR;
-using TokenManager.Application.Mappers;
-using TokenManager.Application.Responses;
-using TokenManager.Common.Errors;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
+﻿using Application.Mappers;
+using Application.Responses;
+using Common.Errors;
+using Common.Models;
+using Domain.Interfaces;
+using MediatR;
 
-namespace TokenManager.Application.Queries.Users
+namespace Application.Queries.Users
 {
     public class GetUsersQueryHandler(IUserRepository userRepository) : IRequestHandler<GetUsersQuery, Result<PagedResult<UserResponse>>>
     {

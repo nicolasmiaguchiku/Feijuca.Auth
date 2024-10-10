@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Application.Requests.User
+﻿namespace Application.Requests.User
 {
     public class DeleteUserRequest
     {

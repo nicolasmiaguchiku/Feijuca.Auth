@@ -1,6 +1,6 @@
 ﻿using Flurl;
 
-namespace TokenManager.Common.Extensions
+namespace Common.Extensions
 {
     public static class UrlExtensions
     {

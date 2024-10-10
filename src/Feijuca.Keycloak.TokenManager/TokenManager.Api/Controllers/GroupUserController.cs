@@ -1,13 +1,13 @@
-﻿using Feijuca.Keycloak.MultiTenancy.Attributes;
+﻿using Application.Commands.GroupUser;
+using Application.Queries.GroupUser;
+using Application.Requests.GroupUsers;
+using Common.Models;
+using Feijuca.Keycloak.MultiTenancy.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TokenManager.Application.Commands.GroupUser;
-using TokenManager.Application.Queries.GroupUser;
-using TokenManager.Application.Requests.GroupUsers;
-using TokenManager.Common.Models;
 
-namespace TokenManager.Api.Controllers
+namespace Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
@@ -25,8 +25,8 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> AddUserToGroup([FromRoute] string tenant, 
-            [FromBody] AddUserToGroupRequest addUserToGroupRequest, 
+        public async Task<IActionResult> AddUserToGroup([FromRoute] string tenant,
+            [FromBody] AddUserToGroupRequest addUserToGroupRequest,
             CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new AddUserToGroupCommand(tenant, addUserToGroupRequest.UserId, addUserToGroupRequest.GroupId), cancellationToken);
@@ -71,8 +71,8 @@ namespace TokenManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> RemoveUserFromGroup([FromRoute] string tenant, 
-            [FromBody] RemoveUserFromGroupRequest removeUserFromGroup, 
+        public async Task<IActionResult> RemoveUserFromGroup([FromRoute] string tenant,
+            [FromBody] RemoveUserFromGroupRequest removeUserFromGroup,
             CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new RemoveUserFromGroupCommand(tenant, removeUserFromGroup.UserId, removeUserFromGroup.GroupId), cancellationToken);

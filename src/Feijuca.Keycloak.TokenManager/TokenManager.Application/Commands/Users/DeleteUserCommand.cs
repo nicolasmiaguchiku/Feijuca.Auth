@@ -1,7 +1,7 @@
-﻿using MediatR;
-using TokenManager.Common.Models;
+﻿using Common.Models;
+using MediatR;
 
-namespace TokenManager.Application.Commands.Users
+namespace Application.Commands.Users
 {
     public record DeleteUserCommand(string Tenant, Guid Id) : IRequest<Result<bool>>;
 }

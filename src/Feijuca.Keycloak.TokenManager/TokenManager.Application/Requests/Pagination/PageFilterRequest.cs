@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Application.Requests.Pagination
+﻿namespace Application.Requests.Pagination
 {
     public record PageFilterRequest
     {

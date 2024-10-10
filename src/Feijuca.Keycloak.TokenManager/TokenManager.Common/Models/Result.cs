@@ -1,4 +1,4 @@
-﻿namespace TokenManager.Common.Models
+﻿namespace Common.Models
 {
     public class Result
     {

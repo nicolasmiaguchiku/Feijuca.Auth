@@ -1,6 +1,6 @@
-﻿using TokenManager.Common.Models;
+﻿using Common.Models;
 
-namespace TokenManager.Domain.Interfaces
+namespace Domain.Interfaces
 {
     public interface IGroupUsersRepository
     {

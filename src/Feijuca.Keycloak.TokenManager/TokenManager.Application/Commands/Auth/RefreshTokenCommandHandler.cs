@@ -1,10 +1,10 @@
-﻿using MediatR;
-using TokenManager.Application.Mappers;
-using TokenManager.Application.Responses;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
+﻿using Application.Mappers;
+using Application.Responses;
+using Common.Models;
+using Domain.Interfaces;
+using MediatR;
 
-namespace TokenManager.Application.Commands.Auth
+namespace Application.Commands.Auth
 {
     public class RefreshTokenCommandHandler(IAuthRepository authRepository) : IRequestHandler<RefreshTokenCommand, Result<TokenDetailsResponse>>
     {

@@ -1,9 +1,8 @@
-﻿using MediatR;
+﻿using Application.Responses;
+using Common.Models;
+using MediatR;
 
-using TokenManager.Application.Responses;
-using TokenManager.Common.Models;
-
-namespace TokenManager.Application.Queries.Permissions
+namespace Application.Queries.Permissions
 {
     public record GetRolesQuery(string Tenant) : IRequest<Result<IEnumerable<ClientRoleResponse>>>;
 }

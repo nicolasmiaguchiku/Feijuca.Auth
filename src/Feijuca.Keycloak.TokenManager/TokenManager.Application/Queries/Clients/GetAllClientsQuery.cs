@@ -1,8 +1,8 @@
-﻿using MediatR;
-using TokenManager.Application.Responses;
-using TokenManager.Common.Models;
+﻿using Application.Responses;
+using Common.Models;
+using MediatR;
 
-namespace TokenManager.Application.Queries.Clients
+namespace Application.Queries.Clients
 {
     public record GetAllClientsQuery(string Tenant) : IRequest<Result<IEnumerable<ClientResponse>>>;
 }

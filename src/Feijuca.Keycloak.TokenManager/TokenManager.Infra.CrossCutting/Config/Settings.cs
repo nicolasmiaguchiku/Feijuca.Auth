@@ -1,6 +1,6 @@
 ﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
 
-namespace TokenManager.Infra.CrossCutting.Config
+namespace Infra.CrossCutting.Config
 {
     public interface ISettings
     {

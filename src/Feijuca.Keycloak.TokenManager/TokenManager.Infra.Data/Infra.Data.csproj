@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TokenManager.Domain\TokenManager.Domain.csproj" />
+    <ProjectReference Include="..\TokenManager.Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

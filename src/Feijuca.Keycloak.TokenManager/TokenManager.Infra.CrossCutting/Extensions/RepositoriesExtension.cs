@@ -1,10 +1,10 @@
-﻿using Feijuca.Keycloak.MultiTenancy.Services;
+﻿using Domain.Entities;
+using Domain.Interfaces;
+using Feijuca.Keycloak.MultiTenancy.Services;
+using Infra.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using TokenManager.Domain.Entities;
-using TokenManager.Domain.Interfaces;
-using TokenManager.Infra.Data.Repositories;
 
-namespace TokenManager.Infra.CrossCutting.Extensions
+namespace Infra.CrossCutting.Extensions
 {
     public static class RepositoriesExtension
     {

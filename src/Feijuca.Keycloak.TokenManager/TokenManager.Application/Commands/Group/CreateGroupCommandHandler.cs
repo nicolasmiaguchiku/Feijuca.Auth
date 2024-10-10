@@ -1,9 +1,7 @@
-﻿using MediatR;
+﻿using Domain.Interfaces;
+using MediatR;
 
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
-
-namespace TokenManager.Application.Commands.Group
+namespace Application.Commands.Group
 {
     public class CreateGroupCommandHandler(IGroupRepository groupRepository) : IRequestHandler<CreateGroupCommand, Common.Models.Result>
     {

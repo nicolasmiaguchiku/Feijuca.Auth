@@ -1,12 +1,11 @@
-﻿using MediatR;
+﻿using Application.Mappers;
+using Application.Responses;
+using Common.Errors;
+using Common.Models;
+using Domain.Interfaces;
+using MediatR;
 
-using TokenManager.Application.Mappers;
-using TokenManager.Application.Responses;
-using TokenManager.Common.Errors;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
-
-namespace TokenManager.Application.Queries.GroupRoles
+namespace Application.Queries.GroupRoles
 {
     public class GetGroupRolesQueryHandler(IGroupRolesRepository roleGroupRepository) : IRequestHandler<GetGroupRolesQuery, Result<IEnumerable<GroupRolesResponse>>>
     {
@@ -15,7 +14,7 @@ namespace TokenManager.Application.Queries.GroupRoles
         public async Task<Result<IEnumerable<GroupRolesResponse>>> Handle(GetGroupRolesQuery request, CancellationToken cancellationToken)
         {
             var groupsRolesResult = await _roleGroupRepository.GetGroupRolesAsync(request.Tenant, request.GroupId);
-            
+
             if (groupsRolesResult.IsSuccess)
             {
                 return Result<IEnumerable<GroupRolesResponse>>.Success(groupsRolesResult.Response.ToResponse());

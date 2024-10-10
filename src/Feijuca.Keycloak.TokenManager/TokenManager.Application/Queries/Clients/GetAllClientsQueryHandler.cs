@@ -1,9 +1,9 @@
-﻿using MediatR;
-using TokenManager.Application.Responses;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
+﻿using Application.Responses;
+using Common.Models;
+using Domain.Interfaces;
+using MediatR;
 
-namespace TokenManager.Application.Queries.Clients
+namespace Application.Queries.Clients
 {
     public class GetAllClientsQueryHandler(IClientRepository clientRepository) : IRequestHandler<GetAllClientsQuery, Result<IEnumerable<ClientResponse>>>
     {
@@ -12,7 +12,7 @@ namespace TokenManager.Application.Queries.Clients
         public async Task<Result<IEnumerable<ClientResponse>>> Handle(GetAllClientsQuery request, CancellationToken cancellationToken)
         {
             var clientsResult = await _clientRepository.GetClientsAsync(request.Tenant);
-            
+
             if (clientsResult.IsSuccess)
             {
                 var clients = clientsResult.Response.Select(x => new ClientResponse(x.Enabled, x.Id, x.ClientId));

@@ -1,10 +1,10 @@
-﻿using Flurl;
+﻿using Common.Errors;
+using Common.Models;
+using Domain.Interfaces;
+using Flurl;
 using System.Net.Http.Headers;
-using TokenManager.Common.Errors;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Infra.Data.Repositories
+namespace Infra.Data.Repositories
 {
     public class UserGroupRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IGroupUsersRepository
     {

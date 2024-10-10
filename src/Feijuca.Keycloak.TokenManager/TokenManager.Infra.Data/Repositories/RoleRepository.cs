@@ -1,14 +1,14 @@
 ﻿
+using Common.Errors;
+using Common.Models;
+using Domain.Entities;
+using Domain.Interfaces;
 using Flurl;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
-using TokenManager.Common.Errors;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Entities;
-using TokenManager.Domain.Interfaces;
 
-namespace TokenManager.Infra.Data.Repositories
+namespace Infra.Data.Repositories
 {
     public class RoleRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IRoleRepository
     {
@@ -34,7 +34,7 @@ namespace TokenManager.Infra.Data.Repositories
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<IEnumerable<Role>>(responseContent)!;
-                var defaultRoles = new List<string> { "uma_protection"};
+                var defaultRoles = new List<string> { "uma_protection" };
                 var rolesWithoutDefaultRoles = result.Where(role => !defaultRoles.Contains(role.Name)).ToList();
                 return Result<IEnumerable<Role>>.Success(rolesWithoutDefaultRoles!);
             }

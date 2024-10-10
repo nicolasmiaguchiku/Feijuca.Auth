@@ -1,7 +1,7 @@
-﻿using TokenManager.Common.Models;
-using TokenManager.Domain.Entities;
+﻿using Common.Models;
+using Domain.Entities;
 
-namespace TokenManager.Domain.Interfaces
+namespace Domain.Interfaces
 {
     public interface IRoleRepository
     {

@@ -1,9 +1,9 @@
-﻿using MediatR;
-using TokenManager.Common.Errors;
-using TokenManager.Common.Models;
-using TokenManager.Domain.Interfaces;
+﻿using Common.Errors;
+using Common.Models;
+using Domain.Interfaces;
+using MediatR;
 
-namespace TokenManager.Application.Commands.Auth
+namespace Application.Commands.Auth
 {
     public class SignoutCommandHandler(IAuthRepository authRepository) : IRequestHandler<SignoutCommand, Result<bool>>
     {
