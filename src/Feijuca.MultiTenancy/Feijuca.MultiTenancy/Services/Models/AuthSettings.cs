@@ -1,4 +1,4 @@
-﻿namespace Feijuca.Keycloak.MultiTenancy.Services.Models
+﻿namespace Feijuca.MultiTenancy.Services.Models
 {
     public class AuthSettings
     {

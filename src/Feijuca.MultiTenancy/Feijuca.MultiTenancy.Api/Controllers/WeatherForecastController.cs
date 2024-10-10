@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Feijuca.WebApi.Tests.Controllers
+namespace Feijuca.MultiTenancy.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

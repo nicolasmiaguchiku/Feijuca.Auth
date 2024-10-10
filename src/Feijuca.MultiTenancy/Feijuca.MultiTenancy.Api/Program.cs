@@ -1,5 +1,5 @@
-using Feijuca.WebApi.Tests.Extensions;
-using Feijuca.WebApi.Tests.Models;
+using Feijuca.MultiTenancy.Api.Extensions;
+using Feijuca.MultiTenancy.Api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

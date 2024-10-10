@@ -1,4 +1,4 @@
-namespace Feijuca.WebApi.Tests
+namespace Feijuca.MultiTenancy.Api
 {
     public class WeatherForecast
     {

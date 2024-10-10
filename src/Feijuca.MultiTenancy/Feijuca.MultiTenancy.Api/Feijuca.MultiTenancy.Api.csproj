@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Feijuca.Keycloak.MultiTenancy\Feijuca.Keycloak.MultiTenancy.csproj" />
+    <ProjectReference Include="..\Feijuca.MultiTenancy\Feijuca.MultiTenancy.csproj" />
   </ItemGroup>
 
 </Project>

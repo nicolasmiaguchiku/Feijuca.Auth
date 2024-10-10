@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Feijuca.Keycloak.MultiTenancy.Attributes
+namespace Feijuca.MultiTenancy.Attributes
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
     public class RequiredRoleAttribute(string role) : Attribute, IAuthorizationFilter

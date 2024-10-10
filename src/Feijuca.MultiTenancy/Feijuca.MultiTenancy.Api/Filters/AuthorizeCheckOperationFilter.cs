@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Feijuca.WebApi.Tests.Filters
+namespace Feijuca.MultiTenancy.Api.Filters
 {
     public class AuthorizeCheckOperationFilter : IOperationFilter
     {

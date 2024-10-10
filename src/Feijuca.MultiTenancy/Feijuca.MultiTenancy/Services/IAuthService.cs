@@ -1,6 +1,6 @@
-﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
+﻿using Feijuca.MultiTenancy.Services.Models;
 
-namespace Feijuca.Keycloak.MultiTenancy.Services
+namespace Feijuca.MultiTenancy.Services
 {
     public interface IAuthService
     {

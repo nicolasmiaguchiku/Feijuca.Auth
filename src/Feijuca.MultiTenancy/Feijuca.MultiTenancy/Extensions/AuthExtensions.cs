@@ -1,5 +1,5 @@
-﻿using Feijuca.Keycloak.MultiTenancy.Services;
-using Feijuca.Keycloak.MultiTenancy.Services.Models;
+﻿using Feijuca.MultiTenancy.Services;
+using Feijuca.MultiTenancy.Services.Models;
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Feijuca.Keycloak.MultiTenancy.Extensions
+namespace Feijuca.MultiTenancy.Extensions
 {
     public static class AuthExtensions
     {

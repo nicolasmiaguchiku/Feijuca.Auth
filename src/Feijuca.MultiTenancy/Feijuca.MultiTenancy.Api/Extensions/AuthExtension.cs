@@ -1,8 +1,8 @@
-﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
+﻿using Feijuca.MultiTenancy.Extensions;
+using Feijuca.MultiTenancy.Services.Models;
 using System.IdentityModel.Tokens.Jwt;
-using Feijuca.Keycloak.MultiTenancy.Extensions;
 
-namespace Feijuca.WebApi.Tests.Extensions
+namespace Feijuca.MultiTenancy.Api.Extensions
 {
     public static class AuthExtension
     {

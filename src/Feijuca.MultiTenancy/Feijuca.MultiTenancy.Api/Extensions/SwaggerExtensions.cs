@@ -1,9 +1,9 @@
-﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
-using Feijuca.WebApi.Tests.Filters;
+﻿using Feijuca.MultiTenancy.Api.Filters;
+using Feijuca.MultiTenancy.Services.Models;
 using Flurl;
 using Microsoft.OpenApi.Models;
 
-namespace Feijuca.WebApi.Tests.Extensions
+namespace Feijuca.MultiTenancy.Api.Extensions
 {
     public static class SwaggerExtensions
     {
