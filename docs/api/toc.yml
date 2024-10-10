@@ -1,0 +1,29 @@
+### YamlMime:TableOfContent
+items:
+- uid: Feijuca.MultiTenancy.Attributes
+  name: Feijuca.MultiTenancy.Attributes
+  items:
+  - uid: Feijuca.MultiTenancy.Attributes.RequiredRoleAttribute
+    name: RequiredRoleAttribute
+  - uid: Feijuca.MultiTenancy.Attributes.RequiredScopeAttribute
+    name: RequiredScopeAttribute
+- uid: Feijuca.MultiTenancy.Extensions
+  name: Feijuca.MultiTenancy.Extensions
+  items:
+  - uid: Feijuca.MultiTenancy.Extensions.AuthExtensions
+    name: AuthExtensions
+- uid: Feijuca.MultiTenancy.Services
+  name: Feijuca.MultiTenancy.Services
+  items:
+  - uid: Feijuca.MultiTenancy.Services.AuthService
+    name: AuthService
+  - uid: Feijuca.MultiTenancy.Services.IAuthService
+    name: IAuthService
+- uid: Feijuca.MultiTenancy.Services.Models
+  name: Feijuca.MultiTenancy.Services.Models
+  items:
+  - uid: Feijuca.MultiTenancy.Services.Models.AuthSettings
+    name: AuthSettings
+  - uid: Feijuca.MultiTenancy.Services.Models.Realm
+    name: Realm
+memberLayout: SamePage

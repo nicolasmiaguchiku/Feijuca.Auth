@@ -1,0 +1,61 @@
+### YamlMime:ManagedReference
+items:
+- uid: Feijuca.MultiTenancy.Services
+  commentId: N:Feijuca.MultiTenancy.Services
+  id: Feijuca.MultiTenancy.Services
+  children:
+  - Feijuca.MultiTenancy.Services.AuthService
+  - Feijuca.MultiTenancy.Services.IAuthService
+  langs:
+  - csharp
+  - vb
+  name: Feijuca.MultiTenancy.Services
+  nameWithType: Feijuca.MultiTenancy.Services
+  fullName: Feijuca.MultiTenancy.Services
+  type: Namespace
+  assemblies:
+  - Feijuca.Auth
+references:
+- uid: Feijuca.MultiTenancy.Services.AuthService
+  commentId: T:Feijuca.MultiTenancy.Services.AuthService
+  href: Feijuca.MultiTenancy.Services.AuthService.html
+  name: AuthService
+  nameWithType: AuthService
+  fullName: Feijuca.MultiTenancy.Services.AuthService
+- uid: Feijuca.MultiTenancy.Services.IAuthService
+  commentId: T:Feijuca.MultiTenancy.Services.IAuthService
+  parent: Feijuca.MultiTenancy.Services
+  href: Feijuca.MultiTenancy.Services.IAuthService.html
+  name: IAuthService
+  nameWithType: IAuthService
+  fullName: Feijuca.MultiTenancy.Services.IAuthService
+- uid: Feijuca.MultiTenancy.Services
+  commentId: N:Feijuca.MultiTenancy.Services
+  href: Feijuca.html
+  name: Feijuca.MultiTenancy.Services
+  nameWithType: Feijuca.MultiTenancy.Services
+  fullName: Feijuca.MultiTenancy.Services
+  spec.csharp:
+  - uid: Feijuca
+    name: Feijuca
+    href: Feijuca.html
+  - name: .
+  - uid: Feijuca.MultiTenancy
+    name: MultiTenancy
+    href: Feijuca.MultiTenancy.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services
+    name: Services
+    href: Feijuca.MultiTenancy.Services.html
+  spec.vb:
+  - uid: Feijuca
+    name: Feijuca
+    href: Feijuca.html
+  - name: .
+  - uid: Feijuca.MultiTenancy
+    name: MultiTenancy
+    href: Feijuca.MultiTenancy.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services
+    name: Services
+    href: Feijuca.MultiTenancy.Services.html

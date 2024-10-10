@@ -1,0 +1,30 @@
+### YamlMime:ManagedReference
+items:
+- uid: Feijuca.MultiTenancy.Attributes
+  commentId: N:Feijuca.MultiTenancy.Attributes
+  id: Feijuca.MultiTenancy.Attributes
+  children:
+  - Feijuca.MultiTenancy.Attributes.RequiredRoleAttribute
+  - Feijuca.MultiTenancy.Attributes.RequiredScopeAttribute
+  langs:
+  - csharp
+  - vb
+  name: Feijuca.MultiTenancy.Attributes
+  nameWithType: Feijuca.MultiTenancy.Attributes
+  fullName: Feijuca.MultiTenancy.Attributes
+  type: Namespace
+  assemblies:
+  - Feijuca.Auth
+references:
+- uid: Feijuca.MultiTenancy.Attributes.RequiredRoleAttribute
+  commentId: T:Feijuca.MultiTenancy.Attributes.RequiredRoleAttribute
+  href: Feijuca.MultiTenancy.Attributes.RequiredRoleAttribute.html
+  name: RequiredRoleAttribute
+  nameWithType: RequiredRoleAttribute
+  fullName: Feijuca.MultiTenancy.Attributes.RequiredRoleAttribute
+- uid: Feijuca.MultiTenancy.Attributes.RequiredScopeAttribute
+  commentId: T:Feijuca.MultiTenancy.Attributes.RequiredScopeAttribute
+  href: Feijuca.MultiTenancy.Attributes.RequiredScopeAttribute.html
+  name: RequiredScopeAttribute
+  nameWithType: RequiredScopeAttribute
+  fullName: Feijuca.MultiTenancy.Attributes.RequiredScopeAttribute
