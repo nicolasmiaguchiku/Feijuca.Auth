@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feijuca.Auth", "Feijuca.Auth\Feijuca.Auth.csproj", "{A8F7019D-DE90-46F3-B3CF-0A81BA90735E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feijuca.Auth.Api", "Feijuca.Auth.Api\Feijuca.Auth.Api.csproj", "{C0F9B8AC-F5BB-40E9-81AF-CDE34C9FAA0F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8F7019D-DE90-46F3-B3CF-0A81BA90735E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8F7019D-DE90-46F3-B3CF-0A81BA90735E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8F7019D-DE90-46F3-B3CF-0A81BA90735E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8F7019D-DE90-46F3-B3CF-0A81BA90735E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0F9B8AC-F5BB-40E9-81AF-CDE34C9FAA0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0F9B8AC-F5BB-40E9-81AF-CDE34C9FAA0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0F9B8AC-F5BB-40E9-81AF-CDE34C9FAA0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0F9B8AC-F5BB-40E9-81AF-CDE34C9FAA0F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5EFC10C-30FD-4844-944A-BEB2F3C48263}
+	EndGlobalSection
+EndGlobal
