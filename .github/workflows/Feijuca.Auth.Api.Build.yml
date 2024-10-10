@@ -4,12 +4,12 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'src/Feijuca.Keycloak.TokenManager/**'
+      - 'src/Feijuca.Auth.Api/**'
       - 'tests/**'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'src/Feijuca.Keycloak.TokenManager/**'
+      - 'src/Feijuca.Auth.Api/**'
       - 'tests/**'
 
 permissions:
@@ -26,9 +26,9 @@ jobs:
         with:
           dotnet-version: 8.0.x
       - name: Restore dependencies
-        run: dotnet restore src/Feijuca.Keycloak.TokenManager/TokenManager.Api/TokenManager.Api.csproj
+        run: dotnet restore src/Feijuca.Auth.Api/Feijuca.Auth.Api/Api.csproj
       - name: Build project
-        run: dotnet build --no-restore --configuration Release src/Feijuca.Keycloak.TokenManager/TokenManager.Api/TokenManager.Api.csproj
+        run: dotnet build --no-restore --configuration Release src/Feijuca.Auth.Api/Feijuca.Auth.Api/Api.csproj
 
   unit-tests:
     runs-on: ubuntu-latest
@@ -42,9 +42,9 @@ jobs:
           dotnet-version: 8.0.x
       - name: Restore dependencies and run unit tests
         run: |
-          dotnet restore tests/TokenManager.UnitTests/TokenManager.UnitTests.csproj
-          dotnet build --no-restore --configuration Release tests/TokenManager.UnitTests/TokenManager.UnitTests.csproj
-          dotnet test --verbosity normal tests/TokenManager.UnitTests/TokenManager.UnitTests.csproj
+          dotnet restore tests/Feijuca.Auth.UnitTests/Feijuca.Auth.UnitTests.csproj
+          dotnet build --no-restore --configuration Release tests/Feijuca.Auth.UnitTests/Feijuca.Auth.UnitTests.csproj
+          dotnet test --verbosity normal tests/Feijuca.Auth.UnitTests/Feijuca.Auth.UnitTests.csproj
   bump:
     name: Update project version
     runs-on: ubuntu-latest
@@ -83,7 +83,7 @@ jobs:
         id: bump-minor
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
-          file: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/TokenManager.Api.csproj
+          file: src/Feijuca.Auth.Api/Feijuca.Auth.Api/Api.csproj
           version: "*.^.0"
 
       - name: Bump build version - Revision
@@ -91,7 +91,7 @@ jobs:
         id: bump-revision
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
-          file: src/Feijuca.Keycloak.TokenManager/TokenManager.Api/TokenManager.Api.csproj
+          file: src/Feijuca.Auth.Api/Feijuca.Auth.Api/Api.csproj
           version: "*.*.^"
           
       - name: Commit and push changes - MINOR
