@@ -1,0 +1,70 @@
+### YamlMime:ManagedReference
+items:
+- uid: Feijuca.MultiTenancy.Services.Models
+  commentId: N:Feijuca.MultiTenancy.Services.Models
+  id: Feijuca.MultiTenancy.Services.Models
+  children:
+  - Feijuca.MultiTenancy.Services.Models.AuthSettings
+  - Feijuca.MultiTenancy.Services.Models.Realm
+  langs:
+  - csharp
+  - vb
+  name: Feijuca.MultiTenancy.Services.Models
+  nameWithType: Feijuca.MultiTenancy.Services.Models
+  fullName: Feijuca.MultiTenancy.Services.Models
+  type: Namespace
+  assemblies:
+  - Feijuca.Auth
+references:
+- uid: Feijuca.MultiTenancy.Services.Models.AuthSettings
+  commentId: T:Feijuca.MultiTenancy.Services.Models.AuthSettings
+  parent: Feijuca.MultiTenancy.Services.Models
+  href: Feijuca.MultiTenancy.Services.Models.AuthSettings.html
+  name: AuthSettings
+  nameWithType: AuthSettings
+  fullName: Feijuca.MultiTenancy.Services.Models.AuthSettings
+- uid: Feijuca.MultiTenancy.Services.Models.Realm
+  commentId: T:Feijuca.MultiTenancy.Services.Models.Realm
+  parent: Feijuca.MultiTenancy.Services.Models
+  href: Feijuca.MultiTenancy.Services.Models.Realm.html
+  name: Realm
+  nameWithType: Realm
+  fullName: Feijuca.MultiTenancy.Services.Models.Realm
+- uid: Feijuca.MultiTenancy.Services.Models
+  commentId: N:Feijuca.MultiTenancy.Services.Models
+  href: Feijuca.html
+  name: Feijuca.MultiTenancy.Services.Models
+  nameWithType: Feijuca.MultiTenancy.Services.Models
+  fullName: Feijuca.MultiTenancy.Services.Models
+  spec.csharp:
+  - uid: Feijuca
+    name: Feijuca
+    href: Feijuca.html
+  - name: .
+  - uid: Feijuca.MultiTenancy
+    name: MultiTenancy
+    href: Feijuca.MultiTenancy.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services
+    name: Services
+    href: Feijuca.MultiTenancy.Services.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services.Models
+    name: Models
+    href: Feijuca.MultiTenancy.Services.Models.html
+  spec.vb:
+  - uid: Feijuca
+    name: Feijuca
+    href: Feijuca.html
+  - name: .
+  - uid: Feijuca.MultiTenancy
+    name: MultiTenancy
+    href: Feijuca.MultiTenancy.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services
+    name: Services
+    href: Feijuca.MultiTenancy.Services.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services.Models
+    name: Models
+    href: Feijuca.MultiTenancy.Services.Models.html

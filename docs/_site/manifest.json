@@ -1,0 +1,248 @@
+{
+  "source_base_path": "D:/repositorio-coderaw/Feijuca.Auth/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Feijuca.MultiTenancy.Attributes.RequiredRoleAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Feijuca.MultiTenancy.Attributes.RequiredRoleAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Feijuca.MultiTenancy.Attributes.RequiredScopeAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Feijuca.MultiTenancy.Attributes.RequiredScopeAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Feijuca.MultiTenancy.Attributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Feijuca.MultiTenancy.Attributes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Feijuca.MultiTenancy.Extensions.AuthExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Feijuca.MultiTenancy.Extensions.AuthExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Feijuca.MultiTenancy.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Feijuca.MultiTenancy.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Feijuca.MultiTenancy.Services.AuthService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Feijuca.MultiTenancy.Services.AuthService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Feijuca.MultiTenancy.Services.IAuthService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Feijuca.MultiTenancy.Services.IAuthService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Feijuca.MultiTenancy.Services.Models.AuthSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Feijuca.MultiTenancy.Services.Models.AuthSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Feijuca.MultiTenancy.Services.Models.Realm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Feijuca.MultiTenancy.Services.Models.Realm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Feijuca.MultiTenancy.Services.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Feijuca.MultiTenancy.Services.Models.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Feijuca.MultiTenancy.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Feijuca.MultiTenancy.Services.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/FeijucaAuthMultiTenancy.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/FeijucaAuthMultiTenancy.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/configuringApplicationMultiTenancy.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/configuringApplicationMultiTenancy.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/configuringApplicationTokenManager.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/configuringApplicationTokenManager.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/creatingUsers.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/creatingUsers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/deletingUsers.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/deletingUsers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/feijucaTokenManager.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/feijucaTokenManager.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/usingEndpoints.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/usingEndpoints.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

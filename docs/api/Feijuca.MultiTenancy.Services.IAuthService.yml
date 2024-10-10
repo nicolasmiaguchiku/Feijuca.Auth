@@ -1,0 +1,387 @@
+### YamlMime:ManagedReference
+items:
+- uid: Feijuca.MultiTenancy.Services.IAuthService
+  commentId: T:Feijuca.MultiTenancy.Services.IAuthService
+  id: IAuthService
+  parent: Feijuca.MultiTenancy.Services
+  children:
+  - Feijuca.MultiTenancy.Services.IAuthService.GetClientId
+  - Feijuca.MultiTenancy.Services.IAuthService.GetClientSecret
+  - Feijuca.MultiTenancy.Services.IAuthService.GetInfoFromToken(System.String)
+  - Feijuca.MultiTenancy.Services.IAuthService.GetRealm(System.String)
+  - Feijuca.MultiTenancy.Services.IAuthService.GetServerUrl
+  - Feijuca.MultiTenancy.Services.IAuthService.GetTenantFromToken
+  - Feijuca.MultiTenancy.Services.IAuthService.GetUserIdFromToken
+  langs:
+  - csharp
+  - vb
+  name: IAuthService
+  nameWithType: IAuthService
+  fullName: Feijuca.MultiTenancy.Services.IAuthService
+  type: Interface
+  source:
+    remote:
+      path: src/Feijuca.Auth/Services/IAuthService.cs
+      branch: docs-Creating_New_Documentation
+      repo: https://github.com/coderaw-io/Feijuca.Auth.git
+    id: IAuthService
+    path: ../src/Feijuca.Auth/Services/IAuthService.cs
+    startLine: 4
+  assemblies:
+  - Feijuca.Auth
+  namespace: Feijuca.MultiTenancy.Services
+  syntax:
+    content: public interface IAuthService
+    content.vb: Public Interface IAuthService
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetInfoFromToken(System.String)
+  commentId: M:Feijuca.MultiTenancy.Services.IAuthService.GetInfoFromToken(System.String)
+  id: GetInfoFromToken(System.String)
+  parent: Feijuca.MultiTenancy.Services.IAuthService
+  langs:
+  - csharp
+  - vb
+  name: GetInfoFromToken(string)
+  nameWithType: IAuthService.GetInfoFromToken(string)
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetInfoFromToken(string)
+  type: Method
+  source:
+    remote:
+      path: src/Feijuca.Auth/Services/IAuthService.cs
+      branch: docs-Creating_New_Documentation
+      repo: https://github.com/coderaw-io/Feijuca.Auth.git
+    id: GetInfoFromToken
+    path: ../src/Feijuca.Auth/Services/IAuthService.cs
+    startLine: 6
+  assemblies:
+  - Feijuca.Auth
+  namespace: Feijuca.MultiTenancy.Services
+  syntax:
+    content: string GetInfoFromToken(string infoName)
+    parameters:
+    - id: infoName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Function GetInfoFromToken(infoName As String) As String
+  overload: Feijuca.MultiTenancy.Services.IAuthService.GetInfoFromToken*
+  nameWithType.vb: IAuthService.GetInfoFromToken(String)
+  fullName.vb: Feijuca.MultiTenancy.Services.IAuthService.GetInfoFromToken(String)
+  name.vb: GetInfoFromToken(String)
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetTenantFromToken
+  commentId: M:Feijuca.MultiTenancy.Services.IAuthService.GetTenantFromToken
+  id: GetTenantFromToken
+  parent: Feijuca.MultiTenancy.Services.IAuthService
+  langs:
+  - csharp
+  - vb
+  name: GetTenantFromToken()
+  nameWithType: IAuthService.GetTenantFromToken()
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetTenantFromToken()
+  type: Method
+  source:
+    remote:
+      path: src/Feijuca.Auth/Services/IAuthService.cs
+      branch: docs-Creating_New_Documentation
+      repo: https://github.com/coderaw-io/Feijuca.Auth.git
+    id: GetTenantFromToken
+    path: ../src/Feijuca.Auth/Services/IAuthService.cs
+    startLine: 7
+  assemblies:
+  - Feijuca.Auth
+  namespace: Feijuca.MultiTenancy.Services
+  syntax:
+    content: string GetTenantFromToken()
+    return:
+      type: System.String
+    content.vb: Function GetTenantFromToken() As String
+  overload: Feijuca.MultiTenancy.Services.IAuthService.GetTenantFromToken*
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetClientId
+  commentId: M:Feijuca.MultiTenancy.Services.IAuthService.GetClientId
+  id: GetClientId
+  parent: Feijuca.MultiTenancy.Services.IAuthService
+  langs:
+  - csharp
+  - vb
+  name: GetClientId()
+  nameWithType: IAuthService.GetClientId()
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetClientId()
+  type: Method
+  source:
+    remote:
+      path: src/Feijuca.Auth/Services/IAuthService.cs
+      branch: docs-Creating_New_Documentation
+      repo: https://github.com/coderaw-io/Feijuca.Auth.git
+    id: GetClientId
+    path: ../src/Feijuca.Auth/Services/IAuthService.cs
+    startLine: 8
+  assemblies:
+  - Feijuca.Auth
+  namespace: Feijuca.MultiTenancy.Services
+  syntax:
+    content: string GetClientId()
+    return:
+      type: System.String
+    content.vb: Function GetClientId() As String
+  overload: Feijuca.MultiTenancy.Services.IAuthService.GetClientId*
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetClientSecret
+  commentId: M:Feijuca.MultiTenancy.Services.IAuthService.GetClientSecret
+  id: GetClientSecret
+  parent: Feijuca.MultiTenancy.Services.IAuthService
+  langs:
+  - csharp
+  - vb
+  name: GetClientSecret()
+  nameWithType: IAuthService.GetClientSecret()
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetClientSecret()
+  type: Method
+  source:
+    remote:
+      path: src/Feijuca.Auth/Services/IAuthService.cs
+      branch: docs-Creating_New_Documentation
+      repo: https://github.com/coderaw-io/Feijuca.Auth.git
+    id: GetClientSecret
+    path: ../src/Feijuca.Auth/Services/IAuthService.cs
+    startLine: 9
+  assemblies:
+  - Feijuca.Auth
+  namespace: Feijuca.MultiTenancy.Services
+  syntax:
+    content: string GetClientSecret()
+    return:
+      type: System.String
+    content.vb: Function GetClientSecret() As String
+  overload: Feijuca.MultiTenancy.Services.IAuthService.GetClientSecret*
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetServerUrl
+  commentId: M:Feijuca.MultiTenancy.Services.IAuthService.GetServerUrl
+  id: GetServerUrl
+  parent: Feijuca.MultiTenancy.Services.IAuthService
+  langs:
+  - csharp
+  - vb
+  name: GetServerUrl()
+  nameWithType: IAuthService.GetServerUrl()
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetServerUrl()
+  type: Method
+  source:
+    remote:
+      path: src/Feijuca.Auth/Services/IAuthService.cs
+      branch: docs-Creating_New_Documentation
+      repo: https://github.com/coderaw-io/Feijuca.Auth.git
+    id: GetServerUrl
+    path: ../src/Feijuca.Auth/Services/IAuthService.cs
+    startLine: 10
+  assemblies:
+  - Feijuca.Auth
+  namespace: Feijuca.MultiTenancy.Services
+  syntax:
+    content: string GetServerUrl()
+    return:
+      type: System.String
+    content.vb: Function GetServerUrl() As String
+  overload: Feijuca.MultiTenancy.Services.IAuthService.GetServerUrl*
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetRealm(System.String)
+  commentId: M:Feijuca.MultiTenancy.Services.IAuthService.GetRealm(System.String)
+  id: GetRealm(System.String)
+  parent: Feijuca.MultiTenancy.Services.IAuthService
+  langs:
+  - csharp
+  - vb
+  name: GetRealm(string)
+  nameWithType: IAuthService.GetRealm(string)
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetRealm(string)
+  type: Method
+  source:
+    remote:
+      path: src/Feijuca.Auth/Services/IAuthService.cs
+      branch: docs-Creating_New_Documentation
+      repo: https://github.com/coderaw-io/Feijuca.Auth.git
+    id: GetRealm
+    path: ../src/Feijuca.Auth/Services/IAuthService.cs
+    startLine: 11
+  assemblies:
+  - Feijuca.Auth
+  namespace: Feijuca.MultiTenancy.Services
+  syntax:
+    content: Realm GetRealm(string realmName)
+    parameters:
+    - id: realmName
+      type: System.String
+    return:
+      type: Feijuca.MultiTenancy.Services.Models.Realm
+    content.vb: Function GetRealm(realmName As String) As Realm
+  overload: Feijuca.MultiTenancy.Services.IAuthService.GetRealm*
+  nameWithType.vb: IAuthService.GetRealm(String)
+  fullName.vb: Feijuca.MultiTenancy.Services.IAuthService.GetRealm(String)
+  name.vb: GetRealm(String)
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetUserIdFromToken
+  commentId: M:Feijuca.MultiTenancy.Services.IAuthService.GetUserIdFromToken
+  id: GetUserIdFromToken
+  parent: Feijuca.MultiTenancy.Services.IAuthService
+  langs:
+  - csharp
+  - vb
+  name: GetUserIdFromToken()
+  nameWithType: IAuthService.GetUserIdFromToken()
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetUserIdFromToken()
+  type: Method
+  source:
+    remote:
+      path: src/Feijuca.Auth/Services/IAuthService.cs
+      branch: docs-Creating_New_Documentation
+      repo: https://github.com/coderaw-io/Feijuca.Auth.git
+    id: GetUserIdFromToken
+    path: ../src/Feijuca.Auth/Services/IAuthService.cs
+    startLine: 12
+  assemblies:
+  - Feijuca.Auth
+  namespace: Feijuca.MultiTenancy.Services
+  syntax:
+    content: Guid GetUserIdFromToken()
+    return:
+      type: System.Guid
+    content.vb: Function GetUserIdFromToken() As Guid
+  overload: Feijuca.MultiTenancy.Services.IAuthService.GetUserIdFromToken*
+references:
+- uid: Feijuca.MultiTenancy.Services
+  commentId: N:Feijuca.MultiTenancy.Services
+  href: Feijuca.html
+  name: Feijuca.MultiTenancy.Services
+  nameWithType: Feijuca.MultiTenancy.Services
+  fullName: Feijuca.MultiTenancy.Services
+  spec.csharp:
+  - uid: Feijuca
+    name: Feijuca
+    href: Feijuca.html
+  - name: .
+  - uid: Feijuca.MultiTenancy
+    name: MultiTenancy
+    href: Feijuca.MultiTenancy.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services
+    name: Services
+    href: Feijuca.MultiTenancy.Services.html
+  spec.vb:
+  - uid: Feijuca
+    name: Feijuca
+    href: Feijuca.html
+  - name: .
+  - uid: Feijuca.MultiTenancy
+    name: MultiTenancy
+    href: Feijuca.MultiTenancy.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services
+    name: Services
+    href: Feijuca.MultiTenancy.Services.html
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetInfoFromToken*
+  commentId: Overload:Feijuca.MultiTenancy.Services.IAuthService.GetInfoFromToken
+  href: Feijuca.MultiTenancy.Services.IAuthService.html#Feijuca_MultiTenancy_Services_IAuthService_GetInfoFromToken_System_String_
+  name: GetInfoFromToken
+  nameWithType: IAuthService.GetInfoFromToken
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetInfoFromToken
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetTenantFromToken*
+  commentId: Overload:Feijuca.MultiTenancy.Services.IAuthService.GetTenantFromToken
+  href: Feijuca.MultiTenancy.Services.IAuthService.html#Feijuca_MultiTenancy_Services_IAuthService_GetTenantFromToken
+  name: GetTenantFromToken
+  nameWithType: IAuthService.GetTenantFromToken
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetTenantFromToken
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetClientId*
+  commentId: Overload:Feijuca.MultiTenancy.Services.IAuthService.GetClientId
+  href: Feijuca.MultiTenancy.Services.IAuthService.html#Feijuca_MultiTenancy_Services_IAuthService_GetClientId
+  name: GetClientId
+  nameWithType: IAuthService.GetClientId
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetClientId
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetClientSecret*
+  commentId: Overload:Feijuca.MultiTenancy.Services.IAuthService.GetClientSecret
+  href: Feijuca.MultiTenancy.Services.IAuthService.html#Feijuca_MultiTenancy_Services_IAuthService_GetClientSecret
+  name: GetClientSecret
+  nameWithType: IAuthService.GetClientSecret
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetClientSecret
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetServerUrl*
+  commentId: Overload:Feijuca.MultiTenancy.Services.IAuthService.GetServerUrl
+  href: Feijuca.MultiTenancy.Services.IAuthService.html#Feijuca_MultiTenancy_Services_IAuthService_GetServerUrl
+  name: GetServerUrl
+  nameWithType: IAuthService.GetServerUrl
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetServerUrl
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetRealm*
+  commentId: Overload:Feijuca.MultiTenancy.Services.IAuthService.GetRealm
+  href: Feijuca.MultiTenancy.Services.IAuthService.html#Feijuca_MultiTenancy_Services_IAuthService_GetRealm_System_String_
+  name: GetRealm
+  nameWithType: IAuthService.GetRealm
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetRealm
+- uid: Feijuca.MultiTenancy.Services.Models.Realm
+  commentId: T:Feijuca.MultiTenancy.Services.Models.Realm
+  parent: Feijuca.MultiTenancy.Services.Models
+  href: Feijuca.MultiTenancy.Services.Models.Realm.html
+  name: Realm
+  nameWithType: Realm
+  fullName: Feijuca.MultiTenancy.Services.Models.Realm
+- uid: Feijuca.MultiTenancy.Services.Models
+  commentId: N:Feijuca.MultiTenancy.Services.Models
+  href: Feijuca.html
+  name: Feijuca.MultiTenancy.Services.Models
+  nameWithType: Feijuca.MultiTenancy.Services.Models
+  fullName: Feijuca.MultiTenancy.Services.Models
+  spec.csharp:
+  - uid: Feijuca
+    name: Feijuca
+    href: Feijuca.html
+  - name: .
+  - uid: Feijuca.MultiTenancy
+    name: MultiTenancy
+    href: Feijuca.MultiTenancy.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services
+    name: Services
+    href: Feijuca.MultiTenancy.Services.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services.Models
+    name: Models
+    href: Feijuca.MultiTenancy.Services.Models.html
+  spec.vb:
+  - uid: Feijuca
+    name: Feijuca
+    href: Feijuca.html
+  - name: .
+  - uid: Feijuca.MultiTenancy
+    name: MultiTenancy
+    href: Feijuca.MultiTenancy.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services
+    name: Services
+    href: Feijuca.MultiTenancy.Services.html
+  - name: .
+  - uid: Feijuca.MultiTenancy.Services.Models
+    name: Models
+    href: Feijuca.MultiTenancy.Services.Models.html
+- uid: Feijuca.MultiTenancy.Services.IAuthService.GetUserIdFromToken*
+  commentId: Overload:Feijuca.MultiTenancy.Services.IAuthService.GetUserIdFromToken
+  href: Feijuca.MultiTenancy.Services.IAuthService.html#Feijuca_MultiTenancy_Services_IAuthService_GetUserIdFromToken
+  name: GetUserIdFromToken
+  nameWithType: IAuthService.GetUserIdFromToken
+  fullName: Feijuca.MultiTenancy.Services.IAuthService.GetUserIdFromToken
+- uid: System.Guid
+  commentId: T:System.Guid
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: Guid
+  nameWithType: Guid
+  fullName: System.Guid

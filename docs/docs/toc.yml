@@ -1,0 +1,17 @@
+- name: Feijuca.Auth.MultiTenancy
+  href: FeijucaAuthMultiTenancy.md
+  items:
+    - name: Configuring application
+      href: configuringApplicationMultiTenancy.md
+    
+- name: Feijuca.TokenManager
+  href: feijucaTokenManager.md
+  items:
+    - name: Configuring Application
+      href: configuringApplicationTokenManager.md
+    - name: Using Endpoints
+      href: usingEndpoints.md
+    - name: Creating Users
+      href: creatingUsers.md
+    - name: Deleting Users
+      href: deletingUsers.md

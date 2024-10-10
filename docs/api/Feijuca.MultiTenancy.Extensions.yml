@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: Feijuca.MultiTenancy.Extensions
+  commentId: N:Feijuca.MultiTenancy.Extensions
+  id: Feijuca.MultiTenancy.Extensions
+  children:
+  - Feijuca.MultiTenancy.Extensions.AuthExtensions
+  langs:
+  - csharp
+  - vb
+  name: Feijuca.MultiTenancy.Extensions
+  nameWithType: Feijuca.MultiTenancy.Extensions
+  fullName: Feijuca.MultiTenancy.Extensions
+  type: Namespace
+  assemblies:
+  - Feijuca.Auth
+references:
+- uid: Feijuca.MultiTenancy.Extensions.AuthExtensions
+  commentId: T:Feijuca.MultiTenancy.Extensions.AuthExtensions
+  href: Feijuca.MultiTenancy.Extensions.AuthExtensions.html
+  name: AuthExtensions
+  nameWithType: AuthExtensions
+  fullName: Feijuca.MultiTenancy.Extensions.AuthExtensions
