@@ -1,4 +1,4 @@
-# Documentation for Feijuca.Keycloak
+# Documentation:
 
 Welcome to the **Feijuca.Keycloak.AuthServices** project!
 
