@@ -1,5 +1,3 @@
-# WIP
-
 ## What is the purpose of Feijuca.Keycloak.AuthServices?
 
 The name **Feijuca** comes from the famous Brazilian dish **Feijoada**. Since we’re Brazilian, we wanted to pick a name that’s fun and familiar, connecting with our culture.
@@ -38,6 +36,6 @@ These two modules provide everything you need to handle user management and mult
 
 ---
 
-Feel free to explore the documentation to get the most out of **Feijuca**. If you have any questions or run into any issues, don’t hesitate to reach out to us at **ajuda@coderaw.io**—we’re here to help! Since this project belongs to you as well, it is open-sourced. 
+This documentation and the project is in continuous evolution, Feel free to explore the documentation to get the most out of **Feijuca**. If you have any questions or run into any issues, don’t hesitate to reach out to us at **ajuda@coderaw.io**—we’re here to help! Since this project belongs to you as well, it is open-sourced. 
 
 This project is maintained by **Coderaw**, a company that specializes in building custom software solutions, offering consultancy services, and developing its own independent systems (SaaS). We're committed to making your experience with Keycloak simpler and more efficient.
