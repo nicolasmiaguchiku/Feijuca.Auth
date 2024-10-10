@@ -7,20 +7,20 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["src/Feijuca.Keycloak.TokenManager/TokenManager.Api/TokenManager.Api.csproj", "TokenManager.Api/"]
-COPY ["src/Feijuca.Keycloak.TokenManager/TokenManager.Infra.CrossCutting/TokenManager.Infra.CrossCutting.csproj", "TokenManager.Infra.CrossCutting/"]
-COPY ["src/Feijuca.Keycloak.TokenManager/TokenManager.Application/TokenManager.Application.csproj", "TokenManager.Application/"]
-COPY ["src/Feijuca.Keycloak.TokenManager/TokenManager.Infra.Data/TokenManager.Infra.Data.csproj", "TokenManager.Infra.Data/"]
-COPY ["src/Feijuca.Keycloak.TokenManager/TokenManager.Domain/TokenManager.Domain.csproj", "TokenManager.Domain/"]
-RUN dotnet restore "TokenManager.Api/TokenManager.Api.csproj"
+COPY ["src/Feijuca.Auth.Api/Api.csproj", "Api/"]
+COPY ["src/Feijuca.Auth.Api.Infra.CrossCutting/CrossCutting.csproj", "Infra.CrossCutting/"]
+COPY ["src/Feijuca.Auth.Api.Application/Application.csproj", "Application/"]
+COPY ["src/Feijuca.Auth.Api.Infra.Data/Infra.Data.csproj", "Infra.Data/"]
+COPY ["src/Feijuca.Auth.Api.Domain/Domain.csproj", "Domain/"]
+RUN dotnet restore "Feijuca.Auth.Api/Api.csproj"
 COPY . .
 
-RUN dotnet build "src/Feijuca.Keycloak.TokenManager/TokenManager.Api/TokenManager.Api.csproj" -c Release -o /app/build
+RUN dotnet build "src/Feijuca.Auth.Api/Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "src/Feijuca.Keycloak.TokenManager/TokenManager.Api/TokenManager.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "src/Feijuca.Auth.Api/Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TokenManager.Api.dll"]
+ENTRYPOINT ["dotnet", "Feijuca.Auth.Api.dll"]
