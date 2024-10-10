@@ -1,4 +1,4 @@
-﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
+﻿using Feijuca.MultiTenancy.Services.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infra.CrossCutting.Extensions

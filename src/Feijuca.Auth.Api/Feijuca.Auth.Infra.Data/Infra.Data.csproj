@@ -12,12 +12,12 @@
     <None Remove="Models\**" />
   </ItemGroup>
 
-  <ItemGroup>    
-    <PackageReference Include="Feijuca.Keycloak.MultiTenancy" Version="1.9.1" />
+  <ItemGroup>
+    <Folder Include="Filters\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Filters\" />
+    <PackageReference Include="Feijuca.Auth" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
+﻿using Feijuca.MultiTenancy.Services.Models;
 using Infra.CrossCutting.Config;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;

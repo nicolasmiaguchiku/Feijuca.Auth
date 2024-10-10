@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
-using Feijuca.Keycloak.MultiTenancy.Services;
+using Feijuca.MultiTenancy.Services;
 using Infra.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 

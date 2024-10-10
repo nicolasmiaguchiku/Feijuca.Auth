@@ -1,4 +1,4 @@
-﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
+﻿using Feijuca.MultiTenancy.Services.Models;
 using Flurl;
 using Infra.CrossCutting.Filters;
 using Microsoft.Extensions.DependencyInjection;
