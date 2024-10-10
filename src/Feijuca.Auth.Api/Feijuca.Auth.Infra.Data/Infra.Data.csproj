@@ -17,11 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TokenManager.Domain\Domain.csproj" />
+    <Folder Include="Filters\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Filters\" />
+    <ProjectReference Include="..\Feijuca.Auth.Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>

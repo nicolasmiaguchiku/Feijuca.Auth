@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TokenManager.Application\Application.csproj" />
-    <ProjectReference Include="..\TokenManager.Infra.Data\Infra.Data.csproj" />
+    <ProjectReference Include="..\Feijuca.Auth.Application\Application.csproj" />
+    <ProjectReference Include="..\Feijuca.Auth.Infra.Data\Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>

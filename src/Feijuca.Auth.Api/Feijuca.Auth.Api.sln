@@ -5,25 +5,27 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{59BDDB9A-A2B6-4366-9522-803AC05E850B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Data", "TokenManager.Infra.Data\Infra.Data.csproj", "{C5A111F3-6AF9-41E1-9D49-EC717B421269}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Data", "Feijuca.Auth.Infra.Data\Infra.Data.csproj", "{C5A111F3-6AF9-41E1-9D49-EC717B421269}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{DCC0F26F-67F8-4431-8564-5B9F6E1D3F47}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "TokenManager.Api\Api.csproj", "{56D7ECFF-6C97-45E1-85A1-C1FC9B89BA83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Feijuca.Auth.Api\Api.csproj", "{56D7ECFF-6C97-45E1-85A1-C1FC9B89BA83}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{2996C286-CCC5-4374-AC2A-1CCA1705C7D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.CrossCutting", "TokenManager.Infra.CrossCutting\Infra.CrossCutting.csproj", "{3C751694-F055-43CD-B374-62C352D385B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.CrossCutting", "Feijuca.Auth.Infra.CrossCutting\Infra.CrossCutting.csproj", "{3C751694-F055-43CD-B374-62C352D385B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "TokenManager.Domain\Domain.csproj", "{EC94BA98-EAF7-4118-9619-08D077929FDE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TokenManager.UnitTests", "..\..\tests\TokenManager.UnitTests\TokenManager.UnitTests.csproj", "{058EA4DF-2449-404C-B219-FBA6754FD5B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Feijuca.Auth.Domain\Domain.csproj", "{EC94BA98-EAF7-4118-9619-08D077929FDE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{00FBC958-54AF-4A97-893C-15667D843B3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "TokenManager.Common\Common.csproj", "{59EDF1FB-174B-478C-BB10-233903D33933}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Feijuca.Auth.Common\Common.csproj", "{59EDF1FB-174B-478C-BB10-233903D33933}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "TokenManager.Application\Application.csproj", "{897D1C6E-1945-4703-BE97-B26023C609D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Feijuca.Auth.Application\Application.csproj", "{897D1C6E-1945-4703-BE97-B26023C609D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feijuca.Auth.Api.UnitTests", "..\..\..\tests\TokenManager.UnitTests\Feijuca.Auth.Api.UnitTests.csproj", "{906EBDA1-1E62-4E28-B242-60E1A0144B20}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feijuca.Auth.Api.IntegrationTests", "..\..\..\tests\TokenManager.IntegrationTests\Feijuca.Auth.Api.IntegrationTests.csproj", "{771420E3-74A3-43C7-8F0C-EF554725E915}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +49,6 @@ Global
 		{EC94BA98-EAF7-4118-9619-08D077929FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC94BA98-EAF7-4118-9619-08D077929FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC94BA98-EAF7-4118-9619-08D077929FDE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{058EA4DF-2449-404C-B219-FBA6754FD5B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{058EA4DF-2449-404C-B219-FBA6754FD5B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{058EA4DF-2449-404C-B219-FBA6754FD5B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{058EA4DF-2449-404C-B219-FBA6754FD5B9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59EDF1FB-174B-478C-BB10-233903D33933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{59EDF1FB-174B-478C-BB10-233903D33933}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59EDF1FB-174B-478C-BB10-233903D33933}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,6 +57,14 @@ Global
 		{897D1C6E-1945-4703-BE97-B26023C609D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{897D1C6E-1945-4703-BE97-B26023C609D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{897D1C6E-1945-4703-BE97-B26023C609D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{906EBDA1-1E62-4E28-B242-60E1A0144B20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{906EBDA1-1E62-4E28-B242-60E1A0144B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{906EBDA1-1E62-4E28-B242-60E1A0144B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{906EBDA1-1E62-4E28-B242-60E1A0144B20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{771420E3-74A3-43C7-8F0C-EF554725E915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{771420E3-74A3-43C7-8F0C-EF554725E915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{771420E3-74A3-43C7-8F0C-EF554725E915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{771420E3-74A3-43C7-8F0C-EF554725E915}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,9 +74,10 @@ Global
 		{56D7ECFF-6C97-45E1-85A1-C1FC9B89BA83} = {2996C286-CCC5-4374-AC2A-1CCA1705C7D4}
 		{3C751694-F055-43CD-B374-62C352D385B3} = {59BDDB9A-A2B6-4366-9522-803AC05E850B}
 		{EC94BA98-EAF7-4118-9619-08D077929FDE} = {DCC0F26F-67F8-4431-8564-5B9F6E1D3F47}
-		{058EA4DF-2449-404C-B219-FBA6754FD5B9} = {00FBC958-54AF-4A97-893C-15667D843B3E}
 		{59EDF1FB-174B-478C-BB10-233903D33933} = {DCC0F26F-67F8-4431-8564-5B9F6E1D3F47}
 		{897D1C6E-1945-4703-BE97-B26023C609D5} = {DCC0F26F-67F8-4431-8564-5B9F6E1D3F47}
+		{906EBDA1-1E62-4E28-B242-60E1A0144B20} = {00FBC958-54AF-4A97-893C-15667D843B3E}
+		{771420E3-74A3-43C7-8F0C-EF554725E915} = {00FBC958-54AF-4A97-893C-15667D843B3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C84D43BB-2657-4F8D-AC09-2736B1514A82}

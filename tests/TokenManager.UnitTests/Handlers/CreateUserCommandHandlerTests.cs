@@ -7,7 +7,7 @@ using Domain.Interfaces;
 using FluentAssertions;
 using Moq;
 
-namespace TokenManager.UnitTests.Handlers
+namespace Feijuca.Auth.Api.UnitTests.Handlers
 {
     public class CreateUserCommandHandlerTests
     {

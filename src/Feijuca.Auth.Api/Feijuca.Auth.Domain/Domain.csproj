@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TokenManager.Common\Common.csproj" />
+    <ProjectReference Include="..\Feijuca.Auth.Common\Common.csproj" />
   </ItemGroup>
 
 </Project>

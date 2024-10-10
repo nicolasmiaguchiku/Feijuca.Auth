@@ -1,4 +1,4 @@
-namespace TokenManager.IntegrationTests
+namespace Feijuca.Auth.Api.IntegrationTests
 {
     public class UnitTest1
     {
