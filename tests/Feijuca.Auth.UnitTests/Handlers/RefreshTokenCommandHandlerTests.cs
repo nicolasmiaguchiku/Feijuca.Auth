@@ -11,12 +11,12 @@ namespace Feijuca.Auth.Api.UnitTests.Handlers
     public class RefreshTokenCommandHandlerTests
     {
         private readonly Fixture _autoFixture = new();
-        private readonly Mock<IAuthRepository> _authRepository = new();
+        private readonly Mock<IUserRepository> _userRepositoryMock = new();
         private readonly RefreshTokenCommandHandler _refreshTokenCommandHandler;
 
         public RefreshTokenCommandHandlerTests()
         {
-            _refreshTokenCommandHandler = new(_authRepository.Object);
+            _refreshTokenCommandHandler = new(_userRepositoryMock.Object);
         }
 
         [Fact]
@@ -28,8 +28,8 @@ namespace Feijuca.Auth.Api.UnitTests.Handlers
             var tokenDetails = _autoFixture.Create<TokenDetails>();
             var successResult = Result<TokenDetails>.Success(tokenDetails);
 
-            _authRepository
-                .Setup(x => x.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<string>()))
+            _userRepositoryMock
+                .Setup(x => x.RefreshTokenAsync(It.IsAny<string>()))
                 .ReturnsAsync(successResult);
 
             //Act
@@ -70,8 +70,8 @@ namespace Feijuca.Auth.Api.UnitTests.Handlers
             var error = _autoFixture.Create<Error>();
             var failureResult = Result<TokenDetails>.Failure(error);
 
-            _authRepository
-                .Setup(x => x.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<string>()))
+            _userRepositoryMock
+                .Setup(x => x.RefreshTokenAsync(It.IsAny<string>()))
                 .ReturnsAsync(failureResult);
 
             //Act
