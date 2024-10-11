@@ -92,7 +92,7 @@ namespace Api.Controllers
 
 
         /// <summary>
-        /// Logout a user and invalidate the session token.
+        /// Logout a user and invalidate the session.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
