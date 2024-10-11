@@ -66,6 +66,10 @@ namespace Api.Controllers
             return BadRequest(responseError);
         }
 
+        /// <summary>
+        /// Add a new group on the realm.
+        /// </summary>
+        /// <returns>A status code related to the operation.</returns>
         [HttpPost]
         [Route("{tenant}/group", Name = nameof(CreateGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
