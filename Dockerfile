@@ -8,10 +8,10 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["src/Feijuca.Auth.Api/Api.csproj", "Api/"]
-COPY ["src/Feijuca.Auth.Api.Infra.CrossCutting/CrossCutting.csproj", "Infra.CrossCutting/"]
-COPY ["src/Feijuca.Auth.Api.Application/Application.csproj", "Application/"]
-COPY ["src/Feijuca.Auth.Api.Infra.Data/Infra.Data.csproj", "Infra.Data/"]
-COPY ["src/Feijuca.Auth.Api.Domain/Domain.csproj", "Domain/"]
+COPY ["src/Feijuca.Auth.Infra.CrossCutting/CrossCutting.csproj", "Infra.CrossCutting/"]
+COPY ["src/Feijuca.Auth.Application/Application.csproj", "Application/"]
+COPY ["src/Feijuca.Auth.Infra.Data/Infra.Data.csproj", "Infra.Data/"]
+COPY ["src/Feijuca.Auth.Domain/Domain.csproj", "Domain/"]
 RUN dotnet restore "Feijuca.Auth.Api/Api.csproj"
 COPY . .
 
