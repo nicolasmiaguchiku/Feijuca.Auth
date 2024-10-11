@@ -10,3 +10,18 @@ The name **Feijuca** is inspired by the iconic Brazilian dish **Feijoada**. Sinc
 - **Feijuca.Auth**: This module makes handling common Keycloak tasks more straightforward, especially when dealing with multi-tenancy setups.
 
 With these modules, **Feijuca** aims to reduce the complexity of working with Keycloak, making the process of user management and multi-tenancy more seamless and developer-friendly.
+
+# Contributors
+
+Meet the amazing people who helped build **Feijuca**! Connect with them on LinkedIn:
+Wanna your name here? Contribute with the project. Open a PR :)
+
+| **Name**              | **LinkedIn**                                 |
+|-----------------------|------------------------------------------------------|
+| [Felipe Mattioli](#)        | [Profile](https://www.linkedin.com/in/felipemattioli/) |
+| [Wesley Souza](#)    | [Profile](https://www.linkedin.com/in/weslleyms/) |
+| [Matheus Galvão](#)    | [Profile](https://www.linkedin.com/in/matheu-sandregalvaodasilva/) |
+
+
+We’re grateful for everyone’s hard work and contributions!
+
