@@ -44,7 +44,7 @@ namespace Api.Controllers
         }
 
         /// <summary>
-        /// Delete an existing group on the Keycloak realm.
+        /// Delete an existing group on the realm.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpDelete]
