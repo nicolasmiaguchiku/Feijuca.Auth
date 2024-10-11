@@ -26,7 +26,7 @@ namespace Application.Queries.GroupUser
                         request.GetUsersGroupRequest.ToUserFilters());
 
                     var usersInGroup = new UserGroupResponse(groupSearched.ToResponse(), resultMembers.Response.ToUsersResponse());
-                    var totalUsers = await _userRepository.GetTotalUsersAsync(request.Tenant);
+                    var totalUsers = await _userRepository.GetTotalAsync();
                     var result = usersInGroup.ToResponse(request.GetUsersGroupRequest.PageFilter, totalUsers);
                     return Result<PagedResult<UserGroupResponse>>.Success(result);
                 }

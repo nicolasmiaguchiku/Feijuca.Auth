@@ -6,20 +6,19 @@ using MediatR;
 
 namespace Application.Commands.Auth
 {
-    public class LoginCommandHandler(IAuthRepository authRepository) : IRequestHandler<LoginCommand, Result<TokenDetailsResponse>>
+    public class LoginCommandHandler(ILoginService loginService) : IRequestHandler<LoginCommand, Result<TokenDetailsResponse>>
     {
-        private readonly IAuthRepository _authRepository = authRepository;
+        private readonly ILoginService _loginService = loginService;
 
         public async Task<Result<TokenDetailsResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var user = request.LoginUser.ToLoginUserDomain();
-            var tokenDetailsResult = await _authRepository.LoginAsync(request.Tenant, user);
-            if (tokenDetailsResult.IsSuccess)
+            var result = await _loginService.LoginAsync(request.LoginUser.RevokeActiveSessions, request.LoginUser.Username, request.LoginUser.Password);
+            if (result.IsSuccess)
             {
-                return tokenDetailsResult.ToTokenResponse();
+                return Result<TokenDetailsResponse>.Success(result.Response.ToTokenDetailResponse());
             }
 
-            return Result<TokenDetailsResponse>.Failure(tokenDetailsResult.Error);
+            return Result<TokenDetailsResponse>.Failure(result.Error);
         }
     }
 }

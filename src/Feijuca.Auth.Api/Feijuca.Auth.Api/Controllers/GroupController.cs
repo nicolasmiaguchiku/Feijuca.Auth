@@ -1,11 +1,13 @@
 ﻿using Application.Commands.Group;
 using Application.Queries.Groups;
 using Application.Requests.User;
+
 using Common.Models;
 
 using Feijuca.MultiTenancy.Attributes;
 
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

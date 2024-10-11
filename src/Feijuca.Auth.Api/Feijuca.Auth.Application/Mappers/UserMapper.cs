@@ -41,7 +41,7 @@ namespace Application.Mappers
                 RefreshToken = tokenDetails.Response.Refresh_Token,
                 RefreshExpiresIn = tokenDetails.Response.Refresh_Expires_In,
                 TokenType = tokenDetails.Response.Token_Type,
-                Scopes = tokenDetails.Response.Scopes
+                Scope = tokenDetails.Response.Scope
             };
 
             return Result<TokenDetailsResponse>.Success(tokenDetailsResponse);

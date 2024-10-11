@@ -1,7 +1,11 @@
 ﻿using Application.Queries.Clients;
+
 using Common.Models;
+
 using Feijuca.MultiTenancy.Attributes;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

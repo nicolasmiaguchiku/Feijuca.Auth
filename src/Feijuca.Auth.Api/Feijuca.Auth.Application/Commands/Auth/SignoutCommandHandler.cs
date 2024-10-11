@@ -5,12 +5,12 @@ using MediatR;
 
 namespace Application.Commands.Auth
 {
-    public class SignoutCommandHandler(IAuthRepository authRepository) : IRequestHandler<SignoutCommand, Result<bool>>
+    public class SignoutCommandHandler(IUserRepository userRepository) : IRequestHandler<SignoutCommand, Result<bool>>
     {
-        private readonly IAuthRepository _authRepository = authRepository;
+        private readonly IUserRepository _userRepository = userRepository;
         public async Task<Result<bool>> Handle(SignoutCommand request, CancellationToken cancellationToken)
         {
-            var result = await _authRepository.SignoutAsync(request.Tenant, request.RefreshToken);
+            var result = await _userRepository.SignoutAsync(request.RefreshToken);
             if (result.IsSuccess)
             {
                 return Result<bool>.Success(true);

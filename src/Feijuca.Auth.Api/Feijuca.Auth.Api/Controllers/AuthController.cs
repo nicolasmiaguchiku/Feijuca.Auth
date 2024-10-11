@@ -1,10 +1,14 @@
 ﻿using Application.Commands.Auth;
 using Application.Requests.Auth;
 using Application.Responses;
+
 using Common.Models;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using System.Security.Claims;
 
 namespace Api.Controllers
@@ -20,7 +24,7 @@ namespace Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("{tenant}/auth/login", Name = nameof(Login))]
+        [Route("{tenant}/user/login", Name = nameof(Login))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -35,29 +39,6 @@ namespace Api.Controllers
             }
 
             var responseError = Result<TokenDetailsResponse>.Failure(result.Error);
-            return BadRequest(responseError);
-        }
-
-        /// <summary>
-        /// Logout a user and invalidate the session token.
-        /// </summary>
-        /// <returns>A status code related to the operation.</returns>
-        [HttpPost]
-        [Route("{tenant}/auth/logout", Name = nameof(Logout))]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Logout([FromRoute] string tenant, [FromBody] RefreshTokenRequest logoutUserRequest, CancellationToken cancellationToken)
-        {
-            // Chame um método para realizar o logout no Keycloak
-            var result = await _mediator.Send(new SignoutCommand(tenant, logoutUserRequest.RefreshToken), cancellationToken);
-
-            if (result.IsSuccess)
-            {
-                return Ok(new { Message = "Logout successful" });
-            }
-
-            var responseError = Result<string>.Failure(result.Error);
             return BadRequest(responseError);
         }
 

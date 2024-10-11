@@ -6,12 +6,16 @@ namespace Domain.Interfaces
 {
     public interface IUserRepository
     {
-        Task<Result<IEnumerable<User>>> GetUsersAsync(string tenant, UserFilters userFilters);
-        Task<int> GetTotalUsersAsync(string tenant);
-        Task<Result<bool>> DeleteAsync(string tenant, Guid id);
-        Task<Result<bool>> CreateAsync(string tenant, User user);
-        Task<Result<User>> GetAsync(string tenant, string userName);
-        Task<Result<bool>> ResetPasswordAsync(string tenant, Guid id, string password);
-        Task<Result> SendEmailVerificationAsync(string tenant, string userId);
+        Task<Result<IEnumerable<User>>> GetAllAsync(UserFilters userFilters);
+        Task<int> GetTotalAsync();
+        Task<Result<bool>> DeleteAsync(Guid id);
+        Task<Result<bool>> CreateAsync(User user);
+        Task<Result<bool>> ResetPasswordAsync(Guid id, string password);
+        Task<bool> RevokeSessionsAsync(Guid id);
+        Task<Result<User>> GetAsync(string username);
+        Task<Result> SendEmailVerificationAsync(string userId);
+        Task<Result<TokenDetails>> LoginAsync(string user, string password);
+        Task<Result<bool>> SignoutAsync(string refreshToken);
+        Task<Result<TokenDetails>> RefreshTokenAsync(string refreshToken);
     }
 }

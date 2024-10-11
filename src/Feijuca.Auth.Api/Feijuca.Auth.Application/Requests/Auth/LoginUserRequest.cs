@@ -1,4 +1,4 @@
 ﻿namespace Application.Requests.Auth
 {
-    public record LoginUserRequest(string Username, string Password);
+    public record LoginUserRequest(string Username, string Password, bool RevokeActiveSessions);
 }

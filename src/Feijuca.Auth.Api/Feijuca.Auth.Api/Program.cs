@@ -1,6 +1,7 @@
 using Infra.CrossCutting.Config;
 using Infra.CrossCutting.Extensions;
 using Infra.CrossCutting.Handlers;
+using Infra.CrossCutting.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -29,6 +30,7 @@ builder.Services
     .AddLoggingDependency()
     .AddMediator()
     .AddRepositories()
+    .AddServices()
     .AddSwagger(applicationSettings.AuthSettings)
     .AddHttpClients(applicationSettings.AuthSettings)
     .AddEndpointsApiExplorer()    
@@ -50,13 +52,14 @@ app.UseCors("AllowAllOrigins")
    .UseSwagger()
    .UseSwaggerUI(c =>
    {
-       c.SwaggerEndpoint("/swagger/v1/swagger.json", "TokenManager.Api");
+       c.SwaggerEndpoint("/swagger/v1/swagger.json", "Feijuca.Auth.Api");
        c.OAuthClientId(applicationSettings!.AuthSettings!.ClientId);
        c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
    });
 
 app.UseHttpsRedirection()
-   .UseAuthorization();
+   .UseAuthorization()
+   .UseMiddleware<TenantMiddleware>();
 
 app.MapControllers();
 

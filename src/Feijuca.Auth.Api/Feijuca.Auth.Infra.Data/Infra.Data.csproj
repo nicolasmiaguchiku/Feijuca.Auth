@@ -7,13 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Filters\**" />
     <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Filters\**" />
     <EmbeddedResource Remove="Models\**" />
+    <None Remove="Filters\**" />
     <None Remove="Models\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Filters\" />
   </ItemGroup>
 
   <ItemGroup>

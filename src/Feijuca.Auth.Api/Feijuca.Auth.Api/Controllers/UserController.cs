@@ -1,5 +1,7 @@
-﻿using Application.Commands.Users;
+﻿using Application.Commands.Auth;
+using Application.Commands.Users;
 using Application.Queries.Users;
+using Application.Requests.Auth;
 using Application.Requests.User;
 using Common.Models;
 using Feijuca.MultiTenancy.Attributes;
@@ -82,6 +84,30 @@ namespace Api.Controllers
             if (result.IsSuccess)
             {
                 return NoContent();
+            }
+
+            var responseError = Result<string>.Failure(result.Error);
+            return BadRequest(responseError);
+        }
+
+
+        /// <summary>
+        /// Logout a user and invalidate the session token.
+        /// </summary>
+        /// <returns>A status code related to the operation.</returns>
+        [HttpPost]
+        [Route("{tenant}/user/logout", Name = nameof(Logout))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Logout([FromRoute] string tenant, [FromBody] RefreshTokenRequest logoutUserRequest, CancellationToken cancellationToken)
+        {
+            // Chame um método para realizar o logout no Keycloak
+            var result = await _mediator.Send(new SignoutCommand(tenant, logoutUserRequest.RefreshToken), cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                return Ok(new { Message = "Logout successful" });
             }
 
             var responseError = Result<string>.Failure(result.Error);

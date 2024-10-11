@@ -13,11 +13,11 @@ namespace Application.Queries.Users
 
         public async Task<Result<PagedResult<UserResponse>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var result = await _userRepository.GetUsersAsync(request.Tenant, request.GetUsersRequest.ToUserFilters());
+            var result = await _userRepository.GetAllAsync(request.GetUsersRequest.ToUserFilters());
 
             if (result.IsSuccess)
             {
-                var totalUsers = await _userRepository.GetTotalUsersAsync(request.Tenant);
+                var totalUsers = await _userRepository.GetTotalAsync();
                 return Result<PagedResult<UserResponse>>.Success(result.Response.ToUserResponse(request.GetUsersRequest.PageFilter, totalUsers));
             }
 

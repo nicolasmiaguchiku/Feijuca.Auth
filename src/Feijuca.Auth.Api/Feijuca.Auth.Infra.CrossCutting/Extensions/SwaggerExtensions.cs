@@ -12,7 +12,7 @@ namespace Infra.CrossCutting.Extensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TokenManager.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Feijuca.Auth.Api", Version = "v1" });
 
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
@@ -28,7 +28,7 @@ namespace Infra.CrossCutting.Extensions
                 });
 
                 c.OperationFilter<AuthorizeCheckOperationFilter>();
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "TokenManager.Api.xml"));
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Api.xml"));
             });
 
             return services;

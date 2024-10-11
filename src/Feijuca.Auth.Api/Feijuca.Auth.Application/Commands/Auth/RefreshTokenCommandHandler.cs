@@ -6,13 +6,13 @@ using MediatR;
 
 namespace Application.Commands.Auth
 {
-    public class RefreshTokenCommandHandler(IAuthRepository authRepository) : IRequestHandler<RefreshTokenCommand, Result<TokenDetailsResponse>>
+    public class RefreshTokenCommandHandler(IUserRepository userRepository) : IRequestHandler<RefreshTokenCommand, Result<TokenDetailsResponse>>
     {
-        private readonly IAuthRepository _authRepository = authRepository;
+        private readonly IUserRepository _userRepository = userRepository;
 
         public async Task<Result<TokenDetailsResponse>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            var tokeDetails = await _authRepository.RefreshTokenAsync(request.Tenant, request.RefreshToken);
+            var tokeDetails = await _userRepository.RefreshTokenAsync(request.RefreshToken);
             if (tokeDetails.IsSuccess)
             {
                 return tokeDetails.ToTokenResponse();

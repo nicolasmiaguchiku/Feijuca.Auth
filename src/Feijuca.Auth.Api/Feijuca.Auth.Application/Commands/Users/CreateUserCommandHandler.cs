@@ -13,12 +13,12 @@ namespace Application.Commands.Users
         {
             AddTenantToRequest(request);
             var user = request.AddUserRequest.ToDomain();
-            var result = await _userRepository.CreateAsync(request.Tenant, user);
+            var result = await _userRepository.CreateAsync(user);
 
             if (result.IsSuccess)
             {
-                var keycloakUser = await _userRepository.GetAsync(request.Tenant, user.Username);
-                result = await _userRepository.ResetPasswordAsync(request.Tenant, keycloakUser.Response.Id, user.Password);
+                var keycloakUser = await _userRepository.GetAsync(user.Username);
+                result = await _userRepository.ResetPasswordAsync(keycloakUser.Response.Id, user.Password);
 
                 if (result.IsSuccess)
                 {
