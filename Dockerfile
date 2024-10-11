@@ -7,18 +7,18 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["src/Feijuca.Auth.Api/Api.csproj", "Api/"]
-COPY ["src/Feijuca.Auth.Infra.CrossCutting/CrossCutting.csproj", "Infra.CrossCutting/"]
-COPY ["src/Feijuca.Auth.Application/Application.csproj", "Application/"]
-COPY ["src/Feijuca.Auth.Infra.Data/Infra.Data.csproj", "Infra.Data/"]
-COPY ["src/Feijuca.Auth.Domain/Domain.csproj", "Domain/"]
-RUN dotnet restore "Feijuca.Auth.Api/Api.csproj"
+COPY ["src/Feijuca.Auth.Api/Feijuca.Auth.Api/Api.csproj", "Api/"]
+COPY ["src/Feijuca.Auth.Api/Feijuca.Auth.Infra.CrossCutting/Infra.CrossCutting.csproj", "Infra.CrossCutting/"]
+COPY ["src/Feijuca.Auth.Api/Feijuca.Auth.Application/Application.csproj", "Application/"]
+COPY ["src/Feijuca.Auth.Api/Feijuca.Auth.Infra.Data/Infra.Data.csproj", "Infra.Data/"]
+COPY ["src/Feijuca.Auth.Api/Feijuca.Auth.Domain/Domain.csproj", "Domain/"]
+RUN dotnet restore "Feijuca.Auth.Api/Feijuca.Auth.Api/Api.csproj"
 COPY . .
 
-RUN dotnet build "src/Feijuca.Auth.Api/Api.csproj" -c Release -o /app/build
+RUN dotnet build "src/Feijuca.Auth.Api/Feijuca.Auth.Api/Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "src/Feijuca.Auth.Api/Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "src/Feijuca.Auth.Api/Feijuca.Auth.Api/Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
