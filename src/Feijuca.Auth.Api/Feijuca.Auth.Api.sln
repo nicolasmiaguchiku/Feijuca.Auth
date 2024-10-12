@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feijuca.Auth.Infra.CrossCut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feijuca.Auth.Infra.Data", "Feijuca.Auth.Infra.Data\Feijuca.Auth.Infra.Data.csproj", "{45F649E9-C5E5-4BD1-B5B0-B3682FE29FB5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feijuca.Auth.Api", "Feijuca.Auth.UI\Feijuca.Auth.Api.csproj", "{009F90F1-2442-4635-BB59-6B297067ACCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feijuca.Auth.Api", "Feijuca.Auth.Api\Feijuca.Auth.Api.csproj", "{009F90F1-2442-4635-BB59-6B297067ACCC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feijuca.Auth.Application", "Feijuca.Auth.Application\Feijuca.Auth.Application.csproj", "{F12ADADD-F158-4BC6-AE83-CAC5174E8079}"
 EndProject

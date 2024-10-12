@@ -1,7 +1,5 @@
 ﻿using Feijuca.Auth.Services.Models;
-
 using Microsoft.AspNetCore.Http;
-
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Feijuca.Auth.Services
