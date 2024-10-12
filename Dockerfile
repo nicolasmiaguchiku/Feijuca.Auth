@@ -24,4 +24,4 @@ RUN dotnet publish "src/Feijuca.Auth.Api/Feijuca.Auth.UI/Feijuca.Auth.UI.csproj"
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Feijuca.Auth.UI"]
+ENTRYPOINT ["dotnet", "Feijuca.Auth.UI.dll"]
