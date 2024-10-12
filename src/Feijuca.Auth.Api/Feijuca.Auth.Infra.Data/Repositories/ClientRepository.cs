@@ -1,13 +1,15 @@
-﻿
-using Common.Errors;
-using Common.Models;
-using Domain.Entities;
-using Domain.Interfaces;
+﻿using Feijuca.Auth.Common.Errors;
+using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Entities;
+using Feijuca.Auth.Domain.Interfaces;
+
 using Flurl;
+
 using Newtonsoft.Json;
+
 using System.Net.Http.Headers;
 
-namespace Infra.Data.Repositories
+namespace Feijuca.Auth.Infra.Data.Repositories
 {
     public class ClientRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IClientRepository
     {

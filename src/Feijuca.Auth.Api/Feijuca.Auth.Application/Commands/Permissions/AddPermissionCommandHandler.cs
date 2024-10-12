@@ -1,4 +1,4 @@
-﻿namespace Application.Commands.Permissions
+﻿namespace Feijuca.Auth.Application.Commands.Permissions
 {
     internal class AddPermissionCommandHandler
     {

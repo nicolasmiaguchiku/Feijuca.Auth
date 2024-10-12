@@ -1,7 +1,7 @@
-using Common.Models;
-using Domain.Entities;
+using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Entities;
 
-namespace Domain.Interfaces
+namespace Feijuca.Auth.Domain.Interfaces
 {
     public interface IGroupRolesRepository
     {

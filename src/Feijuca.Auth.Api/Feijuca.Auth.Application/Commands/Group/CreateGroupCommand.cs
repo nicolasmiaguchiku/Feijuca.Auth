@@ -1,8 +1,10 @@
-﻿using Application.Requests.User;
-using Common.Models;
+﻿using Feijuca.Auth.Common.Models;
+
+using Feijuca.Auth.Application.Requests.User;
+
 using MediatR;
 
-namespace Application.Commands.Group
+namespace Feijuca.Auth.Application.Commands.Group
 {
     public record CreateGroupCommand(string Tenant, AddGroupRequest AddGroupRequest) : IRequest<Result>;
 }

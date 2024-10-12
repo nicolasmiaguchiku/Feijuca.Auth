@@ -1,7 +1,8 @@
-﻿using Domain.Interfaces;
+﻿using Feijuca.Auth.Domain.Interfaces;
+
 using MediatR;
 
-namespace Application.Commands.Group
+namespace Feijuca.Auth.Application.Commands.Group
 {
     public class CreateGroupCommandHandler(IGroupRepository groupRepository) : IRequestHandler<CreateGroupCommand, Common.Models.Result>
     {

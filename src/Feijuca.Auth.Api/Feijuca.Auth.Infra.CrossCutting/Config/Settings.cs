@@ -1,6 +1,6 @@
 ﻿using Feijuca.MultiTenancy.Services.Models;
 
-namespace Infra.CrossCutting.Config
+namespace Feijuca.Auth.Infra.CrossCutting.Config
 {
     public interface ISettings
     {

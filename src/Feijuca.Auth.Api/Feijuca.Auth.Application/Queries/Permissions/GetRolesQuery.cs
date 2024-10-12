@@ -1,8 +1,10 @@
-﻿using Application.Responses;
-using Common.Models;
+﻿using Feijuca.Auth.Common.Models;
+
+using Feijuca.Auth.Application.Responses;
+
 using MediatR;
 
-namespace Application.Queries.Permissions
+namespace Feijuca.Auth.Application.Queries.Permissions
 {
     public record GetRolesQuery(string Tenant) : IRequest<Result<IEnumerable<ClientRoleResponse>>>;
 }

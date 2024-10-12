@@ -1,10 +1,12 @@
-﻿using Feijuca.MultiTenancy.Services.Models;
+﻿using Feijuca.Auth.Infra.CrossCutting.Filters;
+using Feijuca.MultiTenancy.Services.Models;
+
 using Flurl;
-using Infra.CrossCutting.Filters;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace Infra.CrossCutting.Extensions
+namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 {
     public static class SwaggerExtensions
     {

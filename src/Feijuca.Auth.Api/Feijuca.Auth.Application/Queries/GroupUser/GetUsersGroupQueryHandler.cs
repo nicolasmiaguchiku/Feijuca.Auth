@@ -1,11 +1,13 @@
-﻿using Application.Mappers;
-using Application.Responses;
-using Common.Errors;
-using Common.Models;
-using Domain.Interfaces;
+﻿using Feijuca.Auth.Common.Errors;
+using Feijuca.Auth.Common.Models;
+
+using Feijuca.Auth.Application.Mappers;
+using Feijuca.Auth.Application.Responses;
+using Feijuca.Auth.Domain.Interfaces;
+
 using MediatR;
 
-namespace Application.Queries.GroupUser
+namespace Feijuca.Auth.Application.Queries.GroupUser
 {
     public class GetUsersGroupQueryHandler(IGroupRepository groupRepository, IUserRepository userRepository) : IRequestHandler<GetUsersGroupQuery, Result<PagedResult<UserGroupResponse>>>
     {

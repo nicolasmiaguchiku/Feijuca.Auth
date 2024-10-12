@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Application.Responses
+namespace Feijuca.Auth.Application.Responses
 {
     public class TokenDetailsResponse
     {

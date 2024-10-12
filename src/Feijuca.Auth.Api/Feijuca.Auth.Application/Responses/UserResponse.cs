@@ -1,7 +1,8 @@
-﻿using Domain.Entities;
+﻿using Feijuca.Auth.Domain.Entities;
+
 using Newtonsoft.Json;
 
-namespace Application.Responses
+namespace Feijuca.Auth.Application.Responses
 {
     public class UserResponse
     {

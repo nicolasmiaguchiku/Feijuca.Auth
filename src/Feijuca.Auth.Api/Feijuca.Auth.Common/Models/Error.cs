@@ -1,4 +1,4 @@
-﻿namespace Common.Models
+﻿namespace Feijuca.Auth.Common.Models
 {
     public sealed record Error(string Code, string Description)
     {

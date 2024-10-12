@@ -1,8 +1,10 @@
-﻿using Application.Requests.Role;
-using Common.Models;
+﻿using Feijuca.Auth.Common.Models;
+
+using Feijuca.Auth.Application.Requests.Role;
+
 using MediatR;
 
-namespace Application.Commands.Role
+namespace Feijuca.Auth.Application.Commands.Role
 {
     public record AddRoleCommand(string Tenant, AddRoleRequest AddRoleRequest) : IRequest<Result<bool>>;
 }

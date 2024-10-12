@@ -1,10 +1,13 @@
-﻿using Application.Commands.Users;
-using AutoFixture;
-using Common.Errors;
-using Common.Models;
-using Domain.Entities;
-using Domain.Interfaces;
+﻿using AutoFixture;
+
+using Feijuca.Auth.Application.Commands.Users;
+using Feijuca.Auth.Common.Errors;
+using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Entities;
+using Feijuca.Auth.Domain.Interfaces;
+
 using FluentAssertions;
+
 using Moq;
 
 namespace Feijuca.Auth.Api.UnitTests.Handlers

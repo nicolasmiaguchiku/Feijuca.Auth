@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Feijuca.Auth.Api\Feijuca.Auth.Application\Application.csproj" />
-    <ProjectReference Include="..\..\src\Feijuca.Auth.Api\Feijuca.Auth.Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\src\Feijuca.Auth.Api\Feijuca.Auth.Application\Feijuca.Auth.Application.csproj" />
+    <ProjectReference Include="..\..\src\Feijuca.Auth.Api\Feijuca.Auth.Domain\Feijuca.Auth.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,10 @@
-﻿using Feijuca.MultiTenancy.Services.Models;
-using Infra.CrossCutting.Config;
+﻿using Feijuca.Auth.Infra.CrossCutting.Config;
+using Feijuca.MultiTenancy.Services.Models;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace Infra.CrossCutting.Extensions
+namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 {
     public static class ConfigurationBuilderExtensions
     {

@@ -1,9 +1,12 @@
-﻿using Common.Errors;
-using Common.Models;
-using Domain.Interfaces;
+﻿
+using Feijuca.Auth.Common.Errors;
+using Feijuca.Auth.Common.Models;
+
+using Feijuca.Auth.Domain.Interfaces;
+
 using MediatR;
 
-namespace Application.Commands.Group
+namespace Feijuca.Auth.Application.Commands.Group
 {
     public class DeleteGroupCommandHandler(IGroupRepository groupRepository) : IRequestHandler<DeleteGroupCommand, Result<bool>>
     {

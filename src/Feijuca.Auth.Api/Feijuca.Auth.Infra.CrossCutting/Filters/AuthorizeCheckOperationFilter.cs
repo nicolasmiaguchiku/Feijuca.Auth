@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
+
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Infra.CrossCutting.Filters
+namespace Feijuca.Auth.Infra.CrossCutting.Filters
 {
     public class AuthorizeCheckOperationFilter : IOperationFilter
     {

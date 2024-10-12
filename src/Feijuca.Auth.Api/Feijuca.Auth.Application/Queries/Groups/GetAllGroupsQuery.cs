@@ -1,8 +1,10 @@
-﻿using Application.Responses;
-using Common.Models;
+﻿using Feijuca.Auth.Common.Models;
+
+using Feijuca.Auth.Application.Responses;
+
 using MediatR;
 
-namespace Application.Queries.Groups
+namespace Feijuca.Auth.Application.Queries.Groups
 {
     public record GetAllGroupsQuery(string Tenant) : IRequest<Result<IEnumerable<GroupResponse>>>;
 }

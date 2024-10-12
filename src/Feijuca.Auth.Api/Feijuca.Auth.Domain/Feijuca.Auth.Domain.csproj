@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Feijuca.Auth.Common\Common.csproj" />
+    <ProjectReference Include="..\Feijuca.Auth.Common\Feijuca.Auth.Common.csproj" />
   </ItemGroup>
 
 </Project>

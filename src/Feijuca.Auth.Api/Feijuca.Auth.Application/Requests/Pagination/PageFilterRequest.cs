@@ -1,4 +1,4 @@
-﻿namespace Application.Requests.Pagination
+﻿namespace Feijuca.Auth.Application.Requests.Pagination
 {
     public record PageFilterRequest
     {

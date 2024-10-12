@@ -1,4 +1,4 @@
-﻿namespace Application.Requests.User
+﻿namespace Feijuca.Auth.Application.Requests.User
 {
     public class DeleteUserRequest
     {

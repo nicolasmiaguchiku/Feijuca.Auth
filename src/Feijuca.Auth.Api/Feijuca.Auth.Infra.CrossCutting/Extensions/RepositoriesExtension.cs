@@ -1,10 +1,11 @@
-﻿using Domain.Entities;
-using Domain.Interfaces;
+﻿using Feijuca.Auth.Domain.Entities;
+using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Infra.Data.Repositories;
 using Feijuca.MultiTenancy.Services;
-using Infra.Data.Repositories;
+
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infra.CrossCutting.Extensions
+namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 {
     public static class RepositoriesExtension
     {

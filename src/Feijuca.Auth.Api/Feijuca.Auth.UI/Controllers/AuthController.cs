@@ -1,8 +1,7 @@
-﻿using Application.Commands.Auth;
-using Application.Requests.Auth;
-using Application.Responses;
-
-using Common.Models;
+﻿using Feijuca.Auth.Application.Commands.Auth;
+using Feijuca.Auth.Application.Requests.Auth;
+using Feijuca.Auth.Application.Responses;
+using Feijuca.Auth.Common.Models;
 
 using MediatR;
 
@@ -11,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using System.Security.Claims;
 
-namespace Api.Controllers
+namespace Feijuca.Auth.UI.Controllers
 {
     [Route("api/v1")]
     [ApiController]

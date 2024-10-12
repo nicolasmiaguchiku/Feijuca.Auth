@@ -1,9 +1,9 @@
-﻿using Common.Errors;
-using Common.Models;
-using Domain.Entities;
-using Domain.Interfaces;
+﻿using Feijuca.Auth.Common.Errors;
+using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Entities;
+using Feijuca.Auth.Domain.Interfaces;
 
-namespace Domain.Services
+namespace Feijuca.Auth.Domain.Services
 {
     public class LoginService(IUserRepository userRepository) : ILoginService
     {
@@ -18,7 +18,7 @@ namespace Domain.Services
             }
 
             if (revokeActiveSessions)
-            {                
+            {
                 await _userRepository.RevokeSessionsAsync(user.Response.Id);
             }
 

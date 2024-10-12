@@ -1,10 +1,12 @@
-﻿using Common.Errors;
-using Common.Models;
-using Domain.Interfaces;
+﻿using Feijuca.Auth.Common.Errors;
+using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Interfaces;
+
 using Flurl;
+
 using System.Net.Http.Headers;
 
-namespace Infra.Data.Repositories
+namespace Feijuca.Auth.Infra.Data.Repositories
 {
     public class UserGroupRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IGroupUsersRepository
     {

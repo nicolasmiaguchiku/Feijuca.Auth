@@ -1,10 +1,11 @@
-﻿using Application.Mappers;
-using Application.Responses;
-using Common.Models;
-using Domain.Interfaces;
+﻿using Feijuca.Auth.Application.Mappers;
+using Feijuca.Auth.Application.Responses;
+using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Interfaces;
+
 using MediatR;
 
-namespace Application.Commands.Auth
+namespace Feijuca.Auth.Application.Commands.Auth
 {
     public class LoginCommandHandler(ILoginService loginService) : IRequestHandler<LoginCommand, Result<TokenDetailsResponse>>
     {

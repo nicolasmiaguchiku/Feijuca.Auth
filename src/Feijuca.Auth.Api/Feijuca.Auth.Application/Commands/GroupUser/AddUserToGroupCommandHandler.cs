@@ -1,8 +1,10 @@
-﻿using Common.Models;
-using Domain.Interfaces;
+﻿using Feijuca.Auth.Common.Models;
+
+using Feijuca.Auth.Domain.Interfaces;
+
 using MediatR;
 
-namespace Application.Commands.GroupUser
+namespace Feijuca.Auth.Application.Commands.GroupUser
 {
     public class AddUserToGroupCommandHandler(IGroupUsersRepository userGroupRepository) : IRequestHandler<AddUserToGroupCommand, Result<bool>>
     {

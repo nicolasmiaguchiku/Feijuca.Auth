@@ -1,11 +1,12 @@
-﻿using Application.Mappers;
-using Application.Responses;
-using Common.Errors;
-using Common.Models;
-using Domain.Interfaces;
+﻿using Feijuca.Auth.Application.Mappers;
+using Feijuca.Auth.Application.Responses;
+using Feijuca.Auth.Common.Errors;
+using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Interfaces;
+
 using MediatR;
 
-namespace Application.Queries.GroupRoles
+namespace Feijuca.Auth.Application.Queries.GroupRoles
 {
     public class GetGroupRolesQueryHandler(IGroupRolesRepository roleGroupRepository) : IRequestHandler<GetGroupRolesQuery, Result<IEnumerable<GroupRolesResponse>>>
     {

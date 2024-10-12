@@ -1,9 +1,11 @@
 ﻿using Feijuca.MultiTenancy.Extensions;
 using Feijuca.MultiTenancy.Services.Models;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Infra.CrossCutting.Extensions
+namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 {
     public static class AuthExtension
     {

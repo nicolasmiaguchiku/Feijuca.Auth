@@ -1,9 +1,11 @@
-﻿using Application.Mappers;
-using Common.Models;
-using Domain.Interfaces;
+﻿using Feijuca.Auth.Common.Models;
+
+using Feijuca.Auth.Application.Mappers;
+using Feijuca.Auth.Domain.Interfaces;
+
 using MediatR;
 
-namespace Application.Commands.Users
+namespace Feijuca.Auth.Application.Commands.Users
 {
     public class CreateUserCommandHandler(IUserRepository userRepository) : IRequestHandler<CreateUserCommand, Result>
     {

@@ -1,6 +1,6 @@
-﻿using Common.Models;
+﻿using Feijuca.Auth.Common.Models;
 
-namespace Common.Errors
+namespace Feijuca.Auth.Common.Errors
 {
     public static class ClientErrors
     {

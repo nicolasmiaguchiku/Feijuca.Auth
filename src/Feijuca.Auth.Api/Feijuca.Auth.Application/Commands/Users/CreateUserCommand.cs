@@ -1,7 +1,8 @@
-﻿using Application.Requests.User;
+﻿using Feijuca.Auth.Application.Requests.User;
+
 using MediatR;
 
-namespace Application.Commands.Users
+namespace Feijuca.Auth.Application.Commands.Users
 {
     public record CreateUserCommand(string Tenant, AddUserRequest AddUserRequest) : IRequest<Common.Models.Result>;
 }

@@ -1,9 +1,10 @@
-﻿using Application.Responses;
-using Common.Models;
-using Domain.Interfaces;
+﻿using Feijuca.Auth.Application.Responses;
+using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Interfaces;
+
 using MediatR;
 
-namespace Application.Queries.Clients
+namespace Feijuca.Auth.Application.Queries.Clients
 {
     public class GetAllClientsQueryHandler(IClientRepository clientRepository) : IRequestHandler<GetAllClientsQuery, Result<IEnumerable<ClientResponse>>>
     {

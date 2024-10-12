@@ -1,9 +1,11 @@
-﻿using Application.Requests.User;
-using Application.Responses;
-using Common.Models;
+﻿using Feijuca.Auth.Common.Models;
+
+using Feijuca.Auth.Application.Requests.User;
+using Feijuca.Auth.Application.Responses;
+
 using MediatR;
 
-namespace Application.Queries.Users
+namespace Feijuca.Auth.Application.Queries.Users
 {
     public record GetUsersQuery(string Tenant, GetUsersRequest GetUsersRequest) : IRequest<Result<PagedResult<UserResponse>>>;
 }

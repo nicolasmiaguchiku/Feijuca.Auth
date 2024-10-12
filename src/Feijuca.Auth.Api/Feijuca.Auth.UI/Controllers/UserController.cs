@@ -1,15 +1,17 @@
-﻿using Application.Commands.Auth;
-using Application.Commands.Users;
-using Application.Queries.Users;
-using Application.Requests.Auth;
-using Application.Requests.User;
-using Common.Models;
+﻿using Feijuca.Auth.Application.Commands.Auth;
+using Feijuca.Auth.Application.Commands.Users;
+using Feijuca.Auth.Application.Queries.Users;
+using Feijuca.Auth.Application.Requests.Auth;
+using Feijuca.Auth.Application.Requests.User;
+using Feijuca.Auth.Common.Models;
 using Feijuca.MultiTenancy.Attributes;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers
+namespace Feijuca.Auth.UI.Controllers
 {
     [Route("api/v1")]
     [ApiController]
@@ -102,7 +104,6 @@ namespace Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Logout([FromRoute] string tenant, [FromBody] RefreshTokenRequest logoutUserRequest, CancellationToken cancellationToken)
         {
-            // Chame um método para realizar o logout no Keycloak
             var result = await _mediator.Send(new SignoutCommand(tenant, logoutUserRequest.RefreshToken), cancellationToken);
 
             if (result.IsSuccess)

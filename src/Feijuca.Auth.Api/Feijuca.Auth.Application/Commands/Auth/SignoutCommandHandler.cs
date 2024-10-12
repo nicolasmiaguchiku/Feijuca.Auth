@@ -1,9 +1,10 @@
-﻿using Common.Errors;
-using Common.Models;
-using Domain.Interfaces;
+﻿using Feijuca.Auth.Common.Errors;
+using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Interfaces;
+
 using MediatR;
 
-namespace Application.Commands.Auth
+namespace Feijuca.Auth.Application.Commands.Auth
 {
     public class SignoutCommandHandler(IUserRepository userRepository) : IRequestHandler<SignoutCommand, Result<bool>>
     {

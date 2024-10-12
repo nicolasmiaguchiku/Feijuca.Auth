@@ -1,6 +1,6 @@
 ﻿using Flurl;
 
-namespace Common.Extensions
+namespace Feijuca.Auth.Common.Extensions
 {
     public static class UrlExtensions
     {

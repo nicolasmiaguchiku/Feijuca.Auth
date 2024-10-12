@@ -1,7 +1,8 @@
-﻿using Domain.Interfaces;
+﻿using Feijuca.Auth.Domain.Interfaces;
+
 using Microsoft.AspNetCore.Http;
 
-namespace Infra.CrossCutting.Middlewares
+namespace Feijuca.Auth.Infra.CrossCutting.Middlewares
 {
     public class TenantMiddleware(RequestDelegate next)
     {

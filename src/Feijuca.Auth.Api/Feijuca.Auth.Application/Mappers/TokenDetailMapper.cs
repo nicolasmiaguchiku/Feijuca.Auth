@@ -1,7 +1,7 @@
-﻿using Application.Responses;
-using Domain.Entities;
+﻿using Feijuca.Auth.Application.Responses;
+using Feijuca.Auth.Domain.Entities;
 
-namespace Application.Mappers
+namespace Feijuca.Auth.Application.Mappers
 {
     public static class TokenDetailMapper
     {

@@ -1,6 +1,6 @@
-﻿using Common.Models;
+﻿using Feijuca.Auth.Common.Models;
 
-namespace Domain.Interfaces
+namespace Feijuca.Auth.Domain.Interfaces
 {
     public interface IGroupUsersRepository
     {

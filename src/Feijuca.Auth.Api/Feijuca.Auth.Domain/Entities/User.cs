@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Domain.Entities
+namespace Feijuca.Auth.Domain.Entities
 {
     public class User
     {

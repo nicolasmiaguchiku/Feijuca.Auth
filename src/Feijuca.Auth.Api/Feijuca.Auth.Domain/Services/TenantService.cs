@@ -1,6 +1,6 @@
-﻿using Domain.Interfaces;
+﻿using Feijuca.Auth.Domain.Interfaces;
 
-namespace Domain.Services
+namespace Feijuca.Auth.Domain.Services
 {
     public class TenantService : ITenantService
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.Permissions
+namespace Feijuca.Auth.Application.Commands.Permissions
 {
     internal class AddPermissionCommand
     {

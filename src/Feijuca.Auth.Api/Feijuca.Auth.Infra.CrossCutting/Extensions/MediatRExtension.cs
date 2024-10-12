@@ -1,7 +1,8 @@
-﻿using Application.Commands.Users;
+﻿using Feijuca.Auth.Application.Commands.Users;
+
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infra.CrossCutting.Extensions
+namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 {
     public static class MediatRExtension
     {

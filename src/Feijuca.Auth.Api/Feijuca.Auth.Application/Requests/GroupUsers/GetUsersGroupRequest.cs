@@ -1,7 +1,8 @@
-﻿using Application.Requests.Pagination;
+﻿using Feijuca.Auth.Application.Requests.Pagination;
+
 using Microsoft.AspNetCore.Mvc;
 
-namespace Application.Requests.GroupUsers
+namespace Feijuca.Auth.Application.Requests.GroupUsers
 {
     public class GetUsersGroupRequest
     {

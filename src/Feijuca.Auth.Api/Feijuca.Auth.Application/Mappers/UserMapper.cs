@@ -1,13 +1,14 @@
-﻿using Application.Requests.Auth;
-using Application.Requests.GroupUsers;
-using Application.Requests.Pagination;
-using Application.Requests.User;
-using Application.Responses;
-using Common.Models;
-using Domain.Entities;
-using Domain.Filters;
+﻿using Feijuca.Auth.Common.Models;
 
-namespace Application.Mappers
+using Feijuca.Auth.Application.Requests.Auth;
+using Feijuca.Auth.Application.Requests.GroupUsers;
+using Feijuca.Auth.Application.Requests.Pagination;
+using Feijuca.Auth.Application.Requests.User;
+using Feijuca.Auth.Application.Responses;
+using Feijuca.Auth.Domain.Entities;
+using Feijuca.Auth.Domain.Filters;
+
+namespace Feijuca.Auth.Application.Mappers
 {
     public static class UserMapper
     {

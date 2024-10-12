@@ -3,7 +3,7 @@ using Serilog.Formatting.Json;
 using Serilog;
 using Serilog.Exceptions;
 
-namespace Infra.CrossCutting.Extensions
+namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 {
     public static class LogExtension
     {

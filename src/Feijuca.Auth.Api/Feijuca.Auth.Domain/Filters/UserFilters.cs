@@ -1,4 +1,4 @@
-﻿namespace Domain.Filters
+﻿namespace Feijuca.Auth.Domain.Filters
 {
     public class UserFilters(PageFilter pageFilter, IEnumerable<Guid>? ids, IEnumerable<string>? emails)
     {

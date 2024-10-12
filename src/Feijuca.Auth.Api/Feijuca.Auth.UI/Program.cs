@@ -1,7 +1,7 @@
-using Infra.CrossCutting.Config;
-using Infra.CrossCutting.Extensions;
-using Infra.CrossCutting.Handlers;
-using Infra.CrossCutting.Middlewares;
+using Feijuca.Auth.Infra.CrossCutting.Config;
+using Feijuca.Auth.Infra.CrossCutting.Extensions;
+using Feijuca.Auth.Infra.CrossCutting.Handlers;
+using Feijuca.Auth.Infra.CrossCutting.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
