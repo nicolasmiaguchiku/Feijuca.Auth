@@ -19,7 +19,7 @@ namespace Feijuca.Auth.UI.Controllers
         private readonly IMediator _mediator = mediator;
 
         /// <summary>
-        /// Add a role to a specific group in the Keycloak realm.
+        /// Add a role to a specific group in the realm.
         /// </summary>
         [HttpPost("{tenant}/group/{id}/role", Name = nameof(AddRoleToGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
