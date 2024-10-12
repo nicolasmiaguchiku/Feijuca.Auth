@@ -1,4 +1,4 @@
-﻿namespace Feijuca.MultiTenancy.Services.Models
+﻿namespace Feijuca.Auth.Services.Models
 {
     public class AuthSettings
     {

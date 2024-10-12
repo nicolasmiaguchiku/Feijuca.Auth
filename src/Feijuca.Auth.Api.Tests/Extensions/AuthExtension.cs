@@ -1,5 +1,6 @@
-﻿using Feijuca.MultiTenancy.Extensions;
-using Feijuca.MultiTenancy.Services.Models;
+﻿using Feijuca.Auth.Extensions;
+using Feijuca.Auth.Services.Models;
+
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Feijuca.MultiTenancy.Api.Extensions

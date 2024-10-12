@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Feijuca.MultiTenancy.Attributes
+namespace Feijuca.Auth.Attributes
 {
     [AttributeUsage(AttributeTargets.All)]
     public class RequiredScopeAttribute(string scope) : Attribute, IAuthorizationFilter

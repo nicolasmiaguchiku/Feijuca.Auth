@@ -1,6 +1,8 @@
-﻿using Feijuca.MultiTenancy.Api.Filters;
-using Feijuca.MultiTenancy.Services.Models;
+﻿using Feijuca.Auth.Services.Models;
+using Feijuca.MultiTenancy.Api.Filters;
+
 using Flurl;
+
 using Microsoft.OpenApi.Models;
 
 namespace Feijuca.MultiTenancy.Api.Extensions

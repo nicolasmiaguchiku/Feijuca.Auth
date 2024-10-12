@@ -1,14 +1,17 @@
-﻿using Feijuca.MultiTenancy.Services;
-using Feijuca.MultiTenancy.Services.Models;
+﻿using Feijuca.Auth.Services;
+using Feijuca.Auth.Services.Models;
+
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Feijuca.MultiTenancy.Extensions
+namespace Feijuca.Auth.Extensions
 {
     public static class AuthExtensions
     {

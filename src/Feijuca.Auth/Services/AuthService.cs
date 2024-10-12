@@ -1,8 +1,10 @@
-﻿using Feijuca.MultiTenancy.Services.Models;
+﻿using Feijuca.Auth.Services.Models;
+
 using Microsoft.AspNetCore.Http;
+
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Feijuca.MultiTenancy.Services
+namespace Feijuca.Auth.Services
 {
     public class AuthService(IHttpContextAccessor httpContextAccessor, JwtSecurityTokenHandler jwtSecurityTokenHandler, AuthSettings authSettings) : IAuthService
     {

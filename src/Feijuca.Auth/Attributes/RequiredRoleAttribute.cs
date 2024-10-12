@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Feijuca.MultiTenancy.Attributes
+namespace Feijuca.Auth.Attributes
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
     public class RequiredRoleAttribute(string role) : Attribute, IAuthorizationFilter

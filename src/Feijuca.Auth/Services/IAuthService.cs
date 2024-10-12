@@ -1,6 +1,6 @@
-﻿using Feijuca.MultiTenancy.Services.Models;
+﻿using Feijuca.Auth.Services.Models;
 
-namespace Feijuca.MultiTenancy.Services
+namespace Feijuca.Auth.Services
 {
     public interface IAuthService
     {
