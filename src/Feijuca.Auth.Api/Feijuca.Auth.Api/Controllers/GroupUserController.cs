@@ -1,15 +1,13 @@
 ﻿using Feijuca.Auth.Application.Commands.GroupUser;
 using Feijuca.Auth.Application.Queries.GroupUser;
 using Feijuca.Auth.Application.Requests.GroupUsers;
+using Feijuca.Auth.Attributes;
 using Feijuca.Auth.Common.Models;
-using Feijuca.MultiTenancy.Attributes;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Feijuca.Auth.UI.Controllers
+namespace Feijuca.Auth.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]

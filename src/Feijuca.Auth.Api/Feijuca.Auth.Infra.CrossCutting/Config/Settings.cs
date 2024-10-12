@@ -1,4 +1,4 @@
-﻿using Feijuca.MultiTenancy.Services.Models;
+﻿using Feijuca.Auth.Services.Models;
 
 namespace Feijuca.Auth.Infra.CrossCutting.Config
 {

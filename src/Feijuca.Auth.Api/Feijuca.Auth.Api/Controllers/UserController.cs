@@ -3,15 +3,13 @@ using Feijuca.Auth.Application.Commands.Users;
 using Feijuca.Auth.Application.Queries.Users;
 using Feijuca.Auth.Application.Requests.Auth;
 using Feijuca.Auth.Application.Requests.User;
+using Feijuca.Auth.Attributes;
 using Feijuca.Auth.Common.Models;
-using Feijuca.MultiTenancy.Attributes;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Feijuca.Auth.UI.Controllers
+namespace Feijuca.Auth.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]

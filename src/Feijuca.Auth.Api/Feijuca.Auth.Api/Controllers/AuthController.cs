@@ -2,15 +2,13 @@
 using Feijuca.Auth.Application.Requests.Auth;
 using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Common.Models;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using System.Security.Claims;
 
-namespace Feijuca.Auth.UI.Controllers
+namespace Feijuca.Auth.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
@@ -23,7 +21,7 @@ namespace Feijuca.Auth.UI.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("{tenant}/user/login", Name = nameof(Login))]
+        [Route("{tenant}/auth/login", Name = nameof(Login))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

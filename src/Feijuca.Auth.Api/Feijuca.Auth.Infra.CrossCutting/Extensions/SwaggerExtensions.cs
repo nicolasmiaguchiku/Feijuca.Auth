@@ -1,8 +1,6 @@
 ﻿using Feijuca.Auth.Infra.CrossCutting.Filters;
-using Feijuca.MultiTenancy.Services.Models;
-
+using Feijuca.Auth.Services.Models;
 using Flurl;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 

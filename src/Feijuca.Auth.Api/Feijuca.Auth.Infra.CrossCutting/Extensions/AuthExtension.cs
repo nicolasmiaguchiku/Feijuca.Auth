@@ -1,5 +1,5 @@
-﻿using Feijuca.MultiTenancy.Extensions;
-using Feijuca.MultiTenancy.Services.Models;
+﻿using Feijuca.Auth.Extensions;
+using Feijuca.Auth.Services.Models;
 
 using Microsoft.Extensions.DependencyInjection;
 

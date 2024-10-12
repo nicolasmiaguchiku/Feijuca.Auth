@@ -14,7 +14,7 @@ namespace Feijuca.Auth.Domain.Interfaces
         Task<bool> RevokeSessionsAsync(Guid id);
         Task<Result<User>> GetAsync(string username);
         Task<Result> SendEmailVerificationAsync(string userId);
-        Task<Result<TokenDetails>> LoginAsync(string user, string password);
+        Task<Result<TokenDetails>> LoginAsync(string username, string password);
         Task<Result<bool>> SignoutAsync(string refreshToken);
         Task<Result<TokenDetails>> RefreshTokenAsync(string refreshToken);
     }

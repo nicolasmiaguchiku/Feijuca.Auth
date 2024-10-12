@@ -4,12 +4,9 @@ using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
-
 using Flurl;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-
 using System.Net.Http.Headers;
 using System.Text;
 
