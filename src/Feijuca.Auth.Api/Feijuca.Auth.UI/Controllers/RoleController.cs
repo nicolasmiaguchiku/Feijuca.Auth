@@ -3,9 +3,7 @@ using Feijuca.Auth.Application.Queries.Permissions;
 using Feijuca.Auth.Application.Requests.Role;
 using Feijuca.Auth.Common.Models;
 using Feijuca.MultiTenancy.Attributes;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +17,7 @@ namespace Feijuca.Auth.UI.Controllers
         private readonly IMediator _mediator = mediator;
 
         /// <summary>
-        /// Get all roles available in all clients.
+        /// Get all roles available related to the clients on the realm.
         /// </summary>
         [HttpGet]
         [Route("{tenant}/roles", Name = nameof(GetRoles))]
@@ -40,7 +38,7 @@ namespace Feijuca.Auth.UI.Controllers
         }
 
         /// <summary>
-        /// Add a new role to a client.
+        /// Add a new role to a client on the realm.
         /// </summary>
         [HttpPost]
         [Route("{tenant}/role", Name = nameof(AddRole))]
