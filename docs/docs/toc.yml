@@ -18,15 +18,16 @@
         - name: Revoke sessions
           href: configuringApplicationTokenManager.md
     - name: Handling Groups
-      items:
-        - name: Creating user
-          href: configuringApplicationTokenManager.md
-        - name: Deleting user
-          href: configuringApplicationTokenManager.md
-        - name: Generating JWT token
-          href: configuringApplicationTokenManager.md
-        - name: Revoke sessions
-          href: configuringApplicationTokenManager.md
+      href: configuringApplicationTokenManager.md
+        items:
+          - name: Creating user
+            href: configuringApplicationTokenManager.md
+          - name: Deleting user
+            href: configuringApplicationTokenManager.md
+          - name: Generating JWT token
+            href: configuringApplicationTokenManager.md
+          - name: Revoke sessions
+            href: configuringApplicationTokenManager.md
     - name: Handling Group Users
       href: configuringApplicationSingleTenancy.md
     - name: Handling Groups Roles
