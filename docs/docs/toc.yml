@@ -1,17 +1,44 @@
-- name: Feijuca.Auth.MultiTenancy
-  href: FeijucaAuthMultiTenancy.md
-  items:
-    - name: Configuring application
-      href: configuringApplicationMultiTenancy.md
-    
-- name: Feijuca.TokenManager
+- name: Getting started
+  href: gettingStarted.md
+  
+- name: Feijuca.Auth.Api
+  href: configuringApplicationMultiTenancy.md
+  items:        
+    - name: Setting up
+      href: configuringApplicationSingleTenancy.md
+    - name: Handling Users
+      href: configuringApplicationSingleTenancy.md
+        items:
+        - name: Creating user
+          href: configuringApplicationTokenManager.md
+        - name: Deleting user
+          href: configuringApplicationTokenManager.md
+        - name: Generating JWT token
+          href: configuringApplicationTokenManager.md
+        - name: Revoke sessions
+          href: configuringApplicationTokenManager.md
+    - name: Handling Groups
+      href: configuringApplicationTokenManager.md
+      items:
+        - name: Creating user
+          href: configuringApplicationTokenManager.md
+        - name: Deleting user
+          href: configuringApplicationTokenManager.md
+        - name: Generating JWT token
+          href: configuringApplicationTokenManager.md
+        - name: Revoke sessions
+          href: configuringApplicationTokenManager.md
+    - name: Handling Group Users
+      href: configuringApplicationSingleTenancy.md
+    - name: Handling Groups Roles
+      href: configuringApplicationSingleTenancy.md
+    - name: Handling Roles
+      href: configuringApplicationSingleTenancy.md
+    - name: Handling Clients
+      href: configuringApplicationSingleTenancy.md      
+        
+- name: Feijuca.Auth - Multi-tenancy concept
   href: feijucaTokenManager.md
   items:
     - name: Configuring Application
       href: configuringApplicationTokenManager.md
-    - name: Using Endpoints
-      href: usingEndpoints.md
-    - name: Creating Users
-      href: creatingUsers.md
-    - name: Deleting Users
-      href: deletingUsers.md
