@@ -1,28 +1,35 @@
 ## What is **Feijuca.Auth**?
 
-First of all, the name **Feijuca** is inspired by the iconic Brazilian dish [Feijoada](https://theculturetrip.com/south-america/brazil/articles/a-brief-introduction-to-feijoada-brazils-national-dish). Since the creators are from Brazil, we wanted a name that is both fun and culturally relevant. **Feijuca** is a casual nickname for **Feijoada**, reflecting our connection to Brazilian culture.
+Inspired by the iconic Brazilian dish [Feijoada](https://theculturetrip.com/south-america/brazil/articles/a-brief-introduction-to-feijoada-brazils-national-dish), the name **Feijuca** reflects our Brazilian roots and cultural heritage. **Feijuca** is a playful nickname for **Feijoada**, embodying the spirit of our project: a fusion of functionality and culture.
 
-**Feijuca** is a project designed to simplify the integration with Keycloak. It offers two main modules:
+**Feijuca.Auth** is a comprehensive solution designed to simplify integration with Keycloak, providing both a NuGet package and an API to streamline authentication, authorization, and access control management.
 
-### **Feijuca.Auth**
+### Key Features:
 
-This NuGet package provides essential classes for configuring and managing the Feijuca.Auth project. It plays a key role in enabling project-specific settings and ensures smooth functionality.
+- **NuGet Package**: 
+  - Contains essential classes for configuring and managing the Feijuca.Auth project.
+  - Allows you to define user permissions and validate JWT tokens, ensuring they are legitimate and issued by a trusted authority.
+  - Supports integration with Keycloak in a multi-tenant model, where each realm in Keycloak serves as a tenant within your application, offering a scalable and secure solution for managing authentication and authorization across multiple tenants.
 
-With this package, you can:
+- **API**:
+  - Offers a streamlined interface for managing interactions with Keycloak, focusing on:
+    - **User Authentication**: Securely verify user identities.
+    - **Authorization**: Manage user permissions and roles efficiently.
+    - **Role-Based Access Control (RBAC)**: Implement and enforce access policies based on user roles.
+    - **User Management**:
+      - **Create and Remove Users**: Easily add or delete user accounts as needed.
+      - **Manage Groups**: Create and remove user groups to organize access.
+    - **User Operations**:
+      - **Email Confirmation**: Ensure users verify their email addresses for account security.
+      - **Password Reset**: Allow users to reset their passwords securely.
+      - **Session Revocation**: Revoke user sessions to protect sensitive information and enhance security.
 
-- Configure and validate user permissions, ensuring users have the correct roles.
-- Handle JWT token validation, ensuring the token is legitimate and issued by a trusted authority.
-- Integrate Keycloak in a multi-tenant model, where each realm in Keycloak serves as a tenant within your application.
-
-This makes it an efficient solution for managing authentication and authorization across multiple tenants in a scalable and secure way.
-
-### **Feijuca.Auth.Api**
-
-A module that simplifies API management for Keycloak, focusing on user authentication, authorization, and RBAC (Role-Based Access Control).
-
-With these modules, **Feijuca** aims to reduce the complexity of working with Keycloak, making user management and multi-tenancy more seamless and developer-friendly.
+Together, these components of **Feijuca.Auth** aim to reduce the complexity of working with Keycloak, making user management and multi-tenancy more seamless and developer-friendly.
 
 ---
+
+### Curious to know how this works? Check out the documentation!
+[Documentation Link](https://example.com)
 
 ## Contributors
 
@@ -36,5 +43,4 @@ Meet the amazing people who helped build **Feijuca.Auth**! Connect with them on 
 
 We’re grateful for everyone’s hard work and contributions!
 
-Have you a suggestion to improve the tool?
-Contribute to the project by opening a [PR](https://github.com/coderaw-io/Feijuca.Auth/pulls)
+Have a suggestion to improve the tool? Contribute to the project by opening a [PR](https://github.com/coderaw-io/Feijuca.Auth/pulls).
