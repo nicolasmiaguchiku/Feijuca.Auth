@@ -26,9 +26,7 @@ With these modules, **Feijuca** aims to reduce the complexity of working with Ke
 
 ## Contributors
 
-Meet the amazing people who helped build **Feijuca**! Connect with them on LinkedIn:
-
-Wanna see your name here? Contribute to the project by opening a PR :)
+Meet the amazing people who helped build **Feijuca.Auth**! Connect with them on LinkedIn:
 
 | **Name**                 | **LinkedIn**                                                              |
 |--------------------------|---------------------------------------------------------------------------|
@@ -37,3 +35,6 @@ Wanna see your name here? Contribute to the project by opening a PR :)
 | Matheus Galvão            | <a href="https://www.linkedin.com/in/matheu-sandregalvaodasilva/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/> </a> |
 
 We’re grateful for everyone’s hard work and contributions!
+
+Have you a suggestion to improve the tool?
+Contribute to the project by opening a [PR](https://github.com/coderaw-io/Feijuca.Auth/pulls)
