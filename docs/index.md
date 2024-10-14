@@ -6,36 +6,29 @@ Inspired by the iconic Brazilian dish [Feijoada](https://theculturetrip.com/sout
 
 ### Key Features:
 
-- **NuGet Package**: 
-  - Contains essential classes for configuring and managing the Feijuca.Auth project.
-  - Allows you to define user permissions and validate JWT tokens, ensuring they are legitimate and issued by a trusted authority.
-  - Supports integration with Keycloak in a multi-tenant model, where each realm in Keycloak serves as a tenant within your application, offering a scalable and secure solution for managing authentication and authorization across multiple tenants.
+**Feijuca.Auth** provides a comprehensive solution for simplifying integration with Keycloak, focusing on efficient management of authentication and authorization. Key features include:
 
-- **API**:
-  - Offers a streamlined interface for managing interactions with Keycloak, focusing on:
-    - **User Authentication**: Securely verify user identities.
-    - **Authorization**: Manage user permissions and roles efficiently.
-    - **Role-Based Access Control (RBAC)**: Implement and enforce access policies based on user roles.
-    - **User Management**:
-      - **Create and Remove Users**: Easily add or delete user accounts as needed.
-      - **Manage Groups**: Create and remove user groups to organize access.
-    - **User Operations**:
-      - **Email Confirmation**: Ensure users verify their email addresses for account security.
-      - **Password Reset**: Allow users to reset their passwords securely.
-      - **Session Revocation**: Revoke user sessions to protect sensitive information and enhance security.
+- **User Management**: 
+  - Easily create and remove user and groups.
+  - Easily user handling passoword reset, email confirmation and session revoke
+  
+- **Authentication and Authorization**:
+  - Securely verify user identities.
+  - Efficiently manage user permissions and enforce access policies based on roles using Role-Based Access Control (RBAC).
+
+- **Multi-Tenant Support**: 
+  - Integrate with Keycloak in a multi-tenant model, where each realm acts as a separate tenant within your application, enabling scalable and secure management of authentication and authorization across multiple tenants.
 
 Together, these components of **Feijuca.Auth** aim to reduce the complexity of working with Keycloak, making user management and multi-tenancy more seamless and developer-friendly.
 
+### Curious to know how this works? Check out the [Documentation](https://coderaw-io.github.io/Feijuca.Auth/docs/gettingStarted.html)!
 ---
-
-### Curious to know how this works? Check out the documentation!
-[Documentation Link](https://example.com)
 
 ## Contributors
 
 Meet the amazing people who helped build **Feijuca.Auth**! Connect with them on LinkedIn:
 
-| **Name**                 | **LinkedIn**                                                              |
+| **Name**                 | |
 |--------------------------|---------------------------------------------------------------------------|
 | Felipe Mattioli           | <a href="https://www.linkedin.com/in/felipemattioli/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/> </a> |
 | Wesley Souza              | <a href="https://www.linkedin.com/in/weslleyms/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/> </a>  |
