@@ -1,6 +1,6 @@
 ## What is **Feijuca.Auth**?
 
-First of all, the name **Feijuca** is inspired by the iconic Brazilian dish **Feijoada**. Since the creators are from Brazil, we wanted a name that is both fun and culturally relevant. **Feijuca** is a casual nickname for **Feijoada**, reflecting our connection to Brazilian culture.
+First of all, the name **Feijuca** is inspired by the iconic Brazilian dish [Feijoada](https://theculturetrip.com/south-america/brazil/articles/a-brief-introduction-to-feijoada-brazils-national-dish). Since the creators are from Brazil, we wanted a name that is both fun and culturally relevant. **Feijuca** is a casual nickname for **Feijoada**, reflecting our connection to Brazilian culture.
 
 **Feijuca** is a project designed to simplify the integration with Keycloak. It offers two main modules:
 
@@ -37,4 +37,3 @@ Wanna see your name here? Contribute to the project by opening a PR :)
 | Matheus Galvão            | <a href="https://www.linkedin.com/in/matheu-sandregalvaodasilva/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/> </a> |
 
 We’re grateful for everyone’s hard work and contributions!
-
