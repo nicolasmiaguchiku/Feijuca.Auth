@@ -1,5 +1,4 @@
 ﻿using Feijuca.Auth.Domain.Interfaces;
-
 using Microsoft.AspNetCore.Http;
 
 namespace Feijuca.Auth.Infra.CrossCutting.Middlewares
