@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Infra.CrossCutting.Config;
-using Feijuca.Auth.Services.Models;
+using Feijuca.Auth.Models;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;

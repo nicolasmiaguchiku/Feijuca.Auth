@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Extensions;
-using Feijuca.Auth.Services.Models;
+using Feijuca.Auth.Models;
 
 using Microsoft.Extensions.DependencyInjection;
 
