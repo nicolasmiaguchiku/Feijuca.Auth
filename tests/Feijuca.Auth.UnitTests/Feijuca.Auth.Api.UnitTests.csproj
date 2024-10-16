@@ -26,16 +26,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Feijuca.Auth.Api\Feijuca.Auth.Application\Feijuca.Auth.Application.csproj" />
-    <ProjectReference Include="..\..\src\Feijuca.Auth.Api\Feijuca.Auth.Domain\Feijuca.Auth.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Handlers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Api\Feijuca.Auth.Application\Feijuca.Auth.Application.csproj" />
+    <ProjectReference Include="..\..\src\Api\Feijuca.Auth.Domain\Feijuca.Auth.Domain.csproj" />
   </ItemGroup>
 
 </Project>
