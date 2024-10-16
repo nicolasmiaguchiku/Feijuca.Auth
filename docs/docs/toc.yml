@@ -8,7 +8,9 @@
       href: configuringApplicationSingleTenancy.md
     - name: Handling Users
       href: configuringApplicationSingleTenancy.md
-      items:  # Corrigido alinhamento  
+      items:
+        - name: Getting users
+          href: configuringApplicationTokenManager.md
         - name: Creating user
           href: configuringApplicationTokenManager.md
         - name: Deleting user
@@ -19,15 +21,43 @@
           href: configuringApplicationTokenManager.md
     - name: Handling Groups
       href: configuringApplicationTokenManager.md      
-    - name: Handling Group Users
-      href: configuringApplicationSingleTenancy.md
-    - name: Handling Groups Roles
-      href: configuringApplicationSingleTenancy.md
+      items:
+        - name: Getting groups
+          href: configuringApplicationTokenManager.md
+        - name: Creating group
+          href: configuringApplicationTokenManager.md
+        - name: Deleting group
+          href: configuringApplicationTokenManager.md     
     - name: Handling Roles
       href: configuringApplicationSingleTenancy.md
+      items:
+        - name: Getting roles
+          href: configuringApplicationTokenManager.md
+        - name: Adding new role
+          href: configuringApplicationTokenManager.md
+        - name: Deleting group        
+    - name: Handling Group Users
+      href: configuringApplicationSingleTenancy.md
+      items:
+        - name: Getting users from a group
+          href: configuringApplicationTokenManager.md
+        - name: Add user on a group
+          href: configuringApplicationTokenManager.md
+        - name: Removing user from a group
+          href: configuringApplicationTokenManager.md        
+    - name: Handling Group Roles
+      href: configuringApplicationSingleTenancy.md
+      items:
+        - name: Getting group roles
+          href: configuringApplicationTokenManager.md
+        - name: Add role on a group
+          href: configuringApplicationTokenManager.md
+        - name: Removing role from a group
+          href: configuringApplicationTokenManager.md     
     - name: Handling Clients
-      href: configuringApplicationSingleTenancy.md      
-        
+      href: configuringApplicationSingleTenancy.md  
+      items:
+        - name: Getting clients
 - name: Feijuca.Auth - Multi-tenancy concept
   href: feijucaTokenManager.md
   items:
