@@ -1,4 +1,4 @@
-﻿using Feijuca.Auth.Services.Models;
+﻿using Feijuca.Auth.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Feijuca.Auth.Infra.CrossCutting.Extensions

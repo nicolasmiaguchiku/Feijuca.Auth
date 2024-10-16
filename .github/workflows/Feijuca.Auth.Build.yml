@@ -4,11 +4,11 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'src/Feijuca.Auth/**'
+      - 'src/NuGet/Feijuca.Auth/**'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'src/Feijuca.Auth/**'
+      - 'src/NuGet/Feijuca.Auth/**'
 
 env:
   VERSION_UPDATE_TYPE: "value"
@@ -30,9 +30,9 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Restore dependencies
-        run: dotnet restore src/Feijuca.Auth/Feijuca.Auth.csproj
+        run: dotnet restore src/NuGet/Feijuca.Auth/Feijuca.Auth.csproj
       - name: Build
-        run: dotnet build --configuration Release src/Feijuca.Auth/Feijuca.Auth.csproj
+        run: dotnet build --configuration Release src/NuGet/Feijuca.Auth/Feijuca.Auth.csproj
 
   bump:
     name: Update project version
@@ -68,7 +68,7 @@ jobs:
         id: bump-minor
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
-          file: src/Feijuca.Auth/Feijuca.Auth.csproj
+          file: src/NuGet/Feijuca.Auth/Feijuca.Auth.csproj
           version: "*.^.0"
 
       - name: Bump build version - Revision
@@ -76,7 +76,7 @@ jobs:
         id: bump-revision
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
-          file: src/Feijuca.Auth/Feijuca.Auth.csproj
+          file: src/NuGet/Feijuca.Auth/Feijuca.Auth.csproj
           version: "*.*.^"
 
       - name: Commit and push changes - MINOR
@@ -126,13 +126,13 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Restore dependencies
-        run: dotnet restore src/Feijuca.Auth/Feijuca.Auth.csproj
+        run: dotnet restore src/NuGet/Feijuca.Auth/Feijuca.Auth.csproj
         
       - name: Build solution and generate NuGet package
         if: github.ref == 'refs/heads/main' && env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
         run: | 
-          dotnet build --no-restore --configuration Release src/Feijuca.Auth/Feijuca.Auth.csproj
-          dotnet pack src/Feijuca.Auth/Feijuca.Auth.csproj --no-build --configuration Release --output Feijuca.Auth/out
+          dotnet build --no-restore --configuration Release src/NuGet/Feijuca.Auth/Feijuca.Auth.csproj
+          dotnet pack src/NuGet/Feijuca.Auth/Feijuca.Auth.csproj --no-build --configuration Release --output Feijuca.Auth/out
 
       - name: Push generated package to NuGet
         if: github.ref == 'refs/heads/main' && env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'

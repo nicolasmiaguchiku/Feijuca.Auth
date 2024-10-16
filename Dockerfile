@@ -7,19 +7,19 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["src/Feijuca.Auth.Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj", "Feijuca.Auth.Api/"]
-COPY ["src/Feijuca.Auth.Api/Feijuca.Auth.Infra.CrossCutting/Feijuca.Auth.Infra.CrossCutting.csproj", "Feijuca.Auth.Infra.CrossCutting.csproj/"]
-COPY ["src/Feijuca.Auth.Api/Feijuca.Auth.Application/Feijuca.Auth.Application.csproj", "Feijuca.Auth.Application.csproj/"]
-COPY ["src/Feijuca.Auth.Api/Feijuca.Auth.Infra.Data/Feijuca.Auth.Infra.Data.csproj", "Feijuca.Auth.Infra.Data/"]
-COPY ["src/Feijuca.Auth.Api/Feijuca.Auth.Domain/Feijuca.Auth.Domain.csproj", "Feijuca.Auth.Domain/"]
-COPY ["src/Feijuca.Auth.Api/Feijuca.Auth.Common/Feijuca.Auth.Common.csproj", "Feijuca.Auth.Common/"]
+COPY ["src/Api/Feijuca.Auth.Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj", "Feijuca.Auth.Api/"]
+COPY ["src/Api/Feijuca.Auth.Api/Feijuca.Auth.Infra.CrossCutting/Feijuca.Auth.Infra.CrossCutting.csproj", "Feijuca.Auth.Infra.CrossCutting.csproj/"]
+COPY ["src/Api/Feijuca.Auth.Api/Feijuca.Auth.Application/Feijuca.Auth.Application.csproj", "Feijuca.Auth.Application.csproj/"]
+COPY ["src/Api/Feijuca.Auth.Api/Feijuca.Auth.Infra.Data/Feijuca.Auth.Infra.Data.csproj", "Feijuca.Auth.Infra.Data/"]
+COPY ["src/Api/Feijuca.Auth.Api/Feijuca.Auth.Domain/Feijuca.Auth.Domain.csproj", "Feijuca.Auth.Domain/"]
+COPY ["src/Api/Feijuca.Auth.Api/Feijuca.Auth.Common/Feijuca.Auth.Common.csproj", "Feijuca.Auth.Common/"]
 RUN dotnet restore "Feijuca.Auth.Api/Feijuca.Auth.Api.csproj"
 COPY . .
 
-RUN dotnet build "src/Feijuca.Auth.Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj" -c Release -o /app/build
+RUN dotnet build "src/Api/Feijuca.Auth.Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "src/Feijuca.Auth.Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "src/Api/Feijuca.Auth.Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
