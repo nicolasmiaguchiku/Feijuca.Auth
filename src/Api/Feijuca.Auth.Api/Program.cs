@@ -16,7 +16,7 @@ builder.Configuration
     .AddJsonFile($"appsettings.{enviroment}.json", true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-var applicationSettings = builder.Configuration.GetApplicationSettings(builder.Environment);
+var applicationSettings = builder.Configuration.GetSection("Settings").Get<Settings>()!;
 
 builder.Services
     .AddSingleton<ISettings>(applicationSettings)
