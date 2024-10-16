@@ -10,14 +10,14 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
     {
         public static IServiceCollection AddSwagger(this IServiceCollection services, AuthSettings authSettings)
         {
-            var defaultRealmTokenGeneration = authSettings.Realms.Where(x => x.UseAsDefaultSwaggerTokenGeneration);
-
-            if (defaultRealmTokenGeneration.Any())
+            services.AddSwaggerGen(c =>
             {
-                services.AddSwaggerGen(c =>
-                {
-                    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Feijuca.Auth.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Feijuca.Auth.Api", Version = "v1" });
 
+                var defaultRealmTokenGeneration = authSettings.Realms.Where(x => x.UseAsDefaultSwaggerTokenGeneration);
+
+                if (defaultRealmTokenGeneration.Any())
+                {
                     c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                     {
                         Type = SecuritySchemeType.OAuth2,
@@ -30,11 +30,11 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
                             }
                         }
                     });
+                }
 
-                    c.OperationFilter<AuthorizeCheckOperationFilter>();
-                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Feijuca.Auth.Api.xml"));
-                });
-            }
+                c.OperationFilter<AuthorizeCheckOperationFilter>();
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Feijuca.Auth.Api.xml"));
+            });
 
             return services;
         }
