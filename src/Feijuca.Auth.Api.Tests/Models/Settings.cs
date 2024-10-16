@@ -1,6 +1,6 @@
-﻿using Feijuca.Auth.Services.Models;
+﻿using Feijuca.Auth.Models;
 
-namespace Feijuca.MultiTenancy.Api.Models
+namespace Feijuca.Auth.Api.Tests.Models
 {
     public class Settings
     {

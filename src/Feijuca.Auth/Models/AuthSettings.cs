@@ -1,4 +1,4 @@
-﻿namespace Feijuca.Auth.Services.Models
+﻿namespace Feijuca.Auth.Models
 {
     public class AuthSettings
     {
@@ -16,5 +16,6 @@
         public string? Name { get; set; }
         public string? Audience { get; set; }
         public string? Issuer { get; set; }
+        public bool UseAsDefaultSwaggerTokenGeneration { get; set; }
     }
 }

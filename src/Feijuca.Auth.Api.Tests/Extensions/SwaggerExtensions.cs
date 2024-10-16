@@ -1,11 +1,11 @@
-﻿using Feijuca.Auth.Services.Models;
-using Feijuca.MultiTenancy.Api.Filters;
+﻿using Feijuca.Auth.Api.Tests.Filters;
+using Feijuca.Auth.Models;
 
 using Flurl;
 
 using Microsoft.OpenApi.Models;
 
-namespace Feijuca.MultiTenancy.Api.Extensions
+namespace Feijuca.Auth.Api.Tests.Extensions
 {
     public static class SwaggerExtensions
     {

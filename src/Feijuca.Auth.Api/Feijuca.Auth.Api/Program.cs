@@ -33,7 +33,7 @@ builder.Services
     .AddServices()
     .AddSwagger(applicationSettings.AuthSettings)
     .AddHttpClients(applicationSettings.AuthSettings)
-    .AddEndpointsApiExplorer()    
+    .AddEndpointsApiExplorer()
     .AddCors(options =>
     {
         options.AddPolicy("AllowAllOrigins", policy =>

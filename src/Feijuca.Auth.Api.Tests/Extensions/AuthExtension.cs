@@ -1,9 +1,8 @@
 ﻿using Feijuca.Auth.Extensions;
-using Feijuca.Auth.Services.Models;
-
+using Feijuca.Auth.Models;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Feijuca.MultiTenancy.Api.Extensions
+namespace Feijuca.Auth.Api.Tests.Extensions
 {
     public static class AuthExtension
     {

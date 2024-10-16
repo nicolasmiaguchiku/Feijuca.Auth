@@ -1,4 +1,4 @@
-﻿using Feijuca.Auth.Services.Models;
+﻿using Feijuca.Auth.Models;
 using Microsoft.AspNetCore.Http;
 using System.IdentityModel.Tokens.Jwt;
 

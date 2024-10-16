@@ -1,5 +1,5 @@
-﻿using Feijuca.Auth.Services;
-using Feijuca.Auth.Services.Models;
+﻿using Feijuca.Auth.Models;
+using Feijuca.Auth.Services;
 
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;

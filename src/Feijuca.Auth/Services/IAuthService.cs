@@ -1,4 +1,4 @@
-﻿using Feijuca.Auth.Services.Models;
+﻿using Feijuca.Auth.Models;
 
 namespace Feijuca.Auth.Services
 {

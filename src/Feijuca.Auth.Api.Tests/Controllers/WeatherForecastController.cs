@@ -1,6 +1,7 @@
+using Feijuca.Auth.Api.Tests;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Feijuca.MultiTenancy.Api.Controllers
+namespace Feijuca.Auth.Api.Tests.Controllers
 {
     [ApiController]
     [Route("[controller]")]
