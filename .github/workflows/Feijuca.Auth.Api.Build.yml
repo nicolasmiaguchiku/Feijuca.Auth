@@ -26,9 +26,9 @@ jobs:
         with:
           dotnet-version: 8.0.x
       - name: Restore dependencies
-        run: dotnet restore src/Api/Feijuca.Auth.Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj
+        run: dotnet restore src/Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj
       - name: Build project
-        run: dotnet build --no-restore --configuration Release src/Api/Feijuca.Auth.Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj
+        run: dotnet build --no-restore --configuration Release src/Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj
 
   unit-tests:
     runs-on: ubuntu-latest
@@ -83,7 +83,7 @@ jobs:
         id: bump-minor
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
-          file: src/Api/Feijuca.Auth.Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj
+          file: src/Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj
           version: "*.^.0"
 
       - name: Bump build version - Revision
@@ -91,7 +91,7 @@ jobs:
         id: bump-revision
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
-          file: src/Api/Feijuca.Auth.Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj
+          file: src/Api/Feijuca.Auth.Api/Feijuca.Auth.Api.csproj
           version: "*.*.^"
           
       - name: Commit and push changes - MINOR
