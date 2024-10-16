@@ -5,7 +5,6 @@ using Feijuca.Auth.Common.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using System.Security.Claims;
 
 namespace Feijuca.Auth.Api.Controllers
@@ -55,7 +54,7 @@ namespace Feijuca.Auth.Api.Controllers
 
             if (result.IsSuccess)
             {
-                return Ok(result.Response); // Retorna o token atualizado
+                return Ok(result.Response);
             }
 
             return BadRequest(result.Error);
