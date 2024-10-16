@@ -3,9 +3,7 @@ using Feijuca.Auth.Application.Queries.Groups;
 using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Attributes;
 using Feijuca.Auth.Common.Models;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
