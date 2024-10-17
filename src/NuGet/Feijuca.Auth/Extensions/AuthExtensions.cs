@@ -1,29 +1,21 @@
 ﻿using Feijuca.Auth.Models;
 using Feijuca.Auth.Services;
-
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Feijuca.Auth.Extensions
 {
     public static class AuthExtensions
     {
-        private static readonly HttpClient _httpClient = new();
-        private static readonly JwtSecurityTokenHandler _tokenHandler = new();
-
         public static IServiceCollection AddKeyCloakAuth(this IServiceCollection services, AuthSettings authSettings)
         {
             services
-                .AddSingleton(_tokenHandler)
-                .AddSingleton(authSettings)
-                .AddScoped<IAuthService, AuthService>()
+                .AddSingleton<JwtSecurityTokenHandler>()
                 .AddSingleton(authSettings)
                 .AddScoped<IAuthService, AuthService>()
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -44,7 +36,6 @@ namespace Feijuca.Auth.Extensions
                         };
                     });
 
-
             ConfigureAuthorization(services, authSettings);
 
             return services;
@@ -56,29 +47,29 @@ namespace Feijuca.Auth.Extensions
             {
                 try
                 {
-                    var tokenJwt = context.Request.Headers.Authorization.FirstOrDefault()!;
+                    var tokenJwt = context.Request.Headers.Authorization.FirstOrDefault();
                     if (!ValidateToken(context, tokenJwt))
                     {
                         return;
                     }
 
-                    var token = tokenJwt.Replace("Bearer ", "");
-                    var tokenInfos = _tokenHandler.ReadJwtToken(token);
+                    var token = tokenJwt!.Replace("Bearer ", "");
+                    var tokenInfos = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
-                    if (!ValidateAudience(context, tokenInfos))
+                    if (!ValidateExpiration(context, tokenInfos) || !ValidateAudience(context, tokenInfos))
                     {
                         return;
                     }
 
                     var tenantNumber = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value;
-                    var tenantRealm = authSettings.Realms.FirstOrDefault(realm => realm.Name == tenantNumber)!;
+                    var tenantRealm = authSettings.Realms.FirstOrDefault(realm => realm.Name == tenantNumber);
                     if (!ValidateRealm(context, tenantRealm))
                     {
                         return;
                     }
 
-                    var tokenValidationParameters = await GetTokenValidationParameters(tenantRealm);
-                    var claims = _tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
+                    var tokenValidationParameters = await GetTokenValidationParameters(tenantRealm!);
+                    var claims = new JwtSecurityTokenHandler().ValidateToken(token, tokenValidationParameters, out var _);
 
                     context.Principal = claims;
                     context.Success();
@@ -87,7 +78,8 @@ namespace Feijuca.Auth.Extensions
                 {
                     context.Response.StatusCode = 500;
                     context.HttpContext.Items["AuthError"] = $"Authentication error: {e.Message}";
-                    context.Fail("");
+                    await context.Response.WriteAsJsonAsync(new { error = e.Message });
+                    context.Fail(e.Message);
                 }
             };
         }
@@ -115,7 +107,7 @@ namespace Feijuca.Auth.Extensions
             context.HandleResponse();
         }
 
-        private static bool ValidateToken(MessageReceivedContext context, string tokenJwt)
+        private static bool ValidateToken(MessageReceivedContext context, string? tokenJwt)
         {
             if (string.IsNullOrEmpty(tokenJwt))
             {
@@ -123,10 +115,29 @@ namespace Feijuca.Auth.Extensions
                 context.HttpContext.Items["AuthStatusCode"] = 401;
                 return false;
             }
+
             return true;
         }
 
-        private static bool ValidateRealm(MessageReceivedContext context, Realm tenantRealm)
+        private static bool ValidateExpiration(MessageReceivedContext context, JwtSecurityToken tokenInfos)
+        {
+            var expirationClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "exp")?.Value;
+            if (expirationClaim != null && long.TryParse(expirationClaim, out var expirationUnix))
+            {
+                var expirationDate = DateTimeOffset.FromUnixTimeSeconds(expirationUnix).UtcDateTime;
+                if (DateTime.UtcNow >= expirationDate)
+                {
+                    context.Response.StatusCode = 401;
+                    context.HttpContext.Items["AuthError"] = "Token has expired.";
+                    context.Fail("Token expired");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static bool ValidateRealm(MessageReceivedContext context, Realm? tenantRealm)
         {
             if (tenantRealm == null)
             {
@@ -151,8 +162,9 @@ namespace Feijuca.Auth.Extensions
 
         private static async Task<TokenValidationParameters> GetTokenValidationParameters(Realm tenantRealm)
         {
+            using var httpClient = new HttpClient();
             var jwksUrl = $"{tenantRealm.Issuer}/protocol/openid-connect/certs";
-            var jwks = await _httpClient.GetStringAsync(jwksUrl);
+            var jwks = await httpClient.GetStringAsync(jwksUrl);
             var jsonWebKeySet = new JsonWebKeySet(jwks);
 
             return new TokenValidationParameters
@@ -173,7 +185,7 @@ namespace Feijuca.Auth.Extensions
                .AddAuthorization()
                .AddKeycloakAuthorization();
 
-            if (!string.IsNullOrEmpty(authSettings?.PolicyName))
+            if (!string.IsNullOrEmpty(authSettings.PolicyName))
             {
                 services
                     .AddAuthorizationBuilder()
