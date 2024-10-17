@@ -1,4 +1,5 @@
-﻿using Feijuca.Auth.Application.Responses;
+﻿using Feijuca.Auth.Application.Mappers;
+using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
 
@@ -12,10 +13,14 @@ namespace Feijuca.Auth.Application.Commands.Auth
 
         public async Task<Result<TokenDetailsResponse>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            var tokeDetails = await _userRepository.RefreshTokenAsync(request.RefreshToken);
-            
+            var tokenDetails = await _userRepository.RefreshTokenAsync(request.RefreshToken);
 
-            return Result<TokenDetailsResponse>.Failure(tokeDetails.Error);
+            if (tokenDetails.IsSuccess)
+            {
+                return Result<TokenDetailsResponse>.Success(tokenDetails.Response.ToTokenDetailResponse());
+            }
+
+            return Result<TokenDetailsResponse>.Failure(tokenDetails.Error);
         }
     }
 }

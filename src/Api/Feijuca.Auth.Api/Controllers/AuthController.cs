@@ -42,28 +42,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// Return a valid JWT token and details about them refreshed.
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
-        [HttpPut]
-        [Route("{tenant}/auth/tokens/refresh", Name = nameof(RefreshToken))]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize]
-        public async Task<IActionResult> RefreshToken([FromRoute] string tenant, [FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
-        {
-            var result = await _mediator.Send(new RefreshTokenCommand(tenant, request.RefreshToken), cancellationToken);
-
-            if (result.IsSuccess)
-            {
-                return Ok(result.Response);
-            }
-
-            return BadRequest(result.Error);
-        }
-
-        /// <summary>
-        /// Return a valid JWT token and details about them refreshed.
-        /// </summary>
-        /// <returns>A status code related to the operation.</returns>
         [HttpGet]
         [Route("/auth/decode", Name = nameof(DecodeToken))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserResponse))]
