@@ -7,10 +7,10 @@
     - name: Setting up
       href: configuringApplicationSingleTenancy.md
       items:
-        - name: Keycloak necessary configs
+        - name: Keycloak mandatory configs
           href: configuringApplicationTokenManager.md
-        - name: Add a valid mongodb connection string
-          href: configuringApplicationTokenManager.md
+        - name: Adding new configuration
+          href: configuringApplicationTokenManager.md        
     - name: Handling Users
       href: configuringApplicationSingleTenancy.md
       items:
