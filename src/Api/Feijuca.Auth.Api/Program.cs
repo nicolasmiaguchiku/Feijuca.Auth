@@ -7,11 +7,6 @@ using Feijuca.Auth.Models;
 var builder = WebApplication.CreateBuilder(args);
 var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-builder.Logging
-    .ClearProviders()
-    .AddFilter("Microsoft", LogLevel.Warning)
-    .AddFilter("Microsoft", LogLevel.Critical);
-
 builder.Configuration
     .AddJsonFile("appsettings.json", false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{enviroment}.json", true, reloadOnChange: true)
@@ -19,19 +14,17 @@ builder.Configuration
 
 var applicationSettings = builder.Configuration.GetSection("MongoSettings").Get<MongoSettings>()!;
 
-builder.Services.AddSwaggerGen();
 builder.Services
     .AddExceptionHandler<GlobalExceptionHandler>()
     .AddProblemDetails()
-    .AddLoggingDependency()
     .AddMediator()
     .AddRepositories()
     .AddServices()
     .AddMongo(applicationSettings)
     .AddApiAuthentication(out AuthSettings authSettings)
-    .AddSwagger(authSettings)
-    .AddHttpClients(authSettings.AuthServerUrl)
     .AddEndpointsApiExplorer()
+    .AddSwagger(authSettings)
+    .AddHttpClients(authSettings?.AuthServerUrl)
     .AddCors(options =>
     {
         options.AddPolicy("AllowAllOrigins", policy =>
@@ -41,7 +34,8 @@ builder.Services
                 .AllowAnyMethod()
                 .AllowAnyHeader();
         });
-    });
+    })
+    .AddControllers();
 
 var app = builder.Build();
 
@@ -55,9 +49,14 @@ app.UseCors("AllowAllOrigins")
        c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
    });
 
+if (authSettings is not null)
+{
+    app.UseAuthorization()
+       .UseMiddleware<TenantMiddleware>();
+}
+
 app.UseHttpsRedirection()
-   .UseAuthorization()
-   .UseMiddleware<TenantMiddleware>()
+   .UseHttpsRedirection()
    .UseMiddleware<ConfigValidationMiddleware>();
 
 app.MapControllers();

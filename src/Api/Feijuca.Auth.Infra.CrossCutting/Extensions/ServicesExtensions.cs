@@ -1,6 +1,5 @@
 ﻿using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Domain.Services;
-
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Feijuca.Auth.Infra.CrossCutting.Extensions

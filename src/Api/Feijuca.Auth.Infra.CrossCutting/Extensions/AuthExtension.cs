@@ -25,16 +25,17 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
                 serviceProvider = services.BuildServiceProvider();
                 var authService = serviceProvider.GetRequiredService<IAuthService>();
 
-                var tokenCredentials = new TokenCredentials()
+                services.AddSingleton(new TokenCredentials()
                 {
                     Client_Secret = authService.GetClientSecret(),
                     Client_Id = authService.GetClientId(),
                     ServerUrl = authService.GetServerUrl()
-                };
+                });
 
-                services.AddSingleton(tokenCredentials);
+                return services;
             }
 
+            services.AddSingleton(new TokenCredentials());
             return services;
         }
     }

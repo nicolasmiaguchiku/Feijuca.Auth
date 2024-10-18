@@ -25,7 +25,6 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
                 return db;
             });
 
-
             return services;
         }
     }

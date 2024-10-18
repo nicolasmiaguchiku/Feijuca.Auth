@@ -1,5 +1,4 @@
 ﻿using Feijuca.Auth.Common.Models;
-
 using Feijuca.Auth.Application.Requests.Auth;
 using Feijuca.Auth.Application.Requests.GroupUsers;
 using Feijuca.Auth.Application.Requests.Pagination;
@@ -23,9 +22,9 @@ namespace Feijuca.Auth.Application.Mappers
             return new User(userRequest.Username, userRequest.Password, userRequest.Email!, userRequest.FirstName!, userRequest.LastName!, atributtes);
         }
 
-        public static IEnumerable<UserResponse> ToUsersResponse(this IEnumerable<User> users)
+        public static IEnumerable<UserResponse> ToUsersResponse(this IEnumerable<User> users, string tenant)
         {
-            return users.Select(x => new UserResponse(x.Id, x.Username, x.Email, x.FirstName ?? "", x.LastName!, x.Attributes));
+            return users.Select(x => new UserResponse(x.Id, x.Username, x.Email, x.FirstName ?? "", x.LastName!, tenant, x.Attributes));
         }
 
         public static User ToLoginUserDomain(this LoginUserRequest loginUserRequest)
@@ -60,20 +59,26 @@ namespace Feijuca.Auth.Application.Mappers
             return new UserFilters(pageFilter, [], getUsersRequest.Emails);
         }
 
-        public static PagedResult<UserResponse> ToUserResponse(this IEnumerable<User> results, PageFilterRequest pageFilter, int totalResults)
+        public static PagedResult<UserResponse> ToUserResponse(this IEnumerable<User> results, PageFilterRequest pageFilter, string tenant, int totalResults)
         {
             return new PagedResult<UserResponse>
             {
                 PageNumber = pageFilter.Page,
                 PageSize = pageFilter.PageSize,
-                Results = results.Select(x => x.ToResponse()),
+                Results = results.Select(x => x.ToResponse(tenant)),
                 TotalResults = totalResults
             };
         }
 
-        public static UserResponse ToResponse(this User user)
+        public static UserResponse ToResponse(this User user, string tenant)
         {
-            return new UserResponse(user.Id, user.Username, user.Email, user.FirstName ?? "", user.LastName ?? "", user.Attributes);
+            return new UserResponse(user.Id,
+                user.Username,
+                user.Email,
+                user.FirstName ?? "",
+                user.LastName ?? "",
+                tenant,
+                user.Attributes);
         }
     }
 }

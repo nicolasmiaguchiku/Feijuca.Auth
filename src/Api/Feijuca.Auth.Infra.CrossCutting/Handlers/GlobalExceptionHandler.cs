@@ -1,16 +1,13 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace Feijuca.Auth.Infra.CrossCutting.Handlers
 {
-    public sealed class GlobalExceptionHandler(ILogger logger) : IExceptionHandler
+    public sealed class GlobalExceptionHandler() : IExceptionHandler
     {
-        private readonly ILogger _logger = logger;
-
         public async ValueTask<bool> TryHandleAsync(
             HttpContext httpContext,
             Exception exception,
@@ -31,8 +28,6 @@ namespace Feijuca.Auth.Infra.CrossCutting.Handlers
 
             foreach (var key in exception.Data.Keys)
             {
-                _logger.Error("The following error occured: {ErrorMessage}", exception.Data[key]);
-                _logger.Error(exception, "More details can be find following the exception");
                 errors.Add(exception.Data[key]?.ToString() ?? "");
             }
 

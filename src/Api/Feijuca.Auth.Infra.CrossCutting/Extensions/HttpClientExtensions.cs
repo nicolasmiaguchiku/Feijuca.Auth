@@ -1,15 +1,14 @@
-﻿using Feijuca.Auth.Models;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 {
     public static class HttpClientExtensions
     {
-        public static IServiceCollection AddHttpClients(this IServiceCollection services, string authServerUrl)
+        public static IServiceCollection AddHttpClients(this IServiceCollection services, string? authServerUrl)
         {
             services.AddHttpClient("KeycloakClient", client =>
             {
-                client.BaseAddress = new Uri(authServerUrl);
+                client.BaseAddress = new Uri(authServerUrl ?? "");
             });
 
             return services;

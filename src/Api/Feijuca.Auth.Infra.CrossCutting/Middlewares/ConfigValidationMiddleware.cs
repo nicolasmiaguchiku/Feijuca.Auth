@@ -1,5 +1,6 @@
 ﻿using Feijuca.Auth.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
+using System.Text.Json;
 
 namespace Feijuca.Auth.Infra.CrossCutting.Middlewares
 {
@@ -14,7 +15,18 @@ namespace Feijuca.Auth.Infra.CrossCutting.Middlewares
             if (configResult == null)
             {
                 context.Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
-                await context.Response.WriteAsync("Configs not found! Please, use the endpoint to insert your Keycloak configs before start. Check the documentation: https://coderaw-io.github.io/Feijuca.Auth/docs/gettingStarted.html");
+
+                var errorResponse = new
+                {
+                    StatusCode = StatusCodes.Status503ServiceUnavailable,
+                    Message = "Configs not found! Please, use the endpoint to insert your Keycloak configs before start.",
+                    Documentation = "https://coderaw-io.github.io/Feijuca.Auth/docs/gettingStarted.html"
+                };
+
+                context.Response.ContentType = "application/json";
+                var jsonResponse = JsonSerializer.Serialize(errorResponse);
+
+                await context.Response.WriteAsync(jsonResponse);
                 return;
             }
 
