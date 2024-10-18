@@ -1,4 +1,5 @@
-## What is **Feijuca.Auth**?
+## What is [**Feijuca.Auth**](https://github.com/coderaw-io/Feijuca.Auth)?
+
 
 Inspired by the iconic Brazilian dish [Feijoada](https://theculturetrip.com/south-america/brazil/articles/a-brief-introduction-to-feijoada-brazils-national-dish), the name **Feijuca** reflects our Brazilian roots and cultural heritage. **Feijuca** is a playful nickname for **Feijoada**, embodying the spirit of our project: a fusion of functionality and culture.
 
