@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Config
 {
-    public record AddConfigCommand(string Tenant, AuthSettings Request) : IRequest<Result<bool>>;
+    public record AddConfigCommand(AuthSettings Request) : IRequest<Result<bool>>;
 }

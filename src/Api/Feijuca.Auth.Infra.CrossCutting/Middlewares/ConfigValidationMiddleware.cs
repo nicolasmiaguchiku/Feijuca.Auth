@@ -10,6 +10,12 @@ namespace Feijuca.Auth.Infra.CrossCutting.Middlewares
 
         public async Task InvokeAsync(HttpContext context, IConfigRepository configRepository)
         {
+            if (context.Request.Path.StartsWithSegments("/api/v1/config", StringComparison.OrdinalIgnoreCase))
+            {
+                await _next(context);
+                return;
+            }
+
             var configResult = configRepository.GetConfig();
 
             if (configResult == null)

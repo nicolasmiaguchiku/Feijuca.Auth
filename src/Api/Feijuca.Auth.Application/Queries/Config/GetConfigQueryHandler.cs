@@ -4,13 +4,13 @@ using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Models;
 using MediatR;
 
-namespace Feijuca.Auth.Application.Queries
+namespace Feijuca.Auth.Application.Queries.Config
 {
-    public class GetConfigCommandHandler(IConfigRepository configRepository) : IRequestHandler<GetConfigCommand, Result<AuthSettings>>
+    public class GetConfigQueryHandler(IConfigRepository configRepository) : IRequestHandler<GetConfigQuery, Result<AuthSettings>>
     {
         private readonly IConfigRepository _configRepository = configRepository;
 
-        public Task<Result<AuthSettings>> Handle(GetConfigCommand request, CancellationToken cancellationToken)
+        public Task<Result<AuthSettings>> Handle(GetConfigQuery request, CancellationToken cancellationToken)
         {
             var result = _configRepository.GetConfig();
 

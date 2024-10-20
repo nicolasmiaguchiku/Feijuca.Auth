@@ -1,6 +1,5 @@
 ﻿using Feijuca.Auth.Application.Commands.Config;
-using Feijuca.Auth.Application.Queries;
-using Feijuca.Auth.Attributes;
+using Feijuca.Auth.Application.Queries.Config;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Models;
 using MediatR;
@@ -22,10 +21,9 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [RequiredRole("Feijuca.ApiReader")]
         public async Task<IActionResult> GetConfig(CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetConfigCommand(), cancellationToken);
+            var result = await _mediator.Send(new GetConfigQuery(), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -33,7 +31,7 @@ namespace Feijuca.Auth.Api.Controllers
             }
 
             var responseError = Result<string>.Failure(result.Error);
-            return BadRequest(responseError);
+            return BadRequest(responseError.Error);
         }
 
         /// <summary>
@@ -44,9 +42,9 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> InsertConfig([FromRoute] string tenant, [FromBody] AuthSettings authSettings, CancellationToken cancellationToken)
+        public async Task<IActionResult> InsertConfig([FromBody] AuthSettings authSettings, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddConfigCommand(tenant, authSettings), cancellationToken);
+            var result = await _mediator.Send(new AddConfigCommand(authSettings), cancellationToken);
 
             if (result.IsSuccess)
             {
