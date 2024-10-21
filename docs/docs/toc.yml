@@ -8,8 +8,8 @@
       href: configuringApplicationSingleTenancy.md
       items:
         - name: Keycloak mandatory configs
-          href: configuringApplicationTokenManager.md
-        - name: Adding new configuration
+          href: keycloakMandatoryConfigs.md
+        - name: Feijuca.Auth.Api mandatory configs
           href: configuringApplicationTokenManager.md        
     - name: Handling Users
       href: configuringApplicationSingleTenancy.md
