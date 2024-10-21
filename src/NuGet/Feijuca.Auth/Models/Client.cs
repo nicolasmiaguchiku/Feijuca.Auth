@@ -1,7 +1,7 @@
 ﻿namespace Feijuca.Auth.Models
 {
-    public interface Client
+    public class Client
     {
-        public string ClientId { get; }
+        public required string ClientId { get; init; }
     }
 }

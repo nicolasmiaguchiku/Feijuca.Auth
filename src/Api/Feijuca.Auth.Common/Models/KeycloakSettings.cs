@@ -5,9 +5,9 @@ namespace Feijuca.Auth.Common.Models
 {
     public class KeycloakSettings
     {
-        public required IClient Client { get; set; }
-        public required ISecrets Secrets { get; set; }
-        public required IServerSettings ServerSettings { get; set; }
-        public required IRealm Realm { get; set; }
+        public required Client Client { get; set; }
+        public required Secrets Secrets { get; set; }
+        public required ServerSettings ServerSettings { get; set; }
+        public required Realm Realm { get; set; }
     }
 }
