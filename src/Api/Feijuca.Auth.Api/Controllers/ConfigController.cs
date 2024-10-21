@@ -1,7 +1,6 @@
 ﻿using Feijuca.Auth.Application.Commands.Config;
 using Feijuca.Auth.Application.Queries.Config;
 using Feijuca.Auth.Common.Models;
-using Feijuca.Auth.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
