@@ -4,11 +4,11 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace Feijuca.Auth.Services
 {
-    public class AuthService(IHttpContextAccessor httpContextAccessor, JwtSecurityTokenHandler jwtSecurityTokenHandler, IServerSettings authSettings) : IAuthService
+    public class AuthService(IHttpContextAccessor httpContextAccessor, JwtSecurityTokenHandler jwtSecurityTokenHandler, ServerSettings authSettings) : IAuthService
     {
         private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
         private readonly JwtSecurityTokenHandler _tokenHandler = jwtSecurityTokenHandler;
-        private readonly IServerSettings _authSettings = authSettings;
+        private readonly ServerSettings _authSettings = authSettings;
 
         public string GetTenantFromToken()
         {

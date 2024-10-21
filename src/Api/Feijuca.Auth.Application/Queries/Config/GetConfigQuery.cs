@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Queries.Config
 {
-    public class GetConfigQuery : IRequest<Result<AuthSettings>>;
+    public class GetConfigQuery : IRequest<Result<KeycloakSettings>>;
 }

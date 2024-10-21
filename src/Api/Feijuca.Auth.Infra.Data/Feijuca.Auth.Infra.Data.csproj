@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="3.0.0" />
-    <PackageReference Include="Feijuca.Auth" Version="1.3.2" />
+    <PackageReference Include="Feijuca.Auth" Version="1.5.0" />
     <ProjectReference Include="..\Feijuca.Auth.Domain\Feijuca.Auth.Domain.csproj" />
   </ItemGroup>
 

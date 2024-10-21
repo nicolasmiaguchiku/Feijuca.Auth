@@ -1,8 +1,8 @@
 ﻿namespace Feijuca.Auth.Models
 {
-    public interface IPolicy
+    public class Policy
     {
-        public string Name { get; }
-        public IEnumerable<string> Roles { get; }
+        public required string Name { get; init; }
+        public required IEnumerable<string> Roles { get; init; }
     }
 }

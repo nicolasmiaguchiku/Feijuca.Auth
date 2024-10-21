@@ -1,36 +1,30 @@
-﻿using Feijuca.Auth.Domain.Entities;
-using Feijuca.Auth.Models;
+﻿using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Entities;
 
 namespace Feijuca.Auth.Application.Mappers
 {
     public static class ConfigMapper
     {
-        public static AuthSettingsEntity ToEntity(this AuthSettings authSettings)
+        public static KeycloakSettingsEntity ToEntity(this KeycloakSettings KeycloakSettings)
         {
-            return new AuthSettingsEntity
+            return new KeycloakSettingsEntity
             {
-                AuthServerUrl = authSettings.AuthServerUrl,
-                ClientId = authSettings.ClientId,
-                ClientSecret = authSettings.ClientId,
-                Realms = authSettings.Realms,
-                PolicyName = authSettings.PolicyName,
-                Roles = authSettings.Roles,
-                Scopes = authSettings.Scopes,
-                Id = Guid.NewGuid()
+                Id = Guid.NewGuid(),
+                Client = KeycloakSettings.Client,
+                Realm = KeycloakSettings.Realm,
+                Secrets = KeycloakSettings.Secrets,
+                ServerSettings = KeycloakSettings.ServerSettings
             };
         }
 
-        public static AuthSettings ToResponse(this AuthSettingsEntity authSettings)
+        public static KeycloakSettings ToResponse(this KeycloakSettingsEntity KeycloakSettings)
         {
-            return new AuthSettings
+            return new KeycloakSettings
             {
-                AuthServerUrl = authSettings.AuthServerUrl,
-                ClientId = authSettings.ClientId,
-                ClientSecret = authSettings.ClientId,
-                Realms = authSettings.Realms,
-                PolicyName = authSettings.PolicyName,
-                Roles = authSettings.Roles,
-                Scopes = authSettings.Scopes
+                Client = KeycloakSettings.Client,
+                Realm = KeycloakSettings.Realm,
+                Secrets = KeycloakSettings.Secrets,
+                ServerSettings = KeycloakSettings.ServerSettings
             };
         }
     }

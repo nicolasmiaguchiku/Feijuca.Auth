@@ -3,12 +3,11 @@ using Feijuca.Auth.Models;
 
 namespace Feijuca.Auth.Common.Models
 {
-    public class KeycloakSettings : IClient, ISecrets, IServerSettings, IRealm
+    public class KeycloakSettings
     {
-        public string Id => throw new NotImplementedException();
-
-        public string ClientSecret => throw new NotImplementedException();
-
-        public string Url => throw new NotImplementedException();
+        public required IClient Client { get; set; }
+        public required ISecrets Secrets { get; set; }
+        public required IServerSettings ServerSettings { get; set; }
+        public required IRealm Realm { get; set; }
     }
 }

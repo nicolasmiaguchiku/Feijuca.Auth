@@ -4,6 +4,6 @@ namespace Feijuca.Auth.Api.Tests.Models
 {
     public class Settings
     {
-        public required IServerSettings AuthSettings { get; set; }
+        public required ServerSettings AuthSettings { get; set; }
     }
 }

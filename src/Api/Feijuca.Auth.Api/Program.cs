@@ -3,7 +3,6 @@ using Feijuca.Auth.Infra.CrossCutting.Config;
 using Feijuca.Auth.Infra.CrossCutting.Extensions;
 using Feijuca.Auth.Infra.CrossCutting.Handlers;
 using Feijuca.Auth.Infra.CrossCutting.Middlewares;
-using Feijuca.Auth.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -22,10 +21,10 @@ builder.Services
     .AddRepositories()
     .AddServices()
     .AddMongo(applicationSettings)
-    .AddApiAuthentication(out KeycloakSettings authSettings)
+    .AddApiAuthentication(out KeycloakSettings KeycloakSettings)
     .AddEndpointsApiExplorer()
-    .AddSwagger(authSettings)
-    .AddHttpClients(authSettings?.AuthServerUrl)
+    .AddSwagger(KeycloakSettings)
+    .AddHttpClients(KeycloakSettings?.ServerSettings.Url)
     .AddCors(options =>
     {
         options.AddPolicy("AllowAllOrigins", policy =>
@@ -46,11 +45,10 @@ app.UseCors("AllowAllOrigins")
    .UseSwaggerUI(c =>
    {
        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Feijuca.Auth.Api");
-       c.OAuthClientId(authSettings?.ClientSecret ?? "");
        c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
    });
 
-if (authSettings is not null)
+if (KeycloakSettings is not null)
 {
     app.UseAuthorization()
        .UseMiddleware<TenantMiddleware>();

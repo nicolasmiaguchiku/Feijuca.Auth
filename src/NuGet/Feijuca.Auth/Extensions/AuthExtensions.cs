@@ -13,10 +13,10 @@ namespace Feijuca.Auth.Extensions
     public static class AuthExtensions
     {
         public static IServiceCollection AddKeyCloakAuth(this IServiceCollection services, 
-            IClient client, 
-            IServerSettings serverSettings, 
-            IEnumerable<IRealm> realms,
-            IEnumerable<IPolicy>? policies = null) 
+            Client client, 
+            ServerSettings serverSettings, 
+            IEnumerable<Realm> realms,
+            IEnumerable<Policy>? policies = null) 
         {
             services
                 .AddSingleton<JwtSecurityTokenHandler>()
@@ -44,7 +44,7 @@ namespace Feijuca.Auth.Extensions
             return services;
         }
 
-        private static Func<MessageReceivedContext, Task> OnMessageReceived(IEnumerable<IRealm> realms)
+        private static Func<MessageReceivedContext, Task> OnMessageReceived(IEnumerable<Realm> realms)
         {
             return async context =>
             {
@@ -140,7 +140,7 @@ namespace Feijuca.Auth.Extensions
             return true;
         }
 
-        private static bool ValidateRealm(MessageReceivedContext context, IRealm? tenantRealm)
+        private static bool ValidateRealm(MessageReceivedContext context, Realm? tenantRealm)
         {
             if (tenantRealm == null)
             {
@@ -163,7 +163,7 @@ namespace Feijuca.Auth.Extensions
             return true;
         }
 
-        private static async Task<TokenValidationParameters> GetTokenValidationParameters(IRealm tenantRealm)
+        private static async Task<TokenValidationParameters> GetTokenValidationParameters(Realm tenantRealm)
         {
             using var httpClient = new HttpClient();
             var jwksUrl = $"{tenantRealm.Issuer}/protocol/openid-connect/certs";
@@ -182,7 +182,7 @@ namespace Feijuca.Auth.Extensions
             };
         }
 
-        private static void ConfigureAuthorization(IServiceCollection services, IClient client, IEnumerable<IPolicy>? policySettings)
+        private static void ConfigureAuthorization(IServiceCollection services, Client client, IEnumerable<Policy>? policySettings)
         {
             services
                .AddAuthorization()

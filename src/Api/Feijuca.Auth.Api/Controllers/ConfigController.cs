@@ -42,9 +42,9 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> InsertConfig([FromBody] AuthSettings authSettings, CancellationToken cancellationToken)
+        public async Task<IActionResult> InsertConfig([FromBody] KeycloakSettings keycloakSettings, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddConfigCommand(authSettings), cancellationToken);
+            var result = await _mediator.Send(new AddConfigCommand(keycloakSettings), cancellationToken);
 
             if (result.IsSuccess)
             {
