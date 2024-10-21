@@ -39,7 +39,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertConfig([FromBody] KeycloakSettings keycloakSettings, CancellationToken cancellationToken)
