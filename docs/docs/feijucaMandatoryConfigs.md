@@ -1,29 +1,60 @@
-# Configuring Permissions in Keycloak for API Integration
+# 🚀 Feijuca.Auth.Api Configuration for Keycloak Integration
 
-In order for your API to perform operations such as creating users, groups, realms, clients, roles, group roles, and more in Keycloak, you need to configure the appropriate permissions in the realm. 
-This configuration is done by granting specific permissions to the **Service Account** associated with the client your API uses. Follow the steps below:
+To take full advantage of the various endpoints provided by **Feijuca.Auth.Api**, a quick configuration is required to input details about your Keycloak realm. These configurations are crucial because they allow **Feijuca.Auth.Api** to authenticate and retrieve permission tokens to manage users, groups, roles, and much more.
 
-## 1. Access the Keycloak Admin Console
-- Log in to the Keycloak Admin Console and select the realm where you want to configure permissions.
+---
 
-## 2. Define or Select the Client will represent your API
-- We recommend you create a new client dedicated to handle the operations.
+## ⚙️ Step 1: Setting Up MongoDB Connection String
 
-## 3. Access the `Service Account Roles` Tab
-- On the client page, click on the **Service Account Roles** tab to manage the permissions for the service account.
+The first configuration you need to provide is the **MongoDB connection string**. This will enable you to store and manage the Keycloak realm settings.
 
-## 4. Assign the Required Roles
-- In the **Service Account Roles** tab, you will see a list of available roles.
-- Assign the necessary roles to the service account to allow it to perform actions like user creation, group management, realm and client creation, etc.
+Since **Feijuca.Auth.Api** is Docker-supported, we suggest pulling the Docker image and defining the connection URL using an environment variable. Run the following command:
 
-### Mandatory Roles to Assign
-- **realm-management**: Allows the service account to manage realms, users, and groups.
-- **manage-users**: Grants the ability to create and manage users.
-- **manage-clients**: Grants permission to create and manage clients.
-- **manage-realm**: Allows management of realm-level settings.
+```bash
+docker run -e ConnectionString="mongodb://admin:mysecretpassword@mongodb.local:27017/mydatabase" fmattioli/feijuca-tokenmanager-api:latest
+```
 
-## 5. Save the Configuration
-- After assigning the required roles, click **Save** to apply the changes.
+> **Tip**: If you don't have a MongoDB instance set up, you can create a free MongoDB server on [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database) with some limitations in terms of storage.
 
-Once the appropriate roles are assigned to the service account, your API will be able to make authenticated calls to Keycloak's API to manage users, groups, clients, roles, and more within the realm.
-Once it is done, you can go to next step: Feijuca.Auth.Api mandatory configs.
+## 📂 Why MongoDB?
+
+We chose MongoDB as the initial data repository for **Feijuca.Auth.Api** to store the realm configurations, given its flexibility and ease of setup.
+
+However, if you want to extend the project and use a different database, feel free to open a **Pull Request (PR)** to contribute your custom solution!
+
+## 🛠️ Step 2: Inserting the Realm Configuration
+
+Once your Docker container is up and running with the correct configuration, you're ready to insert your Keycloak realm configuration.
+
+To do this, send an **HTTP POST** request to the `/api/v1/config` endpoint, with the following JSON body:
+
+```json
+{
+  "clientId": "string",
+  "clientSecret": "string",
+  "authServerUrl": "string",
+  "realms": [
+    {
+      "name": "string",
+      "audience": "string",
+      "issuer": "string",
+      "useAsDefaultSwaggerTokenGeneration": true
+    }
+  ],
+  "policyName": "string",
+  "roles": [
+    "string"
+  ],
+  "scopes": [
+    "string"
+  ]
+}
+```
+
+## 🔐 Step 3: Using the API
+
+After completing the configuration, you’ll be ready to access all endpoints and easily manage the various instances a Keycloak realm offers. You can now begin managing users, groups, roles, and more.
+
+## 🚧 Next Step: Creating Users
+
+Follow the next steps to create users and fully manage your Keycloak realm configurations using **Feijuca.Auth.Api**.
