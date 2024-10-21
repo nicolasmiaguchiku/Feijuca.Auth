@@ -1,11 +1,10 @@
-using Feijuca.Auth.Common.Models;
-using Feijuca.Auth.Models;
+using Feijuca.Auth.Domain.Entities;
 
 namespace Feijuca.Auth.Domain.Interfaces
 {
     public interface IConfigRepository
     {
-        Task<bool> AddConfigAsync(AuthSettings newConfig);
-        AuthSettings GetConfig();
+        Task<bool> AddConfigAsync(AuthSettingsEntity newConfig);
+        AuthSettingsEntity GetConfig();
     }
 }

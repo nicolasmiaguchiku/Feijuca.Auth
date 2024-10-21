@@ -1,4 +1,5 @@
-﻿using Feijuca.Auth.Common.Errors;
+﻿using Feijuca.Auth.Application.Mappers;
+using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
@@ -9,7 +10,7 @@ namespace Feijuca.Auth.Application.Commands.Config
     {
         public async Task<Result<bool>> Handle(AddConfigCommand request, CancellationToken cancellationToken)
         {
-            var result = await configRepository.AddConfigAsync(request.Request);
+            var result = await configRepository.AddConfigAsync(request.Request.ToEntity());
 
             if (result)
             {
