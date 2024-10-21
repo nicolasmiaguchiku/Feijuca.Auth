@@ -5,7 +5,7 @@
   href: configuringApplicationMultiTenancy.md
   items:        
     - name: Setting up
-      href: configuringApplicationSingleTenancy.md
+      href: keycloakMandatoryConfigs.md
       items:
         - name: Mandatory configs - Keycloak realm
           href: keycloakMandatoryConfigs.md

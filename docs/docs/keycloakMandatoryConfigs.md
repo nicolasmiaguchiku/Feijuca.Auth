@@ -25,5 +25,5 @@ This configuration is done by granting specific permissions to the **Service Acc
 ## 5. Save the Configuration
 - After assigning the required roles, click **Save** to apply the changes.
 
-After assigning the necessary roles to the service account, your API will be able to make authenticated requests to Keycloak's API, allowing you to manage users, groups, clients, roles, and more within the realm. Once this is complete, you can proceed to the next step: [Mandatory configurations - Feijuca.Api](/feijucaMandatoryConfigs).
+After assigning the necessary roles to the service account, your API will be able to make authenticated requests to Keycloak's API, allowing you to manage users, groups, clients, roles, and more within the realm. Once this is complete, you can proceed to the next step: [Mandatory configurations - Feijuca.Api](https://coderaw-io.github.io/Feijuca.Auth/docs/feijucaMandatoryConfigs.html).
 
