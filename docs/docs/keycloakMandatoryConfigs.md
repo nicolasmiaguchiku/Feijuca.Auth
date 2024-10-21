@@ -25,5 +25,5 @@ This configuration is done by granting specific permissions to the **Service Acc
 ## 5. Save the Configuration
 - After assigning the required roles, click **Save** to apply the changes.
 
-Once the appropriate roles are assigned to the service account, your API will be able to make authenticated calls to Keycloak's API to manage users, groups, clients, roles, and more within the realm.
-Once it is done, you can go to next step: (Feijuca.Auth.Api mandatory configs)[/feijucaMandatoryConfigs].
+After assigning the necessary roles to the service account, your API will be able to make authenticated requests to Keycloak's API, allowing you to manage users, groups, clients, roles, and more within the realm. Once this is complete, you can proceed to the next step: [Mandatory configurations - Feijuca.Api](/feijucaMandatoryConfigs).
+
