@@ -2,6 +2,6 @@
 {
     public interface IClient
     {
-        public string Id { get; }
+        public string ClientId { get; }
     }
 }
