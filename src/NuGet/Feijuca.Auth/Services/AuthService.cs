@@ -4,11 +4,11 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace Feijuca.Auth.Services
 {
-    public class AuthService(IHttpContextAccessor httpContextAccessor, JwtSecurityTokenHandler jwtSecurityTokenHandler, AuthSettings authSettings) : IAuthService
+    public class AuthService(IHttpContextAccessor httpContextAccessor, JwtSecurityTokenHandler jwtSecurityTokenHandler, IServerSettings authSettings) : IAuthService
     {
         private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
         private readonly JwtSecurityTokenHandler _tokenHandler = jwtSecurityTokenHandler;
-        private readonly AuthSettings _authSettings = authSettings;
+        private readonly IServerSettings _authSettings = authSettings;
 
         public string GetTenantFromToken()
         {
@@ -34,24 +34,9 @@ namespace Feijuca.Auth.Services
             return Guid.Parse(userClaim);
         }
 
-        public string GetClientId()
-        {
-            return _authSettings.ClientId!;
-        }
-
-        public string GetClientSecret()
-        {
-            return _authSettings.ClientSecret!;
-        }
-
-        public Realm GetRealm(string realmName)
-        {
-            return _authSettings.Realms.FirstOrDefault(r => r.Name == realmName)!;
-        }
-
         public string GetServerUrl()
         {
-            return _authSettings.AuthServerUrl!;
+            return _authSettings.Url;
         }
 
         private string GetToken()

@@ -6,10 +6,7 @@ namespace Feijuca.Auth.Services
     {
         string GetInfoFromToken(string infoName);
         string GetTenantFromToken();
-        string GetClientId();
-        string GetClientSecret();
         string GetServerUrl();
-        Realm GetRealm(string realmName);
         Guid GetUserIdFromToken();
     }
 }

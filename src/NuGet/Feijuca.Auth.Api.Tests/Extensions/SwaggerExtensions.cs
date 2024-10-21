@@ -9,7 +9,7 @@ namespace Feijuca.Auth.Api.Tests.Extensions
 {
     public static class SwaggerExtensions
     {
-        public static void AddSwagger(this IServiceCollection services, AuthSettings keyCloakSettings)
+        public static void AddSwagger(this IServiceCollection services, IServerSettings keyCloakSettings)
         {
             services.AddSwaggerGen(c =>
             {

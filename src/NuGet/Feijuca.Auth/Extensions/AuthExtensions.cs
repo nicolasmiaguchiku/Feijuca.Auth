@@ -12,36 +12,39 @@ namespace Feijuca.Auth.Extensions
 {
     public static class AuthExtensions
     {
-        public static IServiceCollection AddKeyCloakAuth(this IServiceCollection services, AuthSettings authSettings)
+        public static IServiceCollection AddKeyCloakAuth(this IServiceCollection services, 
+            IClient client, 
+            IServerSettings serverSettings, 
+            IEnumerable<IRealm> realms,
+            IEnumerable<IPolicy>? policies = null) 
         {
             services
                 .AddSingleton<JwtSecurityTokenHandler>()
-                .AddSingleton(authSettings)
                 .AddScoped<IAuthService, AuthService>()
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddKeycloakWebApi(
                     options =>
                     {
-                        options.Resource = authSettings.ClientId;
-                        options.AuthServerUrl = authSettings.AuthServerUrl;
+                        options.Resource = client.Id;
+                        options.AuthServerUrl = serverSettings.Url;
                         options.VerifyTokenAudience = true;
                     },
                     options =>
                     {
                         options.Events = new JwtBearerEvents
                         {
-                            OnMessageReceived = OnMessageReceived(authSettings),
+                            OnMessageReceived = OnMessageReceived(realms),
                             OnAuthenticationFailed = OnAuthenticationFailed,
                             OnChallenge = OnChallenge
                         };
                     });
 
-            ConfigureAuthorization(services, authSettings);
+            ConfigureAuthorization(services, client, policies);
 
             return services;
         }
 
-        private static Func<MessageReceivedContext, Task> OnMessageReceived(AuthSettings authSettings)
+        private static Func<MessageReceivedContext, Task> OnMessageReceived(IEnumerable<IRealm> realms)
         {
             return async context =>
             {
@@ -62,7 +65,7 @@ namespace Feijuca.Auth.Extensions
                     }
 
                     var tenantNumber = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value;
-                    var tenantRealm = authSettings.Realms.FirstOrDefault(realm => realm.Name == tenantNumber);
+                    var tenantRealm = realms.FirstOrDefault(realm => realm.Name == tenantNumber);
                     if (!ValidateRealm(context, tenantRealm))
                     {
                         return;
@@ -137,7 +140,7 @@ namespace Feijuca.Auth.Extensions
             return true;
         }
 
-        private static bool ValidateRealm(MessageReceivedContext context, Realm? tenantRealm)
+        private static bool ValidateRealm(MessageReceivedContext context, IRealm? tenantRealm)
         {
             if (tenantRealm == null)
             {
@@ -160,7 +163,7 @@ namespace Feijuca.Auth.Extensions
             return true;
         }
 
-        private static async Task<TokenValidationParameters> GetTokenValidationParameters(Realm tenantRealm)
+        private static async Task<TokenValidationParameters> GetTokenValidationParameters(IRealm tenantRealm)
         {
             using var httpClient = new HttpClient();
             var jwksUrl = $"{tenantRealm.Issuer}/protocol/openid-connect/certs";
@@ -179,22 +182,25 @@ namespace Feijuca.Auth.Extensions
             };
         }
 
-        private static void ConfigureAuthorization(IServiceCollection services, AuthSettings authSettings)
+        private static void ConfigureAuthorization(IServiceCollection services, IClient client, IEnumerable<IPolicy>? policySettings)
         {
             services
                .AddAuthorization()
                .AddKeycloakAuthorization();
 
-            if (!string.IsNullOrEmpty(authSettings.PolicyName))
+            foreach(var policy in policySettings ?? [])
             {
-                services
-                    .AddAuthorizationBuilder()
-                    .AddPolicy(authSettings.PolicyName, policy =>
-                    {
-                        policy.RequireResourceRolesForClient(
-                            authSettings.ClientId,
-                            authSettings.Roles!.ToArray());
-                    });
+                if (!string.IsNullOrEmpty(policy.Name))
+                {
+                    services
+                        .AddAuthorizationBuilder()
+                        .AddPolicy(policy.Name, p =>
+                        {
+                            p.RequireResourceRolesForClient(
+                                client.Id,
+                                policy.Roles!.ToArray());
+                        });
+                }
             }
         }
     }

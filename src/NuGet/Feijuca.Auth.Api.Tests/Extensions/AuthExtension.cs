@@ -6,7 +6,7 @@ namespace Feijuca.Auth.Api.Tests.Extensions
 {
     public static class AuthExtension
     {
-        public static IServiceCollection AddApiAuthentication(this IServiceCollection services, AuthSettings authSettings)
+        public static IServiceCollection AddApiAuthentication(this IServiceCollection services, IServerSettings authSettings)
         {
             services.AddHttpContextAccessor();
             services.AddSingleton<JwtSecurityTokenHandler>();
