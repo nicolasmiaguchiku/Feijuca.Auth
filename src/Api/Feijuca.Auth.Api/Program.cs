@@ -1,3 +1,4 @@
+using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Infra.CrossCutting.Config;
 using Feijuca.Auth.Infra.CrossCutting.Extensions;
 using Feijuca.Auth.Infra.CrossCutting.Handlers;
@@ -21,7 +22,7 @@ builder.Services
     .AddRepositories()
     .AddServices()
     .AddMongo(applicationSettings)
-    .AddApiAuthentication(out AuthSettings authSettings)
+    .AddApiAuthentication(out KeycloakSettings authSettings)
     .AddEndpointsApiExplorer()
     .AddSwagger(authSettings)
     .AddHttpClients(authSettings?.AuthServerUrl)

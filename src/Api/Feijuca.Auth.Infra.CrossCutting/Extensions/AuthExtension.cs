@@ -10,17 +10,17 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 {
     public static class AuthExtension
     {
-        public static IServiceCollection AddApiAuthentication(this IServiceCollection services, out AuthSettings authSettings)
+        public static IServiceCollection AddApiAuthentication(this IServiceCollection services, out IServerSettings serverSettings)
         {
             var serviceProvider = services.BuildServiceProvider();
             var authSettingsRepository = serviceProvider.GetRequiredService<IConfigRepository>();
-            authSettings = authSettingsRepository.GetConfig();
+            serverSettings = authSettingsRepository.GetConfig();
 
-            if (authSettings is not null)
+            if (serverSettings is not null)
             {
                 services.AddHttpContextAccessor();
                 services.AddSingleton<JwtSecurityTokenHandler>();
-                services.AddKeyCloakAuth(authSettings!);
+                services.AddKeyCloakAuth(serverSettings!);
 
                 serviceProvider = services.BuildServiceProvider();
                 var authService = serviceProvider.GetRequiredService<IAuthService>();
