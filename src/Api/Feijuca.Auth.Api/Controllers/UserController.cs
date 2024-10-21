@@ -121,7 +121,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("{tenant}/auth/login", Name = nameof(Login))]
+        [Route("{tenant}/user/login", Name = nameof(Login))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
