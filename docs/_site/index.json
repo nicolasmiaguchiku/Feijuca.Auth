@@ -1,97 +1,107 @@
 {
   "api/Feijuca.MultiTenancy.Attributes.RequiredRoleAttribute.html": {
     "href": "api/Feijuca.MultiTenancy.Attributes.RequiredRoleAttribute.html",
-    "title": "Class RequiredRoleAttribute | Feijuca.Auth-doc",
+    "title": "Class RequiredRoleAttribute | Feijuca.Auth",
     "keywords": "Class RequiredRoleAttribute Namespace Feijuca.MultiTenancy.Attributes Assembly Feijuca.Auth.dll [AttributeUsage(AttributeTargets.Class|AttributeTargets.Method, AllowMultiple = false)] public class RequiredRoleAttribute : Attribute, IAuthorizationFilter, IFilterMetadata Inheritance object Attribute RequiredRoleAttribute Implements IAuthorizationFilter IFilterMetadata Inherited Members Attribute.Equals(object) Attribute.GetCustomAttribute(Assembly, Type) Attribute.GetCustomAttribute(Assembly, Type, bool) Attribute.GetCustomAttribute(MemberInfo, Type) Attribute.GetCustomAttribute(MemberInfo, Type, bool) Attribute.GetCustomAttribute(Module, Type) Attribute.GetCustomAttribute(Module, Type, bool) Attribute.GetCustomAttribute(ParameterInfo, Type) Attribute.GetCustomAttribute(ParameterInfo, Type, bool) Attribute.GetCustomAttributes(Assembly) Attribute.GetCustomAttributes(Assembly, bool) Attribute.GetCustomAttributes(Assembly, Type) Attribute.GetCustomAttributes(Assembly, Type, bool) Attribute.GetCustomAttributes(MemberInfo) Attribute.GetCustomAttributes(MemberInfo, bool) Attribute.GetCustomAttributes(MemberInfo, Type) Attribute.GetCustomAttributes(MemberInfo, Type, bool) Attribute.GetCustomAttributes(Module) Attribute.GetCustomAttributes(Module, bool) Attribute.GetCustomAttributes(Module, Type) Attribute.GetCustomAttributes(Module, Type, bool) Attribute.GetCustomAttributes(ParameterInfo) Attribute.GetCustomAttributes(ParameterInfo, bool) Attribute.GetCustomAttributes(ParameterInfo, Type) Attribute.GetCustomAttributes(ParameterInfo, Type, bool) Attribute.GetHashCode() Attribute.IsDefaultAttribute() Attribute.IsDefined(Assembly, Type) Attribute.IsDefined(Assembly, Type, bool) Attribute.IsDefined(MemberInfo, Type) Attribute.IsDefined(MemberInfo, Type, bool) Attribute.IsDefined(Module, Type) Attribute.IsDefined(Module, Type, bool) Attribute.IsDefined(ParameterInfo, Type) Attribute.IsDefined(ParameterInfo, Type, bool) Attribute.Match(object) Attribute.TypeId object.Equals(object, object) object.GetType() object.MemberwiseClone() object.ReferenceEquals(object, object) object.ToString() Constructors RequiredRoleAttribute(string) public RequiredRoleAttribute(string role) Parameters role string Methods OnAuthorization(AuthorizationFilterContext) Called early in the filter pipeline to confirm request is authorized. public void OnAuthorization(AuthorizationFilterContext context) Parameters context AuthorizationFilterContext The AuthorizationFilterContext."
   },
   "api/Feijuca.MultiTenancy.Attributes.RequiredScopeAttribute.html": {
     "href": "api/Feijuca.MultiTenancy.Attributes.RequiredScopeAttribute.html",
-    "title": "Class RequiredScopeAttribute | Feijuca.Auth-doc",
+    "title": "Class RequiredScopeAttribute | Feijuca.Auth",
     "keywords": "Class RequiredScopeAttribute Namespace Feijuca.MultiTenancy.Attributes Assembly Feijuca.Auth.dll [AttributeUsage(AttributeTargets.All)] public class RequiredScopeAttribute : Attribute, IAuthorizationFilter, IFilterMetadata Inheritance object Attribute RequiredScopeAttribute Implements IAuthorizationFilter IFilterMetadata Inherited Members Attribute.Equals(object) Attribute.GetCustomAttribute(Assembly, Type) Attribute.GetCustomAttribute(Assembly, Type, bool) Attribute.GetCustomAttribute(MemberInfo, Type) Attribute.GetCustomAttribute(MemberInfo, Type, bool) Attribute.GetCustomAttribute(Module, Type) Attribute.GetCustomAttribute(Module, Type, bool) Attribute.GetCustomAttribute(ParameterInfo, Type) Attribute.GetCustomAttribute(ParameterInfo, Type, bool) Attribute.GetCustomAttributes(Assembly) Attribute.GetCustomAttributes(Assembly, bool) Attribute.GetCustomAttributes(Assembly, Type) Attribute.GetCustomAttributes(Assembly, Type, bool) Attribute.GetCustomAttributes(MemberInfo) Attribute.GetCustomAttributes(MemberInfo, bool) Attribute.GetCustomAttributes(MemberInfo, Type) Attribute.GetCustomAttributes(MemberInfo, Type, bool) Attribute.GetCustomAttributes(Module) Attribute.GetCustomAttributes(Module, bool) Attribute.GetCustomAttributes(Module, Type) Attribute.GetCustomAttributes(Module, Type, bool) Attribute.GetCustomAttributes(ParameterInfo) Attribute.GetCustomAttributes(ParameterInfo, bool) Attribute.GetCustomAttributes(ParameterInfo, Type) Attribute.GetCustomAttributes(ParameterInfo, Type, bool) Attribute.GetHashCode() Attribute.IsDefaultAttribute() Attribute.IsDefined(Assembly, Type) Attribute.IsDefined(Assembly, Type, bool) Attribute.IsDefined(MemberInfo, Type) Attribute.IsDefined(MemberInfo, Type, bool) Attribute.IsDefined(Module, Type) Attribute.IsDefined(Module, Type, bool) Attribute.IsDefined(ParameterInfo, Type) Attribute.IsDefined(ParameterInfo, Type, bool) Attribute.Match(object) Attribute.TypeId object.Equals(object, object) object.GetType() object.MemberwiseClone() object.ReferenceEquals(object, object) object.ToString() Constructors RequiredScopeAttribute(string) public RequiredScopeAttribute(string scope) Parameters scope string Methods OnAuthorization(AuthorizationFilterContext) Called early in the filter pipeline to confirm request is authorized. public void OnAuthorization(AuthorizationFilterContext context) Parameters context AuthorizationFilterContext The AuthorizationFilterContext."
   },
   "api/Feijuca.MultiTenancy.Attributes.html": {
     "href": "api/Feijuca.MultiTenancy.Attributes.html",
-    "title": "Namespace Feijuca.MultiTenancy.Attributes | Feijuca.Auth-doc",
+    "title": "Namespace Feijuca.MultiTenancy.Attributes | Feijuca.Auth",
     "keywords": "Namespace Feijuca.MultiTenancy.Attributes Classes RequiredRoleAttribute RequiredScopeAttribute"
   },
   "api/Feijuca.MultiTenancy.Extensions.AuthExtensions.html": {
     "href": "api/Feijuca.MultiTenancy.Extensions.AuthExtensions.html",
-    "title": "Class AuthExtensions | Feijuca.Auth-doc",
+    "title": "Class AuthExtensions | Feijuca.Auth",
     "keywords": "Class AuthExtensions Namespace Feijuca.MultiTenancy.Extensions Assembly Feijuca.Auth.dll public static class AuthExtensions Inheritance object AuthExtensions Inherited Members object.Equals(object) object.Equals(object, object) object.GetHashCode() object.GetType() object.MemberwiseClone() object.ReferenceEquals(object, object) object.ToString() Methods AddKeyCloakAuth(IServiceCollection, AuthSettings) public static IServiceCollection AddKeyCloakAuth(this IServiceCollection services, AuthSettings authSettings) Parameters services IServiceCollection authSettings AuthSettings Returns IServiceCollection"
   },
   "api/Feijuca.MultiTenancy.Extensions.html": {
     "href": "api/Feijuca.MultiTenancy.Extensions.html",
-    "title": "Namespace Feijuca.MultiTenancy.Extensions | Feijuca.Auth-doc",
+    "title": "Namespace Feijuca.MultiTenancy.Extensions | Feijuca.Auth",
     "keywords": "Namespace Feijuca.MultiTenancy.Extensions Classes AuthExtensions"
   },
   "api/Feijuca.MultiTenancy.Services.AuthService.html": {
     "href": "api/Feijuca.MultiTenancy.Services.AuthService.html",
-    "title": "Class AuthService | Feijuca.Auth-doc",
+    "title": "Class AuthService | Feijuca.Auth",
     "keywords": "Class AuthService Namespace Feijuca.MultiTenancy.Services Assembly Feijuca.Auth.dll public class AuthService : IAuthService Inheritance object AuthService Implements IAuthService Inherited Members object.Equals(object) object.Equals(object, object) object.GetHashCode() object.GetType() object.MemberwiseClone() object.ReferenceEquals(object, object) object.ToString() Constructors AuthService(IHttpContextAccessor, JwtSecurityTokenHandler, AuthSettings) public AuthService(IHttpContextAccessor httpContextAccessor, JwtSecurityTokenHandler jwtSecurityTokenHandler, AuthSettings authSettings) Parameters httpContextAccessor IHttpContextAccessor jwtSecurityTokenHandler JwtSecurityTokenHandler authSettings AuthSettings Methods GetClientId() public string GetClientId() Returns string GetClientSecret() public string GetClientSecret() Returns string GetInfoFromToken(string) public string GetInfoFromToken(string infoName) Parameters infoName string Returns string GetRealm(string) public Realm GetRealm(string realmName) Parameters realmName string Returns Realm GetServerUrl() public string GetServerUrl() Returns string GetTenantFromToken() public string GetTenantFromToken() Returns string GetUserIdFromToken() public Guid GetUserIdFromToken() Returns Guid"
   },
   "api/Feijuca.MultiTenancy.Services.IAuthService.html": {
     "href": "api/Feijuca.MultiTenancy.Services.IAuthService.html",
-    "title": "Interface IAuthService | Feijuca.Auth-doc",
+    "title": "Interface IAuthService | Feijuca.Auth",
     "keywords": "Interface IAuthService Namespace Feijuca.MultiTenancy.Services Assembly Feijuca.Auth.dll public interface IAuthService Methods GetClientId() string GetClientId() Returns string GetClientSecret() string GetClientSecret() Returns string GetInfoFromToken(string) string GetInfoFromToken(string infoName) Parameters infoName string Returns string GetRealm(string) Realm GetRealm(string realmName) Parameters realmName string Returns Realm GetServerUrl() string GetServerUrl() Returns string GetTenantFromToken() string GetTenantFromToken() Returns string GetUserIdFromToken() Guid GetUserIdFromToken() Returns Guid"
   },
   "api/Feijuca.MultiTenancy.Services.Models.AuthSettings.html": {
     "href": "api/Feijuca.MultiTenancy.Services.Models.AuthSettings.html",
-    "title": "Class AuthSettings | Feijuca.Auth-doc",
+    "title": "Class AuthSettings | Feijuca.Auth",
     "keywords": "Class AuthSettings Namespace Feijuca.MultiTenancy.Services.Models Assembly Feijuca.Auth.dll public class AuthSettings Inheritance object AuthSettings Inherited Members object.Equals(object) object.Equals(object, object) object.GetHashCode() object.GetType() object.MemberwiseClone() object.ReferenceEquals(object, object) object.ToString() Properties AuthServerUrl public required string AuthServerUrl { get; set; } Property Value string ClientId public required string ClientId { get; set; } Property Value string ClientSecret public required string ClientSecret { get; set; } Property Value string PolicyName public string? PolicyName { get; set; } Property Value string Realms public required IEnumerable<Realm> Realms { get; set; } Property Value IEnumerable<Realm> Roles public IEnumerable<string>? Roles { get; set; } Property Value IEnumerable<string> Scopes public IEnumerable<string>? Scopes { get; set; } Property Value IEnumerable<string>"
   },
   "api/Feijuca.MultiTenancy.Services.Models.Realm.html": {
     "href": "api/Feijuca.MultiTenancy.Services.Models.Realm.html",
-    "title": "Class Realm | Feijuca.Auth-doc",
+    "title": "Class Realm | Feijuca.Auth",
     "keywords": "Class Realm Namespace Feijuca.MultiTenancy.Services.Models Assembly Feijuca.Auth.dll public class Realm Inheritance object Realm Inherited Members object.Equals(object) object.Equals(object, object) object.GetHashCode() object.GetType() object.MemberwiseClone() object.ReferenceEquals(object, object) object.ToString() Properties Audience public string? Audience { get; set; } Property Value string Issuer public string? Issuer { get; set; } Property Value string Name public string? Name { get; set; } Property Value string"
   },
   "api/Feijuca.MultiTenancy.Services.Models.html": {
     "href": "api/Feijuca.MultiTenancy.Services.Models.html",
-    "title": "Namespace Feijuca.MultiTenancy.Services.Models | Feijuca.Auth-doc",
+    "title": "Namespace Feijuca.MultiTenancy.Services.Models | Feijuca.Auth",
     "keywords": "Namespace Feijuca.MultiTenancy.Services.Models Classes AuthSettings Realm"
   },
   "api/Feijuca.MultiTenancy.Services.html": {
     "href": "api/Feijuca.MultiTenancy.Services.html",
-    "title": "Namespace Feijuca.MultiTenancy.Services | Feijuca.Auth-doc",
+    "title": "Namespace Feijuca.MultiTenancy.Services | Feijuca.Auth",
     "keywords": "Namespace Feijuca.MultiTenancy.Services Classes AuthService Interfaces IAuthService"
-  },
-  "docs/FeijucaAuthMultiTenancy.html": {
-    "href": "docs/FeijucaAuthMultiTenancy.html",
-    "title": "Getting Started | Feijuca.Auth-doc",
-    "keywords": "Getting Started"
   },
   "docs/configuringApplicationMultiTenancy.html": {
     "href": "docs/configuringApplicationMultiTenancy.html",
-    "title": "| Feijuca.Auth-doc",
+    "title": "| Feijuca.Auth",
     "keywords": ""
   },
-  "docs/configuringApplicationTokenManager.html": {
-    "href": "docs/configuringApplicationTokenManager.html",
-    "title": "| Feijuca.Auth-doc",
+  "docs/configuringApplicationSingleTenancy.html": {
+    "href": "docs/configuringApplicationSingleTenancy.html",
+    "title": "| Feijuca.Auth",
     "keywords": ""
   },
   "docs/creatingUsers.html": {
     "href": "docs/creatingUsers.html",
-    "title": "| Feijuca.Auth-doc",
+    "title": "| Feijuca.Auth",
     "keywords": ""
   },
   "docs/deletingUsers.html": {
     "href": "docs/deletingUsers.html",
-    "title": "| Feijuca.Auth-doc",
+    "title": "| Feijuca.Auth",
     "keywords": ""
+  },
+  "docs/feijucaMandatoryConfigs.html": {
+    "href": "docs/feijucaMandatoryConfigs.html",
+    "title": "🚀 Feijuca.Auth.Api Configuration for Keycloak Integration | Feijuca.Auth",
+    "keywords": "🚀 Feijuca.Auth.Api Configuration for Keycloak Integration To take full advantage of the various endpoints provided by Feijuca.Auth.Api, a quick configuration is required to input details about your Keycloak realm. These configurations are crucial because they allow Feijuca.Auth.Api to authenticate and retrieve permission tokens to manage users, groups, roles, and much more. ⚙️ Step 1: Setting Up MongoDB Connection String The first configuration you need to provide is the MongoDB connection string. This will enable you to store and manage the Keycloak realm settings. Since Feijuca.Auth.Api is Docker-supported, we suggest pulling the Docker image and defining the connection URL using an environment variable. Run the following command: docker run -e ConnectionString=\"mongodb://admin:mysecretpassword@mongodb.local:27017/mydatabase\" fmattioli/feijuca-tokenmanager-api:latest Tip: If you don't have a MongoDB instance set up, you can create a free MongoDB server on MongoDB Atlas with some limitations in terms of storage. 📂 Why MongoDB? We chose MongoDB as the initial data repository for Feijuca.Auth.Api to store the realm configurations, given its flexibility and ease of setup. However, if you want to extend the project and use a different database, feel free to open a Pull Request (PR) to contribute your custom solution! 🛠️ Step 2: Inserting the Realm Configuration Once your Docker container is up and running with the correct configuration, you're ready to insert your Keycloak realm configuration. To do this, send an HTTP POST request to the /api/v1/config endpoint, with the following JSON body: { \"clientId\": \"string\", \"clientSecret\": \"string\", \"authServerUrl\": \"string\", \"realms\": [ { \"name\": \"string\", \"audience\": \"string\", \"issuer\": \"string\", \"useAsDefaultSwaggerTokenGeneration\": true } ], \"policyName\": \"string\", \"roles\": [ \"string\" ], \"scopes\": [ \"string\" ] } 🔐 Step 3: Using the API After completing the configuration, you’ll be ready to access all endpoints and easily manage the various instances a Keycloak realm offers. You can now begin managing users, groups, roles, and more. 🚧 Next Step: Creating Users Follow the next steps to create users and fully manage your Keycloak realm configurations using Feijuca.Auth.Api."
   },
   "docs/feijucaTokenManager.html": {
     "href": "docs/feijucaTokenManager.html",
-    "title": "Introduction | Feijuca.Auth-doc",
+    "title": "Introduction | Feijuca.Auth",
     "keywords": "Introduction"
+  },
+  "docs/gettingStarted.html": {
+    "href": "docs/gettingStarted.html",
+    "title": "| Feijuca.Auth",
+    "keywords": "💡 Considerations This project is specifically designed for applications that adhere to the current .NET supported versions. However, the Feijuca.Auth.Api module can be accessed from any programming language, as it processes calls against Keycloak. If you intend to use only the API module (for creating users, managing groups, sessions, and tokens), you can do so without having .NET in your technology stack, as it is a RESTful API. If your stack is built with .NET, you'll benefit from enhanced capabilities and integration options. As you progress through the documentation, you'll gain a better understanding of these advantages. 🔧 Prerequisites An instance of Keycloak server."
+  },
+  "docs/keycloakMandatoryConfigs.html": {
+    "href": "docs/keycloakMandatoryConfigs.html",
+    "title": "🔑 Configuring permissions in Keycloak for API Integration | Feijuca.Auth",
+    "keywords": "🔑 Configuring permissions in Keycloak for API Integration In order for your API to perform operations such as creating users, groups, realms, clients, roles, group roles, and more in Keycloak, you need to configure the appropriate permissions in the realm. This configuration is done by granting specific permissions to the Service Account associated with the client your API uses. Follow the steps below: 1. 🖥️ Access the Keycloak Admin console Log in to the Keycloak Admin Console and select the realm where you want to configure Feijuca.Auth. 2. 📄 Define or select the client that will represent Feijuca.Auth. We recommend you create a new client dedicated to handling the operations. 3. 🔧 Access the Service Account Roles Tab On the client page, click on the Service Account Roles tab to manage the permissions for the service account. 4. ✅ Assign the Required Roles In the Service Account Roles tab, you will see a list of available roles. Assign the necessary roles to the service account to allow it to perform actions like user creation, group management, realm and client creation, etc. 📜 Mandatory Roles to Assign After clicking \"Assign Role\", switch the filter to \"Filter by Clients\" to ensure you're assigning the correct roles to the service account. Then, assign the following essential realm-management roles to give the service account the necessary permissions: realm-admin: Grants full administrative access to all realm-level operations and settings. 5. 💾 Save the Configuration After finish the assignment of the required roles, the final result should be similar to: After assigning the necessary roles to the service account, Feijuca.Auth.Api will be able to make authenticated requests to Keycloak's API, allowing you to manage users, groups, clients, roles, and more within the realm. Once this is complete, you can proceed to the next step: 🔗 Mandatory Configurations - Feijuca.Auth.Api."
   },
   "docs/usingEndpoints.html": {
     "href": "docs/usingEndpoints.html",
-    "title": "| Feijuca.Auth-doc",
+    "title": "| Feijuca.Auth",
     "keywords": ""
   },
   "index.html": {
     "href": "index.html",
-    "title": "| Feijuca.Auth-doc",
-    "keywords": "What is the purpose of Feijuca.Keycloak.AuthServices? The name Feijuca comes from the famous Brazilian dish Feijoada. Since we’re Brazilian, we wanted to pick a name that’s fun and familiar, connecting with our culture. Now, let’s talk about the project. Feijuca is designed to simplify working with Keycloak by offering two main modules: Feijuca.Keycloak.TokenManager and Feijuca.Keycloak.AuthServices. These modules streamline common Keycloak tasks, whether you’re managing users or handling multi-tenancy, making your integration with Keycloak smoother and less complex. But don’t worry—if you only need one of the modules, feel free to use them separately! They are designed to work independently or together, depending on your needs. Feijuca.Keycloak.TokenManager Feijuca.Keycloak.TokenManager is an API that abstracts, simplifies, and centralizes the calls needed to interact with Keycloak. Instead of dealing with multiple endpoints to perform basic tasks, this module provides a set of predefined endpoints that cover a wide range of user-related actions in one place. Over time, the goal is to encapsulate even more of Keycloak's functionality, reducing the complexity of directly using its API. Features ⛲ All actions in one place: Forget about calling multiple endpoints to manage users in Keycloak. With Feijuca.Keycloak.TokenManager, you can perform user-related actions (creation, deletion, email confirmation, password resets, etc.) through a single set of simplified endpoints. Custom endpoints: If there’s a feature you think would improve the project, feel free to open a PR and suggest additional custom endpoints to better suit your needs. Feijuca.Keycloak.AuthServices The Feijuca.Keycloak.AuthServices module focuses on implementing multi-tenancy with Keycloak. It allows you to treat each Keycloak realm as a distinct tenant, making it easy to manage multiple tenants in your application, each with their own users, roles, and groups. This module simplifies the process by enabling you to configure multi-tenancy with just a few settings in your appsettings and through the use of a NuGet package. Features ⛲ Multi-tenancy through realms: Manage multiple tenants within the same Keycloak server, where each realm acts as a unique tenant. This allows for different configurations and isolated spaces for each tenant. Token management: Retrieve information from tokens, such as claims, the tenant (realm) the token belongs to, and the associated user, all through easy-to-use endpoints. These two modules provide everything you need to handle user management and multi-tenancy with Keycloak in a more streamlined and efficient way. Use them together for a full-featured experience, or separately depending on your specific needs. Plus, the project is open to contributions—if you think of a new feature that could enhance the experience, you’re welcome to submit a PR! This documentation and the project is in continuous evolution, Feel free to explore the documentation to get the most out of Feijuca. If you have any questions or run into any issues, don’t hesitate to reach out to us at **ajuda@coderaw.io**—we’re here to help! Since this project belongs to you as well, it is open-sourced. This project is maintained by Coderaw, a company that specializes in building custom software solutions, offering consultancy services, and developing its own independent systems (SaaS). We're committed to making your experience with Keycloak simpler and more efficient."
+    "title": "| Feijuca.Auth",
+    "keywords": "🎉 What is Feijuca.Auth? Inspired by the iconic Brazilian dish Feijoada, the name Feijuca reflects our Brazilian roots and cultural heritage. Feijuca is a playful nickname for Feijoada, embodying the spirit of our project: a fusion of functionality and culture. Feijuca.Auth is a comprehensive solution designed to simplify integration with Keycloak, providing both a NuGet package and an API to streamline authentication, authorization, and access control management. 🌟 Key Features: Feijuca.Auth offers a range of features for simplifying integration with Keycloak, focusing on efficient management of authentication and authorization: 👥 User Management: Easily create and remove users and groups. Efficiently handle password resets, email confirmations, and session revocations. 🔒 Authentication and Authorization: Securely verify user identities. Manage user permissions and enforce access policies based on roles using Role-Based Access Control (RBAC). 🏢 Multi-Tenant Support: Integrate with Keycloak in a multi-tenant model, where each realm acts as a separate tenant within your application, enabling scalable and secure management of authentication and authorization across multiple tenants. Together, these components of Feijuca.Auth aim to reduce the complexity of working with Keycloak, making user management and multi-tenancy more seamless and developer-friendly. 🤔 Curious to know how this works? Check out the Documentation! 🙌 Contributors Meet the amazing people who helped build Feijuca.Auth! Connect with them on LinkedIn: Name LinkedIn Felipe Mattioli Wesley Souza Matheus Galvão We’re grateful for everyone’s hard work and contributions! Have a suggestion to improve the tool? Contribute to the project by opening a PR."
   }
 }

@@ -1,5 +1,5 @@
 {
-  "source_base_path": "D:/repositorio-coderaw/Feijuca.Auth/docs",
+  "source_base_path": "C:/coderaw/Feijuca.Keycloak.AuthServices/docs",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -135,16 +135,6 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/FeijucaAuthMultiTenancy.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/FeijucaAuthMultiTenancy.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
       "source_relative_path": "docs/configuringApplicationMultiTenancy.md",
       "output": {
         ".html": {
@@ -155,10 +145,10 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/configuringApplicationTokenManager.md",
+      "source_relative_path": "docs/configuringApplicationSingleTenancy.md",
       "output": {
         ".html": {
-          "relative_path": "docs/configuringApplicationTokenManager.html"
+          "relative_path": "docs/configuringApplicationSingleTenancy.html"
         }
       },
       "version": ""
@@ -185,10 +175,40 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs/feijucaMandatoryConfigs.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/feijucaMandatoryConfigs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs/feijucaTokenManager.md",
       "output": {
         ".html": {
           "relative_path": "docs/feijucaTokenManager.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/gettingStarted.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/gettingStarted.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/keycloakMandatoryConfigs.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/keycloakMandatoryConfigs.html"
         }
       },
       "version": ""

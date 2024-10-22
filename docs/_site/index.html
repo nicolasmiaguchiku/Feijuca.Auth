@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title> | Feijuca.Auth-doc </title>
+      <title> | Feijuca.Auth </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content=" | Feijuca.Auth-doc ">
+      <meta name="title" content=" | Feijuca.Auth ">
       
       
       <link rel="icon" href="favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="">
       
       
-      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/docs-Creating_New_Documentation/docs/index.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/main/docs/index.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -29,23 +29,23 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
-
-      <script type="module" src="./public/docfx.min.js"></script>
-
-      <script>
-        const theme = localStorage.getItem('theme') || 'auto'
-        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-      </script>
-
   </head>
+
+  <script type="module" src="./public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="index.html">
-            <img id="logo" class="svg" src="logo.svg" alt="Feijuca.Auth-doc">
-            Feijuca.Auth-doc
+            <img id="logo" class="svg" src="logo.svg" alt="Feijuca.Auth">
+            Feijuca.Auth
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
             <i class="bi bi-three-dots"></i>
@@ -63,51 +63,87 @@
     </header>
 
     <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
 
       <div class="content">
         <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
 
           <nav id="breadcrumb"></nav>
         </div>
 
         <article data-uid="">
 
-<h2 id="what-is-the-purpose-of-feijucakeycloakauthservices">What is the purpose of Feijuca.Keycloak.AuthServices?</h2>
-<p>The name <strong>Feijuca</strong> comes from the famous Brazilian dish <strong>Feijoada</strong>. Since we’re Brazilian, we wanted to pick a name that’s fun and familiar, connecting with our culture.</p>
-<p>Now, let’s talk about the project. <strong>Feijuca</strong> is designed to simplify working with Keycloak by offering two main modules: <strong>Feijuca.Keycloak.TokenManager</strong> and <strong>Feijuca.Keycloak.AuthServices</strong>. These modules streamline common Keycloak tasks, whether you’re managing users or handling multi-tenancy, making your integration with Keycloak smoother and less complex.</p>
-<blockquote>
-<p><strong>But don’t worry—if you only need one of the modules, feel free to use them separately! They are designed to work independently or together, depending on your needs.</strong></p>
-</blockquote>
-<hr>
-<h2 id="feijucakeycloaktokenmanager">Feijuca.Keycloak.TokenManager</h2>
-<p><strong>Feijuca.Keycloak.TokenManager</strong> is an API that abstracts, simplifies, and centralizes the calls needed to interact with Keycloak. Instead of dealing with multiple endpoints to perform basic tasks, this module provides a set of predefined endpoints that cover a wide range of user-related actions in one place. Over time, the goal is to encapsulate even more of Keycloak's functionality, reducing the complexity of directly using its API.</p>
-<h3 id="features-">Features ⛲</h3>
+<h2 id="-what-is-feijucaauth">🎉 What is <a href="https://github.com/coderaw-io/Feijuca.Auth"><strong>Feijuca.Auth</strong></a>?</h2>
+<p>Inspired by the iconic Brazilian dish <a href="https://theculturetrip.com/south-america/brazil/articles/a-brief-introduction-to-feijoada-brazils-national-dish">Feijoada</a>, the name <strong>Feijuca</strong> reflects our Brazilian roots and cultural heritage. <strong>Feijuca</strong> is a playful nickname for <strong>Feijoada</strong>, embodying the spirit of our project: a fusion of functionality and culture.</p>
+<p><strong>Feijuca.Auth</strong> is a comprehensive solution designed to simplify integration with Keycloak, providing both a NuGet package and an API to streamline authentication, authorization, and access control management.</p>
+<h3 id="-key-features">🌟 Key Features:</h3>
+<p><strong>Feijuca.Auth</strong> offers a range of features for simplifying integration with Keycloak, focusing on efficient management of authentication and authorization:</p>
 <ul>
-<li><p><strong>All actions in one place:</strong> Forget about calling multiple endpoints to manage users in Keycloak. With <strong>Feijuca.Keycloak.TokenManager</strong>, you can perform user-related actions (creation, deletion, email confirmation, password resets, etc.) through a single set of simplified endpoints.</p>
+<li><p><strong>👥 User Management</strong>:</p>
+<ul>
+<li>Easily create and remove users and groups.</li>
+<li>Efficiently handle password resets, email confirmations, and session revocations.</li>
+</ul>
 </li>
-<li><p><strong>Custom endpoints:</strong> If there’s a feature you think would improve the project, feel free to open a PR and suggest additional custom endpoints to better suit your needs.</p>
+<li><p><strong>🔒 Authentication and Authorization</strong>:</p>
+<ul>
+<li>Securely verify user identities.</li>
+<li>Manage user permissions and enforce access policies based on roles using Role-Based Access Control (RBAC).</li>
+</ul>
+</li>
+<li><p><strong>🏢 Multi-Tenant Support</strong>:</p>
+<ul>
+<li>Integrate with Keycloak in a multi-tenant model, where each realm acts as a separate tenant within your application, enabling scalable and secure management of authentication and authorization across multiple tenants.</li>
+</ul>
 </li>
 </ul>
+<p>Together, these components of <strong>Feijuca.Auth</strong> aim to reduce the complexity of working with Keycloak, making user management and multi-tenancy more seamless and developer-friendly.</p>
+<h3 id="-curious-to-know-how-this-works-check-out-the-documentation">🤔 Curious to know how this works? Check out the <a href="https://coderaw-io.github.io/Feijuca.Auth/docs/gettingStarted.html">Documentation</a>!</h3>
 <hr>
-<h2 id="feijucakeycloakauthservices">Feijuca.Keycloak.AuthServices</h2>
-<p>The <strong>Feijuca.Keycloak.AuthServices</strong> module focuses on implementing <strong>multi-tenancy</strong> with Keycloak. It allows you to treat each Keycloak realm as a distinct tenant, making it easy to manage multiple tenants in your application, each with their own users, roles, and groups. This module simplifies the process by enabling you to configure multi-tenancy with just a few settings in your <code>appsettings</code> and through the use of a NuGet package.</p>
-<h3 id="features--1">Features ⛲</h3>
-<ul>
-<li><p><strong>Multi-tenancy through realms:</strong> Manage multiple tenants within the same Keycloak server, where each realm acts as a unique tenant. This allows for different configurations and isolated spaces for each tenant.</p>
-</li>
-<li><p><strong>Token management:</strong> Retrieve information from tokens, such as claims, the tenant (realm) the token belongs to, and the associated user, all through easy-to-use endpoints.</p>
-</li>
-</ul>
-<hr>
-<p>These two modules provide everything you need to handle user management and multi-tenancy with Keycloak in a more streamlined and efficient way. Use them together for a full-featured experience, or separately depending on your specific needs. Plus, the project is open to contributions—if you think of a new feature that could enhance the experience, you’re welcome to submit a PR!</p>
-<hr>
-<p>This documentation and the project is in continuous evolution, Feel free to explore the documentation to get the most out of <strong>Feijuca</strong>. If you have any questions or run into any issues, don’t hesitate to reach out to us at **ajuda@coderaw.io**—we’re here to help! Since this project belongs to you as well, it is open-sourced.</p>
-<p>This project is maintained by <strong>Coderaw</strong>, a company that specializes in building custom software solutions, offering consultancy services, and developing its own independent systems (SaaS). We're committed to making your experience with Keycloak simpler and more efficient.</p>
+<h2 id="-contributors">🙌 Contributors</h2>
+<p>Meet the amazing people who helped build <strong>Feijuca.Auth</strong>! Connect with them on LinkedIn:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>LinkedIn</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Felipe Mattioli</td>
+<td><a href="https://www.linkedin.com/in/felipemattioli/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"> </a></td>
+</tr>
+<tr>
+<td>Wesley Souza</td>
+<td><a href="https://www.linkedin.com/in/weslleyms/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"> </a></td>
+</tr>
+<tr>
+<td>Matheus Galvão</td>
+<td><a href="https://www.linkedin.com/in/matheu-sandregalvaodasilva/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"> </a></td>
+</tr>
+</tbody>
+</table>
+<p>We’re grateful for everyone’s hard work and contributions!</p>
+<p>Have a suggestion to improve the tool? Contribute to the project by opening a <a href="https://github.com/coderaw-io/Feijuca.Auth/pulls">PR</a>.</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/docs-Creating_New_Documentation/docs/index.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/main/docs/index.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
