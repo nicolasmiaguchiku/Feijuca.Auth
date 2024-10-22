@@ -141,7 +141,7 @@ jobs:
 
       - name: Build Docker image
         if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
-        run: docker build -t "fmattioli/feijuca-tokenmanager-api:$VERSION" .
+        run: docker build -t "coderaw/feijuca-auth-api:$VERSION" .
   
       - name: Login to Docker Hub
         if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
@@ -151,6 +151,6 @@ jobs:
         id: publish-image
         if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
         run: |
-            docker push "fmattioli/feijuca-tokenmanager-api:$VERSION"
-            docker tag "fmattioli/feijuca-tokenmanager-api:$VERSION" "fmattioli/feijuca-tokenmanager-api:latest"
-            docker push "fmattioli/feijuca-tokenmanager-api:latest"
+            docker push "coderaw/feijuca-auth-api:$VERSION"
+            docker tag "coderaw/feijuca-auth-api:$VERSION" "coderaw/feijuca-auth-api:latest"
+            docker push "coderaw/feijuca-auth-api:latest"
