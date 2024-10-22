@@ -17,7 +17,7 @@ namespace Feijuca.Auth.Application.Queries.GroupUser
 
         public async Task<Result<PagedResult<UserGroupResponse>>> Handle(GetUsersGroupQuery request, CancellationToken cancellationToken)
         {
-            var allGroupsResult = await _groupRepository.GetAllAsync(request.Tenant);
+            var allGroupsResult = await _groupRepository.GetAllAsync(request.Tenant, cancellationToken);
 
             if (allGroupsResult.IsSuccess)
             {
@@ -26,10 +26,10 @@ namespace Feijuca.Auth.Application.Queries.GroupUser
                 {
                     var resultMembers = await _groupRepository.GetUsersInGroupAsync(request.Tenant,
                         groupSearched.Id,
-                        request.GetUsersGroupRequest.ToUserFilters());
+                        request.GetUsersGroupRequest.ToUserFilters(), cancellationToken);
 
                     var usersInGroup = new UserGroupResponse(groupSearched.ToResponse(), resultMembers.Response.ToUsersResponse(_tenantService.Tenant));
-                    var totalUsers = await _userRepository.GetTotalAsync();
+                    var totalUsers = await _userRepository.GetTotalAsync(cancellationToken);
                     var result = usersInGroup.ToResponse(request.GetUsersGroupRequest.PageFilter, totalUsers);
                     return Result<PagedResult<UserGroupResponse>>.Success(result);
                 }

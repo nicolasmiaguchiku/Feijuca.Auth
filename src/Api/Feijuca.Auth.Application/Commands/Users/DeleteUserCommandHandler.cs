@@ -12,7 +12,7 @@ namespace Feijuca.Auth.Application.Commands.Users
 
         public async Task<Result<bool>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var result = await _userRepository.DeleteAsync(request.Id);
+            var result = await _userRepository.DeleteAsync(request.Id, cancellationToken);
 
             if (result.IsSuccess)
             {

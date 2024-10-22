@@ -46,7 +46,7 @@ namespace Feijuca.Auth.Common.Errors
             $"An error occurred while trying delete the user: {TechnicalMessage}"
         );
 
-        public static void SetTechnicalMessage(string technicalMessage)
+        public static void SetTechnicalMessage(string technicalMessage, CancellationToken cancellationToken)
         {
             TechnicalMessage = technicalMessage;
         }

@@ -5,7 +5,7 @@ namespace Feijuca.Auth.Domain.Interfaces
 {
     public interface IConfigRepository
     {
-        Task<bool> AddConfigAsync(KeycloakSettingsEntity newConfig);
+        Task<bool> AddConfigAsync(KeycloakSettingsEntity newConfig, CancellationToken cancellationToken);
         KeycloakSettings GetConfig();
     }
 }

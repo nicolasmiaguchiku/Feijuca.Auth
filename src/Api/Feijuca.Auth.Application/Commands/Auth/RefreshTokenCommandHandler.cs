@@ -2,7 +2,6 @@
 using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
-
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Auth
@@ -13,7 +12,7 @@ namespace Feijuca.Auth.Application.Commands.Auth
 
         public async Task<Result<TokenDetailsResponse>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _userRepository.RefreshTokenAsync(request.RefreshToken);
+            var tokenDetails = await _userRepository.RefreshTokenAsync(request.RefreshToken, cancellationToken);
 
             if (tokenDetails.IsSuccess)
             {

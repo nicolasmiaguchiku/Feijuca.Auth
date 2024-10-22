@@ -2,9 +2,7 @@
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
-
 using Flurl;
-
 using Newtonsoft.Json;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
@@ -14,7 +12,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         private readonly TokenCredentials _tokenCredentials = tokenCredentials;
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
 
-        public async Task<Result<TokenDetails>> GetAccessTokenAsync(string tenant)
+        public async Task<Result<TokenDetails>> GetAccessTokenAsync(string tenant, CancellationToken cancellationToken)
         {
             var requestData = new FormUrlEncodedContent(
             [
@@ -31,18 +29,18 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 .AppendPathSegment("openid-connect")
                 .AppendPathSegment("token");
 
-            var response = await httpClient.PostAsync(url, requestData);
+            var response = await httpClient.PostAsync(url, requestData, cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {
-                var content = await response.Content.ReadAsStringAsync();
+                var content = await response.Content.ReadAsStringAsync(cancellationToken);
                 var result = JsonConvert.DeserializeObject<TokenDetails>(content)!;
 
                 return Result<TokenDetails>.Success(result);
             }
 
-            var responseMessage = await response.Content.ReadAsStringAsync();
-            UserErrors.SetTechnicalMessage(responseMessage);
+            var responseMessage = await response.Content.ReadAsStringAsync(cancellationToken);
+            UserErrors.SetTechnicalMessage(responseMessage, cancellationToken);
             return Result<TokenDetails>.Failure(UserErrors.TokenGenerationError);
         }
     }

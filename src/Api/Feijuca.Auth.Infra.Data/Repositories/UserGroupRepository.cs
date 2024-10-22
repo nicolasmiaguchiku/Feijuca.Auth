@@ -13,9 +13,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IAuthRepository _authRepository = authRepository;
 
-        public async Task<Result<bool>> AddUserToGroupAsync(string tenant, Guid userId, Guid groupId)
+        public async Task<Result<bool>> AddUserToGroupAsync(string tenant, Guid userId, Guid groupId, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -27,7 +27,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                     .AppendPathSegment("groups")
                     .AppendPathSegment(groupId);
 
-            var response = await httpClient.PutAsync(url, default);
+            var response = await httpClient.PutAsync(url, default, cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {
@@ -37,9 +37,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result<bool>.Failure(UserGroupErrors.ErrorAddUserToGroup);
         }
 
-        public async Task<Result<bool>> RemoveUserFromGroupAsync(string tenant, Guid userId, Guid groupId)
+        public async Task<Result<bool>> RemoveUserFromGroupAsync(string tenant, Guid userId, Guid groupId, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress

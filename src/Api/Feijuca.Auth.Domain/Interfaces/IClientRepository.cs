@@ -5,6 +5,6 @@ namespace Feijuca.Auth.Domain.Interfaces
 {
     public interface IClientRepository
     {
-        Task<Result<IEnumerable<Client>>> GetClientsAsync(string tenant);
+        Task<Result<IEnumerable<Client>>> GetClientsAsync(string tenant, CancellationToken cancellationToken);
     }
 }

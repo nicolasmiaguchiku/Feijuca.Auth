@@ -16,9 +16,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IAuthRepository _authRepository = authRepository;
 
-        public async Task<Result<IEnumerable<Client>>> GetClientsAsync(string tenant)
+        public async Task<Result<IEnumerable<Client>>> GetClientsAsync(string tenant, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -27,11 +27,11 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                     .AppendPathSegment(tenant)
                     .AppendPathSegment("clients");
 
-            var response = await httpClient.GetAsync(url);
+            var response = await httpClient.GetAsync(url, cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
+                var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
                 var result = JsonConvert.DeserializeObject<IEnumerable<Client>>(responseContent)!;
                 var defaultClients = new List<string> { "account", "admin-cli", "broker", "realm-management", "security-admin-console", "account-console" };
                 var clientsWithoutDefaultClients = result.Where(client => !defaultClients.Contains(client.ClientId.ToString())).ToList();

@@ -9,9 +9,9 @@ namespace Feijuca.Auth.Domain.Services
     {
         private readonly IUserRepository _userRepository = userRepository;
 
-        public async Task<Result<TokenDetails>> LoginAsync(bool revokeActiveSessions, string username, string password)
+        public async Task<Result<TokenDetails>> LoginAsync(bool revokeActiveSessions, string username, string password, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetAsync(username);
+            var user = await _userRepository.GetAsync(username, cancellationToken);
             if (user.IsFailure)
             {
                 return Result<TokenDetails>.Failure(UserErrors.InvalidUserNameOrPasswordError);
@@ -19,11 +19,10 @@ namespace Feijuca.Auth.Domain.Services
 
             if (revokeActiveSessions)
             {
-                await _userRepository.RevokeSessionsAsync(user.Response.Id);
+                await _userRepository.RevokeSessionsAsync(user.Response.Id, cancellationToken);
             }
 
-            return await _userRepository.LoginAsync(username, password);
+            return await _userRepository.LoginAsync(username, password, cancellationToken);
         }
-
     }
 }

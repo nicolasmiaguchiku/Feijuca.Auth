@@ -19,9 +19,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IAuthRepository _authRepository = authRepository;
 
-        public async Task<Result<IEnumerable<Group>>> GetAllAsync(string tenant)
+        public async Task<Result<IEnumerable<Group>>> GetAllAsync(string tenant, CancellationToken cancellationToken)
         {
-            var tokenDetailsResult = await _authRepository.GetAccessTokenAsync(tenant);
+            var tokenDetailsResult = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
 
             if (tokenDetailsResult.IsSuccess)
             {
@@ -33,8 +33,8 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                         .AppendPathSegment(tenant)
                         .AppendPathSegment("groups");
 
-                var response = await httpClient.GetAsync(url);
-                var groups = await response.Content.ReadAsStringAsync();
+                var response = await httpClient.GetAsync(url, cancellationToken);
+                var groups = await response.Content.ReadAsStringAsync(cancellationToken);
                 var users = JsonConvert.DeserializeObject<IEnumerable<Group>>(groups)!;
 
                 return Result<IEnumerable<Group>>.Success(users);
@@ -43,9 +43,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result<IEnumerable<Group>>.Failure(tokenDetailsResult.Error);
         }
 
-        public async Task<Result> CreateAsync(string tenant, string name, Dictionary<string, string[]> attributes)
+        public async Task<Result> CreateAsync(string tenant, string name, Dictionary<string, string[]> attributes, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -63,19 +63,19 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var jsonContent = JsonConvert.SerializeObject(group);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await httpClient.PostAsync(url, content);
+            var response = await httpClient.PostAsync(url, content, cancellationToken);
             if (response.IsSuccessStatusCode)
             {
                 return Result.Success();
             }
 
-            GroupErrors.SetTechnicalMessage(response.ReasonPhrase!);
+            GroupErrors.SetTechnicalMessage(response.ReasonPhrase!, cancellationToken);
             return Result.Failure(GroupErrors.CreationGroupError);
         }
 
-        public async Task<Result> DeleteAsync(string tenant, Guid id)
+        public async Task<Result> DeleteAsync(string tenant, Guid id, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -85,19 +85,19 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                     .AppendPathSegment("groups")
                     .AppendPathSegment(id);
 
-            var response = await httpClient.DeleteAsync(url);
+            var response = await httpClient.DeleteAsync(url, cancellationToken);
             if (response.IsSuccessStatusCode)
             {
                 return Result.Success();
             }
 
-            GroupErrors.SetTechnicalMessage(response.ReasonPhrase!);
+            GroupErrors.SetTechnicalMessage(response.ReasonPhrase!, cancellationToken);
             return Result.Failure(GroupErrors.DeletionGroupError);
         }
 
-        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string tenant, Guid id, UserFilters userFilters)
+        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string tenant, Guid id, UserFilters userFilters, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
             int first = (userFilters.PageFilter.PageNumber - 1) * userFilters.PageFilter.PageSize;
 
@@ -112,11 +112,11 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                     .SetQueryParam("max", userFilters.PageFilter.PageSize)
                     .SetCollectionQueryParam("username", userFilters.Emails);
 
-            var response = await httpClient.GetAsync(url);
+            var response = await httpClient.GetAsync(url, cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
+                var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
                 var users = JsonConvert.DeserializeObject<IEnumerable<User>>(responseContent);
 
                 return Result<IEnumerable<User>>.Success(users!);
