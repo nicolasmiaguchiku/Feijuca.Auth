@@ -2,14 +2,14 @@
   href: gettingStarted.md
   
 - name: Feijuca.Auth.Api
-  href: configuringApplicationMultiTenancy.md
+  href: whatIsFeijucaAuthApi.md
   items:        
     - name: Setting up
       href: keycloakMandatoryConfigs.md
       items:
         - name: Mandatory configs - Keycloak realm
           href: keycloakMandatoryConfigs.md
-        - name: Mandatory configs - Feijuca.Api
+        - name: Mandatory configs - Feijuca.Auth.Api
           href: feijucaMandatoryConfigs.md        
     - name: Handling Users
       href: configuringApplicationSingleTenancy.md

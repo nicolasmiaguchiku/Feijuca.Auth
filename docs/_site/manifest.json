@@ -238,6 +238,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs/whatIsFeijucaAuthApi.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/whatIsFeijucaAuthApi.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {
         ".html": {

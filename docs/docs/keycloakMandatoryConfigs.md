@@ -30,4 +30,4 @@ In order for your API to perform operations such as creating users, groups, real
 - After finish the assignment of the required roles, the final result should be similar to: 
 ![Final result](https://res.cloudinary.com/dbyrluup1/image/upload/cguwlrnek8q2fzyyam0j.jpg "Roles services added to the client")
 
-After assigning the necessary roles to the service account, **Feijuca.Auth.Api** will be able to make authenticated requests to Keycloak's API, allowing you to manage users, groups, clients, roles, and more within the realm. Once this is complete, you can proceed to the next step: [🔗 Mandatory Configurations - Feijuca.Auth.Api](https://coderaw-io.github.io/Feijuca.Auth/docs/feijucaMandatoryConfigs.html).
+After assigning the necessary roles to the service account, **Feijuca.Auth.Api** will be able to make authenticated requests to Keycloak's API, allowing you to manage users, groups, clients, roles, and more within the realm. Once this is complete, you can proceed to the next step: [🔗 Mandatory Configurations - Feijuca.Auth.Api](/docs/feijucaMandatoryConfigs.html).

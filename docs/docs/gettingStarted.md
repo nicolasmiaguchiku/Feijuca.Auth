@@ -10,3 +10,9 @@ If your stack is built with **.NET**, you'll benefit from enhanced capabilities 
 
 ### 🔧 Prerequisites
 - An instance of **Keycloak** server.
+
+## 🖥️ Let's Get Started!
+
+- 🔧 **Want to use Feijuca.Auth.Api?** Check out the necessary configuration steps [here](/docs/keycloakMandatoryConfigs.html). 
+- 🏢 **Interested in the Feijuca.Auth.MultiTenancy concept?** Find the necessary configuration steps [here](/docs/keycloakMandatoryConfigs.html).
+
