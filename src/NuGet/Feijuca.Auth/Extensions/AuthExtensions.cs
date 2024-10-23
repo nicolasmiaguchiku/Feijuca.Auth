@@ -51,7 +51,7 @@ namespace Feijuca.Auth.Extensions
                 try
                 {
                     var tokenJwt = context.Request.Headers.Authorization.FirstOrDefault();
-                    if (!ValidateToken(context, tokenJwt))
+                    if (IsTokenValid(context, tokenJwt).Equals(false))
                     {
                         return;
                     }
@@ -59,14 +59,19 @@ namespace Feijuca.Auth.Extensions
                     var token = tokenJwt!.Replace("Bearer ", "");
                     var tokenInfos = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
-                    if (!ValidateExpiration(context, tokenInfos) || !ValidateAudience(context, tokenInfos))
+                    if (IsTokenExpirationValid(context, tokenInfos).Equals(false))
                     {
                         return;
                     }
 
+                    if (IsTokenValidAudience(context, tokenInfos).Equals(false))
+                    {
+                        return;
+                    }
+                    
                     var tenantNumber = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value;
                     var tenantRealm = realms.FirstOrDefault(realm => realm.Name == tenantNumber);
-                    if (!ValidateRealm(context, tenantRealm))
+                    if (ValidateRealm(context, tenantRealm).Equals(false))
                     {
                         return;
                     }
@@ -110,7 +115,7 @@ namespace Feijuca.Auth.Extensions
             context.HandleResponse();
         }
 
-        private static bool ValidateToken(MessageReceivedContext context, string? tokenJwt)
+        private static bool IsTokenValid(MessageReceivedContext context, string? tokenJwt)
         {
             if (string.IsNullOrEmpty(tokenJwt))
             {
@@ -122,7 +127,7 @@ namespace Feijuca.Auth.Extensions
             return true;
         }
 
-        private static bool ValidateExpiration(MessageReceivedContext context, JwtSecurityToken tokenInfos)
+        private static bool IsTokenExpirationValid(MessageReceivedContext context, JwtSecurityToken tokenInfos)
         {
             var expirationClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "exp")?.Value;
             if (expirationClaim != null && long.TryParse(expirationClaim, out var expirationUnix))
@@ -144,20 +149,22 @@ namespace Feijuca.Auth.Extensions
         {
             if (tenantRealm == null)
             {
-                context.HttpContext.Items["AuthError"] = "Invalid tenant!";
+                context.HttpContext.Items["AuthError"] = "Invalid realm config provided, please verify!";
                 context.HttpContext.Items["AuthStatusCode"] = 401;
+                context.Fail("Invalid realm config provided, please verify!");
                 return false;
             }
             return true;
         }
 
-        private static bool ValidateAudience(MessageReceivedContext context, JwtSecurityToken tokenInfos)
+        private static bool IsTokenValidAudience(MessageReceivedContext context, JwtSecurityToken tokenInfos)
         {
             var audience = tokenInfos.Claims.FirstOrDefault(c => c.Type == "aud")?.Value;
             if (string.IsNullOrEmpty(audience))
             {
                 context.HttpContext.Items["AuthError"] = "Invalid audience!";
                 context.HttpContext.Items["AuthStatusCode"] = 403;
+                context.Fail("Token expired");
                 return false;
             }
             return true;
