@@ -4,7 +4,7 @@ To take full advantage of the various endpoints provided by **Feijuca.Auth.Api**
 
 ---
 
-## ⚙️ Step 1: Setting Up MongoDB Connection String
+## ⚙️ Step 1: Setting up mongoDB connection string
 
 The first configuration you need to provide is the **MongoDB connection string**. This will enable you to store and manage the Keycloak realm settings.
 

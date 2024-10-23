@@ -12,7 +12,7 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 
             if (!env.IsDevelopment())
             {
-                settings.ConnectionString = GetEnvironmentVariables("ConnectionString_Mongo");
+                settings.ConnectionString = GetEnvironmentVariables("ConnectionString");
             }
 
             return settings!;
