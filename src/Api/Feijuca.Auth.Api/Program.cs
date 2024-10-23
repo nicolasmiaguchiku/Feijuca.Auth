@@ -1,5 +1,4 @@
 using Feijuca.Auth.Common.Models;
-using Feijuca.Auth.Infra.CrossCutting.Config;
 using Feijuca.Auth.Infra.CrossCutting.Extensions;
 using Feijuca.Auth.Infra.CrossCutting.Handlers;
 using Feijuca.Auth.Infra.CrossCutting.Middlewares;
@@ -12,7 +11,7 @@ builder.Configuration
     .AddJsonFile($"appsettings.{enviroment}.json", true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-var applicationSettings = builder.Configuration.GetSection("MongoSettings").Get<MongoSettings>()!;
+var applicationSettings = builder.Configuration.GetApplicationSettings(builder.Environment);
 
 builder.Services
     .AddExceptionHandler<GlobalExceptionHandler>()
