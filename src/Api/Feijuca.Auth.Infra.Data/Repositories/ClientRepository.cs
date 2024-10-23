@@ -2,29 +2,27 @@
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
-
 using Flurl;
-
 using Newtonsoft.Json;
-
 using System.Net.Http.Headers;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class ClientRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IClientRepository
+    public class ClientRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService) : IClientRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IAuthRepository _authRepository = authRepository;
+        private readonly ITenantService _tenantService = tenantService;
 
-        public async Task<Result<IEnumerable<Client>>> GetClientsAsync(string tenant, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<Client>>> GetClientsAsync(CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(tenant)
+                    .AppendPathSegment(_tenantService.Tenant)
                     .AppendPathSegment("clients");
 
             var response = await httpClient.GetAsync(url, cancellationToken);

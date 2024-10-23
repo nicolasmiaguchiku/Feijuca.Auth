@@ -31,7 +31,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<Result<IEnumerable<User>>> GetAllAsync(UserFilters userFilters, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(_tenantService.Tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             int first = (userFilters.PageFilter.PageNumber - 1) * userFilters.PageFilter.PageSize;
@@ -51,10 +51,10 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
             return Result<IEnumerable<User>>.Success(users);
         }
-
+            
         public async Task<int> GetTotalAsync(CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(_tenantService.Tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var urlGetUsers = httpClient.BaseAddress
@@ -74,7 +74,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<Result<bool>> DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(_tenantService.Tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -96,7 +96,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<Result<bool>> CreateAsync(User user, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(_tenantService.Tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -118,7 +118,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<Result<User>> GetAsync(string username, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(_tenantService.Tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -143,7 +143,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<Result<bool>> ResetPasswordAsync(Guid id, string password, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(_tenantService.Tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -177,7 +177,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<Result> SendEmailVerificationAsync(string userId, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(_tenantService.Tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress!
@@ -211,7 +211,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<bool> RevokeSessionsAsync(Guid id, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(_tenantService.Tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress!

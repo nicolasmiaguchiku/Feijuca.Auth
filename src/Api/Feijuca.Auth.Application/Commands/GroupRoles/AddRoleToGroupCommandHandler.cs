@@ -13,8 +13,8 @@ public class AddRoleToGroupCommandHandler(IGroupRepository groupRepository, IGro
 
     public async Task<Result<bool>> Handle(AddRoleToGroupCommand request, CancellationToken cancellationToken)
     {
-        var groupsResult = await _groupRepository.GetAllAsync(request.Tenant, cancellationToken);
-        var rolesResult = await _roleRepository.GetRolesForClientAsync(request.Tenant, request.AddRoleToGroupRequest.ClientId, cancellationToken);
+        var groupsResult = await _groupRepository.GetAllAsync(cancellationToken);
+        var rolesResult = await _roleRepository.GetRolesForClientAsync(request.AddRoleToGroupRequest.ClientId, cancellationToken);
 
         if (groupsResult.IsSuccess && rolesResult.IsSuccess)
         {
@@ -24,7 +24,7 @@ public class AddRoleToGroupCommandHandler(IGroupRepository groupRepository, IGro
             if (group != null && role != null)
             {
 
-                var result = await _roleGroupRepository.AddRoleToGroupAsync(request.Tenant,
+                var result = await _roleGroupRepository.AddRoleToGroupAsync(
                     group.Id,
                     request.AddRoleToGroupRequest.ClientId,
                     role.Id,

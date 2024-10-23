@@ -4,7 +4,7 @@ namespace Feijuca.Auth.Domain.Interfaces
 {
     public interface IGroupUsersRepository
     {
-        Task<Result<bool>> AddUserToGroupAsync(string tenant, Guid userId, Guid groupId, CancellationToken cancellationToken);
-        Task<Result<bool>> RemoveUserFromGroupAsync(string tenant, Guid userId, Guid groupId, CancellationToken cancellationToken);
+        Task<Result<bool>> AddUserToGroupAsync(Guid userId, Guid groupId, CancellationToken cancellationToken);
+        Task<Result<bool>> RemoveUserFromGroupAsync(Guid userId, Guid groupId, CancellationToken cancellationToken);
     }
 }

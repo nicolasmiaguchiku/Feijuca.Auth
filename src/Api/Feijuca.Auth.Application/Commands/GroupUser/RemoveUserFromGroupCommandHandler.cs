@@ -10,7 +10,7 @@ namespace Feijuca.Auth.Application.Commands.GroupUser
 
         public async Task<Result<bool>> Handle(RemoveUserFromGroupCommand request, CancellationToken cancellationToken)
         {
-            var result = await _userGroupRepository.RemoveUserFromGroupAsync(request.Tenant, request.UserId, request.GroupId, cancellationToken);
+            var result = await _userGroupRepository.RemoveUserFromGroupAsync(request.UserId, request.GroupId, cancellationToken);
 
             if (result.IsSuccess)
             {

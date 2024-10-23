@@ -11,7 +11,7 @@ namespace Feijuca.Auth.Application.Commands.Role
 
         public async Task<Result<bool>> Handle(AddRoleCommand request, CancellationToken cancellationToken)
         {
-            var result = await _roleRepository.AddRoleAsync(request.Tenant, request.AddRoleRequest.ClientId, request.AddRoleRequest.Name, request.AddRoleRequest.Description, cancellationToken);
+            var result = await _roleRepository.AddRoleAsync(request.AddRoleRequest.ClientId, request.AddRoleRequest.Name, request.AddRoleRequest.Description, cancellationToken);
             if (result.IsSuccess)
             {
                 return Result<bool>.Success(true);

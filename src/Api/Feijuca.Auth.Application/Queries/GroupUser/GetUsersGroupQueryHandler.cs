@@ -17,14 +17,14 @@ namespace Feijuca.Auth.Application.Queries.GroupUser
 
         public async Task<Result<PagedResult<UserGroupResponse>>> Handle(GetUsersGroupQuery request, CancellationToken cancellationToken)
         {
-            var allGroupsResult = await _groupRepository.GetAllAsync(request.Tenant, cancellationToken);
+            var allGroupsResult = await _groupRepository.GetAllAsync(cancellationToken);
 
             if (allGroupsResult.IsSuccess)
             {
                 var groupSearched = allGroupsResult.Response.FirstOrDefault(x => x.Id == request.GetUsersGroupRequest.GroupId);
                 if (groupSearched != null)
                 {
-                    var resultMembers = await _groupRepository.GetUsersInGroupAsync(request.Tenant,
+                    var resultMembers = await _groupRepository.GetUsersInGroupAsync(
                         groupSearched.Id,
                         request.GetUsersGroupRequest.ToUserFilters(), cancellationToken);
 

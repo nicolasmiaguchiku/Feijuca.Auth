@@ -1,7 +1,6 @@
 ﻿using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
-
 using MediatR;
 
 namespace Feijuca.Auth.Application.Queries.Clients
@@ -12,7 +11,7 @@ namespace Feijuca.Auth.Application.Queries.Clients
 
         public async Task<Result<IEnumerable<ClientResponse>>> Handle(GetAllClientsQuery request, CancellationToken cancellationToken)
         {
-            var clientsResult = await _clientRepository.GetClientsAsync(request.Tenant, cancellationToken);
+            var clientsResult = await _clientRepository.GetClientsAsync(cancellationToken);
 
             if (clientsResult.IsSuccess)
             {
