@@ -12,6 +12,7 @@ namespace Feijuca.Auth.Domain.Services
         public async Task<Result<TokenDetails>> LoginAsync(bool revokeActiveSessions, string username, string password, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetAsync(username, cancellationToken);
+
             if (user.IsFailure)
             {
                 return Result<TokenDetails>.Failure(UserErrors.InvalidUserNameOrPasswordError);

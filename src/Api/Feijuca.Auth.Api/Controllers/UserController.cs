@@ -9,7 +9,6 @@ using Feijuca.Auth.Common.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using System.Security.Claims;
 
 namespace Feijuca.Auth.Api.Controllers
@@ -39,9 +38,8 @@ namespace Feijuca.Auth.Api.Controllers
             {
                 return Ok(result.Response);
             }
-
-            var responseError = Result<string>.Failure(result.Error);
-            return BadRequest(responseError);
+            
+            return BadRequest(result.Error);
         }
 
         /// <summary>
@@ -65,8 +63,7 @@ namespace Feijuca.Auth.Api.Controllers
                 return Created($"/api/v1/users/{tenant}", response.Response);
             }
 
-            var responseError = Result<string>.Failure(result.Error);
-            return BadRequest(responseError.Error);
+            return BadRequest(result.Error);
         }
 
         /// <summary>
@@ -89,10 +86,8 @@ namespace Feijuca.Auth.Api.Controllers
                 return NoContent();
             }
 
-            var responseError = Result<string>.Failure(result.Error);
-            return BadRequest(responseError);
+            return BadRequest(result.Error);
         }
-
 
         /// <summary>
         /// Logout a user and invalidate the session.
@@ -112,8 +107,7 @@ namespace Feijuca.Auth.Api.Controllers
                 return Ok(new { Message = "Logout successful" });
             }
 
-            var responseError = Result<string>.Failure(result.Error);
-            return BadRequest(responseError);
+            return BadRequest(result.Error);
         }
 
         /// <summary>
@@ -135,8 +129,7 @@ namespace Feijuca.Auth.Api.Controllers
                 return Ok(response.Response); // Retorna o token e os detalhes
             }
 
-            var responseError = Result<TokenDetailsResponse>.Failure(result.Error);
-            return BadRequest(responseError);
+            return BadRequest(result.Error);
         }
 
         /// <summary>
