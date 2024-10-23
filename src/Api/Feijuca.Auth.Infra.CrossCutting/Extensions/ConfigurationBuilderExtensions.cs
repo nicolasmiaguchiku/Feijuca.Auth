@@ -8,7 +8,7 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
     {
         public static MongoSettings GetApplicationSettings(this IConfiguration configuration, IHostEnvironment env)
         {
-            var settings = configuration.GetSection("Settings").Get<MongoSettings>()!;
+            var settings = configuration.GetSection("MongoSettings").Get<MongoSettings>()!;
 
             if (!env.IsDevelopment())
             {
