@@ -12,7 +12,7 @@ namespace Feijuca.Auth.Application.Queries.Clients
 
         public async Task<Result<IEnumerable<ClientResponse>>> Handle(GetAllClientsQuery request, CancellationToken cancellationToken)
         {
-            var clientsResult = await _clientRepository.GetClientsAsync(request.Tenant);
+            var clientsResult = await _clientRepository.GetClientsAsync(request.Tenant, cancellationToken);
 
             if (clientsResult.IsSuccess)
             {

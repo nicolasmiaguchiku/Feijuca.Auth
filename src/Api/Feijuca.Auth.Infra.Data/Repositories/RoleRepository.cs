@@ -17,9 +17,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IAuthRepository _authRepository = authRepository;
 
-        public async Task<Result<IEnumerable<Role>>> GetRolesForClientAsync(string tenant, Guid clientId)
+        public async Task<Result<IEnumerable<Role>>> GetRolesForClientAsync(string tenant, Guid clientId, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -34,7 +34,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
+                var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
                 var result = JsonConvert.DeserializeObject<IEnumerable<Role>>(responseContent)!;
                 var defaultRoles = new List<string> { "uma_protection" };
                 var rolesWithoutDefaultRoles = result.Where(role => !defaultRoles.Contains(role.Name)).ToList();
@@ -45,9 +45,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         }
 
 
-        public async Task<Result<bool>> AddRoleAsync(string tenant, Guid clientId, string name, string description)
+        public async Task<Result<bool>> AddRoleAsync(string tenant, Guid clientId, string name, string description, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
@@ -66,7 +66,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             };
 
             var content = new StringContent(JsonConvert.SerializeObject(roleData), Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync(url, content);
+            var response = await httpClient.PostAsync(url, content, cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {

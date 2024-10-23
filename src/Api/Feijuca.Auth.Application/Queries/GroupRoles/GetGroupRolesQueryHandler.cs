@@ -3,7 +3,6 @@ using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
-
 using MediatR;
 
 namespace Feijuca.Auth.Application.Queries.GroupRoles
@@ -14,7 +13,7 @@ namespace Feijuca.Auth.Application.Queries.GroupRoles
 
         public async Task<Result<IEnumerable<GroupRolesResponse>>> Handle(GetGroupRolesQuery request, CancellationToken cancellationToken)
         {
-            var groupsRolesResult = await _roleGroupRepository.GetGroupRolesAsync(request.Tenant, request.GroupId);
+            var groupsRolesResult = await _roleGroupRepository.GetGroupRolesAsync(request.Tenant, request.GroupId, cancellationToken);
 
             if (groupsRolesResult.IsSuccess)
             {

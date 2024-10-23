@@ -1,7 +1,5 @@
 ﻿using Feijuca.Auth.Common.Models;
-
 using Feijuca.Auth.Domain.Interfaces;
-
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.GroupUser
@@ -12,7 +10,7 @@ namespace Feijuca.Auth.Application.Commands.GroupUser
 
         public async Task<Result<bool>> Handle(AddUserToGroupCommand request, CancellationToken cancellationToken)
         {
-            var result = await _userGroupRepository.AddUserToGroupAsync(request.Tenant, request.UserId, request.GroupId);
+            var result = await _userGroupRepository.AddUserToGroupAsync(request.Tenant, request.UserId, request.GroupId, cancellationToken);
 
             if (result.IsSuccess)
             {

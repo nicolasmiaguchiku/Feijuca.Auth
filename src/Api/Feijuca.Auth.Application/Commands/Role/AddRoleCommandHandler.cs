@@ -1,7 +1,6 @@
 ﻿using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
-
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Role
@@ -12,7 +11,7 @@ namespace Feijuca.Auth.Application.Commands.Role
 
         public async Task<Result<bool>> Handle(AddRoleCommand request, CancellationToken cancellationToken)
         {
-            var result = await _roleRepository.AddRoleAsync(request.Tenant, request.AddRoleRequest.ClientId, request.AddRoleRequest.Name, request.AddRoleRequest.Description);
+            var result = await _roleRepository.AddRoleAsync(request.Tenant, request.AddRoleRequest.ClientId, request.AddRoleRequest.Name, request.AddRoleRequest.Description, cancellationToken);
             if (result.IsSuccess)
             {
                 return Result<bool>.Success(true);

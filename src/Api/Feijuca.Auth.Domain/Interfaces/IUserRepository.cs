@@ -6,16 +6,16 @@ namespace Feijuca.Auth.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        Task<Result<IEnumerable<User>>> GetAllAsync(UserFilters userFilters);
-        Task<int> GetTotalAsync();
-        Task<Result<bool>> DeleteAsync(Guid id);
-        Task<Result<bool>> CreateAsync(User user);
-        Task<Result<bool>> ResetPasswordAsync(Guid id, string password);
-        Task<bool> RevokeSessionsAsync(Guid id);
-        Task<Result<User>> GetAsync(string username);
-        Task<Result> SendEmailVerificationAsync(string userId);
-        Task<Result<TokenDetails>> LoginAsync(string username, string password);
-        Task<Result<bool>> SignoutAsync(string refreshToken);
-        Task<Result<TokenDetails>> RefreshTokenAsync(string refreshToken);
+        Task<Result<IEnumerable<User>>> GetAllAsync(UserFilters userFilters, CancellationToken cancellationToken);
+        Task<int> GetTotalAsync(CancellationToken cancellationToken);
+        Task<Result<bool>> DeleteAsync(Guid id, CancellationToken cancellationToken);
+        Task<Result<bool>> CreateAsync(User user, CancellationToken cancellationToken);
+        Task<Result<bool>> ResetPasswordAsync(Guid id, string password, CancellationToken cancellationToken);
+        Task<bool> RevokeSessionsAsync(Guid id, CancellationToken cancellationToken);
+        Task<Result<User>> GetAsync(string username, CancellationToken cancellationToken);
+        Task<Result> SendEmailVerificationAsync(string userId, CancellationToken cancellationToken);
+        Task<Result<TokenDetails>> LoginAsync(string username, string password, CancellationToken cancellationToken);
+        Task<Result<bool>> SignoutAsync(string refreshToken, CancellationToken cancellationToken);
+        Task<Result<TokenDetails>> RefreshTokenAsync(string refreshToken, CancellationToken cancellationToken);
     }
 }

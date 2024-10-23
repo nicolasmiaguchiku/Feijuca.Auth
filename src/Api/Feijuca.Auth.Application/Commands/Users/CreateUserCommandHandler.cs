@@ -1,8 +1,6 @@
 ﻿using Feijuca.Auth.Common.Models;
-
 using Feijuca.Auth.Application.Mappers;
 using Feijuca.Auth.Domain.Interfaces;
-
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Users
@@ -15,12 +13,12 @@ namespace Feijuca.Auth.Application.Commands.Users
         {
             AddTenantToRequest(request);
             var user = request.AddUserRequest.ToDomain();
-            var result = await _userRepository.CreateAsync(user);
+            var result = await _userRepository.CreateAsync(user, cancellationToken);
 
             if (result.IsSuccess)
             {
-                var keycloakUser = await _userRepository.GetAsync(user.Username);
-                result = await _userRepository.ResetPasswordAsync(keycloakUser.Response.Id, user.Password);
+                var keycloakUser = await _userRepository.GetAsync(user.Username, cancellationToken);
+                result = await _userRepository.ResetPasswordAsync(keycloakUser.Response.Id, user.Password, cancellationToken);
 
                 if (result.IsSuccess)
                 {

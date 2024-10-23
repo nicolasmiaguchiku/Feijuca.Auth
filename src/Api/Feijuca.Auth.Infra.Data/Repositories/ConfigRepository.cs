@@ -9,9 +9,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
     {
         private readonly IMongoCollection<KeycloakSettingsEntity> _collection = mongoDb.GetCollection<KeycloakSettingsEntity>("Configs");
 
-        public async Task<bool> AddConfigAsync(KeycloakSettingsEntity newConfig)
+        public async Task<bool> AddConfigAsync(KeycloakSettingsEntity newConfig, CancellationToken cancellationToken)
         {
-            await _collection.InsertOneAsync(newConfig);
+            await _collection.InsertOneAsync(newConfig, new InsertOneOptions(), cancellationToken);
 
             return true;
         }

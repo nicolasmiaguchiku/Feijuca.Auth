@@ -13,11 +13,11 @@ namespace Feijuca.Auth.Application.Queries.Users
         private readonly ITenantService _tenantService = tenantService;
         public async Task<Result<PagedResult<UserResponse>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var result = await _userRepository.GetAllAsync(request.GetUsersRequest.ToUserFilters());
+            var result = await _userRepository.GetAllAsync(request.GetUsersRequest.ToUserFilters(), cancellationToken);
 
             if (result.IsSuccess)
             {
-                var totalUsers = await _userRepository.GetTotalAsync();
+                var totalUsers = await _userRepository.GetTotalAsync(cancellationToken);
                 return Result<PagedResult<UserResponse>>.Success(result.Response.ToUserResponse(request.GetUsersRequest.PageFilter, _tenantService.Tenant, totalUsers));
             }
 

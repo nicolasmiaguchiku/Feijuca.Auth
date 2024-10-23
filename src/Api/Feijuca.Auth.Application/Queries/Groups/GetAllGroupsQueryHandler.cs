@@ -14,7 +14,7 @@ namespace Feijuca.Auth.Application.Queries.Groups
 
         public async Task<Result<IEnumerable<GroupResponse>>> Handle(GetAllGroupsQuery request, CancellationToken cancellationToken)
         {
-            var result = await _groupRepository.GetAllAsync(request.Tenant);
+            var result = await _groupRepository.GetAllAsync(request.Tenant, cancellationToken);
 
             if (result.IsSuccess)
             {

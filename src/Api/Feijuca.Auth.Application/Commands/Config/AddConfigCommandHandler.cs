@@ -10,7 +10,7 @@ namespace Feijuca.Auth.Application.Commands.Config
     {
         public async Task<Result<bool>> Handle(AddConfigCommand request, CancellationToken cancellationToken)
         {
-            var result = await configRepository.AddConfigAsync(request.Request.ToEntity());
+            var result = await configRepository.AddConfigAsync(request.Request.ToEntity(), cancellationToken);
 
             if (result)
             {

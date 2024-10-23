@@ -2,9 +2,7 @@
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Extensions;
-
 using Microsoft.Extensions.DependencyInjection;
-
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Feijuca.Auth.Infra.CrossCutting.Extensions

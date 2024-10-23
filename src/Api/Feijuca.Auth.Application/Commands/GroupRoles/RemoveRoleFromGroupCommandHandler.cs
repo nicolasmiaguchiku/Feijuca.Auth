@@ -1,7 +1,6 @@
 ﻿using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
-
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.GroupRoles;
@@ -14,10 +13,10 @@ public class RemoveRoleFromGroupCommandHandler(IGroupRepository groupRepository,
 
     public async Task<Result<bool>> Handle(RemoveRoleFromGroupCommand command, CancellationToken cancellationToken)
     {
-        var groupsResult = await _groupRepository.GetAllAsync(command.Tenant);
+        var groupsResult = await _groupRepository.GetAllAsync(command.Tenant, cancellationToken);
         if (groupsResult.IsSuccess && groupsResult.Response.Any(x => x.Id == command.GroupId))
         {
-            var rolesResult = await _roleRepository.GetRolesForClientAsync(command.Tenant, command.RemoveRoleFromGroupRequest.ClientId);
+            var rolesResult = await _roleRepository.GetRolesForClientAsync(command.Tenant, command.RemoveRoleFromGroupRequest.ClientId, cancellationToken);
             var existingRule = rolesResult.Response.FirstOrDefault(x => x.Id == command.RemoveRoleFromGroupRequest.RoleId);
             if (rolesResult.IsSuccess && existingRule != null)
             {
@@ -25,7 +24,8 @@ public class RemoveRoleFromGroupCommandHandler(IGroupRepository groupRepository,
                     command.RemoveRoleFromGroupRequest.ClientId,
                     command.GroupId,
                     existingRule.Id,
-                    existingRule.Name);
+                    existingRule.Name,
+                    cancellationToken);
 
                 return Result<bool>.Success(true);
             }

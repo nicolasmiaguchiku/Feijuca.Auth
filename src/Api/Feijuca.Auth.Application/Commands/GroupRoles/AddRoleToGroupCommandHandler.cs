@@ -1,7 +1,6 @@
 ﻿using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
-
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.GroupRoles;
@@ -14,8 +13,8 @@ public class AddRoleToGroupCommandHandler(IGroupRepository groupRepository, IGro
 
     public async Task<Result<bool>> Handle(AddRoleToGroupCommand request, CancellationToken cancellationToken)
     {
-        var groupsResult = await _groupRepository.GetAllAsync(request.Tenant);
-        var rolesResult = await _roleRepository.GetRolesForClientAsync(request.Tenant, request.AddRoleToGroupRequest.ClientId);
+        var groupsResult = await _groupRepository.GetAllAsync(request.Tenant, cancellationToken);
+        var rolesResult = await _roleRepository.GetRolesForClientAsync(request.Tenant, request.AddRoleToGroupRequest.ClientId, cancellationToken);
 
         if (groupsResult.IsSuccess && rolesResult.IsSuccess)
         {
@@ -29,7 +28,8 @@ public class AddRoleToGroupCommandHandler(IGroupRepository groupRepository, IGro
                     group.Id,
                     request.AddRoleToGroupRequest.ClientId,
                     role.Id,
-                    role.Name);
+                    role.Name,
+                    cancellationToken);
 
                 if (result.IsSuccess)
                 {

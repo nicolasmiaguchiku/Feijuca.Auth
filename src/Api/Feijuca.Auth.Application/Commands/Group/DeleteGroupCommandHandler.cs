@@ -1,9 +1,6 @@
-﻿
-using Feijuca.Auth.Common.Errors;
+﻿using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
-
 using Feijuca.Auth.Domain.Interfaces;
-
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Group
@@ -14,7 +11,7 @@ namespace Feijuca.Auth.Application.Commands.Group
 
         public async Task<Result<bool>> Handle(DeleteGroupCommand request, CancellationToken cancellationToken)
         {
-            var result = await _groupRepository.DeleteAsync(request.Tenant, request.Id);
+            var result = await _groupRepository.DeleteAsync(request.Tenant, request.Id, cancellationToken);
 
             if (result.IsSuccess)
             {
