@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/coderaw-io/Feijuca.AuthServices</RepositoryUrl>
     <PackageTags>keycloak</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.5.6</Version>
+    <Version>1.6.0</Version>
     <Authors>coderaw.io</Authors>
     <PackageIcon>sky.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
