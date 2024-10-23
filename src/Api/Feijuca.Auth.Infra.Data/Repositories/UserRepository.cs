@@ -133,6 +133,11 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var keycloakUserContent = await response.Content.ReadAsStringAsync(cancellationToken);
 
             var user = JsonConvert.DeserializeObject<List<User>>(keycloakUserContent)!;
+
+            if(user.Count == 0)
+            {
+                return Result<User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
+            }
             return Result<User>.Success(user[0]);
         }
 
