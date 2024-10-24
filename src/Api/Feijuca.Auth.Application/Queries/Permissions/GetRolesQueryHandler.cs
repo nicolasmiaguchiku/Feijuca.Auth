@@ -13,13 +13,13 @@ namespace Feijuca.Auth.Application.Queries.Permissions
 
         public async Task<Result<IEnumerable<ClientRoleResponse>>> Handle(GetRolesQuery request, CancellationToken cancellationToken)
         {
-            var result = await _clientRepository.GetClientsAsync(request.Tenant, cancellationToken);
+            var result = await _clientRepository.GetClientsAsync(cancellationToken);
             if (result.IsSuccess)
             {
                 var roleResponse = new List<ClientRoleResponse>();
                 foreach (var client in result.Response)
                 {
-                    var rolesResult = await _roleRepository.GetRolesForClientAsync(request.Tenant, client.Id, cancellationToken);
+                    var rolesResult = await _roleRepository.GetRolesForClientAsync(client.Id, cancellationToken);
 
                     if (rolesResult.IsSuccess)
                     {

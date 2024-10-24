@@ -4,24 +4,22 @@ using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
-
 using Flurl;
-
 using Newtonsoft.Json;
-
 using System.Net.Http.Headers;
 using System.Text;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class GroupRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : IGroupRepository
+    public class GroupRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService) : IGroupRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IAuthRepository _authRepository = authRepository;
+        private readonly ITenantService _tenantService = tenantService;
 
-        public async Task<Result<IEnumerable<Group>>> GetAllAsync(string tenant, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<Group>>> GetAllAsync(CancellationToken cancellationToken)
         {
-            var tokenDetailsResult = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
+            var tokenDetailsResult = await _authRepository.GetAccessTokenAsync(cancellationToken);
 
             if (tokenDetailsResult.IsSuccess)
             {
@@ -30,7 +28,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 var url = httpClient.BaseAddress
                         .AppendPathSegment("admin")
                         .AppendPathSegment("realms")
-                        .AppendPathSegment(tenant)
+                        .AppendPathSegment(_tenantService.Tenant)
                         .AppendPathSegment("groups");
 
                 var response = await httpClient.GetAsync(url, cancellationToken);
@@ -43,15 +41,15 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result<IEnumerable<Group>>.Failure(tokenDetailsResult.Error);
         }
 
-        public async Task<Result> CreateAsync(string tenant, string name, Dictionary<string, string[]> attributes, CancellationToken cancellationToken)
+        public async Task<Result> CreateAsync(string name, Dictionary<string, string[]> attributes, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(tenant)
+                    .AppendPathSegment(_tenantService.Tenant)
                     .AppendPathSegment("groups");
 
             var group = new
@@ -73,15 +71,15 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result.Failure(GroupErrors.CreationGroupError);
         }
 
-        public async Task<Result> DeleteAsync(string tenant, Guid id, CancellationToken cancellationToken)
+        public async Task<Result> DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(tenant)
+                    .AppendPathSegment(_tenantService.Tenant)
                     .AppendPathSegment("groups")
                     .AppendPathSegment(id);
 
@@ -95,16 +93,16 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result.Failure(GroupErrors.DeletionGroupError);
         }
 
-        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string tenant, Guid id, UserFilters userFilters, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(Guid id, UserFilters userFilters, CancellationToken cancellationToken)
         {
-            var tokenDetails = await _authRepository.GetAccessTokenAsync(tenant, cancellationToken);
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
             int first = (userFilters.PageFilter.PageNumber - 1) * userFilters.PageFilter.PageSize;
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(tenant)
+                    .AppendPathSegment(_tenantService.Tenant)
                     .AppendPathSegment("groups")
                     .AppendPathSegment(id)
                     .AppendPathSegment("members")

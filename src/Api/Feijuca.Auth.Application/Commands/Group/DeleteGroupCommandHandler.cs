@@ -11,7 +11,7 @@ namespace Feijuca.Auth.Application.Commands.Group
 
         public async Task<Result<bool>> Handle(DeleteGroupCommand request, CancellationToken cancellationToken)
         {
-            var result = await _groupRepository.DeleteAsync(request.Tenant, request.Id, cancellationToken);
+            var result = await _groupRepository.DeleteAsync(request.Id, cancellationToken);
 
             if (result.IsSuccess)
             {

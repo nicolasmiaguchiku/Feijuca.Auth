@@ -7,12 +7,13 @@ using Newtonsoft.Json;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class AuthRepository(TokenCredentials tokenCredentials, IHttpClientFactory httpClientFactory) : IAuthRepository
+    public class AuthRepository(TokenCredentials tokenCredentials, IHttpClientFactory httpClientFactory, ITenantService tenantService) : IAuthRepository
     {
         private readonly TokenCredentials _tokenCredentials = tokenCredentials;
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
+        private readonly ITenantService _tenantService = tenantService;
 
-        public async Task<Result<TokenDetails>> GetAccessTokenAsync(string tenant, CancellationToken cancellationToken)
+        public async Task<Result<TokenDetails>> GetAccessTokenAsync(CancellationToken cancellationToken)
         {
             var requestData = new FormUrlEncodedContent(
             [
@@ -24,7 +25,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
             var url = httpClient.BaseAddress
                 .AppendPathSegment("realms")
-                .AppendPathSegment(tenant)
+                .AppendPathSegment(_tenantService.Tenant)
                 .AppendPathSegment("protocol")
                 .AppendPathSegment("openid-connect")
                 .AppendPathSegment("token");

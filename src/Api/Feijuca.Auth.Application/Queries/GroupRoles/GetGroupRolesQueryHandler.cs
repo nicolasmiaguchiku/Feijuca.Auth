@@ -13,7 +13,7 @@ namespace Feijuca.Auth.Application.Queries.GroupRoles
 
         public async Task<Result<IEnumerable<GroupRolesResponse>>> Handle(GetGroupRolesQuery request, CancellationToken cancellationToken)
         {
-            var groupsRolesResult = await _roleGroupRepository.GetGroupRolesAsync(request.Tenant, request.GroupId, cancellationToken);
+            var groupsRolesResult = await _roleGroupRepository.GetGroupRolesAsync(request.GroupId, cancellationToken);
 
             if (groupsRolesResult.IsSuccess)
             {

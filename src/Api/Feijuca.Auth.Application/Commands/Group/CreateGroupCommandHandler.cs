@@ -9,7 +9,7 @@ namespace Feijuca.Auth.Application.Commands.Group
 
         public async Task<Common.Models.Result> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
         {
-            var result = await _groupRepository.CreateAsync(request.Tenant, request.AddGroupRequest.Name, request.AddGroupRequest.Attributes, cancellationToken);
+            var result = await _groupRepository.CreateAsync(request.AddGroupRequest.Name, request.AddGroupRequest.Attributes, cancellationToken);
             if (result.IsSuccess)
             {
                 return Common.Models.Result.Success();

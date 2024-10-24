@@ -10,7 +10,7 @@ namespace Feijuca.Auth.Application.Commands.GroupUser
 
         public async Task<Result<bool>> Handle(AddUserToGroupCommand request, CancellationToken cancellationToken)
         {
-            var result = await _userGroupRepository.AddUserToGroupAsync(request.Tenant, request.UserId, request.GroupId, cancellationToken);
+            var result = await _userGroupRepository.AddUserToGroupAsync(request.UserId, request.GroupId, cancellationToken);
 
             if (result.IsSuccess)
             {
