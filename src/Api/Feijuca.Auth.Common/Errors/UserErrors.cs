@@ -46,6 +46,11 @@ namespace Feijuca.Auth.Common.Errors
             $"An error occurred while trying delete the user: {TechnicalMessage}"
         );
 
+        public static Error RevokeSessionsError => new(
+            "User.RevokeSessionsError",
+            $"An error occurred while trying to revoke sessions for the user: {TechnicalMessage}"
+        );
+
         public static void SetTechnicalMessage(string technicalMessage, CancellationToken cancellationToken)
         {
             TechnicalMessage = technicalMessage;

@@ -116,6 +116,25 @@ namespace Feijuca.Auth.Api.Controllers
             return BadRequest(result.Error);
         }
 
+        [HttpPost]
+        [Route("{tenant}/user/revoke-session", Name = nameof(RevokeUserSessions))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [RequiredRole("Feijuca.ApiWriter")]
+        [Authorize]
+        public async Task<IActionResult> RevokeUserSessions([FromRoute] string tenant, [FromQuery] Guid id, CancellationToken cancellationToken)
+        {
+            var result =  await _mediator.Send(new RevokeUserSessionsCommand(tenant, id), cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                return Ok(new { Message = "User sessions revoked successfully." });
+            }
+
+            return BadRequest(result.Error);
+        }
+
         /// <summary>
         /// Logs out a user and invalidates their session.
         /// </summary>
