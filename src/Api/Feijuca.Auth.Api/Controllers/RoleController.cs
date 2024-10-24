@@ -17,8 +17,17 @@ namespace Feijuca.Auth.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         /// <summary>
-        /// Get all roles available related to the clients on the realm.
+        /// Retrieves all roles associated with the clients in the specified Keycloak realm.
         /// </summary>
+        /// <returns>
+        /// A 200 OK status code containing a list of roles if the request is successful; 
+        /// otherwise, a 400 Bad Request status code with an error message.
+        /// </returns>
+        /// <param name="tenant">The tenant identifier representing the Keycloak realm to query roles from.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
+        /// <response code="200">A list of roles associated with the clients in the specified realm.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpGet]
         [Route("{tenant}/roles", Name = nameof(GetRoles))]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -38,8 +47,18 @@ namespace Feijuca.Auth.Api.Controllers
         }
 
         /// <summary>
-        /// Add a new role to a client on the realm.
+        /// Adds a new role to a client in the specified Keycloak realm.
         /// </summary>
+        /// <param name="tenant">The tenant identifier representing the Keycloak realm where the role will be added.</param>
+        /// <param name="addRoleRequest">The request object containing the details of the role to be added.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
+        /// <returns>
+        /// A 201 Created status code if the role was successfully added; 
+        /// otherwise, a 400 Bad Request status code with an error message.
+        /// </returns>
+        /// <response code="201">The role was created successfully.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
         [Route("{tenant}/role", Name = nameof(AddRole))]
         [ProducesResponseType(StatusCodes.Status201Created)]

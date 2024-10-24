@@ -13,11 +13,18 @@ namespace Feijuca.Auth.Api.Controllers
     public class ClientController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
-
         /// <summary>
-        /// Get all clients existing on the Keycloak realm.
+        /// Retrieves all clients that exist within a specified Keycloak realm for the given tenant.
         /// </summary>
-        /// <returns>A status code related to the operation.</returns>
+        /// <returns>
+        /// A 200 OK status code along with the list of clients if the operation is successful; 
+        /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
+        /// </returns>
+        /// <param name="tenant">The tenant identifier used to filter the clients within a specific Keycloak realm.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
+        /// <response code="200">The operation was successful, and the list of clients is returned.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpGet]
         [Route("{tenant}/clients", Name = nameof(GetClients))]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -36,6 +43,5 @@ namespace Feijuca.Auth.Api.Controllers
             var responseError = Result<string>.Failure(result.Error);
             return BadRequest(responseError);
         }
-
     }
 }
