@@ -209,7 +209,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result.Failure(UserErrors.InvalidUserNameOrPasswordError);
         }
 
-        public async Task<bool> RevokeSessionsAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<Result<bool>> RevokeSessionsAsync(Guid id, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
@@ -228,10 +228,10 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
             if (resut.IsSuccessStatusCode)
             {
-                return true;
+                return Result<bool>.Success(true);
             }
 
-            return false;
+            return Result<bool>.Failure(UserErrors.RevokeSessionsError);
         }
 
         public async Task<Result<TokenDetails>> LoginAsync(string username, string password, CancellationToken cancellationToken)
