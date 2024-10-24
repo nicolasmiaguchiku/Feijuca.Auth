@@ -6,5 +6,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.GroupRoles
 {
-    public record RemoveRoleFromGroupCommand(string Tenant, Guid GroupId, RoleToGroupRequest RemoveRoleFromGroupRequest) : IRequest<Result<bool>>;
+    public record RemoveRoleFromGroupCommand(Guid GroupId, RoleToGroupRequest RemoveRoleFromGroupRequest) : IRequest<Result<bool>>;
 }

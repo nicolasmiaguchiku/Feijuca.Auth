@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Users
 {
-    public record CreateUserCommand(string Tenant, AddUserRequest AddUserRequest) : IRequest<Common.Models.Result>;
+    public record CreateUserCommand(AddUserRequest AddUserRequest) : IRequest<Common.Models.Result>;
 }

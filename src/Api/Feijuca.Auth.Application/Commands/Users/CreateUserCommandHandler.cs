@@ -11,7 +11,6 @@ namespace Feijuca.Auth.Application.Commands.Users
 
         public async Task<Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            AddTenantToRequest(request);
             var user = request.AddUserRequest.ToDomain();
             var result = await _userRepository.CreateAsync(user, cancellationToken);
 
@@ -27,11 +26,6 @@ namespace Feijuca.Auth.Application.Commands.Users
             }
 
             return Result.Failure(result.Error);
-        }
-
-        private static void AddTenantToRequest(CreateUserCommand request)
-        {
-            request.AddUserRequest.Attributes.Add("Tenant", [request.Tenant]);
         }
     }
 }

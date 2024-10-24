@@ -65,20 +65,20 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
-        [Route("{tenant}/user", Name = nameof(CreateUser))]
+        [Route("/user", Name = nameof(CreateUser))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
         [Authorize]
-        public async Task<IActionResult> CreateUser([FromRoute] string tenant, [FromBody] AddUserRequest addUserRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateUser([FromBody] AddUserRequest addUserRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new CreateUserCommand(tenant, addUserRequest), cancellationToken);
+            var result = await _mediator.Send(new CreateUserCommand(addUserRequest), cancellationToken);
 
             if (result.IsSuccess)
             {
                 var response = Result<string>.Success("User created successfully");
-                return Created($"/api/v1/users/{tenant}", response.Response);
+                return Created($"/api/v1/users", response.Response);
             }
 
             return BadRequest(result.Error);
@@ -87,7 +87,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// <summary>
         /// Deletes an existing user from the specified Keycloak realm.
         /// </summary>
-        /// <param name="tenant">The tenant identifier representing the Keycloak realm from which the user will be deleted.</param>
         /// <param name="id">The unique identifier of the user to be deleted.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
@@ -98,15 +97,15 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="400">The request was invalid or the user could not be found.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpDelete]
-        [Route("{tenant}/user/{id}", Name = nameof(DeleteUser))]
+        [Route("/user/{id}", Name = nameof(DeleteUser))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
         [Authorize]
-        public async Task<IActionResult> DeleteUser([FromRoute] string tenant, [FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteUser([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new DeleteUserCommand(tenant, id), cancellationToken);
+            var result = await _mediator.Send(new DeleteUserCommand(id), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -117,19 +116,19 @@ namespace Feijuca.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [Route("{tenant}/user/revoke-session", Name = nameof(RevokeUserSessions))]
+        [Route("/user/revoke-session", Name = nameof(RevokeUserSessions))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [RequiredRole("Feijuca.ApiWriter")]
         [Authorize]
-        public async Task<IActionResult> RevokeUserSessions([FromRoute] string tenant, [FromQuery] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> RevokeUserSessions([FromQuery] Guid id, CancellationToken cancellationToken)
         {
-            var result =  await _mediator.Send(new RevokeUserSessionsCommand(tenant, id), cancellationToken);
+            var result =  await _mediator.Send(new RevokeUserSessionsCommand(id), cancellationToken);
 
             if (result.IsSuccess)
             {
-                return Ok(new { Message = "User sessions revoked successfully." });
+                return Accepted();
             }
 
             return BadRequest(result.Error);
@@ -138,7 +137,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// <summary>
         /// Logs out a user and invalidates their session.
         /// </summary>
-        /// <param name="tenant">The tenant identifier representing the Keycloak realm from which the user will be logged out.</param>
         /// <param name="logoutUserRequest">The request containing the refresh token for the user session to be invalidated.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
@@ -149,13 +147,13 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="400">The request was invalid or the logout could not be processed.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
-        [Route("{tenant}/user/logout", Name = nameof(Logout))]
+        [Route("/user/logout", Name = nameof(Logout))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Logout([FromRoute] string tenant, [FromBody] RefreshTokenRequest logoutUserRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> Logout([FromBody] RefreshTokenRequest logoutUserRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new SignoutCommand(tenant, logoutUserRequest.RefreshToken), cancellationToken);
+            var result = await _mediator.Send(new SignoutCommand(logoutUserRequest.RefreshToken), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -168,7 +166,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// <summary>
         /// Authenticates a user and returns a valid JWT token along with user details.
         /// </summary>
-        /// <param name="tenant">The tenant identifier representing the Keycloak realm in which the user is being authenticated.</param>
         /// <param name="loginUserRequest">The request containing the user's login credentials.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
@@ -179,13 +176,13 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="400">The request was invalid, such as incorrect credentials.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
-        [Route("{tenant}/user/login", Name = nameof(Login))]
+        [Route("/user/login", Name = nameof(Login))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Login([FromRoute] string tenant, [FromBody] LoginUserRequest loginUserRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> Login([FromBody] LoginUserRequest loginUserRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new LoginCommand(tenant, loginUserRequest), cancellationToken);
+            var result = await _mediator.Send(new LoginCommand(loginUserRequest), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -199,7 +196,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// <summary>
         /// Decodes the JWT token and returns the user's details refreshed.
         /// </summary>
-        /// <param name="tenant">The tenant identifier representing the Keycloak realm associated with the user.</param>
         /// <returns>
         /// A 200 OK status code with the user's details if the token is successfully decoded; 
         /// otherwise, a 400 Bad Request status code if the token is invalid or if the user is not authenticated.
@@ -208,7 +204,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="400">The request was invalid due to an issue with the token or user authentication.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpGet]
-        [Route("{tenant}/user/decode", Name = nameof(DecodeToken))]
+        [Route("/user/decode", Name = nameof(DecodeToken))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -247,14 +243,14 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="400">The request was invalid due to an issue with the refresh token.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
-        [Route("{tenant}/user/refresh-token", Name = nameof(RefreshToken))]
+        [Route("/user/refresh-token", Name = nameof(RefreshToken))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize]
-        public async Task<IActionResult> RefreshToken([FromRoute] string tenant, [FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new RefreshTokenCommand(tenant, request.RefreshToken), cancellationToken);
+            var result = await _mediator.Send(new RefreshTokenCommand(request.RefreshToken), cancellationToken);
 
             if (result.IsSuccess)
             {

@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Users
 {
-    public record RevokeUserSessionsCommand(string tenant, Guid UserId) : IRequest<Result>;
+    public record RevokeUserSessionsCommand(Guid UserId) : IRequest<Result>;
 }

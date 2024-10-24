@@ -29,7 +29,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpGet]
-        [Route("{tenant}/roles", Name = nameof(GetRoles))]
+        [Route("/roles", Name = nameof(GetRoles))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -49,7 +49,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// <summary>
         /// Adds a new role to a client in the specified Keycloak realm.
         /// </summary>
-        /// <param name="tenant">The tenant identifier representing the Keycloak realm where the role will be added.</param>
         /// <param name="addRoleRequest">The request object containing the details of the role to be added.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
@@ -60,18 +59,18 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
-        [Route("{tenant}/role", Name = nameof(AddRole))]
+        [Route("/role", Name = nameof(AddRole))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> AddRole([FromRoute] string tenant, [FromBody] AddRoleRequest addRoleRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddRole([FromBody] AddRoleRequest addRoleRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddRoleCommand(tenant, addRoleRequest), cancellationToken);
+            var result = await _mediator.Send(new AddRoleCommand(addRoleRequest), cancellationToken);
 
             if (result.IsSuccess)
             {
-                return CreatedAtRoute(nameof(GetRoles), new { tenant }, result.Response); // Retorna 201 Created
+                return Created();
             }
 
             return BadRequest(Result<string>.Failure(result.Error));

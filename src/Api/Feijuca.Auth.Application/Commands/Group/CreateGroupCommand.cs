@@ -6,5 +6,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Group
 {
-    public record CreateGroupCommand(string Tenant, AddGroupRequest AddGroupRequest) : IRequest<Result>;
+    public record CreateGroupCommand(AddGroupRequest AddGroupRequest) : IRequest<Result>;
 }

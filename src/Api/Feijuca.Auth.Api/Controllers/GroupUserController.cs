@@ -23,13 +23,12 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 204 No Content status code if the user is successfully added to the group; 
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
-        /// <param name="tenant">The tenant identifier used to specify the Keycloak realm where the group is located.</param>
         /// <param name="addUserToGroupRequest">An object of type <see cref="T:Feijuca.Auth.Common.Models.AddUserToGroupRequest"/> containing the user and group IDs for the operation.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
         /// <response code="204">The user was successfully added to the group.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
-        [HttpPost("{tenant}/group/user", Name = nameof(AddUserToGroup))]
+        [HttpPost("/group/user", Name = nameof(AddUserToGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -62,7 +61,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="200">The users in the group were successfully retrieved.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
-        [HttpGet("{tenant}/group/user", Name = nameof(GetUsersInGroup))]
+        [HttpGet("/group/user", Name = nameof(GetUsersInGroup))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -93,7 +92,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="204">The user was successfully removed from the group.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
-        [HttpDelete("{tenant}/group/user", Name = nameof(RemoveUserFromGroup))]
+        [HttpDelete("/group/user", Name = nameof(RemoveUserFromGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

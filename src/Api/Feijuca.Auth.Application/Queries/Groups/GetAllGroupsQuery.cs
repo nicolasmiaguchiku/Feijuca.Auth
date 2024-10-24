@@ -6,5 +6,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Queries.Groups
 {
-    public record GetAllGroupsQuery(string Tenant) : IRequest<Result<IEnumerable<GroupResponse>>>;
+    public record GetAllGroupsQuery() : IRequest<Result<IEnumerable<GroupResponse>>>;
 }

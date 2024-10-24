@@ -5,18 +5,21 @@ namespace Feijuca.Auth.Infra.CrossCutting.Middlewares
 {
     public class TenantMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next = next;
-
         public async Task InvokeAsync(HttpContext context, ITenantService tenantService)
         {
-            var tenantId = context.Request.RouteValues["tenant"]?.ToString();
+            var tenantId = context.Request.Headers["Tenant"].ToString();
 
-            if (!string.IsNullOrEmpty(tenantId))
+            if (string.IsNullOrEmpty(tenantId))
             {
-                tenantService.SetTenant(tenantId);
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                context.Response.ContentType = "application/json";
+                var response = new { error = "Tenant header is required." };
+                await context.Response.WriteAsJsonAsync(response);
+                return;
             }
 
-            await _next(context);
+            tenantService.SetTenant(tenantId);
+            await next(context);
         }
     }
 }

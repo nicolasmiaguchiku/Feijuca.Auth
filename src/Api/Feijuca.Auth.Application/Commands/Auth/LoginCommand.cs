@@ -6,5 +6,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Auth
 {
-    public record LoginCommand(string Tenant, LoginUserRequest LoginUser) : IRequest<Result<TokenDetailsResponse>>;
+    public record LoginCommand(LoginUserRequest LoginUser) : IRequest<Result<TokenDetailsResponse>>;
 }

@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Auth
 {
-    public record SignoutCommand(string Tenant, string RefreshToken) : IRequest<Result<bool>>;
+    public record SignoutCommand(string RefreshToken) : IRequest<Result<bool>>;
 }

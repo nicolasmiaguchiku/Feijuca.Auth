@@ -20,13 +20,12 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 200 OK status code along with the list of clients if the operation is successful; 
         /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
         /// </returns>
-        /// <param name="tenant">The tenant identifier used to filter the clients within a specific Keycloak realm.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
         /// <response code="200">The operation was successful, and the list of clients is returned.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpGet]
-        [Route("{tenant}/clients", Name = nameof(GetClients))]
+        [Route("/clients", Name = nameof(GetClients))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

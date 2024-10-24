@@ -23,20 +23,19 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 200 OK status code along with the list of groups if the operation is successful; 
         /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
         /// </returns>
-        /// <param name="tenant">The tenant identifier used to filter the groups within a specific Keycloak realm.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
         /// <response code="200">The operation was successful, and the list of groups is returned.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpGet]
-        [Route("{tenant}/groups", Name = nameof(GetGroups))]
+        [Route("/groups", Name = nameof(GetGroups))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetGroups([FromRoute] string tenant, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetGroups(CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetAllGroupsQuery(tenant), cancellationToken);
+            var result = await _mediator.Send(new GetAllGroupsQuery(), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -54,21 +53,20 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 204 No Content status code if the group was successfully deleted; 
         /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
         /// </returns>
-        /// <param name="tenant">The tenant identifier used to locate the group within a specific Keycloak realm.</param>
         /// <param name="id">The unique identifier of the group to be deleted.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
         /// <response code="204">The group was successfully deleted.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpDelete]
-        [Route("{tenant}/group/{id}", Name = nameof(DeleteGroup))]
+        [Route("/group/{id}", Name = nameof(DeleteGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> DeleteGroup([FromRoute] string tenant, [FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteGroup([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new DeleteGroupCommand(tenant, id), cancellationToken);
+            var result = await _mediator.Send(new DeleteGroupCommand(id), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -86,21 +84,20 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 201 Created status code along with a success message if the group is successfully created; 
         /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
         /// </returns>
-        /// <param name="tenant">The tenant identifier used to specify the Keycloak realm where the group will be created.</param>
         /// <param name="addGroupRequest">An object of type <see cref="T:Feijuca.Auth.Common.Models.AddGroupRequest"/> containing the details of the group to be created.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
         /// <response code="201">The group was successfully created.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpPost]
-        [Route("{tenant}/group", Name = nameof(CreateGroup))]
+        [Route("/group", Name = nameof(CreateGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> CreateGroup([FromRoute] string tenant, [FromBody] AddGroupRequest addGroupRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateGroup([FromBody] AddGroupRequest addGroupRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new CreateGroupCommand(tenant, addGroupRequest), cancellationToken);
+            var result = await _mediator.Send(new CreateGroupCommand(addGroupRequest), cancellationToken);
 
             if (result.IsSuccess)
             {

@@ -6,5 +6,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Role
 {
-    public record AddRoleCommand(string Tenant, AddRoleRequest AddRoleRequest) : IRequest<Result<bool>>;
+    public record AddRoleCommand(AddRoleRequest AddRoleRequest) : IRequest<Result<bool>>;
 }

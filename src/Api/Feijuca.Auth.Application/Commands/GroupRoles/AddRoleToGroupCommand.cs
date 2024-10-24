@@ -6,5 +6,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.GroupRoles
 {
-    public record AddRoleToGroupCommand(string Tenant, Guid GroupId, RoleToGroupRequest AddRoleToGroupRequest) : IRequest<Result<bool>>;
+    public record AddRoleToGroupCommand(Guid GroupId, RoleToGroupRequest AddRoleToGroupRequest) : IRequest<Result<bool>>;
 }
