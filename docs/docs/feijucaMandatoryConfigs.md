@@ -4,26 +4,40 @@ To take full advantage of the various endpoints provided by **Feijuca.Auth.Api**
 
 ---
 
+### Configuration - General overview
+
+**Feijuca.Auth.Api** needs some information about the realm you created in **Keycloak** in the previous step.
+
+To store this realm information, we chose **MongoDB** as the data repository, given its flexibility and ease of configuration.
+
+💡 **It is important to remember that this instance belongs to you** — we only expect you to define the connection string. **Feijuca.Auth.Api** only uses the data provided to authenticate with Keycloak. 🔐
+
+### Contributing with a Different Database
+
+However, if you want to extend the project and use a different database, feel free to open a **[Pull Request](https://github.com/coderaw-io/Feijuca.Auth/pulls)** to contribute your custom solution! 🚀
+
+---
+
 ## ⚙️ Step 1: Setting up mongoDB connection string
 
 The first configuration you need to provide is the **MongoDB connection string**. This will enable you to store and manage the Keycloak realm settings.
 
-Since **Feijuca.Auth.Api** is Docker-supported, we suggest pulling the Docker image and defining the connection URL using an environment variable. Run the following command:
-
-```bash
-docker run -e ConnectionString="mongodb://admin:mysecretpassword@mongodb.local:27017/mydatabase" coderaw/feijuca-auth-api:latest
-```
-
 > **Tip**: If you don't have a MongoDB instance set up, you can create a free mongoDB server on [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database).
 
-## 📂 Why Feijuca.Auth.Api use mongoDB?
+---
+## 🐳 Step 2: Running Feijuca.Auth.Api with Docker
 
-We chose MongoDB as the initial data repository for to store the realm configurations, given its flexibility and ease of setup. We use a database only for store the realm config that is necessary to authenticate with Keycloak.
-Is good remember that this instance belongs to you, you have only set the connection string. Feijuca.Auth has no access directly to your data!
+Once your MongoDB instance is ready, you can run **Feijuca.Auth.Api** using Docker. You need to pass the MongoDB connection string as an environment variable to ensure the API can communicate with the database.
 
-However, if you want to extend the project and use a different database, feel free to open a **Pull Request (PR)** to contribute your custom solution!
+Run the following command to start the API:
 
-## 🛠️ Step 2: Inserting the realm configuration
+```bash
+docker run -e ConnectionString="mongodb://<username>:<password>@<host>:<port>" coderaw/feijuca-auth-api:latest
+```
+
+---
+
+## 🛠️ Step 3: Inserting the realm configuration
 
 Once your Docker container is up and running with the correct configuration, you're ready to insert your Keycloak realm configuration.
 
@@ -48,10 +62,10 @@ To do this, send an **HTTP POST** request to the `/api/v1/config` endpoint, with
 }
 ```
 
-## 🔐 Step 3: Using the API
+## Every configs necessary thing is done! 🔐✅
 
 After completing the configuration, you’ll be ready to access all endpoints and easily manage the various instances a Keycloak realm offers. You can now begin managing users, groups, roles, and more.
 
-## 🚧 Next step: Creating users [here](/docs/creatingUsers.html).
+## 👨‍🔧 Ready to the next steps? [Creating users](/docs/creatingUsers.html).
 
 
