@@ -17,8 +17,18 @@ namespace Feijuca.Auth.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         /// <summary>
-        /// Add a role to a specific group in the realm.
+        /// Adds a role to a specific group in the specified Keycloak realm.
         /// </summary>
+        /// <returns>
+        /// A 201 Created status code if the role is successfully added to the group; 
+        /// otherwise, a 400 Bad Request status code with an error message.
+        /// </returns>
+        /// <param name="tenant">The tenant identifier used to specify the Keycloak realm where the group is located.</param>
+        /// <param name="id">The unique identifier of the group to which the role will be added.</param>
+        /// <param name="addRoleToGroup">An object of type <see cref="T:Feijuca.Auth.Common.Models.RoleToGroupRequest"/> containing the details of the role to be added to the group.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
+        /// <response code="201">The role was successfully added to the group.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
         [HttpPost("{tenant}/group/{id}/role", Name = nameof(AddRoleToGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -40,8 +50,18 @@ namespace Feijuca.Auth.Api.Controllers
         }
 
         /// <summary>
-        /// Remove a role from a specific group in the Keycloak realm.
+        /// Removes a role from a specific group in the specified Keycloak realm.
         /// </summary>
+        /// <returns>
+        /// A 204 No Content status code if the role is successfully removed from the group; 
+        /// otherwise, a 400 Bad Request status code with an error message.
+        /// </returns>
+        /// <param name="tenant">The tenant identifier used to specify the Keycloak realm where the group is located.</param>
+        /// <param name="groupid">The unique identifier of the group from which the role will be removed.</param>
+        /// <param name="roleid">The unique identifier of the role to be removed from the group.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
+        /// <response code="204">The role was successfully removed from the group.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
         [HttpDelete("{tenant}/group/{groupid}/role/{roleid}", Name = nameof(RemoveRoleFromGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -64,8 +84,17 @@ namespace Feijuca.Auth.Api.Controllers
         }
 
         /// <summary>
-        /// Get roles associated with a group.
+        /// Retrieves the roles associated with a specific group in the specified Keycloak realm.
         /// </summary>
+        /// <returns>
+        /// A 200 OK status code with a list of roles associated with the group; 
+        /// otherwise, a 400 Bad Request status code with an error message.
+        /// </returns>
+        /// <param name="tenant">The tenant identifier used to specify the Keycloak realm where the group is located.</param>
+        /// <param name="id">The unique identifier of the group whose roles are being retrieved.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
+        /// <response code="200">The roles associated with the group were successfully retrieved.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
         [HttpGet("{tenant}/group/{id}/roles", Name = nameof(GetGroupRoles))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

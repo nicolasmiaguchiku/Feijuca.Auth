@@ -17,9 +17,17 @@ namespace Feijuca.Auth.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         /// <summary>
-        /// Get all groups existing on the Keycloak realm.
+        /// Retrieves all groups that exist within a specified Keycloak realm for the given tenant.
         /// </summary>
-        /// <returns>A status code related to the operation.</returns>
+        /// <returns>
+        /// A 200 OK status code along with the list of groups if the operation is successful; 
+        /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
+        /// </returns>
+        /// <param name="tenant">The tenant identifier used to filter the groups within a specific Keycloak realm.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
+        /// <response code="200">The operation was successful, and the list of groups is returned.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpGet]
         [Route("{tenant}/groups", Name = nameof(GetGroups))]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -40,9 +48,18 @@ namespace Feijuca.Auth.Api.Controllers
         }
 
         /// <summary>
-        /// Delete an existing group on the realm.
+        /// Deletes an existing group from the specified Keycloak realm.
         /// </summary>
-        /// <returns>A status code related to the operation.</returns>
+        /// <returns>
+        /// A 204 No Content status code if the group was successfully deleted; 
+        /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
+        /// </returns>
+        /// <param name="tenant">The tenant identifier used to locate the group within a specific Keycloak realm.</param>
+        /// <param name="id">The unique identifier of the group to be deleted.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
+        /// <response code="204">The group was successfully deleted.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpDelete]
         [Route("{tenant}/group/{id}", Name = nameof(DeleteGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -63,9 +80,18 @@ namespace Feijuca.Auth.Api.Controllers
         }
 
         /// <summary>
-        /// Add a new group on the realm.
+        /// Adds a new group to the specified Keycloak realm.
         /// </summary>
-        /// <returns>A status code related to the operation.</returns>
+        /// <returns>
+        /// A 201 Created status code along with a success message if the group is successfully created; 
+        /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
+        /// </returns>
+        /// <param name="tenant">The tenant identifier used to specify the Keycloak realm where the group will be created.</param>
+        /// <param name="addGroupRequest">An object of type <see cref="T:Feijuca.Auth.Common.Models.AddGroupRequest"/> containing the details of the group to be created.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
+        /// <response code="201">The group was successfully created.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpPost]
         [Route("{tenant}/group", Name = nameof(CreateGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
