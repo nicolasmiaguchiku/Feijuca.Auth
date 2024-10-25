@@ -17,7 +17,7 @@ namespace Feijuca.Auth.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         /// <summary>
-        /// Retrieves all groups that exist within a specified Keycloak realm for the given tenant.
+        /// Returns all groups registered in the realm
         /// </summary>
         /// <returns>
         /// A 200 OK status code along with the list of groups if the operation is successful; 
