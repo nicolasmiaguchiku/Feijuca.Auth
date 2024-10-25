@@ -14,7 +14,7 @@ namespace Feijuca.Auth.Api.Controllers
     {
         private readonly IMediator _mediator = mediator;
         /// <summary>
-        /// Retrieves all clients that exist within a specified Keycloak realm for the given tenant.
+        /// Recovers all clients registered in the realm.
         /// </summary>
         /// <returns>
         /// A 200 OK status code along with the list of clients if the operation is successful; 
