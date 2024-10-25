@@ -33,11 +33,10 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> AddUserToGroup([FromRoute] string tenant,
-            [FromBody] AddUserToGroupRequest addUserToGroupRequest,
+        public async Task<IActionResult> AddUserToGroup([FromBody] AddUserToGroupRequest addUserToGroupRequest,
             CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddUserToGroupCommand(tenant, addUserToGroupRequest.UserId, addUserToGroupRequest.GroupId), cancellationToken);
+            var result = await _mediator.Send(new AddUserToGroupCommand(addUserToGroupRequest.UserId, addUserToGroupRequest.GroupId), cancellationToken);
 
             if (result.IsSuccess)
             {
