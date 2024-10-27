@@ -212,7 +212,7 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize]
-        public IActionResult DecodeToken(string tenant)
+        public IActionResult DecodeToken()
         {
             if (HttpContext.User.Identity is not ClaimsIdentity identity)
             {
@@ -226,8 +226,9 @@ namespace Feijuca.Auth.Api.Controllers
 
             var nameParts = fullName.Split(' ');
             var firstName = nameParts.FirstOrDefault();
-            var lastName = nameParts.Length > 1 ? nameParts[^1] : null;
+            var lastName = nameParts.Length > 1 ? nameParts[^1] : "";
 
+            var tenant = HttpContext.Request.Headers["Tenant"].ToString();
             var userResponse = new UserResponse(Guid.Parse(userId), username, email, firstName!, lastName!, tenant);
             return Ok(userResponse);
         }
