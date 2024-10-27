@@ -54,7 +54,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 200 OK status code with a list of users in the group; 
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
-        /// <param name="tenant">The tenant identifier used to specify the Keycloak realm where the group is located.</param>
         /// <param name="usersGroup">An object of type <see cref="T:Feijuca.Auth.Common.Models.GetUsersGroupRequest"/> containing the necessary parameters to filter users in the group.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
         /// <response code="200">The users in the group were successfully retrieved.</response>
@@ -65,9 +64,9 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetUsersInGroup([FromRoute] string tenant, [FromQuery] GetUsersGroupRequest usersGroup, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsersInGroup([FromQuery] GetUsersGroupRequest usersGroup, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetUsersGroupQuery(tenant, usersGroup), cancellationToken);
+            var result = await _mediator.Send(new GetUsersGroupQuery(usersGroup), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -85,7 +84,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 204 No Content status code if the user is successfully removed from the group; 
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
-        /// <param name="tenant">The tenant identifier used to specify the Keycloak realm where the group is located.</param>
         /// <param name="removeUserFromGroup">An object of type <see cref="T:Feijuca.Auth.Common.Models.RemoveUserFromGroupRequest"/> containing the user ID and group ID for the operation.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
         /// <response code="204">The user was successfully removed from the group.</response>
@@ -96,11 +94,9 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> RemoveUserFromGroup([FromRoute] string tenant,
-            [FromBody] RemoveUserFromGroupRequest removeUserFromGroup,
-            CancellationToken cancellationToken)
+        public async Task<IActionResult> RemoveUserFromGroup([FromBody] RemoveUserFromGroupRequest removeUserFromGroup, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new RemoveUserFromGroupCommand(tenant, removeUserFromGroup.UserId, removeUserFromGroup.GroupId), cancellationToken);
+            var result = await _mediator.Send(new RemoveUserFromGroupCommand(removeUserFromGroup.UserId, removeUserFromGroup.GroupId), cancellationToken);
 
             if (result.IsSuccess)
             {

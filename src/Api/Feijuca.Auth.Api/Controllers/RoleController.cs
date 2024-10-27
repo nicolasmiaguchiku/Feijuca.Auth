@@ -34,9 +34,9 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetRoles([FromRoute] string tenant, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetRoles(CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetRolesQuery(tenant), cancellationToken);
+            var result = await _mediator.Send(new GetRolesQuery(), cancellationToken);
 
             if (result.IsSuccess)
             {
