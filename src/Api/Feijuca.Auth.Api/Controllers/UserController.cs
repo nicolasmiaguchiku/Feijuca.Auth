@@ -33,7 +33,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpGet]
-        [Route("{tenant}/users", Name = nameof(GetUsers))]
+        [Route("/users", Name = nameof(GetUsers))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
