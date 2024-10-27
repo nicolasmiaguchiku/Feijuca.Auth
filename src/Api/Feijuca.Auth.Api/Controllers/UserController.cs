@@ -21,7 +21,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// <summary>
         /// Retrieves all users existing in the specified Keycloak realm.
         /// </summary>
-        /// <param name="tenant">The tenant identifier representing the Keycloak realm from which to retrieve users.</param>
         /// <param name="getUsersRequest">The request object containing filtering and pagination parameters for user retrieval.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
