@@ -4,7 +4,7 @@ using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
 
-namespace Feijuca.Auth.Application.Commands.Auth
+namespace Feijuca.Auth.Application.Commands.Users
 {
     public class LoginCommandHandler(ILoginService loginService) : IRequestHandler<LoginCommand, Result<TokenDetailsResponse>>
     {
@@ -13,12 +13,8 @@ namespace Feijuca.Auth.Application.Commands.Auth
         public async Task<Result<TokenDetailsResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var result = await _loginService.LoginAsync(request.LoginUser.RevokeActiveSessions, request.LoginUser.Username, request.LoginUser.Password, cancellationToken);
-            if (result.IsSuccess)
-            {
-                return Result<TokenDetailsResponse>.Success(result.Response.ToTokenDetailResponse());
-            }
-
-            return Result<TokenDetailsResponse>.Failure(result.Error);
+            
+            return result.IsSuccess ? Result<TokenDetailsResponse>.Success(result.Response.ToTokenDetailResponse()) : Result<TokenDetailsResponse>.Failure(result.Error);
         }
     }
 }

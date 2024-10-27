@@ -4,7 +4,7 @@ using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
 
-namespace Feijuca.Auth.Application.Commands.Auth
+namespace Feijuca.Auth.Application.Commands.Users
 {
     public class RefreshTokenCommandHandler(IUserRepository userRepository) : IRequestHandler<RefreshTokenCommand, Result<TokenDetailsResponse>>
     {

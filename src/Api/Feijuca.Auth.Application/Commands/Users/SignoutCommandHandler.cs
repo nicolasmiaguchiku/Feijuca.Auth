@@ -3,7 +3,7 @@ using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
 
-namespace Feijuca.Auth.Application.Commands.Auth
+namespace Feijuca.Auth.Application.Commands.Users
 {
     public class SignoutCommandHandler(IUserRepository userRepository) : IRequestHandler<SignoutCommand, Result<bool>>
     {

@@ -7,5 +7,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Queries.Users
 {
-    public record GetUsersQuery(string Tenant, GetUsersRequest GetUsersRequest) : IRequest<Result<PagedResult<UserResponse>>>;
+    public record GetUsersQuery(GetUsersRequest GetUsersRequest) : IRequest<Result<PagedResult<UserResponse>>>;
 }

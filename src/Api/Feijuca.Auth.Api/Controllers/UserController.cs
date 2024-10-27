@@ -1,5 +1,4 @@
-﻿using Feijuca.Auth.Application.Commands.Auth;
-using Feijuca.Auth.Application.Commands.Users;
+﻿using Feijuca.Auth.Application.Commands.Users;
 using Feijuca.Auth.Application.Queries.Users;
 using Feijuca.Auth.Application.Requests.Auth;
 using Feijuca.Auth.Application.Requests.User;
@@ -39,10 +38,9 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetUsers([FromRoute] string tenant,
-            [FromQuery] GetUsersRequest getUsersRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsers([FromQuery] GetUsersRequest getUsersRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetUsersQuery(tenant, getUsersRequest), cancellationToken);
+            var result = await _mediator.Send(new GetUsersQuery(getUsersRequest), cancellationToken);
 
             if (result.IsSuccess)
             {
