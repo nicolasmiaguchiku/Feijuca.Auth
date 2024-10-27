@@ -197,7 +197,7 @@ namespace Feijuca.Auth.Api.Controllers
         }
 
         /// <summary>
-        /// Decodes the JWT token and returns the user's details refreshed.
+        /// Decodes the JWT token and returns the details related to the user logged.
         /// </summary>
         /// <returns>
         /// A 200 OK status code with the user's details if the token is successfully decoded; 
