@@ -207,7 +207,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="400">The request was invalid due to an issue with the token or user authentication.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpGet]
-        [Route("/user/decode", Name = nameof(DecodeToken))]
+        [Route("/user/decode-token", Name = nameof(DecodeToken))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -219,7 +219,7 @@ namespace Feijuca.Auth.Api.Controllers
                 return BadRequest();
             }
 
-            var usuarioId = identity.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+            var userId = identity.FindFirst(ClaimTypes.NameIdentifier)!.Value;
             var username = identity.FindFirst("preferred_username")!.Value;
             var email = identity.FindFirst(ClaimTypes.Email)!.Value;
             var fullName = identity.FindFirst("name")!.Value;
@@ -228,7 +228,7 @@ namespace Feijuca.Auth.Api.Controllers
             var firstName = nameParts.FirstOrDefault();
             var lastName = nameParts.Length > 1 ? nameParts[^1] : null;
 
-            var userResponse = new UserResponse(Guid.Parse(usuarioId), username, email, firstName!, lastName!, tenant);
+            var userResponse = new UserResponse(Guid.Parse(userId), username, email, firstName!, lastName!, tenant);
             return Ok(userResponse);
         }
 
