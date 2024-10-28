@@ -34,4 +34,8 @@
     <ProjectReference Include="..\..\src\Api\Feijuca.Auth.Domain\Feijuca.Auth.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Command\Permissions\" />
+  </ItemGroup>
+
 </Project>
