@@ -247,7 +247,6 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request,
             CancellationToken cancellationToken)
         {
