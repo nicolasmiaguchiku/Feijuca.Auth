@@ -1,4 +1,4 @@
-## 🎉 What is [**Feijuca.Auth**](https://github.com/coderaw-io/Feijuca.Auth)?
+### 🎉 What is [**Feijuca.Auth**](https://github.com/coderaw-io/Feijuca.Auth)?
 **Feijuca.Auth** is a comprehensive solution designed to simplify integration with Keycloak, providing both a NuGet package and an API to streamline authentication, authorization, access control management and RBAC.
 
 **Feijuca** is a nickname for **Feijoada**. The name was inspired by the iconic Brazilian dish [Feijoada](https://theculturetrip.com/south-america/brazil/articles/a-brief-introduction-to-feijoada-brazils-national-dish), the name reflects our Brazilian roots and cultural heritage.
@@ -26,7 +26,7 @@ Together, these components of **Feijuca.Auth** aim to reduce the complexity of w
 
 ---
 
-## 🙌 Contributors
+### 🙌 Contributors
 
 Meet the amazing people who helped build **Feijuca.Auth**! Connect with them on LinkedIn:
 
