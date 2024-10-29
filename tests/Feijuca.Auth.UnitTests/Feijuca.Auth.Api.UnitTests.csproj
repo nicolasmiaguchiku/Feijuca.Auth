@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Command\Permissions\**" />
+    <EmbeddedResource Remove="Command\Permissions\**" />
+    <None Remove="Command\Permissions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.18.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
@@ -32,10 +38,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Api\Feijuca.Auth.Application\Feijuca.Auth.Application.csproj" />
     <ProjectReference Include="..\..\src\Api\Feijuca.Auth.Domain\Feijuca.Auth.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Command\Permissions\" />
   </ItemGroup>
 
 </Project>
