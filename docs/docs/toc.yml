@@ -12,18 +12,26 @@
         - name: Mandatory configs - Feijuca.Auth.Api
           href: feijucaMandatoryConfigs.md        
     - name: Handling Users
-      href: configuringApplicationSingleTenancy.md
+      href: creatingUsers.md
       items:
         - name: Getting users
-          href: configuringApplicationTokenManager.md
+          href: gettingUsers.md
         - name: Creating user
-          href: configuringApplicationTokenManager.md
+          href: creatingUsers.md
         - name: Deleting user
-          href: configuringApplicationTokenManager.md
-        - name: Generating JWT token
-          href: configuringApplicationTokenManager.md
+          href: deletingUsers.md
+        - name: Login - JWT token generation
+          href: loginUser.md
+        - name: Logout user
+          href: logoutUser.md
         - name: Revoke sessions
-          href: configuringApplicationTokenManager.md
+          href: revokeUserSessions.md
+        - name: Decode token
+          href: decodeToken.md
+        - name: Decode token
+          href: decodeToken.md
+        - name: Refresh token
+          href: refreshToken.md
     - name: Handling Groups
       href: configuringApplicationTokenManager.md      
       items:
