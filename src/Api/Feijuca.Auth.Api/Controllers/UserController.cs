@@ -24,7 +24,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="getUsersRequest">The request object containing filtering and pagination parameters for user retrieval.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
-        /// A 200 OK status code with the list of users if the operation is successful; 
+        /// A 200 OK status code with the list of users if the operation is successful;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <response code="200">The list of users was retrieved successfully.</response>
@@ -55,7 +55,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="addUserRequest">The request object containing the necessary details to create the user.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
-        /// A 201 Created status code if the user is successfully created; 
+        /// A 201 Created status code if the user is successfully created;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <response code="201">The user was created successfully.</response>
@@ -88,7 +88,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="id">The unique identifier of the user to be deleted.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
-        /// A 204 No Content status code if the user is successfully deleted; 
+        /// A 204 No Content status code if the user is successfully deleted;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <response code="204">The user was deleted successfully.</response>
@@ -138,7 +138,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="logoutUserRequest">The request containing the refresh token for the user session to be invalidated.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
-        /// A 200 OK status code if the logout is successful; 
+        /// A 200 OK status code if the logout is successful;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <response code="200">The logout was successful.</response>
@@ -168,7 +168,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="loginUserRequest">The request containing the user's login credentials.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
-        /// A 200 OK status code if the authentication is successful, along with the JWT token and user details; 
+        /// A 200 OK status code if the authentication is successful, along with the JWT token and user details;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <response code="200">Authentication was successful, and the JWT token and user details are returned.</response>
@@ -197,7 +197,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// Decodes the JWT token and returns the details related to the user logged.
         /// </summary>
         /// <returns>
-        /// A 200 OK status code with the user's details if the token is successfully decoded; 
+        /// A 200 OK status code with the user's details if the token is successfully decoded;
         /// otherwise, a 400 Bad Request status code if the token is invalid or if the user is not authenticated.
         /// </returns>
         /// <response code="200">The token was successfully decoded, returning user details.</response>
@@ -236,7 +236,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="request">The request containing the refresh token.</param>
         /// <param name="cancellationToken">A token that can be used to signal cancellation of the operation.</param>
         /// <returns>
-        /// A 200 OK status code with the new token and user details if the refresh operation is successful; 
+        /// A 200 OK status code with the new token and user details if the refresh operation is successful;
         /// otherwise, a 400 Bad Request status code if the refresh token is invalid or expired.
         /// </returns>
         /// <response code="200">The refresh operation was successful, returning a new token and user details.</response>
