@@ -7,8 +7,8 @@ namespace Feijuca.Auth.Api.UnitTests.Validators
 {
     public class LoginUserRequestValidatorTests
     {
-        private readonly IFixture _fixture = new Fixture();
-        private LoginUserRequestValidator _loginUserRequestValidator = new();
+        private readonly Fixture _fixture = new();
+        private readonly LoginUserRequestValidator _loginUserRequestValidator = new();
 
         [Fact]
         public void Given_NullAndEmptyUsername_WhenValidatingRequest_Then_ReturnsError()

@@ -23,7 +23,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 200 OK status code containing a list of roles if the request is successful; 
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
-        /// <param name="tenant">The tenant identifier representing the Keycloak realm to query roles from.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <response code="200">A list of roles associated with the clients in the specified realm.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
