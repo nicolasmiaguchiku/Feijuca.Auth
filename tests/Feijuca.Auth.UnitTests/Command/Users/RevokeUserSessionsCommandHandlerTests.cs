@@ -6,7 +6,7 @@ using Feijuca.Auth.Domain.Interfaces;
 using FluentAssertions;
 using Moq;
 
-namespace Feijuca.Auth.Api.UnitTests.Command
+namespace Feijuca.Auth.Api.UnitTests.Command.Users
 {
     public class RevokeUserSessionsCommandHandlerTests
     {

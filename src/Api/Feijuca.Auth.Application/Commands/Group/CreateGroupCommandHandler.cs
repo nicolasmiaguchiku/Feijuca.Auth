@@ -1,21 +1,22 @@
-﻿using Feijuca.Auth.Domain.Interfaces;
+﻿using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Group
 {
-    public class CreateGroupCommandHandler(IGroupRepository groupRepository) : IRequestHandler<CreateGroupCommand, Common.Models.Result>
+    public class CreateGroupCommandHandler(IGroupRepository groupRepository) : IRequestHandler<CreateGroupCommand, Result>
     {
         private readonly IGroupRepository _groupRepository = groupRepository;
 
-        public async Task<Common.Models.Result> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
         {
             var result = await _groupRepository.CreateAsync(request.AddGroupRequest.Name, request.AddGroupRequest.Attributes, cancellationToken);
             if (result.IsSuccess)
             {
-                return Common.Models.Result.Success();
+                return Result.Success();
             }
 
-            return Common.Models.Result.Failure(result.Error);
+            return Result.Failure(result.Error);
         }
     }
 }
