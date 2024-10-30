@@ -1,4 +1,4 @@
-## 🔑 Configuring permissions in Keycloak for API Integration
+### 🔑 Configuring permissions in Keycloak for API Integration
 
 In order for your API to perform operations such as creating users, groups, realms, clients, roles, group roles, and more in Keycloak, you need to configure the appropriate permissions in the realm. This configuration is done by granting specific permissions to the **Service Account** associated with the client your API uses. Follow the steps below:
 
