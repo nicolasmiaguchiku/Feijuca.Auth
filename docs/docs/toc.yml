@@ -12,7 +12,7 @@
         - name: Mandatory configs - Feijuca.Auth.Api
           href: feijucaMandatoryConfigs.md        
     - name: Handling Users
-      href: creatingUsers.md
+      href: gettingUsers.md
       items:
         - name: Getting users
           href: gettingUsers.md
