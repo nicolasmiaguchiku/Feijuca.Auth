@@ -42,6 +42,9 @@ docker run -e ConnectionString="mongodb://<username>:<password>@<host>:<port>" c
 Once your Docker container is up and running with the correct configuration, you're ready to insert your Keycloak realm configuration.
 To insert the realm configuration, send an **HTTP POST** request to the `/api/v1/config` endpoint, with the following JSON body:
 
+##### Endpoint definition
+![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/bcpw5t2krnbqyfkvchnp.jpg "Endpoint definition")
+
 ##### POST
 ##### /api/v1/config
 ##### Summary:
@@ -91,9 +94,6 @@ Inserts a new configuration into the system.
 | 201 | The configuration was successfully inserted. |
 | 400 | The request was invalid or could not be processed. |
 | 500 | An internal server error occurred during the processing of the request. |
-
-##### Endpoint definition
-![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/bcpw5t2krnbqyfkvchnp.jpg "Endpoint definition")
 
 ---
 
