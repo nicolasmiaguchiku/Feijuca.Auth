@@ -1,4 +1,4 @@
-## 🚀 Configuration for Keycloak Integration
+### 🚀 Configuration for Keycloak Integration
 
 To take full advantage of the various endpoints provided by **Feijuca.Auth.Api**, a quick configuration is required to input details about your Keycloak realm. These configurations are crucial because they allow **Feijuca.Auth.Api** to authenticate and retrieve permission tokens to manage users, groups, roles, and much more.
 
@@ -41,6 +41,9 @@ docker run -e ConnectionString="mongodb://<username>:<password>@<host>:<port>" c
 
 Once your Docker container is up and running with the correct configuration, you're ready to insert your Keycloak realm configuration.
 To insert the realm configuration, send an **HTTP POST** request to the `/api/v1/config` endpoint, with the following JSON body:
+
+##### Endpoint definition
+![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/bcpw5t2krnbqyfkvchnp.jpg "Endpoint definition")
 
 ##### POST
 ##### /api/v1/config
@@ -92,12 +95,12 @@ Inserts a new configuration into the system.
 | 400 | The request was invalid or could not be processed. |
 | 500 | An internal server error occurred during the processing of the request. |
 
-##### Endpoint definition
-![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/bcpw5t2krnbqyfkvchnp.jpg "Endpoint definition")
-
 ---
 
 ### ✅️ Step 4: Confirming if your changes was applied
+
+##### Endpoint definition
+![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/gxxou30f5dmp5sb7mfwp.jpg "Endpoint definition")
 
 ##### GET
 ##### Summary:
@@ -117,9 +120,6 @@ Retrieves the existing configuration settings.
 | 200 | The operation was successful, and the configuration settings are returned. |
 | 400 | The request was invalid or could not be processed. |
 | 500 | An internal server error occurred during the processing of the request. |
-
-##### Endpoint definition
-![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/gxxou30f5dmp5sb7mfwp.jpg "Endpoint definition")
 
 ---
 

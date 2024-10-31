@@ -1,53 +1,20 @@
-## 🚀 Configuration for Keycloak Integration
-
-To take full advantage of the various endpoints provided by **Feijuca.Auth.Api**, a quick configuration is required to input details about your Keycloak realm. These configurations are crucial because they allow **Feijuca.Auth.Api** to authenticate and retrieve permission tokens to manage users, groups, roles, and much more.
-
----
-
-### Configuration - General overview
-
-**Feijuca.Auth.Api** needs some information about the realm you created in **Keycloak** in the previous step.
-
-To store this realm information, we chose **MongoDB** as the data repository, given its flexibility and ease of configuration.
-
-💡 **It is important to remember that this instance belongs to you** — we only expect you to define the connection string. **Feijuca.Auth.Api** only uses the data provided to authenticate with Keycloak. 🔐
-
-### Contributing with a Different Database
-
-However, if you want to extend the project and use a different database, feel free to open a **[Pull Request](https://github.com/coderaw-io/Feijuca.Auth/pulls)** to contribute your custom solution! 🚀
-
----
-
-### ⚙️ Step 1: Setting up mongoDB connection string
-
-The first configuration you need to provide is the **MongoDB connection string**. This will enable you to store and manage the Keycloak realm settings.
-
-> **Tip**: If you don't have a MongoDB instance set up, you can create a free mongoDB server on [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database).
-
----
-### 🐳 Step 2: Running Feijuca.Auth.Api with Docker
-
-Once your MongoDB instance is ready, you can run **Feijuca.Auth.Api** using Docker. You need to pass the MongoDB connection string as an environment variable to ensure the API can communicate with the database.
-
-Run the following command to start the API:
-
-```bash
-docker run -e ConnectionString="mongodb://<username>:<password>@<host>:<port>" coderaw/feijuca-auth-api:latest
-```
-
----
-
-### 🛠️ Step 3: Inserting the realm configuration
-
-Once your Docker container is up and running with the correct configuration, you're ready to insert your Keycloak realm configuration.
-To insert the realm configuration, send an **HTTP POST** request to the `/api/v1/config` endpoint, with the following JSON body:
+### ⚙️ Endpoint specification  
 
 ##### POST
-##### /api/v1/config
+##### /user
 ##### Summary:
 
-Inserts a new configuration into the system.
+Add a new user to the specified Keycloak realm. (**Remind that the realm is identified by the tenant header**)
 
+##### Responses
+| Code | Description |
+| ---- | ----------- |
+| 201 | The operation was successful, and the new user was created. |
+| 400 | The request was invalid or could not be processed. |
+| 401 | The request lacks valid authentication credentials. |
+| 403 | The request was understood, but the server is refusing to fulfill it due to insufficient permissions. |
+| 500 | An internal server error occurred during the processing of the request. |
+    
 ##### Header
 
 | Name | Located in | Description | Required | Schema |
@@ -58,76 +25,81 @@ Inserts a new configuration into the system.
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
-| Client | body | The client id related to the client that was created to manage operations in the realm. | Yes | string |
-| Secret | body | The client secret related to the client that was created to manage operations in the realm. | Yes | string |
-| Server settings | body | The url where you keycloak is running. | Yes | string |
-| Realm | body | The realm name (if you wanna use multitenancy concept, inform an array of this object), the audience name configured previosly and the issuer| Yes | object |
+| Username | body | The username related to the new user that will be created. | Yes | string |
+| Password | body | The password related to the new user that will be created. | Yes | string |
+| Email | body | The e-mail related to the new user that will be created. | Yes | string |
+| FirstName | body | The first name related to the new user that will be created.| Yes | string |
+| LastName | body | The last name related to the new user that will be created.| Yes | string |
+| Attributes | body | The attributes that will be inserted on the new user that was created| No | Object |
 
-##### Body example
+#### Body example
 
 ```json
 {  
-  "client": {
-    "clientId": "your-client-id"
-  },
-  "secrets": {
-    "clientSecret": "your-client-secret"
-  },
-  "serverSettings": {
-    "url": "your-keycloak-url (from example https://localhost:8079)"
-  },
-  "realm": {
-    "name": "realm-name",
-    "audience": "audience-name",
-    "issuer": "same-url-defined-above/realms/realm-name-defined-above"
+  "username": "string",
+  "password": "string",
+  "email": "string",
+  "firstName": "string",
+  "lastName": "string",
+  "attributes": {
+	  "additionalProp1": [
+		  "string"
+	  ],
+	  "additionalProp1": [
+		  "string"
+	  ],
+	  "additionalProp1": [
+		  "string"
+	  ]    
+   }
+}
+```
+	
+##### Definition
+![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/qaa8tdwzt3ub4vkrcvbc.jpg "Endpoint definition")   
+
+
+### 📝 How to Use the Endpoint
+
+1. **Tenant Identification**:
+   - The term *tenant* in Feijuca represents the **realm name** within Keycloak where you’ll be performing actions.
+   - You must specify the tenant name in the **HTTP header** to proceed.
+
+
+2. **Body**:
+   - After setting up the header, inform a valid body to insert a user. Example:  
+
+	```json
+	{  
+	  "username": "test",
+	  "password": "123456",
+	  "email": "test@test.com",
+	  "firstName": "Test Firstname",
+	  "lastName": "Test Lastname",
+	  "attributes": {
+		"tenant": [
+			"smartconsig"
+			]
+		}
+	}
+	
+	```
+---
+
+### 📝 Reminder
+
+The attributes property is not mandatory, but if you wanna configure some attribute to your user, you can defined it using this field.
+An example about how attribute works, could be found below:
+
+![Attributes definition](https://res.cloudinary.com/dbyrluup1/image/upload/e2l4wkakcb1rgrwcxrfp.jpg "Attributes definition")   
+
+The JSON used to created this attribute was:
+
+```json
+"attributes": {
+    "tenant": [
+      "smartconsig"
+    ]
   }
 }
 ```
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 201 | The configuration was successfully inserted. |
-| 400 | The request was invalid or could not be processed. |
-| 500 | An internal server error occurred during the processing of the request. |
-
-##### Endpoint definition
-![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/bcpw5t2krnbqyfkvchnp.jpg "Endpoint definition")
-
----
-
-### ✅️ Step 4: Confirming if your changes was applied
-
-##### GET
-##### Summary:
-
-Retrieves the existing configuration settings.
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| Tenant | header | The tenant identifier used to filter the clients within a specific Keycloak realm. | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | The operation was successful, and the configuration settings are returned. |
-| 400 | The request was invalid or could not be processed. |
-| 500 | An internal server error occurred during the processing of the request. |
-
-##### Endpoint definition
-![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/gxxou30f5dmp5sb7mfwp.jpg "Endpoint definition")
-
----
-
-#### Every configs necessary thing is done! 🔐✅
-
-**After completing the configuration above, it will be necessary only to restart your container to make it possible for the project to start again and apply the configurations.**
-Now, you’ll be ready to access all endpoints and easily manage the various instances a Keycloak realm offers. You can now begin managing users, groups, roles, and more.
-
-## 👨‍🔧 Ready to the next steps? [Creating users](/docs/creatingUsers.html).
-
-
