@@ -15,6 +15,19 @@ Add a new user to the specified Keycloak realm. (**Remind that the realm is iden
 | 403 | The request was understood, but the server is refusing to fulfill it due to insufficient permissions. |
 | 500 | An internal server error occurred during the processing of the request. |
     
+##### Summary:
+
+Add a new user to the specified Keycloak realm. (**Remind that the realm is identified by the tenant header**)
+
+##### Responses
+| Code | Description |
+| ---- | ----------- |
+| 201 | The operation was successful, and the new user was created. |
+| 400 | The request was invalid or could not be processed. |
+| 401 | The request lacks valid authentication credentials. |
+| 403 | The request was understood, but the server is refusing to fulfill it due to insufficient permissions. |
+| 500 | An internal server error occurred during the processing of the request. |
+   
 ##### Header
 
 | Name | Located in | Description | Required | Schema |
@@ -54,6 +67,7 @@ Add a new user to the specified Keycloak realm. (**Remind that the realm is iden
    }
 }
 ```
+
 	
 ##### Definition
 ![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/qaa8tdwzt3ub4vkrcvbc.jpg "Endpoint definition")   

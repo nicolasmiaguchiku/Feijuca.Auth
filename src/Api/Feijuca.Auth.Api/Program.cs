@@ -18,12 +18,14 @@ builder.Services
     .AddProblemDetails()
     .AddMediator()
     .AddRepositories()
+    .AddValidators()
     .AddServices()
     .AddMongo(applicationSettings)
     .AddApiAuthentication(out KeycloakSettings KeycloakSettings)
     .AddEndpointsApiExplorer()
     .AddSwagger(KeycloakSettings)
     .AddHttpClients(KeycloakSettings?.ServerSettings.Url)
+    .ConfigureValidationErrorResponses()
     .AddCors(options =>
     {
         options.AddPolicy("AllowAllOrigins", policy =>
