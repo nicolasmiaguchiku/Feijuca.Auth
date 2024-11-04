@@ -1,10 +1,10 @@
 ### ⚙️ Endpoint specification  
 
-##### POST
-##### /user
+##### Method: POST
+##### Path: /user
 ##### Summary:
 
-Add a new user to the specified Keycloak realm. (**Remind that the realm is identified by the tenant header**)
+Adds a new user to the specified Keycloak realm.
 
 ##### Responses
 | Code | Description |
@@ -15,19 +15,6 @@ Add a new user to the specified Keycloak realm. (**Remind that the realm is iden
 | 403 | The request was understood, but the server is refusing to fulfill it due to insufficient permissions. |
 | 500 | An internal server error occurred during the processing of the request. |
     
-##### Summary:
-
-Add a new user to the specified Keycloak realm. (**Remind that the realm is identified by the tenant header**)
-
-##### Responses
-| Code | Description |
-| ---- | ----------- |
-| 201 | The operation was successful, and the new user was created. |
-| 400 | The request was invalid or could not be processed. |
-| 401 | The request lacks valid authentication credentials. |
-| 403 | The request was understood, but the server is refusing to fulfill it due to insufficient permissions. |
-| 500 | An internal server error occurred during the processing of the request. |
-   
 ##### Header
 
 | Name | Located in | Description | Required | Schema |
@@ -44,30 +31,6 @@ Add a new user to the specified Keycloak realm. (**Remind that the realm is iden
 | FirstName | body | The first name related to the new user that will be created.| Yes | string |
 | LastName | body | The last name related to the new user that will be created.| Yes | string |
 | Attributes | body | The attributes that will be inserted on the new user that was created| No | Object |
-
-#### Body example
-
-```json
-{  
-  "username": "string",
-  "password": "string",
-  "email": "string",
-  "firstName": "string",
-  "lastName": "string",
-  "attributes": {
-	  "additionalProp1": [
-		  "string"
-	  ],
-	  "additionalProp1": [
-		  "string"
-	  ],
-	  "additionalProp1": [
-		  "string"
-	  ]    
-   }
-}
-```
-
 	
 ##### Definition
 ![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/qaa8tdwzt3ub4vkrcvbc.jpg "Endpoint definition")   
@@ -91,8 +54,8 @@ Add a new user to the specified Keycloak realm. (**Remind that the realm is iden
 	  "firstName": "Test Firstname",
 	  "lastName": "Test Lastname",
 	  "attributes": {
-		"tenant": [
-			"smartconsig"
+		"some-attribute": [
+			"attribute-value"
 			]
 		}
 	}

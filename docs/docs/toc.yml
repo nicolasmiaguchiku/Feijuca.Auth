@@ -20,12 +20,12 @@
           href: creatingUsers.md
         - name: Deleting user
           href: deletingUsers.md
-        - name: Login - JWT token generation
-          href: loginUser.md
-        - name: Logout user
-          href: logoutUser.md
         - name: Revoke sessions
           href: revokeUserSessions.md
+        - name: Logout user
+          href: logoutUser.md
+        - name: Login - JWT token generation
+          href: loginUser.md        
         - name: Decode token
           href: decodeToken.md
         - name: Decode token
