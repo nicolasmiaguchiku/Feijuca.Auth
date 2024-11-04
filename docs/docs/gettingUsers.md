@@ -1,8 +1,8 @@
 ### ⚙️ Endpoint specification  
 
 
-##### GET 
-##### /users
+##### Method: GET 
+##### Path: /users
 ##### Summary:
 
 Retrieves all users existing in the specified Keycloak realm.
