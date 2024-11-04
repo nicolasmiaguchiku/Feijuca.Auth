@@ -27,7 +27,7 @@ Revokes all active sessions for a specified user in Keycloak.
 | id | query | The unique identifier of the user to be deleted. | Yes | Guid |
 
 ##### Definition
-![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/cjebswgv8tgttk6fl8ld.jpg "Endpoint definition")   
+![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/pvqja8no2ew8euypwnec.jpg "Endpoint definition")   
 
 
 ### 📝 How to Use the Endpoint
