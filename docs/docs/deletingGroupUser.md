@@ -1,17 +1,17 @@
 ### ⚙️ Endpoint specification  
 
-##### Method: POST
-##### Path: /user/refresh-token
+##### Method: DELETE
+##### Path: /group/user
 ##### Summary:
 
-Refreshes a valid JWT token and returns the new token along with user details.
+Removes a user from a specific group within the specified Keycloak realm.
 
 ##### Responses
 | Code | Description |
 | ---- | ----------- |
-| 200 | The refresh operation was successful, returning a new token and user details. |
-| 400 | The request was invalid due to an issue with the refresh token. |
-| 500 | An internal server error occurred while processing the request. |
+| 204 | The user was successfully removed from the group. |
+| 400 | The request was invalid or could not be processed. |
+| 500 | An internal server error occurred during the processing of the request. |
     
 ##### Header
 
@@ -23,10 +23,11 @@ Refreshes a valid JWT token and returns the new token along with user details.
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
-| refreshToken | body | The refreshToken is used to identify the user session that will be invalidated. | Yes | string |
+| userId | body | The userId related to the user that will be deleted. | Yes | Guid |
+| groupId | body | The groupId related to the group from which the user will be deleted. | Yes | Guid |
 	
 ##### Definition
-![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/qaa8tdwzt3ub4vkrcvbc.jpg "Endpoint definition")   
+![Endpoint definition](https://res.cloudinary.com/dd7cforjd/image/upload/yjjjdfs8mfp0sfqnozu8.jpg "Endpoint definition")   
 
 
 ### 📝 How to Use the Endpoint
@@ -41,7 +42,8 @@ Refreshes a valid JWT token and returns the new token along with user details.
 
 	```json
 	{  
-	  "refreshToken": "your-refresh-token"
+	  "userId": "Unique user identifier",
+      "groupId": "Unique group identifier"
 	}
 	
 	```

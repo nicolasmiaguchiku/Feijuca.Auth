@@ -1,17 +1,17 @@
 ### ⚙️ Endpoint specification  
 
 ##### Method: POST
-##### Path: /user/refresh-token
+##### Path: /role
 ##### Summary:
 
-Refreshes a valid JWT token and returns the new token along with user details.
+Adds a new role to the client in the specified Keycloak realm.
 
 ##### Responses
 | Code | Description |
 | ---- | ----------- |
-| 200 | The refresh operation was successful, returning a new token and user details. |
-| 400 | The request was invalid due to an issue with the refresh token. |
-| 500 | An internal server error occurred while processing the request. |
+| 201 | The operation was successful, and the new role was created. |
+| 400 | The request was invalid or could not be processed. |
+| 500 | An internal server error occurred during the processing of the request. |
     
 ##### Header
 
@@ -23,10 +23,12 @@ Refreshes a valid JWT token and returns the new token along with user details.
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
-| refreshToken | body | The refreshToken is used to identify the user session that will be invalidated. | Yes | string |
+| clientId | body | The clientId related to the unique identifier of the client that will have the new rule added. | Yes | Guid |
+| name | body | The name is related to the rule name. | Yes | string |
+| description | body | The description is related to information for that rule. | Yes | string |
 	
 ##### Definition
-![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/qaa8tdwzt3ub4vkrcvbc.jpg "Endpoint definition")   
+![Endpoint definition](https://res.cloudinary.com/dd7cforjd/image/upload/xdcrpq1fi3pbx3i2aq1u.jpg "Endpoint definition")   
 
 
 ### 📝 How to Use the Endpoint
@@ -41,7 +43,9 @@ Refreshes a valid JWT token and returns the new token along with user details.
 
 	```json
 	{  
-	  "refreshToken": "your-refresh-token"
+	  "clientId": "Unique identifier of your customer(Guid)",
+      "name": "test",
+      "description": "description test"
 	}
 	
 	```

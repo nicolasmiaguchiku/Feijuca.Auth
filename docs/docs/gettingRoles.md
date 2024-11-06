@@ -1,17 +1,17 @@
-   ### ⚙️ Endpoint specification  
+### ⚙️ Endpoint specification  
 
-##### Method: POST
-##### Path: /user/login
+##### Method: GET
+##### Path: /roles
 ##### Summary:
 
-Decodes the JWT token and returns the details related to the user logged.
+Retrieves all roles associated with clients in the specified Keycloak realm.
 
 ##### Responses
 | Code | Description |
 | ---- | ----------- |
-| 200 | The token was successfully decoded, returning user details. |
-| 400 | The request was invalid due to an issue with the token or user authentication. |
-| 500 | An internal server error occurred while processing the request. |
+| 200 | A list of roles associated with the clients in the specified realm |
+| 400 | The request was invalid or could not be processed. |
+| 500 | An internal server error occurred during the processing of the request. |
     
 ##### Header
 
@@ -20,7 +20,7 @@ Decodes the JWT token and returns the details related to the user logged.
 | Tenant | header | The tenant identifier used to filter the clients within a specific Keycloak realm. | Yes | string |
 	
 ##### Definition
-![Endpoint definition](https://res.cloudinary.com/dd7cforjd/image/upload/bktmamzdgyqvubyv6xmv.jpg "Endpoint definition")   
+![Endpoint definition](https://res.cloudinary.com/dd7cforjd/image/upload/s0wp770hduegt2qxnomx.jpg "Endpoint definition")   
 
 
 ### 📝 How to Use the Endpoint
@@ -28,3 +28,4 @@ Decodes the JWT token and returns the details related to the user logged.
 1. **Tenant Identification**:
    - The term *tenant* in Feijuca represents the **realm name** within Keycloak where you’ll be performing actions.
    - You must specify the tenant name in the **HTTP header** to proceed.
+
