@@ -19,7 +19,6 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Feiuca.Tests.Api");
-    c.OAuthClientId(applicationSettings!.AuthSettings!.ClientId);
     c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
 });
 

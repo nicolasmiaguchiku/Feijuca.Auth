@@ -22,8 +22,7 @@ namespace Feijuca.Auth.Api.Tests.Extensions
                     {
                         Password = new OpenApiOAuthFlow
                         {
-                            TokenUrl = new Uri(keyCloakSettings.AuthServerUrl.AppendPathSegment("/realms/10000/protocol/openid-connect/token")),
-                            Scopes = keyCloakSettings.Scopes!.ToDictionary(key => key, value => value)
+                            TokenUrl = new Uri(keyCloakSettings.Url.AppendPathSegment("/realms/10000/protocol/openid-connect/token")),
                         }
                     }
                 });

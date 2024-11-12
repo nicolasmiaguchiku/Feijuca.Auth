@@ -8,9 +8,12 @@ namespace Feijuca.Auth.Api.Tests.Extensions
     {
         public static IServiceCollection AddApiAuthentication(this IServiceCollection services, ServerSettings authSettings)
         {
+            var xx = authSettings;
+            var client = new Client { ClientId = xx.Url };
+
             services.AddHttpContextAccessor();
             services.AddSingleton<JwtSecurityTokenHandler>();
-            services.AddKeyCloakAuth(authSettings!);
+            services.AddKeyCloakAuth(client, null!, null!, null!);
 
             return services;
         }
