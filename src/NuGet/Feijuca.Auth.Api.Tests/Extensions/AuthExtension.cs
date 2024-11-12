@@ -2,20 +2,20 @@
 using Feijuca.Auth.Models;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Feijuca.Auth.Api.Tests.Extensions
+namespace Feijuca.Auth.Api.Tests.Extensions;
+
+public static class AuthExtension
 {
-    public static class AuthExtension
+    public static IServiceCollection AddApiAuthentication(this IServiceCollection services, ServerSettings authSettings)
     {
-        public static IServiceCollection AddApiAuthentication(this IServiceCollection services, ServerSettings authSettings)
-        {
-            var xx = authSettings;
-            var client = new Client { ClientId = xx.Url };
+        var xx = authSettings;
+        var client = new Client { ClientId = xx.Url };
 
-            services.AddHttpContextAccessor();
-            services.AddSingleton<JwtSecurityTokenHandler>();
-            services.AddKeyCloakAuth(client, null!, null!, null!);
+        services.AddHttpContextAccessor();
+        services.AddSingleton<JwtSecurityTokenHandler>();
+        services.AddKeyCloakAuth(client, null!, null!, null!);
 
-            return services;
-        }
+        return services;
     }
 }
+
