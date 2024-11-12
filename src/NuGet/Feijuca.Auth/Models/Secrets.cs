@@ -1,7 +1,6 @@
-﻿namespace Feijuca.Auth.Models
+﻿namespace Feijuca.Auth.Models;
+
+public class Secrets
 {
-    public class Secrets
-    {
-        public required string ClientSecret { get; init; }
-    }
+    public required string ClientSecret { get; init; }
 }
