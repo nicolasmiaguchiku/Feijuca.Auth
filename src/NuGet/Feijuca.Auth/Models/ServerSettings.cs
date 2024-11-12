@@ -1,7 +1,6 @@
-﻿namespace Feijuca.Auth.Models
+﻿namespace Feijuca.Auth.Models;
+
+public class ServerSettings
 {
-    public class ServerSettings
-    {
-        public required string Url { get; init; }  
-    }
+    public required string Url { get; init; }
 }

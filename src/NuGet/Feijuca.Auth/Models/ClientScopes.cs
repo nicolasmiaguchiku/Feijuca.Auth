@@ -1,7 +1,6 @@
-﻿namespace Feijuca.Auth.Models
+﻿namespace Feijuca.Auth.Models;
+
+public class ClientScopes
 {
-    public class ClientScopes
-    {
-        public required IEnumerable<string> Scopes { get; init; }
-    }
+    public required IEnumerable<string> Scopes { get; init; }
 }
