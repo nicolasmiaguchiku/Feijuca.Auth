@@ -108,7 +108,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                     .AppendPathSegment("members")
                     .SetQueryParam("first", first)
                     .SetQueryParam("max", userFilters.PageFilter.PageSize)
-                    .SetCollectionQueryParam("username", userFilters.Emails);
+                    .SetCollectionQueryParam("username", userFilters.Usernames);
 
             var response = await httpClient.GetAsync(url, cancellationToken);
 

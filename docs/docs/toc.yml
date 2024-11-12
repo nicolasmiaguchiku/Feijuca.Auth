@@ -12,57 +12,65 @@
         - name: Mandatory configs - Feijuca.Auth.Api
           href: feijucaMandatoryConfigs.md        
     - name: Handling Users
-      href: configuringApplicationSingleTenancy.md
+      href: gettingUsers.md
       items:
         - name: Getting users
-          href: configuringApplicationTokenManager.md
+          href: gettingUsers.md
         - name: Creating user
-          href: configuringApplicationTokenManager.md
+          href: creatingUsers.md
         - name: Deleting user
-          href: configuringApplicationTokenManager.md
-        - name: Generating JWT token
-          href: configuringApplicationTokenManager.md
+          href: deletingUsers.md
         - name: Revoke sessions
-          href: configuringApplicationTokenManager.md
+          href: revokeUserSessions.md
+        - name: Logout user
+          href: logoutUser.md
+        - name: Login - JWT token generation
+          href: loginUser.md        
+        - name: Decode token
+          href: decodeToken.md
+        - name: Decode token
+          href: decodeToken.md
+        - name: Refresh token
+          href: refreshToken.md
     - name: Handling Groups
       href: configuringApplicationTokenManager.md      
       items:
         - name: Getting groups
-          href: configuringApplicationTokenManager.md
+          href: gettingGroup.md
         - name: Creating group
-          href: configuringApplicationTokenManager.md
+          href: creatingGroup.md
         - name: Deleting group
-          href: configuringApplicationTokenManager.md     
+          href: deleteGroup.md     
     - name: Handling Roles
       href: configuringApplicationSingleTenancy.md
       items:
         - name: Getting roles
-          href: configuringApplicationTokenManager.md
+          href: gettingRoles.md
         - name: Adding new role
-          href: configuringApplicationTokenManager.md
-        - name: Deleting group        
+          href: creatingRole.md      
     - name: Handling Group Users
       href: configuringApplicationSingleTenancy.md
       items:
         - name: Getting users from a group
-          href: configuringApplicationTokenManager.md
+          href: gettingGroupUser.md
         - name: Add user on a group
-          href: configuringApplicationTokenManager.md
+          href: creatingGroupUser.md
         - name: Removing user from a group
-          href: configuringApplicationTokenManager.md        
+          href: deletingGroupUser.md        
     - name: Handling Group Roles
       href: configuringApplicationSingleTenancy.md
       items:
         - name: Getting group roles
-          href: configuringApplicationTokenManager.md
+          href: gettingGroupRoles.md
         - name: Add role on a group
-          href: configuringApplicationTokenManager.md
+          href: creatingGroupRole.md
         - name: Removing role from a group
-          href: configuringApplicationTokenManager.md     
+          href: deleteGroupRole.md     
     - name: Handling Clients
-      href: configuringApplicationSingleTenancy.md  
+      href: gettingClient.md  
       items:
         - name: Getting clients
+          href: gettingClient.md
 - name: Feijuca.Auth - Multi-tenancy concept
   href: feijucaTokenManager.md
   items:

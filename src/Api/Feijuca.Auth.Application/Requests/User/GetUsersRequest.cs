@@ -18,6 +18,6 @@ namespace Feijuca.Auth.Application.Requests.User
         public IEnumerable<Guid>? Ids { get; set; }
 
         [FromQuery]
-        public IEnumerable<string>? Emails { get; set; }
+        public IEnumerable<string>? Usernames { get; set; }
     }
 }

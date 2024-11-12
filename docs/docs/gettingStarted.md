@@ -1,4 +1,4 @@
-## 💡 Considerations
+### 💡 Considerations
 
 This project is specifically designed for applications that adhere to the current **.NET supported versions**. However, the **Feijuca.Auth.Api** module can be accessed from any programming language, as it processes calls against **Keycloak**.
 
@@ -13,7 +13,7 @@ On the other hand, if your stack is built with **.NET**, you'll benefit from enh
 
 ---
 
-## 🖥️ Let's get started!
+### 🖥️ Let's get started!
 
 - 🔧 **Want to use Feijuca.Auth.Api?** Check out the necessary configuration steps [here](/Feijuca.Auth/docs/whatIsFeijucaAuthApi.html).
 - 🏢 **Interested in the Feijuca.Auth.MultiTenancy concept?** Find the necessary configuration steps [here](/Feijuca.Auth/docs/keycloakMandatoryConfigs.html) _(Available soon)_.

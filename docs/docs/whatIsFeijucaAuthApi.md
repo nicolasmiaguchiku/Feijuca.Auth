@@ -1,10 +1,10 @@
-# Feijuca.Auth.Api 🍽️🔐
+### Feijuca.Auth.Api 🍽️🔐
 
 Welcome to **Feijuca.Auth.Api**, a robust API built with .NET designed to simplify the integration and management of users, groups, and permissions using Keycloak. This API enables consumers to easily implement role-based access control (RBAC) in their applications.
 
 ---
 
-## 📚 Introduction
+### 📚 Introduction
 
 **Feijuca.Auth.Api** provides a user-friendly interface to interact with Keycloak endpoints, allowing you to:
 
@@ -20,21 +20,21 @@ Welcome to **Feijuca.Auth.Api**, a robust API built with .NET designed to simpli
 
 ---
 
-## 🚀 Features
+### 🚀 Features
 
 - **Integration with Keycloak**: All operations are performed through Keycloak, ensuring security and efficiency.
 - **Preconfigured Setup**: Receive a preconfigured setup and manage your calls to Keycloak easily.
 - **Comprehensive Endpoints**: A variety of endpoints available for all management operations.
 ---
 
-## 🛠️ Technologies Used
+### 🛠️ Technologies Used
 
 - .NET
 - Keycloak
 - RESTful API
 
 ---
-## 📑 Necessary configurations
+### 📑 Necessary configurations
 
 🔗 **To configure the access to the api, it is necessary do a quickly [configuration](/Feijuca.Auth/docs/keycloakMandatoryConfigs.html)** .
 

@@ -1,0 +1,72 @@
+﻿using AutoFixture;
+using Feijuca.Auth.Application.Commands.Group;
+using Feijuca.Auth.Common.Errors;
+using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Interfaces;
+using FluentAssertions;
+using Moq;
+
+namespace Feijuca.Auth.Api.UnitTests.Command.Groups
+{
+    public class CreateGroupCommandHandlerTests
+    {
+        private readonly IFixture _fixture = new Fixture();
+        private readonly Mock<IGroupRepository> _groupRepositoryMock = new();
+        private readonly CreateGroupCommandHandler _handler;
+
+        public CreateGroupCommandHandlerTests()
+        {
+            _handler = new CreateGroupCommandHandler(_groupRepositoryMock.Object);
+        }
+
+        [Fact]
+        public async Task Given_ValidRequest_When_CreateGroupIsCalled_Then_ShouldReturnSuccess()
+        {
+            // Arrange
+            var createGroupCommand = _fixture.Create<CreateGroupCommand>();
+            var cancellationToken = _fixture.Create<CancellationToken>();
+
+            _groupRepositoryMock
+                .Setup(repo => repo.CreateAsync(It.IsAny<string>(), It.IsAny<Dictionary<string, string[]>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(Result.Success());
+
+            // Act
+            var result = await _handler.Handle(createGroupCommand, cancellationToken);
+
+            // Assert
+            result
+                .IsSuccess
+                .Should()
+                .BeTrue();
+
+            _groupRepositoryMock.Verify(repo => repo.CreateAsync(It.IsAny<string>(), It.IsAny<Dictionary<string, string[]>>(), It.IsAny<CancellationToken>()), Times.Once);
+            _groupRepositoryMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task Given_InvalidRequest_When_CreateGroupFails_Then_ShouldReturnFailure()
+        {
+            // Arrange
+            var createGroupCommand = _fixture.Create<CreateGroupCommand>();
+            var cancellationToken = _fixture.Create<CancellationToken>();
+
+            var failureResult = Result.Failure(GroupErrors.CreationGroupError);
+
+            _groupRepositoryMock
+                .Setup(repo => repo.CreateAsync(It.IsAny<string>(), It.IsAny<Dictionary<string, string[]>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(failureResult);
+
+            // Act
+            var result = await _handler.Handle(createGroupCommand, cancellationToken);
+
+            // Assert
+            result
+                .Error
+                .Should()
+                .Be(GroupErrors.CreationGroupError);
+
+            _groupRepositoryMock.Verify(repo => repo.CreateAsync(It.IsAny<string>(), It.IsAny<Dictionary<string, string[]>>(), It.IsAny<CancellationToken>()), Times.Once);
+            _groupRepositoryMock.VerifyNoOtherCalls();
+        }
+    }
+}

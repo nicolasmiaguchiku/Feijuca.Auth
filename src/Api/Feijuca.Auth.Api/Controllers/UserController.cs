@@ -24,11 +24,13 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="getUsersRequest">The request object containing filtering and pagination parameters for user retrieval.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
-        /// A 200 OK status code with the list of users if the operation is successful; 
+        /// A 200 OK status code with the list of users if the operation is successful;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <response code="200">The list of users was retrieved successfully.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="401">The request lacks valid authentication credentials.</response>
+        /// <response code="403">The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpGet]
         [Route("/users", Name = nameof(GetUsers))]
@@ -55,11 +57,13 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="addUserRequest">The request object containing the necessary details to create the user.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
-        /// A 201 Created status code if the user is successfully created; 
+        /// A 201 Created status code if the user is successfully created;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <response code="201">The user was created successfully.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="401">The request lacks valid authentication credentials.</response>
+        /// <response code="403">The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
         [Route("/user", Name = nameof(CreateUser))]
@@ -88,11 +92,13 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="id">The unique identifier of the user to be deleted.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
-        /// A 204 No Content status code if the user is successfully deleted; 
+        /// A 204 No Content status code if the user is successfully deleted;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <response code="204">The user was deleted successfully.</response>
         /// <response code="400">The request was invalid or the user could not be found.</response>
+        /// <response code="401">The request lacks valid authentication credentials.</response>
+        /// <response code="403">The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpDelete]
         [Route("/user/{id}", Name = nameof(DeleteUser))]
@@ -113,12 +119,25 @@ namespace Feijuca.Auth.Api.Controllers
             return BadRequest(result.Error);
         }
 
+        /// <summary>
+        /// Revokes all active sessions for a specified user in Keycloak.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user whose sessions are to be revoked.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
+        /// <returns>
+        /// A 202 Accepted status code if the sessions are successfully revoked;
+        /// otherwise, a 400 Bad Request status code with an error message.
+        /// </returns>
+        /// <response code="202">The user sessions were revoked successfully.</response>
+        /// <response code="400">The request was invalid or the user could not be found.</response>
+        /// <response code="401">The request lacks valid authentication credentials.</response>
+        /// <response code="403">The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</response>
+        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
         [Route("/user/revoke-session", Name = nameof(RevokeUserSessions))]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [RequiredRole("Feijuca.ApiWriter")]
         [Authorize]
         public async Task<IActionResult> RevokeUserSessions([FromQuery] Guid id, CancellationToken cancellationToken)
         {
@@ -138,7 +157,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="logoutUserRequest">The request containing the refresh token for the user session to be invalidated.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
-        /// A 200 OK status code if the logout is successful; 
+        /// A 200 OK status code if the logout is successful;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <response code="200">The logout was successful.</response>
@@ -168,7 +187,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="loginUserRequest">The request containing the user's login credentials.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
-        /// A 200 OK status code if the authentication is successful, along with the JWT token and user details; 
+        /// A 200 OK status code if the authentication is successful, along with the JWT token and user details;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <response code="200">Authentication was successful, and the JWT token and user details are returned.</response>
@@ -197,7 +216,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// Decodes the JWT token and returns the details related to the user logged.
         /// </summary>
         /// <returns>
-        /// A 200 OK status code with the user's details if the token is successfully decoded; 
+        /// A 200 OK status code with the user's details if the token is successfully decoded;
         /// otherwise, a 400 Bad Request status code if the token is invalid or if the user is not authenticated.
         /// </returns>
         /// <response code="200">The token was successfully decoded, returning user details.</response>
@@ -236,7 +255,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="request">The request containing the refresh token.</param>
         /// <param name="cancellationToken">A token that can be used to signal cancellation of the operation.</param>
         /// <returns>
-        /// A 200 OK status code with the new token and user details if the refresh operation is successful; 
+        /// A 200 OK status code with the new token and user details if the refresh operation is successful;
         /// otherwise, a 400 Bad Request status code if the refresh token is invalid or expired.
         /// </returns>
         /// <response code="200">The refresh operation was successful, returning a new token and user details.</response>
@@ -247,7 +266,6 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request,
             CancellationToken cancellationToken)
         {

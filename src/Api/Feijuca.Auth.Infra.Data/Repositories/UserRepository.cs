@@ -43,7 +43,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 .AppendPathSegment("users")
                 .SetQueryParam("first", first)
                 .SetQueryParam("max", userFilters.PageFilter.PageSize)
-                .SetCollectionQueryParam("username", userFilters.Emails);
+                .SetCollectionQueryParam("username", userFilters.Usernames);
 
             var response = await httpClient.GetAsync(urlGetUsers, cancellationToken);
             var keycloakUserContent = await response.Content.ReadAsStringAsync(cancellationToken);

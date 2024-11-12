@@ -50,7 +50,7 @@ namespace Feijuca.Auth.Application.Mappers
         public static UserFilters ToUserFilters(this GetUsersRequest getUsersRequest)
         {
             var pageFilter = new PageFilter(getUsersRequest.PageFilter.Page, getUsersRequest.PageFilter.PageSize);
-            return new UserFilters(pageFilter, getUsersRequest.Ids, getUsersRequest.Emails);
+            return new UserFilters(pageFilter, getUsersRequest.Ids, getUsersRequest.Usernames);
         }
 
         public static UserFilters ToUserFilters(this GetUsersGroupRequest getUsersRequest)
