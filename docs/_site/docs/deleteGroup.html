@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deletingUsers.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deleteGroup.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -87,10 +87,10 @@
         <article data-uid="">
 
 <h3 id="-endpoint-specification">⚙️ Endpoint specification</h3>
-<h5 id="method-delete">Method: DELETE</h5>
-<h5 id="path-user">Path: /user</h5>
+<h5 id="method-post">Method: POST</h5>
+<h5 id="path-groupid">Path: /group/{id}</h5>
 <h5 id="summary">Summary:</h5>
-<p>Deletes an existing user from the specified Keycloak realm.</p>
+<p>Deletes an existing group from the specified keycloak realm.</p>
 <h5 id="responses">Responses</h5>
 <table>
 <thead>
@@ -102,19 +102,11 @@
 <tbody>
 <tr>
 <td>204</td>
-<td>The user was deleted successfully.</td>
+<td>The group was successfully deleted.</td>
 </tr>
 <tr>
 <td>400</td>
-<td>The request was invalid or the user could not be found.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>The request lacks valid authentication credentials.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</td>
+<td>The request was invalid or could not be processed.</td>
 </tr>
 <tr>
 <td>500</td>
@@ -141,31 +133,17 @@
 <td>Yes</td>
 <td>string</td>
 </tr>
-</tbody>
-</table>
-<h5 id="query-params">Query params</h5>
-<table>
-<thead>
 <tr>
-<th>Name</th>
-<th>Located in</th>
-<th>Description</th>
-<th>Required</th>
-<th>Schema</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>query</td>
-<td>The unique identifier of the user to be deleted.</td>
+<td>Id</td>
+<td>path</td>
+<td>The unique identifier of the group to be deleted.</td>
 <td>Yes</td>
 <td>Guid</td>
 </tr>
 </tbody>
 </table>
 <h5 id="definition">Definition</h5>
-<p><img src="https://res.cloudinary.com/dbyrluup1/image/upload/cjebswgv8tgttk6fl8ld.jpg" alt="Endpoint definition" title="Endpoint definition"></p>
+<p><img src="https://res.cloudinary.com/dd7cforjd/image/upload/uwvhk9p9vviypghr8wbd.jpg" alt="Endpoint definition" title="Endpoint definition"></p>
 <h3 id="-how-to-use-the-endpoint">📝 How to Use the Endpoint</h3>
 <ol>
 <li><p><strong>Tenant Identification</strong>:</p>
@@ -174,9 +152,9 @@
 <li>You must specify the tenant name in the <strong>HTTP header</strong> to proceed.</li>
 </ul>
 </li>
-<li><p><strong>Query Parameters</strong>:</p>
+<li><p><strong>Id Unique Identifier</strong>:</p>
 <ul>
-<li>After setting up the header, use the available <strong>query parameters</strong> to inform what user you want to delete.</li>
+<li>Add the unique identifier that represents the group to be deleted.</li>
 </ul>
 </li>
 </ol>
@@ -184,7 +162,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deletingUsers.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deleteGroup.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

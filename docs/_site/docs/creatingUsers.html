@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/main/docs/docs/creatingUsers.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/creatingUsers.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -29,15 +29,15 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
     <header class="bg-body border-bottom">
@@ -77,7 +77,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -86,11 +86,167 @@
 
         <article data-uid="">
 
+<h3 id="-endpoint-specification">⚙️ Endpoint specification</h3>
+<h5 id="method-post">Method: POST</h5>
+<h5 id="path-user">Path: /user</h5>
+<h5 id="summary">Summary:</h5>
+<p>Adds a new user to the specified Keycloak realm.</p>
+<h5 id="responses">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td>The operation was successful, and the new user was created.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>The request was invalid or could not be processed.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>The request lacks valid authentication credentials.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>An internal server error occurred during the processing of the request.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="header">Header</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tenant</td>
+<td>header</td>
+<td>The tenant identifier used to filter the clients within a specific Keycloak realm.</td>
+<td>Yes</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h5 id="body-definition">Body definition</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Username</td>
+<td>body</td>
+<td>The username related to the new user that will be created.</td>
+<td>Yes</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>body</td>
+<td>The password related to the new user that will be created.</td>
+<td>Yes</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>body</td>
+<td>The e-mail related to the new user that will be created.</td>
+<td>Yes</td>
+<td>string</td>
+</tr>
+<tr>
+<td>FirstName</td>
+<td>body</td>
+<td>The first name related to the new user that will be created.</td>
+<td>Yes</td>
+<td>string</td>
+</tr>
+<tr>
+<td>LastName</td>
+<td>body</td>
+<td>The last name related to the new user that will be created.</td>
+<td>Yes</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Attributes</td>
+<td>body</td>
+<td>The attributes that will be inserted on the new user that was created</td>
+<td>No</td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+<h5 id="definition">Definition</h5>
+<p><img src="https://res.cloudinary.com/dbyrluup1/image/upload/qaa8tdwzt3ub4vkrcvbc.jpg" alt="Endpoint definition" title="Endpoint definition"></p>
+<h3 id="-how-to-use-the-endpoint">📝 How to Use the Endpoint</h3>
+<ol>
+<li><p><strong>Tenant Identification</strong>:</p>
+<ul>
+<li>The term <em>tenant</em> in Feijuca represents the <strong>realm name</strong> within Keycloak where you’ll be performing actions.</li>
+<li>You must specify the tenant name in the <strong>HTTP header</strong> to proceed.</li>
+</ul>
+</li>
+<li><p><strong>Body</strong>:</p>
+<ul>
+<li>After setting up the header, inform a valid body to insert a user. Example:</li>
+</ul>
+<pre><code class="lang-json"> {  
+   &quot;username&quot;: &quot;test&quot;,
+   &quot;password&quot;: &quot;123456&quot;,
+   &quot;email&quot;: &quot;test@test.com&quot;,
+   &quot;firstName&quot;: &quot;Test Firstname&quot;,
+   &quot;lastName&quot;: &quot;Test Lastname&quot;,
+   &quot;attributes&quot;: {
+ 	&quot;some-attribute&quot;: [
+ 		&quot;attribute-value&quot;
+ 		]
+ 	}
+ }
+
+</code></pre>
+</li>
+</ol>
+<hr>
+<h3 id="-reminder">📝 Reminder</h3>
+<p>The attributes property is not mandatory, but if you wanna configure some attribute to your user, you can defined it using this field.
+An example about how attribute works, could be found below:</p>
+<p><img src="https://res.cloudinary.com/dbyrluup1/image/upload/e2l4wkakcb1rgrwcxrfp.jpg" alt="Attributes definition" title="Attributes definition"></p>
+<p>The JSON used to created this attribute was:</p>
+<pre><code class="lang-json">&quot;attributes&quot;: {
+    &quot;tenant&quot;: [
+      &quot;smartconsig&quot;
+    ]
+  }
+}
+</code></pre>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/main/docs/docs/creatingUsers.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/creatingUsers.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

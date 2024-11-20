@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="">
       
       
-      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/main/docs/index.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/index.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -29,15 +29,15 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
     <header class="bg-body border-bottom">
@@ -63,33 +63,19 @@
     </header>
 
     <main class="container-xxl">
-      <div class="toc-offcanvas">
-        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <nav class="toc" id="toc"></nav>
-          </div>
-        </div>
-      </div>
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
-            <i class="bi bi-list"></i>
-          </button>
 
           <nav id="breadcrumb"></nav>
         </div>
 
         <article data-uid="">
 
-<h2 id="-what-is-feijucaauth">🎉 What is <a href="https://github.com/coderaw-io/Feijuca.Auth"><strong>Feijuca.Auth</strong></a>?</h2>
-<p><strong>Feijuca.Auth</strong> is a comprehensive solution designed to simplify integration with Keycloak, providing both a NuGet package and an API to streamline authentication, authorization, and access control management.</p>
-<p>Inspired by the iconic Brazilian dish <a href="https://theculturetrip.com/south-america/brazil/articles/a-brief-introduction-to-feijoada-brazils-national-dish">Feijoada</a>, the name <strong>Feijuca</strong> reflects our Brazilian roots and cultural heritage. <strong>Feijuca</strong> is a playful nickname for <strong>Feijoada</strong>.</p>
-<h3 id="-key-features">🌟 Key Features:</h3>
+<h3 id="-what-is-feijucaauth">🎉 What is <a href="https://github.com/coderaw-io/Feijuca.Auth"><strong>Feijuca.Auth</strong></a>?</h3>
+<p><strong>Feijuca.Auth</strong> is a comprehensive solution designed to simplify integration with Keycloak, providing both a NuGet package and an API to streamline authentication, authorization, access control management and RBAC.</p>
+<p><strong>Feijuca</strong> is a nickname for <strong>Feijoada</strong>. The name was inspired by the iconic Brazilian dish <a href="https://theculturetrip.com/south-america/brazil/articles/a-brief-introduction-to-feijoada-brazils-national-dish">Feijoada</a>, the name reflects our Brazilian roots and cultural heritage.</p>
+<h3 id="-key-features">🌟 Key features:</h3>
 <p><strong>Feijuca.Auth</strong> offers a range of features for simplifying integration with Keycloak, focusing on efficient management of authentication and authorization:</p>
 <ul>
 <li><p><strong>👥 User Management</strong>:</p>
@@ -104,28 +90,32 @@
 <li>Manage user permissions and enforce access policies based on roles using Role-Based Access Control (RBAC).</li>
 </ul>
 </li>
-<li><p><strong>🏢 Multi-Tenant Support</strong>:</p>
+<li><p><strong>🏢 Multi-tenancy support (Available soon)</strong>:</p>
 <ul>
 <li>Integrate with Keycloak in a multi-tenant model, where each realm acts as a separate tenant within your application, enabling scalable and secure management of authentication and authorization across multiple tenants.</li>
 </ul>
 </li>
 </ul>
 <p>Together, these components of <strong>Feijuca.Auth</strong> aim to reduce the complexity of working with Keycloak, making user management and multi-tenancy more seamless and developer-friendly.</p>
-<h3 id="-curious-to-know-how-this-works-check-out-the-documentation">🤔 Curious to know how this works? Check out the <a href="https://coderaw-io.github.io/Feijuca.Auth/docs/gettingStarted.html">Documentation</a>!</h3>
+<h3 id="-curious-to-know-how-this-works-check-out-the-documentation">🤔 Curious to know how this works? Check out the <a href="/Feijuca.Auth/docs/gettingStarted.html">Documentation</a>!</h3>
 <hr>
-<h2 id="-contributors">🙌 Contributors</h2>
+<h3 id="-contributors">🙌 Contributors</h3>
 <p>Meet the amazing people who helped build <strong>Feijuca.Auth</strong>! Connect with them on LinkedIn:</p>
 <table>
 <thead>
 <tr>
 <th><strong>Name</strong></th>
-<th><strong>LinkedIn</strong></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Felipe Mattioli</td>
 <td><a href="https://www.linkedin.com/in/felipemattioli/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"> </a></td>
+</tr>
+<tr>
+<td>Matheus Madureira</td>
+<td><a href="https://www.linkedin.com/in/madureiracode//" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"> </a></td>
 </tr>
 <tr>
 <td>Wesley Souza</td>
@@ -143,7 +133,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/main/docs/index.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/index.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
