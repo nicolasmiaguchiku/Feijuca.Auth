@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deletingUsers.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/gettingGroupUser.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -87,10 +87,10 @@
         <article data-uid="">
 
 <h3 id="-endpoint-specification">⚙️ Endpoint specification</h3>
-<h5 id="method-delete">Method: DELETE</h5>
-<h5 id="path-user">Path: /user</h5>
+<h5 id="method-get">Method: GET</h5>
+<h5 id="path-groupuser">Path: /group/user</h5>
 <h5 id="summary">Summary:</h5>
-<p>Deletes an existing user from the specified Keycloak realm.</p>
+<p>Retrieves all users present in the specific group int the specified Keycloak realm.</p>
 <h5 id="responses">Responses</h5>
 <table>
 <thead>
@@ -101,20 +101,12 @@
 </thead>
 <tbody>
 <tr>
-<td>204</td>
-<td>The user was deleted successfully.</td>
+<td>200</td>
+<td>The users in the group were successfully retrieved.</td>
 </tr>
 <tr>
 <td>400</td>
-<td>The request was invalid or the user could not be found.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>The request lacks valid authentication credentials.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</td>
+<td>The request was invalid or could not be processed.</td>
 </tr>
 <tr>
 <td>500</td>
@@ -156,16 +148,37 @@
 </thead>
 <tbody>
 <tr>
-<td>id</td>
+<td>PageFilter.Page</td>
 <td>query</td>
-<td>The unique identifier of the user to be deleted.</td>
-<td>Yes</td>
+<td>The page related to the data that is being showed.</td>
+<td>No</td>
+<td>int</td>
+</tr>
+<tr>
+<td>PageFilter.PageSize</td>
+<td>query</td>
+<td>Defines the page size, i.e. the maximum number of users that will be returned per page.</td>
+<td>No</td>
+<td>int</td>
+</tr>
+<tr>
+<td>GroupId</td>
+<td>query</td>
+<td>The group ids that can be used to filter determinated groups.</td>
+<td>No</td>
 <td>Guid</td>
+</tr>
+<tr>
+<td>Emails</td>
+<td>query</td>
+<td>Allows you to filter users based on a list of email addresses.</td>
+<td>No</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
 <h5 id="definition">Definition</h5>
-<p><img src="https://res.cloudinary.com/dbyrluup1/image/upload/cjebswgv8tgttk6fl8ld.jpg" alt="Endpoint definition" title="Endpoint definition"></p>
+<p><img src="https://res.cloudinary.com/dd7cforjd/image/upload/xvsup3z5h4xsmxxw2tgt.jpg" alt="Endpoint definition" title="Endpoint definition"></p>
 <h3 id="-how-to-use-the-endpoint">📝 How to Use the Endpoint</h3>
 <ol>
 <li><p><strong>Tenant Identification</strong>:</p>
@@ -176,15 +189,33 @@
 </li>
 <li><p><strong>Query Parameters</strong>:</p>
 <ul>
-<li>After setting up the header, use the available <strong>query parameters</strong> to inform what user you want to delete.</li>
+<li>After setting up the header, use the available <strong>query parameters</strong> to customize your search based on your requirements.</li>
 </ul>
 </li>
 </ol>
+<hr>
+<h3 id="-available-search-types">🔍 Available Search Types</h3>
+<h4 id="1-get-all-groups">1. <strong>Get All Groups</strong></h4>
+<ul>
+<li>Fetches all users within the realm.</li>
+<li>The results are provided in a paginated format, allowing you to navigate through pages to explore the user list.</li>
+</ul>
+<h4 id="2-get-group-by-id">2. <strong>Get Group by ID</strong></h4>
+<ul>
+<li>Enables filtering by <strong>Group IDs</strong>.</li>
+<li>This will search the realm and return the group that matches the given ID.</li>
+</ul>
+<h4 id="3-get-users-by-emails">3. <strong>Get Users by Emails</strong></h4>
+<ul>
+<li>Allows filtering by an <strong>array of Emails</strong>.</li>
+<li>The API will find and return users that match the user emails provided in the request.</li>
+</ul>
+<hr>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deletingUsers.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/gettingGroupUser.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

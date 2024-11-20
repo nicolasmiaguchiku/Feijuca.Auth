@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deletingUsers.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deleteGroupRole.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -88,9 +88,9 @@
 
 <h3 id="-endpoint-specification">⚙️ Endpoint specification</h3>
 <h5 id="method-delete">Method: DELETE</h5>
-<h5 id="path-user">Path: /user</h5>
+<h5 id="path-groupgroupidroleroleidw">Path: /group/{groupid}/role/{roleid}w</h5>
 <h5 id="summary">Summary:</h5>
-<p>Deletes an existing user from the specified Keycloak realm.</p>
+<p>Remove a role from a specific group in the specified Keycloak realm.</p>
 <h5 id="responses">Responses</h5>
 <table>
 <thead>
@@ -102,23 +102,11 @@
 <tbody>
 <tr>
 <td>204</td>
-<td>The user was deleted successfully.</td>
+<td>The role was successfully removed from the group.</td>
 </tr>
 <tr>
 <td>400</td>
-<td>The request was invalid or the user could not be found.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>The request lacks valid authentication credentials.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</td>
-</tr>
-<tr>
-<td>500</td>
-<td>An internal server error occurred during the processing of the request.</td>
+<td>The request was invalid or could not be processed.</td>
 </tr>
 </tbody>
 </table>
@@ -135,6 +123,20 @@
 </thead>
 <tbody>
 <tr>
+<td>ID</td>
+<td>patch</td>
+<td>The unique identifier of the group from which the role will be removed.</td>
+<td>Yes</td>
+<td>Guid</td>
+</tr>
+<tr>
+<td>ID</td>
+<td>patch</td>
+<td>The unique identifier of the role to be removed from the group.</td>
+<td>Yes</td>
+<td>Guid</td>
+</tr>
+<tr>
 <td>Tenant</td>
 <td>header</td>
 <td>The tenant identifier used to filter the clients within a specific Keycloak realm.</td>
@@ -143,40 +145,26 @@
 </tr>
 </tbody>
 </table>
-<h5 id="query-params">Query params</h5>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Located in</th>
-<th>Description</th>
-<th>Required</th>
-<th>Schema</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>query</td>
-<td>The unique identifier of the user to be deleted.</td>
-<td>Yes</td>
-<td>Guid</td>
-</tr>
-</tbody>
-</table>
 <h5 id="definition">Definition</h5>
-<p><img src="https://res.cloudinary.com/dbyrluup1/image/upload/cjebswgv8tgttk6fl8ld.jpg" alt="Endpoint definition" title="Endpoint definition"></p>
+<p><img src="https://res.cloudinary.com/dd7cforjd/image/upload/mjzrwnuj9ljdcihfbvdj.jpg" alt="Endpoint definition" title="Endpoint definition"></p>
 <h3 id="-how-to-use-the-endpoint">📝 How to Use the Endpoint</h3>
 <ol>
-<li><p><strong>Tenant Identification</strong>:</p>
+<li><strong>Tenant Identification</strong>:
 <ul>
 <li>The term <em>tenant</em> in Feijuca represents the <strong>realm name</strong> within Keycloak where you’ll be performing actions.</li>
 <li>You must specify the tenant name in the <strong>HTTP header</strong> to proceed.</li>
 </ul>
 </li>
-<li><p><strong>Query Parameters</strong>:</p>
+<li><strong>Id Unique group identification</strong>:
 <ul>
-<li>After setting up the header, use the available <strong>query parameters</strong> to inform what user you want to delete.</li>
+<li>The term <em>groupid</em> represents the <strong>unique identifier of the group</strong> whose roles are being retrieved.</li>
+<li>You must specify the Group Id in the <strong>HTTP path</strong> to proceed.</li>
+</ul>
+</li>
+<li><strong>Id Unique rule identification</strong>:
+<ul>
+<li>The term <em>id</em> represents the <strong>unique identifier of the role</strong> whose role is being deleted from the group.</li>
+<li>You must specify the Group Id in the <strong>HTTP path</strong> to proceed.</li>
 </ul>
 </li>
 </ol>
@@ -184,7 +172,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deletingUsers.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deleteGroupRole.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

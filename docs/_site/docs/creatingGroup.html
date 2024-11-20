@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deletingUsers.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/creatingGroup.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -87,10 +87,10 @@
         <article data-uid="">
 
 <h3 id="-endpoint-specification">⚙️ Endpoint specification</h3>
-<h5 id="method-delete">Method: DELETE</h5>
-<h5 id="path-user">Path: /user</h5>
+<h5 id="method-post">Method: POST</h5>
+<h5 id="path-group">Path: /group</h5>
 <h5 id="summary">Summary:</h5>
-<p>Deletes an existing user from the specified Keycloak realm.</p>
+<p>Adds a new group to the specified Keycloak realm.</p>
 <h5 id="responses">Responses</h5>
 <table>
 <thead>
@@ -101,20 +101,12 @@
 </thead>
 <tbody>
 <tr>
-<td>204</td>
-<td>The user was deleted successfully.</td>
+<td>201</td>
+<td>The group was successfully created.</td>
 </tr>
 <tr>
 <td>400</td>
-<td>The request was invalid or the user could not be found.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>The request lacks valid authentication credentials.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</td>
+<td>The request was invalid or could not be processed.</td>
 </tr>
 <tr>
 <td>500</td>
@@ -143,7 +135,7 @@
 </tr>
 </tbody>
 </table>
-<h5 id="query-params">Query params</h5>
+<h5 id="body-definition">Body definition</h5>
 <table>
 <thead>
 <tr>
@@ -156,16 +148,51 @@
 </thead>
 <tbody>
 <tr>
-<td>id</td>
-<td>query</td>
-<td>The unique identifier of the user to be deleted.</td>
+<td>Username</td>
+<td>body</td>
+<td>The username related to the new user that will be created.</td>
 <td>Yes</td>
-<td>Guid</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>body</td>
+<td>The password related to the new user that will be created.</td>
+<td>Yes</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>body</td>
+<td>The e-mail related to the new user that will be created.</td>
+<td>Yes</td>
+<td>string</td>
+</tr>
+<tr>
+<td>FirstName</td>
+<td>body</td>
+<td>The first name related to the new user that will be created.</td>
+<td>Yes</td>
+<td>string</td>
+</tr>
+<tr>
+<td>LastName</td>
+<td>body</td>
+<td>The last name related to the new user that will be created.</td>
+<td>Yes</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Attributes</td>
+<td>body</td>
+<td>The attributes that will be inserted on the new user that was created</td>
+<td>No</td>
+<td>Object</td>
 </tr>
 </tbody>
 </table>
 <h5 id="definition">Definition</h5>
-<p><img src="https://res.cloudinary.com/dbyrluup1/image/upload/cjebswgv8tgttk6fl8ld.jpg" alt="Endpoint definition" title="Endpoint definition"></p>
+<p><img src="https://res.cloudinary.com/dd7cforjd/image/upload/cluh2nidozrkw1fgwnpl.jpg" alt="Endpoint definition" title="Endpoint definition"></p>
 <h3 id="-how-to-use-the-endpoint">📝 How to Use the Endpoint</h3>
 <ol>
 <li><p><strong>Tenant Identification</strong>:</p>
@@ -174,17 +201,52 @@
 <li>You must specify the tenant name in the <strong>HTTP header</strong> to proceed.</li>
 </ul>
 </li>
-<li><p><strong>Query Parameters</strong>:</p>
+<li><p><strong>Body</strong>:</p>
 <ul>
-<li>After setting up the header, use the available <strong>query parameters</strong> to inform what user you want to delete.</li>
+<li>After setting up the header, inform a valid body to insert a user. Example:</li>
 </ul>
+<pre><code class="lang-json"> {  
+     &quot;name&quot;: &quot;Name of group&quot;,
+    &quot;attributes&quot;: {
+    &quot;additionalProp1&quot;: [
+      &quot;test1&quot;
+    ],
+    &quot;additionalProp2&quot;: [
+      &quot;test2&quot;
+    ],
+    &quot;additionalProp3&quot;: [
+      &quot;test3&quot;
+    ]
+  }
+ }
+
+</code></pre>
 </li>
 </ol>
+<hr>
+<h3 id="-reminder">📝 Reminder</h3>
+<p>The attributes property is not mandatory, but if you wanna configure some attribute to your group, you can defined it using this field.
+An example about how attribute works, could be found below:</p>
+<p><img src="https://res.cloudinary.com/dd7cforjd/image/upload/cluh2nidozrkw1fgwnpl.jpg" alt="Attributes definition" title="Attributes definition"></p>
+<p>The JSON used to created this attribute was:</p>
+<pre><code class="lang-json">&quot;attributes&quot;: {
+    &quot;additionalProp1&quot;: [
+      &quot;test1&quot;
+    ],
+    &quot;additionalProp2&quot;: [
+      &quot;test2&quot;
+    ],
+    &quot;additionalProp3&quot;: [
+      &quot;test3&quot;
+    ]
+  }
+}
+</code></pre>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/deletingUsers.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/creatingGroup.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

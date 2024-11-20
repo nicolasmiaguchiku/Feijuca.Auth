@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>&#128273; Configuring permissions in Keycloak for API Integration | Feijuca.Auth </title>
+      <title> | Feijuca.Auth </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="&#128273; Configuring permissions in Keycloak for API Integration | Feijuca.Auth ">
+      <meta name="title" content=" | Feijuca.Auth ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/main/docs/docs/keycloakMandatoryConfigs.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/keycloakMandatoryConfigs.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -29,15 +29,15 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
     <header class="bg-body border-bottom">
@@ -77,7 +77,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -85,28 +85,32 @@
         </div>
 
         <article data-uid="">
-<h1 id="-configuring-permissions-in-keycloak-for-api-integration">🔑 Configuring permissions in Keycloak for API Integration</h1>
 
+<h3 id="-configuring-permissions-in-keycloak-for-api-integration">🔑 Configuring permissions in Keycloak for API Integration</h3>
 <p>In order for your API to perform operations such as creating users, groups, realms, clients, roles, group roles, and more in Keycloak, you need to configure the appropriate permissions in the realm. This configuration is done by granting specific permissions to the <strong>Service Account</strong> associated with the client your API uses. Follow the steps below:</p>
-<h2 id="1--access-the-keycloak-admin-console">1. 🖥️ Access the Keycloak Admin console</h2>
+<h3 id="1--access-the-keycloak-admin-console">1. 🖥️ Access the Keycloak Admin console</h3>
 <ul>
 <li>Log in to the Keycloak Admin Console and select the realm where you want to configure Feijuca.Auth.</li>
 </ul>
-<h2 id="2--define-or-select-the-client-that-will-represent-feijucaauth">2. 📄 Define or select the client that will represent Feijuca.Auth.</h2>
+<hr>
+<h3 id="2--define-or-select-the-client-that-will-represent-feijucaauth">2. 📄 Define or select the client that will represent Feijuca.Auth.</h3>
 <ul>
 <li>We recommend you create a new client dedicated to handling the operations.</li>
 </ul>
 <p><img src="https://res.cloudinary.com/dbyrluup1/image/upload/sgm76xrjufxskg9dy7ed.jpg" alt="Create client example" title="Example of client configuration in Keycloak"></p>
-<h2 id="3--access-the-service-account-roles-tab">3. 🔧 Access the <strong>Service Account Roles</strong> Tab</h2>
+<hr>
+<h3 id="3--access-the-service-account-roles-tab">3. 🔧 Access the <strong>Service Account Roles</strong> Tab</h3>
 <ul>
 <li>On the client page, click on the <strong>Service Account Roles</strong> tab to manage the permissions for the service account.</li>
 </ul>
-<h2 id="4--assign-the-required-roles">4. ✅ Assign the Required Roles</h2>
+<hr>
+<h3 id="4--assign-the-required-roles">4. ✅ Assign the Required Roles</h3>
 <ul>
 <li>In the <strong>Service Account Roles</strong> tab, you will see a list of available roles.</li>
 <li>Assign the necessary roles to the service account to allow it to perform actions like user creation, group management, realm and client creation, etc.</li>
 </ul>
 <p><img src="https://res.cloudinary.com/dbyrluup1/image/upload/tck5z6yhvqhxdq8aciqo.jpg" alt="Add service role to the client" title="Add service role to the client"></p>
+<hr>
 <h3 id="-mandatory-roles-to-assign">📜 Mandatory Roles to Assign</h3>
 <ul>
 <li><p><strong>After clicking &quot;Assign Role&quot;</strong>, switch the filter to <strong>&quot;Filter by Clients&quot;</strong> to ensure you're assigning the correct roles to the service account.</p>
@@ -116,17 +120,21 @@
 </ul>
 </li>
 </ul>
-<h2 id="5--save-the-configuration">5. 💾 Save the Configuration</h2>
+<hr>
+<h3 id="5--save-the-configuration">5. 💾 Save the Configuration</h3>
 <ul>
 <li>After finish the assignment of the required roles, the final result should be similar to:
 <img src="https://res.cloudinary.com/dbyrluup1/image/upload/cguwlrnek8q2fzyyam0j.jpg" alt="Final result" title="Roles services added to the client"></li>
 </ul>
-<p>After assigning the necessary roles to the service account, <strong>Feijuca.Auth.Api</strong> will be able to make authenticated requests to Keycloak's API, allowing you to manage users, groups, clients, roles, and more within the realm. Once this is complete, you can proceed to the next step: <a href="/docs/feijucaMandatoryConfigs.html">🔗 Mandatory Configurations - Feijuca.Auth.Api</a>.</p>
+<hr>
+<h3 id="-successfully-assigned-roles-to-service-account">✅ Successfully Assigned Roles to Service Account</h3>
+<p>After assigning the necessary roles to the service account, <strong>Feijuca.Auth.Api</strong> will be able to make authenticated requests to Keycloak's API, allowing you to manage users, groups, clients, roles, and more within the realm.</p>
+<p>Once this is complete, you can proceed to the next step: <a href="/Feijuca.Auth/docs/feijucaMandatoryConfigs.html">Configuring the API</a>.</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/coderaw-io/Feijuca.Keycloak.AuthServices/blob/main/docs/docs/keycloakMandatoryConfigs.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/keycloakMandatoryConfigs.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
