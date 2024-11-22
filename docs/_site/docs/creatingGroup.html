@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/creatingGroup.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/coderaw-io/Feijuca.Auth/blob/fix-update_Documentation_DocFx/docs/docs/creatingGroup.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -107,6 +107,14 @@
 <tr>
 <td>400</td>
 <td>The request was invalid or could not be processed.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>The request lacks valid authentication credentials.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</td>
 </tr>
 <tr>
 <td>500</td>
@@ -205,21 +213,12 @@
 <ul>
 <li>After setting up the header, inform a valid body to insert a user. Example:</li>
 </ul>
-<pre><code class="lang-json"> {  
-     &quot;name&quot;: &quot;Name of group&quot;,
-    &quot;attributes&quot;: {
-    &quot;additionalProp1&quot;: [
-      &quot;test1&quot;
-    ],
-    &quot;additionalProp2&quot;: [
-      &quot;test2&quot;
-    ],
-    &quot;additionalProp3&quot;: [
-      &quot;test3&quot;
-    ]
+<pre><code class="lang-json">{
+  &quot;name&quot;: &quot;Name of group&quot;,
+  &quot;attributes&quot;: {
+    &quot;some-attribute&quot;: [&quot;attribute-value&quot;]
   }
- }
-
+}
 </code></pre>
 </li>
 </ol>
@@ -246,7 +245,7 @@ An example about how attribute works, could be found below:</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/main/docs/docs/creatingGroup.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/coderaw-io/Feijuca.Auth/blob/fix-update_Documentation_DocFx/docs/docs/creatingGroup.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

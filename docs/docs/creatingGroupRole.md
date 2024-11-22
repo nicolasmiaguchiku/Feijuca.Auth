@@ -1,53 +1,58 @@
-### ⚙️ Endpoint specification  
+### ⚙️ Endpoint specification
 
 ##### Method: POST
+
 ##### Path: /group/{id}/role
+
 ##### Summary:
 
 Adds a role to a specific group in the specified Keycloak realm.
 
 ##### Responses
-| Code | Description |
-| ---- | ----------- |
-| 201 | The role was successfully added to the group. |
-| 400 | The request was invalid or could not be processed. |
+
+| Code | Description                                                                                           |
+| ---- | ----------------------------------------------------------------------------------------------------- |
+| 201  | The role was successfully added to the group.                                                         |
+| 400  | The request was invalid or could not be processed.                                                    |
+| 401  | The request lacks valid authentication credentials.                                                   |
+| 403  | The request was understood, but the server is refusing to fulfill it due to insufficient permissions. |
+| 500  | An internal server error occurred during the processing of the request.                               |
 
 ##### Header
 
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ------ |
-| ID | patch | The unique identifier of the group to which the role will be added. | Yes | Guid |
-| Tenant | header | The tenant identifier used to filter the clients within a specific Keycloak realm. | Yes | string |
-
+| Name   | Located in | Description                                                                        | Required | Schema |
+| ------ | ---------- | ---------------------------------------------------------------------------------- | -------- | ------ |
+| ID     | patch      | The unique identifier of the group to which the role will be added.                | Yes      | Guid   |
+| Tenant | header     | The tenant identifier used to filter the clients within a specific Keycloak realm. | Yes      | string |
 
 ##### Body definition
 
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| clientId  | body  | The clientId related to the unique identifier of the client that will have the new rule added. | Yes   | Guid        |
-| roleId    | body  | The roleId related to the unique identifier of the rule to be added to the Group. | Yes   | Guid        |
-	
-##### Definition
-![Endpoint definition](https://res.cloudinary.com/dd7cforjd/image/upload/szxkceaew0arzygn7p1z.jpg "Endpoint definition")   
+| Name     | Located in | Description                                                                                    | Required | Schema |
+| -------- | ---------- | ---------------------------------------------------------------------------------------------- | -------- | ------ |
+| clientId | body       | The clientId related to the unique identifier of the client that will have the new rule added. | Yes      | Guid   |
+| roleId   | body       | The roleId related to the unique identifier of the rule to be added to the Group.              | Yes      | Guid   |
 
+##### Definition
+
+![Endpoint definition](https://res.cloudinary.com/dd7cforjd/image/upload/szxkceaew0arzygn7p1z.jpg "Endpoint definition")
 
 ### 📝 How to Use the Endpoint
 
 1. **Tenant Identification**:
-   - The term *id* represents the **realm name** within Keycloak where you’ll be performing actions.
+   - The term _id_ represents the **realm name** within Keycloak where you’ll be performing actions.
    - You must specify the tenant name in the **HTTP header** to proceed.
 2. **Id Unique Identification**:
-   - The term *id* in Feijuca represents the **unique identifier of the group** within Keycloak where you will execute the actions.
+
+   - The term _id_ in Feijuca represents the **unique identifier of the group** within Keycloak where you will execute the actions.
    - You must specify the Group Id in the **HTTP path** to proceed.
 
+3. **Body**:
 
-2. **Body**:
-   - After setting up the header, inform a valid body to insert a user. Example:  
+   - After setting up the header, inform a valid body to insert a user. Example:
 
-	```json
-	{  
-	  "clientId": "Unique client identifier",
-      "roleId": "Unique role identifier"
-	}
-	
-	```
+   ```json
+   {
+     "clientId": "Unique client identifier",
+     "roleId": "Unique role identifier"
+   }
+   ```
