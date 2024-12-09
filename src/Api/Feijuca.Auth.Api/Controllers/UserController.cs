@@ -70,8 +70,6 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [RequiredRole("Feijuca.ApiWriter")]
-        [Authorize]
         public async Task<IActionResult> CreateUser([FromBody] AddUserRequest addUserRequest,
             CancellationToken cancellationToken)
         {
@@ -244,7 +242,7 @@ namespace Feijuca.Auth.Api.Controllers
             var firstName = nameParts.FirstOrDefault();
             var lastName = nameParts.Length > 1 ? nameParts[^1] : "";
 
-            var tenant = HttpContext.Request.Headers["Tenant"].ToString();
+            var tenant = HttpContext.Request.Headers["Tenant"].ToString() ?? "1";
             var userResponse = new UserResponse(Guid.Parse(userId), username, email, firstName!, lastName!, tenant);
             return Ok(userResponse);
         }
