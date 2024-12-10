@@ -12,6 +12,7 @@ namespace Feijuca.Auth.Domain.Interfaces
         Task<Result<bool>> CreateAsync(User user, CancellationToken cancellationToken);
         Task<Result<bool>> ResetPasswordAsync(Guid id, string password, CancellationToken cancellationToken);
         Task<Result<bool>> RevokeSessionsAsync(Guid id, CancellationToken cancellationToken);
+        Task<Result<bool>> AddUserAttributesAsync(Guid id, Dictionary<string, string[]> attributes, CancellationToken cancellationToken);
         Task<Result<User>> GetAsync(string username, CancellationToken cancellationToken);
         Task<Result> SendEmailVerificationAsync(string userId, CancellationToken cancellationToken);
         Task<Result<TokenDetails>> LoginAsync(string username, string password, CancellationToken cancellationToken);

@@ -67,7 +67,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 return Result.Success();
             }
 
-            GroupErrors.SetTechnicalMessage(response.ReasonPhrase!, cancellationToken);
+            GroupErrors.SetTechnicalMessage(response.ReasonPhrase!);
             return Result.Failure(GroupErrors.CreationGroupError);
         }
 
@@ -89,7 +89,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 return Result.Success();
             }
 
-            GroupErrors.SetTechnicalMessage(response.ReasonPhrase!, cancellationToken);
+            GroupErrors.SetTechnicalMessage(response.ReasonPhrase!);
             return Result.Failure(GroupErrors.DeletionGroupError);
         }
 

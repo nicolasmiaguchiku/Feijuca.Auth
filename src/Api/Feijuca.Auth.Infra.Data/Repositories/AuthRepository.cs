@@ -41,7 +41,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             var responseMessage = await response.Content.ReadAsStringAsync(cancellationToken);
-            UserErrors.SetTechnicalMessage(responseMessage, cancellationToken);
+            UserErrors.SetTechnicalMessage(responseMessage);
             return Result<TokenDetails>.Failure(UserErrors.TokenGenerationError);
         }
     }

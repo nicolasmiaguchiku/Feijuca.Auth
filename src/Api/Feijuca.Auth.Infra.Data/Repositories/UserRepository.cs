@@ -7,6 +7,8 @@ using Feijuca.Auth.Domain.Interfaces;
 using Flurl;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -51,7 +53,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
             return Result<IEnumerable<User>>.Success(users);
         }
-            
+
         public async Task<int> GetTotalAsync(CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
@@ -90,7 +92,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 return Result<bool>.Success(true);
             }
 
-            UserErrors.SetTechnicalMessage(response.ReasonPhrase!, cancellationToken);
+            UserErrors.SetTechnicalMessage(response.ReasonPhrase!);
             return Result<bool>.Failure(UserErrors.DeletionUserError);
         }
 
@@ -134,7 +136,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
             var user = JsonConvert.DeserializeObject<List<User>>(keycloakUserContent)!;
 
-            if(user.Count == 0)
+            if (user.Count == 0)
             {
                 return Result<User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
             }
@@ -171,7 +173,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             var responseMessage = await response.Content.ReadAsStringAsync(cancellationToken);
-            UserErrors.SetTechnicalMessage(responseMessage, cancellationToken);
+            UserErrors.SetTechnicalMessage(responseMessage);
             return Result<bool>.Failure(UserErrors.WrongPasswordDefinition);
         }
 
@@ -205,7 +207,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             var responseMessage = await response.Content.ReadAsStringAsync(cancellationToken);
-            UserErrors.SetTechnicalMessage(responseMessage, cancellationToken);
+            UserErrors.SetTechnicalMessage(responseMessage);
             return Result.Failure(UserErrors.InvalidUserNameOrPasswordError);
         }
 
@@ -262,7 +264,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             var responseMessage = await response.Content.ReadAsStringAsync(cancellationToken);
-            UserErrors.SetTechnicalMessage(responseMessage, cancellationToken);
+            UserErrors.SetTechnicalMessage(responseMessage);
             return Result<TokenDetails>.Failure(UserErrors.InvalidUserNameOrPasswordError);
         }
 
@@ -321,7 +323,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             var responseMessage = await response.Content.ReadAsStringAsync(cancellationToken);
-            UserErrors.SetTechnicalMessage(responseMessage, cancellationToken);
+            UserErrors.SetTechnicalMessage(responseMessage);
             return Result<TokenDetails>.Failure(UserErrors.InvalidRefreshToken);
         }
 
@@ -330,6 +332,37 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             return httpClient;
+        }
+
+        public async Task<Result<bool>> AddUserAttributesAsync(Guid id, Dictionary<string, string[]> attributes, CancellationToken cancellationToken)
+        {
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+
+            var url = httpClient.BaseAddress
+                    .AppendPathSegment("admin")
+                    .AppendPathSegment("realms")
+                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment("users")
+                    .AppendPathSegment(id);
+
+            var payload = new Dictionary<string, object>
+            {
+                { "attributes", attributes }
+            };
+
+            var json = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PutAsync(url, content, cancellationToken);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return Result<bool>.Success(true);
+            }
+
+            var responseMessage = await response.Content.ReadAsStringAsync(cancellationToken);
+            UserErrors.SetTechnicalMessage(responseMessage);
+            return Result<bool>.Failure(UserErrors.InvalidRefreshToken);
         }
     }
 }

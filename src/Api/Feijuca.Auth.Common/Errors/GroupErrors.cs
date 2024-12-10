@@ -26,7 +26,7 @@ namespace Feijuca.Auth.Common.Errors
             $"An error occurred while trying get the users in groups: {TechnicalMessage}"
         );
 
-        public static void SetTechnicalMessage(string technicalMessage, CancellationToken cancellationToken)
+        public static void SetTechnicalMessage(string technicalMessage)
         {
             TechnicalMessage = technicalMessage;
         }

@@ -51,7 +51,12 @@ namespace Feijuca.Auth.Common.Errors
             $"An error occurred while trying to revoke sessions for the user: {TechnicalMessage}"
         );
 
-        public static void SetTechnicalMessage(string technicalMessage, CancellationToken cancellationToken)
+        public static Error ErrorWhileAddedUserAttribute => new(
+            "User.ErrorWhileAddedUserAttribute",
+            $"An error occurred while trying add an attribute to the user. {TechnicalMessage}"
+        );
+
+        public static void SetTechnicalMessage(string technicalMessage)
         {
             TechnicalMessage = technicalMessage;
         }
