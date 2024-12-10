@@ -334,7 +334,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return httpClient;
         }
 
-        public async Task<Result<bool>> AddUserAttributesAsync(Guid id, Dictionary<string, string[]> attributes, CancellationToken cancellationToken)
+        public async Task<Result<bool>> UpdateUserAsync(Guid id, User user, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
@@ -346,12 +346,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                     .AppendPathSegment("users")
                     .AppendPathSegment(id);
 
-            var payload = new Dictionary<string, object>
-            {
-                { "attributes", attributes }
-            };
-
-            var json = JsonConvert.SerializeObject(payload);
+            var json = JsonConvert.SerializeObject(user, Settings);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await httpClient.PutAsync(url, content, cancellationToken);
 

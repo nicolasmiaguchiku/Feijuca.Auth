@@ -85,6 +85,39 @@ namespace Feijuca.Auth.Api.Controllers
         }
 
         /// <summary>
+        /// Update user attributes and returns a the status of the action.
+        /// </summary>
+        /// <param name="id">The user id that should have the attributes updated.</param>
+        /// <param name="addUserRequest">The user object field that will be updated.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
+        /// <returns>
+        /// A 202Accepted status code if the authentication is successful, along with the JWT token and user attributes was updated;
+        /// otherwise, a 400 Bad Request status code with an error message.
+        /// </returns>
+        /// <response code="201">Authentication was successful, and the JWT token and user attributes was updated.</response>
+        /// <response code="400">The request was invalid, such as incorrect credentials.</response>
+        /// <response code="500">An internal server error occurred while processing the request.</response>
+        [HttpPut]
+        [Route("/user", Name = nameof(UpdateAttributes))]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
+        public async Task<IActionResult> UpdateAttributes([FromQuery] Guid id, [FromBody] AddUserRequest addUserRequest,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new UpdateUserCommand(id, addUserRequest), cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                var response = Result<bool>.Success(true);
+                return Ok(response.Response);
+            }
+
+            return BadRequest(result.Error);
+        }
+
+        /// <summary>
         /// Deletes an existing user from the specified Keycloak realm.
         /// </summary>
         /// <param name="id">The unique identifier of the user to be deleted.</param>
@@ -204,39 +237,6 @@ namespace Feijuca.Auth.Api.Controllers
             if (result.IsSuccess)
             {
                 var response = Result<TokenDetailsResponse>.Success(result.Response);
-                return Ok(response.Response);
-            }
-
-            return BadRequest(result.Error);
-        }
-
-        /// <summary>
-        /// Update user attributes and returns a the status of the action.
-        /// </summary>
-        /// <param name="id">The user id that should have the attributes updated.</param>
-        /// <param name="attributes">The new attributes that should be added to the user.</param>
-        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
-        /// <returns>
-        /// A 202Accepted status code if the authentication is successful, along with the JWT token and user attributes was updated;
-        /// otherwise, a 400 Bad Request status code with an error message.
-        /// </returns>
-        /// <response code="201">Authentication was successful, and the JWT token and user attributes was updated.</response>
-        /// <response code="400">The request was invalid, such as incorrect credentials.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
-        [HttpPut]
-        [Route("/user/update-attributes", Name = nameof(UpdateAttributes))]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize]
-        public async Task<IActionResult> UpdateAttributes([FromQuery] Guid id, [FromBody] Dictionary<string, string[]> attributes,
-            CancellationToken cancellationToken)
-        {
-            var result = await _mediator.Send(new UpdateUserAttributesCommand(id, attributes), cancellationToken);
-
-            if (result.IsSuccess)
-            {
-                var response = Result<bool>.Success(true);
                 return Ok(response.Response);
             }
 
