@@ -85,7 +85,7 @@ namespace Feijuca.Auth.Api.Controllers
         }
 
         /// <summary>
-        /// Update user attributes and returns a the status of the action.
+        /// Update an existing user in a Keycloak realm.
         /// </summary>
         /// <param name="id">The user id that should have the attributes updated.</param>
         /// <param name="addUserRequest">The user object field that will be updated.</param>
@@ -98,12 +98,12 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="400">The request was invalid, such as incorrect credentials.</response>
         /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPut]
-        [Route("/user", Name = nameof(UpdateAttributes))]
+        [Route("/user", Name = nameof(UpdateUser))]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize]
-        public async Task<IActionResult> UpdateAttributes([FromQuery] Guid id, [FromBody] AddUserRequest addUserRequest,
+        public async Task<IActionResult> UpdateUser([FromQuery] Guid id, [FromBody] AddUserRequest addUserRequest,
             CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new UpdateUserCommand(id, addUserRequest), cancellationToken);
@@ -111,7 +111,7 @@ namespace Feijuca.Auth.Api.Controllers
             if (result.IsSuccess)
             {
                 var response = Result<bool>.Success(true);
-                return Ok(response.Response);
+                return Accepted(response.Response);
             }
 
             return BadRequest(result.Error);
