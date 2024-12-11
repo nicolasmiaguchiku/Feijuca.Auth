@@ -408,6 +408,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs/updateAttributes.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/updateAttributes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs/usingEndpoints.md",
       "output": {
         ".html": {

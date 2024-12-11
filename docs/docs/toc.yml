@@ -20,6 +20,8 @@
           href: creatingUsers.md
         - name: Deleting user
           href: deletingUsers.md
+        - name: Update Attributes
+          href: updateAttributes.md
         - name: Revoke sessions
           href: revokeUserSessions.md
         - name: Logout user
