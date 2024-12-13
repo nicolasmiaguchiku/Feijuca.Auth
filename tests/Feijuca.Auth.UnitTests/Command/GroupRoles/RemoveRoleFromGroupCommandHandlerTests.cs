@@ -11,7 +11,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.GroupRoles
 {
     public class RemoveRoleFromGroupCommandHandlerTests
     {
-        private readonly IFixture _fixture = new Fixture();
+        private readonly Fixture _fixture = new();
         private readonly Mock<IGroupRepository> _groupRepositoryMock = new();
         private readonly Mock<IGroupRolesRepository> _groupRolesRepositoryMock = new();
         private readonly Mock<IRoleRepository> _roleRepositoryMock = new();
