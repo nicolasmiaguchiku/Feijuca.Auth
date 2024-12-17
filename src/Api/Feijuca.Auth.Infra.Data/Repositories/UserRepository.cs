@@ -7,9 +7,6 @@ using Feijuca.Auth.Domain.Interfaces;
 using Flurl;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
@@ -18,7 +15,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         IHttpClientFactory httpClientFactory,
         IAuthRepository authRepository,
         ITenantService tenantService)
-        : IUserRepository
+        : BaseRepository(httpClientFactory), IUserRepository
     {
         private readonly TokenCredentials _tokenCredentials = tokenCredentials;
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
@@ -238,7 +235,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<Result<TokenDetails>> LoginAsync(string username, string password, CancellationToken cancellationToken)
         {
-            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
+            using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
             var urlGetToken = httpClient.BaseAddress.AppendPathSegment("realms")
                 .AppendPathSegment(_tenantService.Tenant)
                 .AppendPathSegment("protocol")
@@ -270,7 +267,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<Result<bool>> SignoutAsync(string refreshToken, CancellationToken cancellationToken)
         {
-            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
+            using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
 
             var urlGetToken = httpClient.BaseAddress.AppendPathSegment("realms")
                 .AppendPathSegment(_tenantService.Tenant)
@@ -297,7 +294,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<Result<TokenDetails>> RefreshTokenAsync(string refreshToken, CancellationToken cancellationToken)
         {
-            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
+            using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
 
             var urlGetToken = httpClient.BaseAddress.AppendPathSegment("realms")
                 .AppendPathSegment(_tenantService.Tenant)
@@ -325,13 +322,6 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var responseMessage = await response.Content.ReadAsStringAsync(cancellationToken);
             UserErrors.SetTechnicalMessage(responseMessage);
             return Result<TokenDetails>.Failure(UserErrors.InvalidRefreshToken);
-        }
-
-        private HttpClient CreateHttpClientWithHeaders(string accessToken)
-        {
-            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            return httpClient;
         }
 
         public async Task<Result<bool>> UpdateUserAsync(Guid id, User user, CancellationToken cancellationToken)

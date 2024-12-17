@@ -2,13 +2,11 @@
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using Flurl;
-using System.Net.Http.Headers;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class UserGroupRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService) : IGroupUsersRepository
+    public class UserGroupRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService) : BaseRepository(httpClientFactory), IGroupUsersRepository
     {
-        private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IAuthRepository _authRepository = authRepository;
         private readonly ITenantService _tenantService = tenantService;
 
@@ -58,13 +56,6 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             return Result<bool>.Failure(UserGroupErrors.ErrorAddUserToGroup);
-        }
-
-        private HttpClient CreateHttpClientWithHeaders(string accessToken)
-        {
-            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            return httpClient;
         }
     }
 }

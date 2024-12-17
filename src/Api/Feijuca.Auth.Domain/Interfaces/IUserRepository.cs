@@ -4,7 +4,7 @@ using Feijuca.Auth.Domain.Filters;
 
 namespace Feijuca.Auth.Domain.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository : IBaseRepository
     {
         Task<Result<IEnumerable<User>>> GetAllAsync(UserFilters userFilters, CancellationToken cancellationToken);
         Task<int> GetTotalAsync(CancellationToken cancellationToken);
@@ -12,7 +12,7 @@ namespace Feijuca.Auth.Domain.Interfaces
         Task<Result<bool>> CreateAsync(User user, CancellationToken cancellationToken);
         Task<Result<bool>> UpdateUserAsync(Guid id, User user, CancellationToken cancellationToken);
         Task<Result<bool>> ResetPasswordAsync(Guid id, string password, CancellationToken cancellationToken);
-        Task<Result<bool>> RevokeSessionsAsync(Guid id, CancellationToken cancellationToken);        
+        Task<Result<bool>> RevokeSessionsAsync(Guid id, CancellationToken cancellationToken);
         Task<Result<User>> GetAsync(string username, CancellationToken cancellationToken);
         Task<Result> SendEmailVerificationAsync(string userId, CancellationToken cancellationToken);
         Task<Result<TokenDetails>> LoginAsync(string username, string password, CancellationToken cancellationToken);

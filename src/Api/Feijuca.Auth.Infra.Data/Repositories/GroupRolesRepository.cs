@@ -13,9 +13,9 @@ using System.Text;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class GroupRolesRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService) : IGroupRolesRepository
+    public class GroupRolesRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService)
+        : BaseRepository(httpClientFactory), IGroupRolesRepository
     {
-        private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IAuthRepository _authRepository = authRepository;
         private readonly ITenantService _tenantService = tenantService;
 
@@ -117,13 +117,6 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             return Result<bool>.Failure(GroupRolesErrors.RemovingRoleFromGroupError);
-        }
-
-        private HttpClient CreateHttpClientWithHeaders(string accessToken)
-        {
-            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            return httpClient;
         }
     }
 }

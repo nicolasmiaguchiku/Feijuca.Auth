@@ -3,7 +3,7 @@ using Feijuca.Auth.Domain.Entities;
 
 namespace Feijuca.Auth.Domain.Interfaces
 {
-    public interface IClientRepository
+    public interface IClientRepository : IBaseRepository
     {
         Task<Result<IEnumerable<Client>>> GetClientsAsync(CancellationToken cancellationToken);
     }

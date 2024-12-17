@@ -22,13 +22,13 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 new KeyValuePair<string, string>("client_secret", _tokenCredentials.Client_Secret),
             ]);
 
-            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
+            using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
             var url = httpClient.BaseAddress
-                .AppendPathSegment("realms")
-                .AppendPathSegment(_tenantService.Tenant)
-                .AppendPathSegment("protocol")
-                .AppendPathSegment("openid-connect")
-                .AppendPathSegment("token");
+            .AppendPathSegment("realms")
+            .AppendPathSegment(_tenantService.Tenant)
+            .AppendPathSegment("protocol")
+            .AppendPathSegment("openid-connect")
+            .AppendPathSegment("token");
 
             var response = await httpClient.PostAsync(url, requestData, cancellationToken);
 

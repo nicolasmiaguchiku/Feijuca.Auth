@@ -9,9 +9,8 @@ using System.Text;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class RoleRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService) : IRoleRepository
+    public class RoleRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService) : BaseRepository(httpClientFactory), IRoleRepository
     {
-        private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IAuthRepository _authRepository = authRepository;
         private readonly ITenantService _tenantService = tenantService;
 
@@ -28,7 +27,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                     .AppendPathSegment(clientId)
                     .AppendPathSegment("roles");
 
-            var response = await httpClient.GetAsync(url);
+            var response = await httpClient.GetAsync(url, cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {
@@ -72,13 +71,6 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             return Result<bool>.Failure(RoleErrors.AddRoleErrors);
-        }
-
-        private HttpClient CreateHttpClientWithHeaders(string accessToken)
-        {
-            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            return httpClient;
         }
     }
 }

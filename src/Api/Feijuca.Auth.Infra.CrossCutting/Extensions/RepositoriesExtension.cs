@@ -1,7 +1,5 @@
-﻿using Feijuca.Auth.Domain.Entities;
-using Feijuca.Auth.Domain.Interfaces;
+﻿using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Infra.Data.Repositories;
-using Feijuca.Auth.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Feijuca.Auth.Infra.CrossCutting.Extensions
@@ -17,6 +15,7 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
             services.AddScoped<IGroupUsersRepository, UserGroupRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IRealmRepository, RealmRepository>();
             services.AddScoped<IGroupRolesRepository, GroupRolesRepository>();
 
             return services;

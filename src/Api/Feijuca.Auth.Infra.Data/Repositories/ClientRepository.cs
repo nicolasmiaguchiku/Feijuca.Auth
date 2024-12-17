@@ -4,13 +4,11 @@ using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
 using Flurl;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class ClientRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService) : IClientRepository
+    public class ClientRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService) : BaseRepository(httpClientFactory), IClientRepository
     {
-        private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IAuthRepository _authRepository = authRepository;
         private readonly ITenantService _tenantService = tenantService;
 
@@ -37,13 +35,6 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             return Result<IEnumerable<Client>>.Failure(ClientErrors.GetClientsErrors);
-        }
-
-        private HttpClient CreateHttpClientWithHeaders(string accessToken)
-        {
-            var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            return httpClient;
         }
     }
 }
