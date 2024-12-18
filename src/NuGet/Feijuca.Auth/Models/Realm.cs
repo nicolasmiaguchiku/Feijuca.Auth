@@ -1,6 +1,6 @@
 ﻿namespace Feijuca.Auth.Models;
 
-public class Tenant
+public class Realm
 {
     public required string Name { get; init; }
     public required string Audience { get; init; }
