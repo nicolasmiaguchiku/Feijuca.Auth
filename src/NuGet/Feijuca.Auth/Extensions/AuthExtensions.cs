@@ -12,11 +12,11 @@ namespace Feijuca.Auth.Extensions
 {
     public static class AuthExtensions
     {
-        public static IServiceCollection AddKeyCloakAuth(this IServiceCollection services, 
-            Client client, 
-            ServerSettings serverSettings, 
+        public static IServiceCollection AddKeyCloakAuth(this IServiceCollection services,
+            Client client,
+            ServerSettings serverSettings,
             IEnumerable<Realm> realms,
-            IEnumerable<Policy>? policies = null) 
+            IEnumerable<Policy>? policies = null)
         {
             services
                 .AddSingleton<JwtSecurityTokenHandler>()
@@ -68,7 +68,7 @@ namespace Feijuca.Auth.Extensions
                     {
                         return;
                     }
-                    
+
                     var tenantNumber = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value;
                     var tenantRealm = realms.FirstOrDefault(realm => realm.Name == tenantNumber);
                     if (ValidateRealm(context, tenantRealm).Equals(false))
@@ -195,7 +195,7 @@ namespace Feijuca.Auth.Extensions
                .AddAuthorization()
                .AddKeycloakAuthorization();
 
-            foreach(var policy in policySettings ?? [])
+            foreach (var policy in policySettings ?? [])
             {
                 if (!string.IsNullOrEmpty(policy.Name))
                 {
