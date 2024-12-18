@@ -15,7 +15,7 @@ namespace Feijuca.Auth.Extensions
         public static IServiceCollection AddKeyCloakAuth(this IServiceCollection services, 
             Client client, 
             ServerSettings serverSettings, 
-            IEnumerable<Realm> realms,
+            IEnumerable<Tenant> realms,
             IEnumerable<Policy>? policies = null) 
         {
             services
@@ -44,7 +44,7 @@ namespace Feijuca.Auth.Extensions
             return services;
         }
 
-        private static Func<MessageReceivedContext, Task> OnMessageReceived(IEnumerable<Realm> realms)
+        private static Func<MessageReceivedContext, Task> OnMessageReceived(IEnumerable<Tenant> realms)
         {
             return async context =>
             {
@@ -145,7 +145,7 @@ namespace Feijuca.Auth.Extensions
             return true;
         }
 
-        private static bool ValidateRealm(MessageReceivedContext context, Realm? tenantRealm)
+        private static bool ValidateRealm(MessageReceivedContext context, Tenant? tenantRealm)
         {
             if (tenantRealm == null)
             {
@@ -170,7 +170,7 @@ namespace Feijuca.Auth.Extensions
             return true;
         }
 
-        private static async Task<TokenValidationParameters> GetTokenValidationParameters(Realm tenantRealm)
+        private static async Task<TokenValidationParameters> GetTokenValidationParameters(Tenant tenantRealm)
         {
             using var httpClient = new HttpClient();
             var jwksUrl = $"{tenantRealm.Issuer}/protocol/openid-connect/certs";
