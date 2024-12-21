@@ -1,4 +1,4 @@
 ﻿namespace Feijuca.Auth.Application.Requests.Auth
 {
-    public record LoginUserRequest(string Username, string Password, bool RevokeActiveSessions);
+    public record LoginUserRequest(string Username, string Password);
 }
