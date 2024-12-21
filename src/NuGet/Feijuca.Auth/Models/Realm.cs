@@ -5,14 +5,14 @@ namespace Feijuca.Auth.Models;
 public class Realm
 {
     [JsonIgnore]
-    public FeijucaAuthClient? FeijucaAuthClient { get; init; }
+    public FeijucaAuthClient? FeijucaAuthClient { get; set; }
 
-    public bool DefaultSwaggerTokenGeneration { get; init; }
+    public bool DefaultSwaggerTokenGeneration { get; set; }
 
-    public required string Name { get; init; }
+    public required string Name { get; set; }
 
-    public required string Audience { get; init; }
+    public required string Audience { get; set; }
 
-    public required string Issuer { get; init; }
+    public required string Issuer { get; set; }
 
 }

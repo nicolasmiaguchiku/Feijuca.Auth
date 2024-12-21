@@ -2,6 +2,6 @@
 
 public class Policy
 {
-    public required string Name { get; init; }
-    public required IEnumerable<string> Roles { get; init; }
+    public required string Name { get; set; }
+    public required IEnumerable<string> Roles { get; set; }
 }

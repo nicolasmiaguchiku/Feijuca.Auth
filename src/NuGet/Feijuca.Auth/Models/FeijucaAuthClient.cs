@@ -2,7 +2,7 @@
 {
     public class FeijucaAuthClient
     {
-        public required string FeijucaAuthClientId { get; init; }
-        public required string FeijucaAuthClientSecret { get; init; }
+        public required string FeijucaAuthClientId { get; set; }
+        public required string FeijucaAuthClientSecret { get; set; }
     }
 }

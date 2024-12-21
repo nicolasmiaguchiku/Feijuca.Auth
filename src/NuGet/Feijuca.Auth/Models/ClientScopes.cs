@@ -2,5 +2,5 @@
 
 public class ClientScopes
 {
-    public required IEnumerable<string> Scopes { get; init; }
+    public required IEnumerable<string> Scopes { get; set; }
 }

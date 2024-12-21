@@ -2,5 +2,5 @@
 
 public class ServerSettings
 {
-    public required string Url { get; init; }
+    public required string Url { get; set; }
 }

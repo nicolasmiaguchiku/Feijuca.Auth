@@ -2,5 +2,5 @@
 
 public class Client
 {
-    public required string MasterClientId { get; init; }
+    public required string MasterClientId { get; set; }
 }

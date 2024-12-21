@@ -2,5 +2,5 @@
 
 public class Secrets
 {
-    public required string MasterClientSecret { get; init; }
+    public required string MasterClientSecret { get; set; }
 }
