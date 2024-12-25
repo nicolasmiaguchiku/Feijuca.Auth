@@ -7,35 +7,20 @@ namespace Feijuca.Auth.Application.Validators
     {
         public KeycloakSettingsValidator()
         {
-            RuleFor(x => x.Client.ClientId)
+            RuleFor(x => x.Client.MasterClientId)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage($"The {nameof(KeycloakSettings.Client.ClientId)} field is required.");
+                .WithMessage($"The {nameof(KeycloakSettings.Client.MasterClientId)} field is required.");
 
-            RuleFor(x => x.Secrets.ClientSecret)
+            RuleFor(x => x.Secrets.MasterClientSecret)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage($"The {nameof(KeycloakSettings.Secrets.ClientSecret)} field is required.");
+                .WithMessage($"The {nameof(KeycloakSettings.Secrets.MasterClientSecret)} field is required.");
 
             RuleFor(x => x.ServerSettings.Url)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage($"The {nameof(KeycloakSettings.ServerSettings.Url)} field is required.");
-
-            RuleFor(x => x.Realm.Name)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage($"The {nameof(KeycloakSettings.Realm.Name)} field is required.");
-
-            RuleFor(x => x.Realm.Audience)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage($"The {nameof(KeycloakSettings.Realm.Audience)} field is required.");
-
-            RuleFor(x => x.Realm.Issuer)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage($"The {nameof(KeycloakSettings.Realm.Issuer)} field is required.");
         }
     }
 }

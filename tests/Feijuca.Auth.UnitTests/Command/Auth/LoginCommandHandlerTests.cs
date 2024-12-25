@@ -12,12 +12,12 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Auth
     public class LoginCommandHandlerTests
     {
         private readonly IFixture _fixture = new Fixture();
-        private readonly Mock<ILoginService> _loginServiceMock = new();
+        private readonly Mock<IUserRepository> userRepository = new();
         private readonly LoginCommandHandler _handler;
 
         public LoginCommandHandlerTests()
         {
-            _handler = new LoginCommandHandler(_loginServiceMock.Object);
+            _handler = new LoginCommandHandler(userRepository.Object);
         }
 
         [Fact]
@@ -29,8 +29,8 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Auth
             var tokenDetails = _fixture.Create<TokenDetails>();
             var loginResult = Result<TokenDetails>.Success(tokenDetails);
 
-            _loginServiceMock
-                .Setup(repo => repo.LoginAsync(It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            userRepository
+                .Setup(repo => repo.LoginAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(loginResult);
 
             // Act
@@ -42,8 +42,8 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Auth
                 .Should()
                 .BeTrue();
 
-            _loginServiceMock.Verify(repo => repo.LoginAsync(It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once());
-            _loginServiceMock.VerifyNoOtherCalls();
+            userRepository.Verify(repo => repo.LoginAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once());
+            userRepository.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -54,8 +54,8 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Auth
             var cancellationToken = _fixture.Create<CancellationToken>();
             var loginResult = Result<TokenDetails>.Failure(UserErrors.InvalidUserNameOrPasswordError);
 
-            _loginServiceMock
-                .Setup(repo => repo.LoginAsync(It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            userRepository
+                .Setup(repo => repo.LoginAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(loginResult);
 
             // Act
@@ -67,8 +67,8 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Auth
                 .Should()
                 .Be(UserErrors.InvalidUserNameOrPasswordError);
 
-            _loginServiceMock.Verify(repo => repo.LoginAsync(It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once());
-            _loginServiceMock.VerifyNoOtherCalls();
+            userRepository.Verify(repo => repo.LoginAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once());
+            userRepository.VerifyNoOtherCalls();
         }
     }
 }

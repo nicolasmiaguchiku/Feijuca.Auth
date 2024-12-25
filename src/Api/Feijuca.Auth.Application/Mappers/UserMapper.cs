@@ -11,10 +11,14 @@ namespace Feijuca.Auth.Application.Mappers
 {
     public static class UserMapper
     {
-        public static User ToDomain(this AddUserRequest userRequest)
+        public static User ToDomain(this AddUserRequest userRequest, string tenant)
         {
-            var atributtes = new Dictionary<string, string[]>();
-            foreach (var item in userRequest.Attributes)
+            var atributtes = new Dictionary<string, string[]>
+            {
+                { "tenant", [tenant] }
+            };
+
+            foreach (var item in userRequest.Attributes?.Where(x => x.Key != "tenant") ?? [])
             {
                 atributtes.Add(item.Key, item.Value);
             }

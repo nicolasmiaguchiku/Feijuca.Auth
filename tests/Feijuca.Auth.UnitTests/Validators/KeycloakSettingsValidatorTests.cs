@@ -17,15 +17,16 @@ namespace Feijuca.Auth.Api.UnitTests.Validators
             // Arrange
             var invalidKeycloakSettings = new KeycloakSettings
             {
-                Client = new Client { ClientId = null! },
-                Secrets = new Secrets { ClientSecret = null! },
+                Client = new Client { MasterClientId = null! },
+                Secrets = new Secrets { MasterClientSecret = null! },
                 ServerSettings = new ServerSettings { Url = null! },
-                Realm = new Realm
-                {
-                    Name = null!,
-                    Audience = null!,
-                    Issuer = null!
-                }
+                Realms = [
+                    new Realm
+                    {
+                        Name = null!,
+                        Audience = null!,
+                        Issuer = null!
+                    } ]
             };
 
             // Act
@@ -37,12 +38,9 @@ namespace Feijuca.Auth.Api.UnitTests.Validators
                .Should()
                .BeFalse();
 
-            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Client.ClientId)} field is required.");
-            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Secrets.ClientSecret)} field is required.");
+            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Client.MasterClientId)} field is required.");
+            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Secrets.MasterClientSecret)} field is required.");
             result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.ServerSettings.Url)} field is required.");
-            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Realm.Name)} field is required.");
-            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Realm.Audience)} field is required.");
-            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Realm.Issuer)} field is required.");
         }
 
         [Fact]
@@ -51,15 +49,16 @@ namespace Feijuca.Auth.Api.UnitTests.Validators
             // Arrange
             var invalidKeycloakSettings = new KeycloakSettings
             {
-                Client = new Client { ClientId = string.Empty},
-                Secrets = new Secrets { ClientSecret = string.Empty },
+                Client = new Client { MasterClientId = string.Empty },
+                Secrets = new Secrets { MasterClientSecret = string.Empty },
                 ServerSettings = new ServerSettings { Url = string.Empty },
-                Realm = new Realm
-                {
-                    Name = string.Empty,
-                    Audience = string.Empty,
-                    Issuer = string.Empty
-                }
+                Realms = [
+                    new Realm
+                    {
+                        Name = null!,
+                        Audience = null!,
+                        Issuer = null!
+                    } ]
             };
 
             // Act
@@ -71,12 +70,9 @@ namespace Feijuca.Auth.Api.UnitTests.Validators
                .Should()
                .BeFalse();
 
-            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Client.ClientId)} field is required.");
-            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Secrets.ClientSecret)} field is required.");
+            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Client.MasterClientId)} field is required.");
+            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Secrets.MasterClientSecret)} field is required.");
             result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.ServerSettings.Url)} field is required.");
-            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Realm.Name)} field is required.");
-            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Realm.Audience)} field is required.");
-            result.Errors.Should().Contain(e => e.ErrorMessage == $"The {nameof(KeycloakSettings.Realm.Issuer)} field is required.");
         }
 
         [Fact]

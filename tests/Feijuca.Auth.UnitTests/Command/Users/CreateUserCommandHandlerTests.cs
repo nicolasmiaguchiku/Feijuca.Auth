@@ -11,13 +11,14 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Users
 {
     public class CreateUserCommandHandlerTests
     {
-        private readonly IFixture _fixture = new Fixture();
+        private readonly Fixture _fixture = new();
         private readonly Mock<IUserRepository> _userRepositoryMock = new();
+        private readonly Mock<ITenantService> _tenantService = new();
         private readonly CreateUserCommandHandler _handler;
 
         public CreateUserCommandHandlerTests()
         {
-            _handler = new CreateUserCommandHandler(_userRepositoryMock.Object);
+            _handler = new CreateUserCommandHandler(_userRepositoryMock.Object, _tenantService.Object);
         }
 
         [Fact]
