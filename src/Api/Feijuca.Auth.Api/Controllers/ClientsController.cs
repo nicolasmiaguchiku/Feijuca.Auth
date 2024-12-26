@@ -72,7 +72,7 @@ namespace Feijuca.Auth.Api.Controllers
             return BadRequest("Error while tried created client.");
         }
 
-        [HttpPost("add-client-scope")]
+        [HttpPost("add-clientscope-to-client")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
