@@ -13,5 +13,4 @@ public class Realm
 
     [JsonIgnore]
     public string? Issuer { get; set; }
-
 }
