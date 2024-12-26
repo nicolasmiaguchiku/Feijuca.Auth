@@ -12,18 +12,18 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Groups
     {
         private readonly IFixture _fixture = new Fixture();
         private readonly Mock<IGroupRepository> _groupRepositoryMock = new();
-        private readonly CreateGroupCommandHandler _handler;
+        private readonly AddGroupCommandHandler _handler;
 
         public CreateGroupCommandHandlerTests()
         {
-            _handler = new CreateGroupCommandHandler(_groupRepositoryMock.Object);
+            _handler = new AddGroupCommandHandler(_groupRepositoryMock.Object);
         }
 
         [Fact]
         public async Task Given_ValidRequest_When_CreateGroupIsCalled_Then_ShouldReturnSuccess()
         {
             // Arrange
-            var createGroupCommand = _fixture.Create<CreateGroupCommand>();
+            var createGroupCommand = _fixture.Create<AddGroupCommand>();
             var cancellationToken = _fixture.Create<CancellationToken>();
 
             _groupRepositoryMock
@@ -47,7 +47,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Groups
         public async Task Given_InvalidRequest_When_CreateGroupFails_Then_ShouldReturnFailure()
         {
             // Arrange
-            var createGroupCommand = _fixture.Create<CreateGroupCommand>();
+            var createGroupCommand = _fixture.Create<AddGroupCommand>();
             var cancellationToken = _fixture.Create<CancellationToken>();
 
             var failureResult = Result.Failure(GroupErrors.CreationGroupError);

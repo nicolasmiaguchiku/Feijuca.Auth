@@ -16,7 +16,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         private readonly IAuthRepository _authRepository = authRepository;
         private readonly ITenantService _tenantService = tenantService;
 
-        public async Task<Result<bool>> AddRoleToGroupAsync(string groupId, string clientId, Guid roleId, string roleName, CancellationToken cancellationToken)
+        public async Task<Result<bool>> AddClientRoleToGroupAsync(string groupId, string clientId, Guid roleId, string roleName, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);

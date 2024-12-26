@@ -41,7 +41,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         }
 
 
-        public async Task<Result<bool>> AddRoleAsync(string clientId, string name, string description, CancellationToken cancellationToken)
+        public async Task<Result<bool>> AddClientRoleAsync(string clientId, string name, string description, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);

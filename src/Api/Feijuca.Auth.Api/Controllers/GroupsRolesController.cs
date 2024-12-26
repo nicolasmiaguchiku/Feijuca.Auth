@@ -24,7 +24,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <param name="id">The unique identifier of the group to which the role will be added.</param>
-        /// <param name="addRoleToGroup">An object of type <see cref="T:Feijuca.Auth.Common.Models.RoleToGroupRequest"/> containing the details of the role to be added to the group.</param>
+        /// <param name="addRoleToGroup">An object of type <see cref="T:Feijuca.Auth.Common.Models.AddClientRoleToGroupRequest"/> containing the details of the role to be added to the group.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
         /// <response code="201">The role was successfully added to the group.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
@@ -34,10 +34,10 @@ namespace Feijuca.Auth.Api.Controllers
         [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> AddRoleToGroup(
             [FromRoute] string id,
-            [FromBody] RoleToGroupRequest addRoleToGroup,
+            [FromBody] AddClientRoleToGroupRequest addRoleToGroup,
             CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddRoleToGroupCommand(id, addRoleToGroup), cancellationToken);
+            var result = await _mediator.Send(new AddClientRoleToGroupCommand(id, addRoleToGroup), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -68,7 +68,7 @@ namespace Feijuca.Auth.Api.Controllers
             [FromRoute] Guid roleid,
             CancellationToken cancellationToken)
         {
-            var roleToGroupRequest = new RoleToGroupRequest(groupid, roleid);
+            var roleToGroupRequest = new AddClientRoleToGroupRequest(groupid, roleid);
             var result = await _mediator.Send(new RemoveRoleFromGroupCommand(groupid, roleToGroupRequest), cancellationToken);
 
             if (result.IsSuccess)

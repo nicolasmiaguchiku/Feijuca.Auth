@@ -4,19 +4,19 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Group
 {
-    public class CreateGroupCommandHandler(IGroupRepository groupRepository) : IRequestHandler<CreateGroupCommand, Result>
+    public class AddGroupCommandHandler(IGroupRepository groupRepository) : IRequestHandler<AddGroupCommand, Result<bool>>
     {
         private readonly IGroupRepository _groupRepository = groupRepository;
 
-        public async Task<Result> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
+        public async Task<Result<bool>> Handle(AddGroupCommand request, CancellationToken cancellationToken)
         {
             var result = await _groupRepository.CreateAsync(request.AddGroupRequest.Name, request.AddGroupRequest.Attributes, cancellationToken);
             if (result.IsSuccess)
             {
-                return Result.Success();
+                return Result<bool>.Success(true);
             }
 
-            return Result.Failure(result.Error);
+            return Result<bool>.Failure(result.Error);
         }
     }
 }

@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.GroupRoles
 {
-    public record RemoveRoleFromGroupCommand(string GroupId, RoleToGroupRequest RemoveRoleFromGroupRequest) : IRequest<Result<bool>>;
+    public record RemoveRoleFromGroupCommand(string GroupId, AddClientRoleToGroupRequest RemoveRoleFromGroupRequest) : IRequest<Result<bool>>;
 }

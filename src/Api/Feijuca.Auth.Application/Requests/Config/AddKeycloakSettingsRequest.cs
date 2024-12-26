@@ -2,5 +2,5 @@
 
 namespace Feijuca.Auth.Application.Requests.Config
 {
-    public record AddKeycloakSettingsRequest(Models.Client MasterClient, Secrets MasterClientSecret, ServerSettings ServerSettings, Models.Realm Realm);
+    public record AddKeycloakSettingsRequest(RealmAdminUser RealmAdminUser, Models.Client MasterClient, Secrets MasterClientSecret, ServerSettings ServerSettings, Models.Realm Realm);
 }

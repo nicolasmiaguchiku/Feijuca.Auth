@@ -27,7 +27,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Roles
             var addRoleResult = Result<bool>.Success(true);
 
             _roleRepositoryMock
-                .Setup(repo => repo.AddRoleAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.AddClientRoleAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(addRoleResult);
 
             // Act
@@ -39,7 +39,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Roles
                 .Should()
                 .BeTrue();
 
-            _roleRepositoryMock.Verify(repo => repo.AddRoleAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()));
+            _roleRepositoryMock.Verify(repo => repo.AddClientRoleAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()));
             _roleRepositoryMock.VerifyNoOtherCalls();
         }
 
@@ -51,7 +51,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Roles
             var addRoleResult = Result<bool>.Failure(RoleErrors.AddRoleErrors);
 
             _roleRepositoryMock
-                .Setup(repo => repo.AddRoleAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.AddClientRoleAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(addRoleResult);
 
             // Act
@@ -63,7 +63,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Roles
                 .Should()
                 .Be(RoleErrors.AddRoleErrors);
 
-            _roleRepositoryMock.Verify(repo => repo.AddRoleAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()));
+            _roleRepositoryMock.Verify(repo => repo.AddClientRoleAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()));
             _roleRepositoryMock.VerifyNoOtherCalls();
         }
     }

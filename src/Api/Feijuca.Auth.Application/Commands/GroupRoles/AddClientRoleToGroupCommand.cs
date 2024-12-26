@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.GroupRoles
 {
-    public record AddRoleToGroupCommand(string GroupId, RoleToGroupRequest AddRoleToGroupRequest) : IRequest<Result<bool>>;
+    public record AddClientRoleToGroupCommand(string GroupId, AddClientRoleToGroupRequest AddRoleToGroupRequest) : IRequest<Result<bool>>;
 }

@@ -7,7 +7,7 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
     {
         public static IServiceCollection AddMediator(this IServiceCollection services)
         {
-            services.AddMediatR(x => x.RegisterServicesFromAssemblies(typeof(CreateUserCommand).Assembly));
+            services.AddMediatR(x => x.RegisterServicesFromAssemblies(typeof(AddUserCommand).Assembly));
 
             return services;
         }

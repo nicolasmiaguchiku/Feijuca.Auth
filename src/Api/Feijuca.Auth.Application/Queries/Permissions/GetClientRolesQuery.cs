@@ -6,5 +6,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Queries.Permissions
 {
-    public record GetRolesQuery() : IRequest<Result<IEnumerable<ClientRoleResponse>>>;
+    public record GetClientRolesQuery() : IRequest<Result<IEnumerable<ClientRoleResponse>>>;
 }

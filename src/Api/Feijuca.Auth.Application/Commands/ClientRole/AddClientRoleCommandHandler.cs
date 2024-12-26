@@ -5,19 +5,23 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.ClientRole
 {
-    public class AddClientRoleCommandHandler(IClientRoleRepository roleRepository) : IRequestHandler<AddClientRoleCommand, Result<bool>>
+    public class AddClientRoleCommandHandler(IClientRoleRepository clientRolesRepository) : IRequestHandler<AddClientRoleCommand, Result<bool>>
     {
-        private readonly IClientRoleRepository _roleRepository = roleRepository;
+        private readonly IClientRoleRepository _roleRepository = clientRolesRepository;
 
         public async Task<Result<bool>> Handle(AddClientRoleCommand request, CancellationToken cancellationToken)
         {
-            var result = await _roleRepository.AddRoleAsync(request.AddRoleRequest.Id, request.AddRoleRequest.Name, request.AddRoleRequest.Description, cancellationToken);
-            if (result.IsSuccess)
+            foreach (var clientRole in request.AddClientRolesRequest)
             {
-                return Result<bool>.Success(true);
+                var result = await _roleRepository.AddClientRoleAsync(clientRole.ClientId, clientRole.Name, clientRole.Description, cancellationToken);
+
+                if (!result.IsSuccess)
+                {
+                    return Result<bool>.Failure(RoleErrors.AddRoleErrors);
+                }
             }
 
-            return Result<bool>.Failure(RoleErrors.AddRoleErrors);
+            return Result<bool>.Success(true);            
         }
     }
 }

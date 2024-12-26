@@ -71,7 +71,7 @@ namespace Feijuca.Auth.Api.Controllers
         public async Task<IActionResult> CreateUser([FromBody] AddUserRequest addUserRequest,
             CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new CreateUserCommand(addUserRequest), cancellationToken);
+            var result = await _mediator.Send(new AddUserCommand(addUserRequest), cancellationToken);
 
             if (result.IsSuccess)
             {

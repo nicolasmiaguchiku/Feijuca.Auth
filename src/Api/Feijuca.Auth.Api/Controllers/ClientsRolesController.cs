@@ -32,9 +32,9 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiReader")]
-        public async Task<IActionResult> GetRoles(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetClientRoles(CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetRolesQuery(), cancellationToken);
+            var result = await _mediator.Send(new GetClientRolesQuery(), cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -61,9 +61,9 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> AddRole([FromBody] AddRoleRequest addRoleRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddRole([FromBody] AddClientRoleRequest addRoleRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddClientRoleCommand(addRoleRequest), cancellationToken);
+            var result = await _mediator.Send(new AddClientRoleCommand([addRoleRequest]), cancellationToken);
 
             if (result.IsSuccess)
             {

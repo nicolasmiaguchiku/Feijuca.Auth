@@ -14,18 +14,18 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Users
         private readonly Fixture _fixture = new();
         private readonly Mock<IUserRepository> _userRepositoryMock = new();
         private readonly Mock<ITenantService> _tenantService = new();
-        private readonly CreateUserCommandHandler _handler;
+        private readonly AddUserCommandHandler _handler;
 
         public CreateUserCommandHandlerTests()
         {
-            _handler = new CreateUserCommandHandler(_userRepositoryMock.Object, _tenantService.Object);
+            _handler = new AddUserCommandHandler(_userRepositoryMock.Object, _tenantService.Object);
         }
 
         [Fact]
         public async Task Should_ReturnFailureResult_WhenCreateUserFails()
         {
             // Arrange
-            var createUserCommand = _fixture.Create<CreateUserCommand>();
+            var createUserCommand = _fixture.Create<AddUserCommand>();
             var createUserResult = Result<bool>.Failure(UserErrors.UserCreationError);
             var cancellationToken = _fixture.Create<CancellationToken>();
 
@@ -50,7 +50,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Users
         public async Task Should_ReturnFailureResult_WhenResetPasswordFails()
         {
             // Arrange
-            var createUserCommand = _fixture.Create<CreateUserCommand>();
+            var createUserCommand = _fixture.Create<AddUserCommand>();
             var createUserResult = Result<bool>.Success(true);
 
             var mockUser = _fixture.Build<User>()
@@ -93,7 +93,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Users
         public async Task Should_CreateUser_Successfully_WhenResultIsSuccessful()
         {
             // Arrange
-            var createUserCommand = _fixture.Create<CreateUserCommand>();
+            var createUserCommand = _fixture.Create<AddUserCommand>();
             var createUserResult = Result<bool>.Success(true);
 
             var mockUser = _fixture.Build<User>()

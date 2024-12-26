@@ -15,6 +15,11 @@ namespace Feijuca.Auth.Common.Errors
             "Clients.CreateClientError",
             $"An error occurred while trying create a new client {TechnicalMessage}"
         );
+        
+        public static Error AddClientRoleError => new(
+            "Clients.AddClientRoleError",
+            $"An error occurred while trying add a new client role {TechnicalMessage}"
+        );
 
         public static void SetTechnicalMessage(string technicalMessage)
         {

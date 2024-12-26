@@ -1,11 +1,13 @@
-﻿using Feijuca.Auth.Domain.Interfaces;
+﻿using Feijuca.Auth.Common.Errors;
+using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.ClientScopes
 {
-    public class AddClientScopeToClientCommandHandler(IClientScopesRepository clientScopesRepository) : IRequestHandler<AddClientScopeToClientCommand, bool>
+    public class AddClientScopeToClientCommandHandler(IClientScopesRepository clientScopesRepository) : IRequestHandler<AddClientScopeToClientCommand, Result<bool>>
     {
-        public async Task<bool> Handle(AddClientScopeToClientCommand request, CancellationToken cancellationToken)
+        public async Task<Result<bool>> Handle(AddClientScopeToClientCommand request, CancellationToken cancellationToken)
         {
             var result = await clientScopesRepository.AddClientScopeToClientAsync(
                 request.AddClientScopeToClientRequest.ClientId, 
@@ -13,7 +15,10 @@ namespace Feijuca.Auth.Application.Commands.ClientScopes
                 request.AddClientScopeToClientRequest.IsOpticionalScope, 
                 cancellationToken);
 
-            return result;
+            if(result)
+                return Result<bool>.Success(true);
+
+            return Result<bool>.Failure(ClientErrors.AddClientRoleError);
         }
     }
 }

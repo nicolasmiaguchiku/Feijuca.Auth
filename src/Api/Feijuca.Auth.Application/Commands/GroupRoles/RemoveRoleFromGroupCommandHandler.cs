@@ -16,12 +16,12 @@ public class RemoveRoleFromGroupCommandHandler(IGroupRepository groupRepository,
         var groupsResult = await _groupRepository.GetAllAsync(cancellationToken);
         if (groupsResult.IsSuccess && groupsResult.Response.Any(x => x.Id == command.GroupId))
         {
-            var rolesResult = await _roleRepository.GetRolesForClientAsync(command.RemoveRoleFromGroupRequest.Id, cancellationToken);
+            var rolesResult = await _roleRepository.GetRolesForClientAsync(command.RemoveRoleFromGroupRequest.ClientId, cancellationToken);
             var existingRule = rolesResult.Response.FirstOrDefault(x => x.Id == command.RemoveRoleFromGroupRequest.RoleId);
             if (rolesResult.IsSuccess && existingRule != null)
             {
                 await _roleGroupRepository.RemoveRoleFromGroupAsync(
-                    command.RemoveRoleFromGroupRequest.Id,
+                    command.RemoveRoleFromGroupRequest.ClientId,
                     command.GroupId,
                     existingRule.Id,
                     existingRule.Name,

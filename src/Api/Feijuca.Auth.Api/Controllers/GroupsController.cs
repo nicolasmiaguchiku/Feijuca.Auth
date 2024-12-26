@@ -95,7 +95,7 @@ namespace Feijuca.Auth.Api.Controllers
         [RequiredRole("Feijuca.ApiWriter")]
         public async Task<IActionResult> CreateGroup([FromBody] AddGroupRequest addGroupRequest, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new CreateGroupCommand(addGroupRequest), cancellationToken);
+            var result = await _mediator.Send(new AddGroupCommand(addGroupRequest), cancellationToken);
 
             if (result.IsSuccess)
             {
