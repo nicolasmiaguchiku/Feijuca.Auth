@@ -73,7 +73,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="201">The configuration was successfully inserted.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred during the processing of the request.</response>
-        [HttpPost("configuring-into-existing-realm")]
+        [HttpPost("config-existing-realm")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -184,7 +184,7 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="201">The configuration was successfully inserted.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred during the processing of the request.</response>
-        [HttpPost("configuring-into-new-realm")]
+        [HttpPost("config-new-realm")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
