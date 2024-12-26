@@ -82,6 +82,8 @@ namespace Feijuca.Auth.Api.Controllers
             #region Add Feijuca.Auth config, Client and Client Scope 
             tenantService.SetTenant(addKeycloakSettings.Realm.Name!);
 
+            addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration = true;
+
             var keyCloakSettings = new KeycloakSettings
             {
                 Client = addKeycloakSettings.MasterClient,
@@ -190,6 +192,7 @@ namespace Feijuca.Auth.Api.Controllers
         {
             #region Add Feijuca.Auth config, Realm, Client and Client Scope 
             tenantService.SetTenant(addKeycloakSettings.Realm.Name!);
+            addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration = true;
 
             var keyCloakSettings = new KeycloakSettings
             {
