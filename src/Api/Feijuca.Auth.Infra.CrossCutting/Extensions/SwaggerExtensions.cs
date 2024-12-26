@@ -15,6 +15,7 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
             if (keycloakSettings is not null && !string.IsNullOrEmpty(realmName))
             {
                 var url = keycloakSettings?.ServerSettings.Url
+                    .AppendPathSegment("realms")
                     .AppendPathSegment(realmName)
                     .AppendPathSegment($"/protocol/openid-connect/token");
 
