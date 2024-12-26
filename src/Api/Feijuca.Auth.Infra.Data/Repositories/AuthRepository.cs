@@ -17,8 +17,8 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var requestData = new FormUrlEncodedContent(
             [
                 new KeyValuePair<string, string>("grant_type", "client_credentials"),
-                new KeyValuePair<string, string>("client_id", config.Client.MasterClientId),
-                new KeyValuePair<string, string>("client_secret", config.Secrets.MasterClientSecret),
+                new KeyValuePair<string, string>("client_id", config.Client.ClientId),
+                new KeyValuePair<string, string>("client_secret", config.Secrets.ClientSecret),
             ]);
 
             using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");

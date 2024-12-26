@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Feijuca.Auth.Api.Controllers
 {
-    [Route("api/v1/config")]
+    [Route("api/v1/configs")]
     [ApiController]
     public class ConfigsController(IMediator mediator, ITenantService tenantService) : ControllerBase
     {
@@ -52,7 +52,7 @@ namespace Feijuca.Auth.Api.Controllers
         }
 
         /// <summary>
-        /// Inserts a new configuration into the Feijuca.Auth.
+        /// Add a new client and client scopes related to the Feijuca.Auth.Api (Use when you have a realm created).
         /// </summary>
         /// <returns>
         /// A 201 Created status code along with the newly inserted configuration if the operation is successful;
@@ -63,13 +63,13 @@ namespace Feijuca.Auth.Api.Controllers
         /// <response code="201">The configuration was successfully inserted.</response>
         /// <response code="400">The request was invalid or could not be processed.</response>
         /// <response code="500">An internal server error occurred during the processing of the request.</response>
-        [HttpPost]
+        [HttpPost("add-configs-using-existing-realm")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> InsertConfig([FromBody] AddKeycloakSettingsRequest addKeycloakSettings, CancellationToken cancellationToken)
-        {            
-            var resultAction = await AddMandatoryBasicConfigurationsAsync(addKeycloakSettings, cancellationToken);
+        public async Task<IActionResult> AddClientConfigs([FromBody] AddKeycloakSettingsRequest addKeycloakSettings, CancellationToken cancellationToken)
+        {
+            var resultAction = await AddMandatoryBasicConfigurationsAsync(addKeycloakSettings, false, cancellationToken);
             if (resultAction.IsSuccess)
             {
                 var clientScopes = await _mediator.Send(new GetClientScopesQuery(), cancellationToken);
@@ -91,26 +91,66 @@ namespace Feijuca.Auth.Api.Controllers
             return BadRequest(resultAction.Error);
         }
 
-        private async Task<Result> AddMandatoryBasicConfigurationsAsync(AddKeycloakSettingsRequest addKeycloakSettings, CancellationToken cancellationToken)
+        /// <summary>
+        /// Add a new Keycloak realm, client and client scopes related to the Feijuca.Auth.Api (Use when you do not have a realm created).
+        /// </summary>
+        /// <returns>
+        /// A 201 Created status code along with the newly inserted configuration if the operation is successful;
+        /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
+        /// </returns>
+        /// <param name="addKeycloakSettings">An object of type <see cref="T:Feijuca.Auth.Common.Models.KeycloakSettings"/> containing the configuration details to be inserted.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
+        /// <response code="201">The configuration was successfully inserted.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="500">An internal server error occurred during the processing of the request.</response>
+        [HttpPost("add-configs-creating-new-realm")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AddAllConfigs([FromBody] AddKeycloakSettingsRequest addKeycloakSettings, CancellationToken cancellationToken)
+        {            
+            var resultAction = await AddMandatoryBasicConfigurationsAsync(addKeycloakSettings, true, cancellationToken);
+            if (resultAction.IsSuccess)
+            {
+                var clientScopes = await _mediator.Send(new GetClientScopesQuery(), cancellationToken);
+                var clients = await _mediator.Send(new GetAllClientsQuery(), cancellationToken);
+                var clientScopeName = clientScopes.FirstOrDefault(x => x.Name == Constants.FeijucaApiClientName)!;
+                var feijucaClient = clients.FirstOrDefault(x => x.ClientId == Constants.FeijucaApiClientName)!;
+                var addClientScopeToClientRequest = new AddClientScopeToClientRequest(feijucaClient.Id, clientScopeName.Id, false);
+
+                var result = await _mediator.Send(new AddClientScopeToClientCommand(addClientScopeToClientRequest), cancellationToken);
+
+                if (!result)
+                {
+                    return BadRequest("Error while tried added client scopes to the client Feijuca.Auth.Api.");
+                }
+
+                return Created("/api/v1/config", "Initial configs created with succesfully!!!");
+            }
+
+            return BadRequest(resultAction.Error);
+        }
+
+        private async Task<Result> AddMandatoryBasicConfigurationsAsync(AddKeycloakSettingsRequest addKeycloakSettings, bool createRealm, CancellationToken cancellationToken)
         {
-            tenantService.SetTenant(addKeycloakSettings.Realm.Name);
+            tenantService.SetTenant(addKeycloakSettings.Realm.Name!);
 
             var keyCloakSettings = new KeycloakSettings
             {
-                Client = addKeycloakSettings.Client,
-                Secrets = addKeycloakSettings.Secrets,
+                Client = addKeycloakSettings.MasterClient,
+                Secrets = addKeycloakSettings.MasterClientSecret,
                 ServerSettings = addKeycloakSettings.ServerSettings,
                 Realms = [addKeycloakSettings.Realm]
             };
 
             var realms = new List<AddRealmRequest>
             {
-                new(addKeycloakSettings.Realm.Name, "", addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration)
+                new(addKeycloakSettings.Realm.Name!, "", addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration)
             };
 
             var clientBody = new AddClientRequest
             {
-                ClientId = keyCloakSettings.Client.MasterClientId,
+                ClientId = keyCloakSettings.Client.ClientId,
                 Description = "This client is related to Feijuca.Api, this client will handle token generation and keycloak actions.",
                 Urls = [$"{Request.Scheme}://{Request.Host}"]
             };
@@ -122,10 +162,11 @@ namespace Feijuca.Auth.Api.Controllers
 
             var result = await ProcessActionsAsync(
                 async () => await _mediator.Send(new AddConfigCommand(keyCloakSettings), cancellationToken),
-                async () => await _mediator.Send(new AddRealmsCommand(realms), cancellationToken),
+                async () => createRealm
+                ? await _mediator.Send(new AddRealmsCommand(realms), cancellationToken)
+                : Result<bool>.Success(true),
                 async () => await _mediator.Send(new AddClientCommand(clientBody), cancellationToken),
-                async () => await _mediator.Send(new AddClientScopesCommand(addClientScopes), cancellationToken),
-                async () => await _mediator.Send(new UpdateFeijucaConfigWithClientIdAndSecretCommandHandler(), cancellationToken));
+                async () => await _mediator.Send(new AddClientScopesCommand(addClientScopes), cancellationToken));
 
             if (result.IsFailure)
             {

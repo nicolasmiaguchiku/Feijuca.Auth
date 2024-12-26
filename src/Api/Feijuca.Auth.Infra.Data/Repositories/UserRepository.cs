@@ -4,14 +4,17 @@ using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
+
 using Flurl;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+
 using System.Text;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class UserRepository(IConfigRepository configRepository,
+    public class UserRepository(IClientRepository clientRepository,
         IHttpClientFactory httpClientFactory,
         IAuthRepository authRepository,
         ITenantService tenantService)
@@ -242,15 +245,13 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 .AppendPathSegment("openid-connect")
                 .AppendPathSegment("token");
 
-            var config = await configRepository.GetConfigAsync();
-            var clientId = config.Realms!.FirstOrDefault(x => x.FeijucaAuthClient != null)!.FeijucaAuthClient!.FeijucaAuthClientId;
-            var clientSecret = config.Realms!.FirstOrDefault(x => x.FeijucaAuthClient != null)!.FeijucaAuthClient!.FeijucaAuthClientSecret;
+            var client = await clientRepository.GetClientAsync("feijuca-auth-api", cancellationToken);
 
             var requestData = new FormUrlEncodedContent(
             [
                 new KeyValuePair<string, string>("grant_type", "password"),
-                new KeyValuePair<string, string>("client_id", clientId),
-                new KeyValuePair<string, string>("client_secret", clientSecret),
+                new KeyValuePair<string, string>("client_id", client.Response.ClientId),
+                new KeyValuePair<string, string>("client_secret", client.Response.Secret),
                 new KeyValuePair<string, string>("username", username),
                 new KeyValuePair<string, string>("password", password)
             ]);
@@ -279,16 +280,13 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 .AppendPathSegment("openid-connect")
                 .AppendPathSegment("logout");
 
-            var config = await configRepository.GetConfigAsync();
-            var clientId = config.Realms!.FirstOrDefault(x => x.FeijucaAuthClient != null)!.FeijucaAuthClient!.FeijucaAuthClientId;
-            var clientSecret = config.Realms!.FirstOrDefault(x => x.FeijucaAuthClient != null)!.FeijucaAuthClient!.FeijucaAuthClientSecret;
-
+            var client = await clientRepository.GetClientAsync("feijuca-auth-api", cancellationToken);
 
             var requestData = new FormUrlEncodedContent(
             [
-                new KeyValuePair<string, string>("client_id", clientId),
+                new KeyValuePair<string, string>("client_id", client.Response.ClientId),
                 new KeyValuePair<string, string>("refresh_token", refreshToken),
-                new KeyValuePair<string, string>("client_secret", clientSecret)
+                new KeyValuePair<string, string>("client_secret", client.Response.Secret)
             ]);
 
             var response = await httpClient.PostAsync(urlGetToken, requestData, cancellationToken);
@@ -311,15 +309,13 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 .AppendPathSegment("openid-connect")
                 .AppendPathSegment("token");
 
-            var config = await configRepository.GetConfigAsync();
-            var clientId = config.Realms!.FirstOrDefault(x => x.FeijucaAuthClient != null)!.FeijucaAuthClient!.FeijucaAuthClientId;
-            var clientSecret = config.Realms!.FirstOrDefault(x => x.FeijucaAuthClient != null)!.FeijucaAuthClient!.FeijucaAuthClientSecret;
+            var client = await clientRepository.GetClientAsync("feijuca-auth-api", cancellationToken);
 
             var requestData = new FormUrlEncodedContent(
             [
                 new KeyValuePair<string, string>("grant_type", "refresh_token"),
-                new KeyValuePair<string, string>("client_id", clientId),
-                new KeyValuePair<string, string>("client_secret", clientSecret),
+                new KeyValuePair<string, string>("client_id", client.Response.ClientId),
+                new KeyValuePair<string, string>("client_secret", client.Response.Secret),
                 new KeyValuePair<string, string>("refresh_token", refreshToken),
             ]);
 

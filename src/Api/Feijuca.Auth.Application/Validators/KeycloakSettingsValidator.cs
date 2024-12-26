@@ -7,15 +7,15 @@ namespace Feijuca.Auth.Application.Validators
     {
         public KeycloakSettingsValidator()
         {
-            RuleFor(x => x.Client.MasterClientId)
+            RuleFor(x => x.Client.ClientId)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage($"The {nameof(KeycloakSettings.Client.MasterClientId)} field is required.");
+                .WithMessage($"The {nameof(KeycloakSettings.Client.ClientId)} field is required.");
 
-            RuleFor(x => x.Secrets.MasterClientSecret)
+            RuleFor(x => x.Secrets.ClientSecret)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage($"The {nameof(KeycloakSettings.Secrets.MasterClientSecret)} field is required.");
+                .WithMessage($"The {nameof(KeycloakSettings.Secrets.ClientSecret)} field is required.");
 
             RuleFor(x => x.ServerSettings.Url)
                 .NotNull()
