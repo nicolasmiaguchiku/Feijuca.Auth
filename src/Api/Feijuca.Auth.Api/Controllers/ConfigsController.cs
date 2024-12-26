@@ -96,7 +96,7 @@ namespace Feijuca.Auth.Api.Controllers
             {
                 ClientId = keyCloakSettings.Client.ClientId,
                 Description = "This client is related to Feijuca.Api, this client will handle token generation and keycloak actions.",
-                Urls = [$"{Request.Scheme}://{Request.Host}"]
+                Urls = [$"{Request.Scheme}://{Request.Host}", $"{Request.Scheme}s://{Request.Host}"]
             };
 
             var addClientScopes = new List<AddClientScopesRequest>
@@ -206,7 +206,7 @@ namespace Feijuca.Auth.Api.Controllers
             {
                 ClientId = keyCloakSettings.Client.ClientId,
                 Description = "This client is related to Feijuca.Api, this client will handle token generation and keycloak actions.",
-                Urls = [$"{Request.Scheme}://{Request.Host}"]
+                Urls = [$"{Request.Scheme}://{Request.Host}", $"{Request.Scheme}s://{Request.Host}"]
             };
 
             var addClientScopes = new List<AddClientScopesRequest>
