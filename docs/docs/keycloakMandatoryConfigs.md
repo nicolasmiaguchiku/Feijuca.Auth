@@ -3,7 +3,7 @@
 In order for your API to perform operations such as creating users, groups, realms, clients, roles, group roles, and more in Keycloak, you need to configure the appropriate permissions in the realm. This configuration is done by granting specific permissions to the **Service Account** associated with the client your API uses. Follow the steps below:
 
 ### 1. 🖥️ Access the Keycloak Admin console
-- Log in to the Keycloak Admin Console and select the realm where you want to configure Feijuca.Auth.
+- Log in to the Keycloak Admin Console and select the master realm and click on Clients. We will create a new client that will be used by the Feijuca.Auth.Api.
 ---
 ### 2. 🔧 Into your master realm, create a new client that will represent Feijuca.Auth.
 
