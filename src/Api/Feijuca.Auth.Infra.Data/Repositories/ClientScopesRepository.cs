@@ -1,10 +1,7 @@
 ﻿using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
-
 using Flurl;
-
 using Newtonsoft.Json;
-
 using System.Text;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
