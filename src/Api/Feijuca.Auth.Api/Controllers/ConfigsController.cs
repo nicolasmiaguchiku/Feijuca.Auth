@@ -1,5 +1,6 @@
 ﻿using Feijuca.Auth.Application.Commands.Client;
 using Feijuca.Auth.Application.Commands.ClientRole;
+using Feijuca.Auth.Application.Commands.ClientScopeProtocol;
 using Feijuca.Auth.Application.Commands.ClientScopes;
 using Feijuca.Auth.Application.Commands.Config;
 using Feijuca.Auth.Application.Commands.Group;
@@ -22,6 +23,10 @@ using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Common;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Models;
+
+using Flurl;
+
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -83,6 +88,10 @@ namespace Feijuca.Auth.Api.Controllers
             tenantService.SetTenant(addKeycloakSettings.Realm.Name!);
 
             addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration = true;
+            addKeycloakSettings.Realm.Issuer = addKeycloakSettings.ServerSettings.Url
+                .AppendPathSegment("realms")
+                .AppendPathSegment(addKeycloakSettings.Realm.Name);
+            addKeycloakSettings.Realm.Audience = Constants.FeijucaApiClientName;
 
             var keyCloakSettings = new KeycloakSettings
             {
@@ -118,23 +127,24 @@ namespace Feijuca.Auth.Api.Controllers
             #region Add Client Scope to Client, Group and Client Role
             var clientScopes = await _mediator.Send(new GetClientScopesQuery(), cancellationToken);
             var clients = await _mediator.Send(new GetAllClientsQuery(), cancellationToken);
-            var clientScopeName = clientScopes.FirstOrDefault(x => x.Name == Constants.FeijucaApiClientName)!;
+            var clientScope = clientScopes.FirstOrDefault(x => x.Name == Constants.FeijucaApiClientName)!;
             var feijucaClient = clients.FirstOrDefault(x => x.ClientId == Constants.FeijucaApiClientName)!;
 
-            var addClientScopeToClientRequest = new AddClientScopeToClientRequest(feijucaClient.Id, clientScopeName.Id, false);
+            var addClientScopeToClientRequest = new AddClientScopeToClientRequest(feijucaClient.Id, clientScope.Id, false);
 
             var groupRequest = new AddGroupRequest(Constants.FeijucaGroupName, []);
 
             var addRolesRequest = new List<AddClientRoleRequest>()
-                {
-                    new(feijucaClient.Id, Constants.FeijucaRoleReadName, "Role related to the action to read data on the realm."),
-                    new(feijucaClient.Id, Constants.FeijucaRoleWriterName, "Role related to the action to write data on the realm."),
-                };
+            {
+                new(feijucaClient.Id, Constants.FeijucaRoleReadName, "Role related to the action to read data on the realm."),
+                new(feijucaClient.Id, Constants.FeijucaRoleWriterName, "Role related to the action to write data on the realm."),
+            };
 
             result = await ProcessActionsAsync(
                 async () => await _mediator.Send(new AddClientScopeToClientCommand(addClientScopeToClientRequest), cancellationToken),
                 async () => await _mediator.Send(new AddGroupCommand(groupRequest), cancellationToken),
-                async () => await _mediator.Send(new AddClientRoleCommand(addRolesRequest), cancellationToken));
+                async () => await _mediator.Send(new AddClientRoleCommand(addRolesRequest), cancellationToken),
+                async () => await _mediator.Send(new AddClientScopeAudienceProtocolMapperCommand(clientScope.Id), cancellationToken));
 
             if (result.IsFailure)
             {
@@ -193,6 +203,10 @@ namespace Feijuca.Auth.Api.Controllers
             #region Add Feijuca.Auth config, Realm, Client and Client Scope 
             tenantService.SetTenant(addKeycloakSettings.Realm.Name!);
             addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration = true;
+            addKeycloakSettings.Realm.Issuer = addKeycloakSettings.ServerSettings.Url
+                .AppendPathSegment("realms")
+                .AppendPathSegment(addKeycloakSettings.Realm.Name);
+            addKeycloakSettings.Realm.Audience = Constants.FeijucaApiClientName;
 
             var keyCloakSettings = new KeycloakSettings
             {
@@ -234,10 +248,10 @@ namespace Feijuca.Auth.Api.Controllers
             #region Add Client Scope to Client, Group and Client Role
             var clientScopes = await _mediator.Send(new GetClientScopesQuery(), cancellationToken);
             var clients = await _mediator.Send(new GetAllClientsQuery(), cancellationToken);
-            var clientScopeName = clientScopes.FirstOrDefault(x => x.Name == Constants.FeijucaApiClientName)!;
+            var feijucaClientScope = clientScopes.FirstOrDefault(x => x.Name == Constants.FeijucaApiClientName)!;
             var feijucaClient = clients.FirstOrDefault(x => x.ClientId == Constants.FeijucaApiClientName)!;
 
-            var addClientScopeToClientRequest = new AddClientScopeToClientRequest(feijucaClient.Id, clientScopeName.Id, false);
+            var addClientScopeToClientRequest = new AddClientScopeToClientRequest(feijucaClient.Id, feijucaClientScope.Id, false);
 
             var groupRequest = new AddGroupRequest(Constants.FeijucaGroupName, []);
 
@@ -250,7 +264,8 @@ namespace Feijuca.Auth.Api.Controllers
             result = await ProcessActionsAsync(
                 async () => await _mediator.Send(new AddClientScopeToClientCommand(addClientScopeToClientRequest), cancellationToken),
                 async () => await _mediator.Send(new AddGroupCommand(groupRequest), cancellationToken),
-                async () => await _mediator.Send(new AddClientRoleCommand(addRolesRequest), cancellationToken));
+                async () => await _mediator.Send(new AddClientRoleCommand(addRolesRequest), cancellationToken),
+                async () => await _mediator.Send(new AddClientScopeAudienceProtocolMapperCommand(feijucaClientScope.Id), cancellationToken));
 
             if (result.IsFailure)
             {
