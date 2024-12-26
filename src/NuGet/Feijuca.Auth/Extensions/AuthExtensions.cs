@@ -64,14 +64,16 @@ namespace Feijuca.Auth.Extensions
                         return;
                     }
 
-                    if (IsTokenValidAudience(context, tokenInfos).Equals(false))
+                    var tenantNumber = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value;
+                    var tenantRealm = realms.FirstOrDefault(realm => realm.Name == tenantNumber);
+
+
+                    if (ValidateRealm(context, tenantRealm).Equals(false))
                     {
                         return;
                     }
 
-                    var tenantNumber = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value;
-                    var tenantRealm = realms.FirstOrDefault(realm => realm.Name == tenantNumber);
-                    if (ValidateRealm(context, tenantRealm).Equals(false))
+                    if (IsTokenValidAudience(context, tokenInfos).Equals(false))
                     {
                         return;
                     }
@@ -160,9 +162,9 @@ namespace Feijuca.Auth.Extensions
         private static bool IsTokenValidAudience(MessageReceivedContext context, JwtSecurityToken tokenInfos)
         {
             var audience = tokenInfos.Claims.FirstOrDefault(c => c.Type == "aud")?.Value;
-            if (string.IsNullOrEmpty(audience))
+            if (audience != "feijuca-auth-api")
             {
-                context.HttpContext.Items["AuthError"] = "Invalid audience!";
+                context.HttpContext.Items["AuthError"] = "Invalid audience, please configure an audience mapper on your realm!";
                 context.HttpContext.Items["AuthStatusCode"] = 403;
                 context.Fail("Token expired");
                 return false;

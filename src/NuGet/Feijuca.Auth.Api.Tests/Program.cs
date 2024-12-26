@@ -9,16 +9,16 @@ var applicationSettings = builder.Configuration.GetSection("Settings").Get<Setti
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services
-    .AddApiAuthentication(applicationSettings!.AuthSettings!)
+    .AddApiAuthentication(applicationSettings)
     .AddEndpointsApiExplorer()
-    .AddSwagger(applicationSettings!.AuthSettings!);
+    .AddSwagger(applicationSettings!.ServerSettings);
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Feiuca.Tests.Api");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Feijuca.Tests.Api");
     c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
 });
 

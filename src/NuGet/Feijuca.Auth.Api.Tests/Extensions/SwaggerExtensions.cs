@@ -28,7 +28,6 @@ namespace Feijuca.Auth.Api.Tests.Extensions
                 });
 
                 c.OperationFilter<AuthorizeCheckOperationFilter>();
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Receipts.CommandHandler.API.xml"));
             });
         }
     }

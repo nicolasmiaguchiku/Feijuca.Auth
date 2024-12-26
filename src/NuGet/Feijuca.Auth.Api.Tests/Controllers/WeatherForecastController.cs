@@ -1,10 +1,13 @@
 using Feijuca.Auth.Api.Tests;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Feijuca.Auth.Api.Tests.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class WeatherForecastController() : ControllerBase
     {
         private static readonly string[] Summaries =
