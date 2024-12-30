@@ -2,7 +2,7 @@
   href: gettingStarted.md
 
 - name: Feijuca.Auth.Api
-  href: whatIsFeijucaAuthApi.md
+  href: keycloakMandatoryConfigs.md
   items:
     - name: Setting up
       href: keycloakMandatoryConfigs.md

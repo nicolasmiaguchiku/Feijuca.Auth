@@ -8,16 +8,21 @@
 
 **Feijuca.Auth** offers a range of features for simplifying integration with Keycloak, focusing on efficient management of authentication and authorization:
 
-- **👥 User Management**:
-
-  - Easily create and remove users and groups.
-  - Efficiently handle password resets, email confirmations, and session revocations.
-
-- **🔒 Authentication and Authorization**:
-  - Securely verify user identities.
-  - Manage user permissions and enforce access policies based on roles using Role-Based Access Control (RBAC).
+- **👥 Keycloak actions management**:
+  - **Generate JWT Tokens**: Easily generate JWT tokens for user authentication and authorization.  
+  - **Authorization and authentication**: Add authorization to your endpoints, set limits with permissions, manipulate who can access certain endpoints of your application.
+  - **Create users**: Add new users quickly and effortlessly.
+  - **Manage groups**: Create and delete groups as needed to organize your users.
+  - **Manage clients**: Create and delete clients as needed, also is possible associated clientes roles with your client. Also adding optional or default client scopes.
+  - **Manage realms**: Create and delete realms as needed.
+  - **Manage permissions**: Add and remove permissions from groups, streamlining access control.
+  - **RBAC control**: Implement efficient and scalable permission management for your application.
+  - **Add Roles to Groups**: Manage group permissions by adding roles to specific groups.  
+  
+---
+ 
 - **🏢 Multi-tenancy support (Available soon)**:
-  - Integrate with Keycloak in a multi-tenant model, where each realm acts as a separate tenant within your application, enabling scalable and secure management of authentication and authorization across multiple tenants.
+  - Integrate with Keycloak in a multi-tenant model, where each realm acts as a separate tenant within your application, enabling a secure management of authentication and authorization across multiple tenants.
 
 Together, these components of **Feijuca.Auth** aim to reduce the complexity of working with Keycloak, making user management and multi-tenancy more seamless and developer-friendly.
 

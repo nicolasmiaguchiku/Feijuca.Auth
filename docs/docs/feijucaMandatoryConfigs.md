@@ -1,31 +1,28 @@
 ### 🚀 Configuration for Keycloak Integration
 
-To take full advantage of the various endpoints provided by **Feijuca.Auth.Api**, a quick configuration is required to input details about your Keycloak realm. These configurations are crucial because they allow **Feijuca.Auth.Api** to authenticate and retrieve permission tokens to manage users, groups, roles, and much more.
+To take full advantage of the various endpoints provided by **Feijuca.Auth.Api**, a quick configuration is required to store details about the [Previously created client](/Feijuca.Auth/docs/keycloakMandatoryConfigs.html).  
+These configurations are crucial. They allow **Feijuca.Auth.Api** to authenticate and retrieve permission tokens to manage the realms.
 
 ---
 
 ### Configuration - General overview
+To use Feijuca.Auth.Api a quickly configuration is required. Basically Feijuca needs authenticate with keycloak every request that you do to generate a jwt token.  
+With this token, Feijuca.Auth.Api will be authenticated with your keycloak realm and will be possible do actions related to the realms.
+Feijuca needs a connection string to store the client id and secret related to the client that you [created](/Feijuca.Auth/docs/keycloakMandatoryConfigs.html).  .
 
-**Feijuca.Auth.Api** needs some information about the realm you created in **Keycloak** in the previous step.
 
-To store this realm information, we chose **MongoDB** as the data repository, given its flexibility and ease of configuration.
+#### 🛠️ Step 1: Creating a mongodb instance to store data related to the master realm created
+💡 **It is important to remember that this instance belongs to you** — we only expect you to define the connection string. **Feijuca.Auth.Api** only uses the data provided to authenticate with Keycloak.  
+The connection string you provide allows Feijuca.Auth.Api to securely authenticate with Keycloak, but we store the data into your db provided by a connectionstring.  
+All client data is saved directly in your own database. 
 
-💡 **It is important to remember that this instance belongs to you** — we only expect you to define the connection string. **Feijuca.Auth.Api** only uses the data provided to authenticate with Keycloak. 🔐
+To store the data related to the created client previosly we chose **MongoDB** as the data repository, given its flexibility and ease of configuration.  
+> **Tip**: If you don't have a MongoDB instance set up, you can create a free mongoDB server on [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database).   
+> **Wanna change it to your scenario and add support to a new db?**: Feel free to open a **[Pull Request](https://github.com/coderaw-io/Feijuca.Auth/pulls)** to contribute your custom solution! 🚀
 
-### Contributing with a Different Database
-
-However, if you want to extend the project and use a different database, feel free to open a **[Pull Request](https://github.com/coderaw-io/Feijuca.Auth/pulls)** to contribute your custom solution! 🚀
-
----
-
-### ⚙️ Step 1: Setting up mongoDB connection string
-
-The first configuration you need to provide is the **MongoDB connection string**. This will enable you to store and manage the Keycloak realm settings.
-
-> **Tip**: If you don't have a MongoDB instance set up, you can create a free mongoDB server on [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database).
 
 ---
-### 🐳 Step 2: Running Feijuca.Auth.Api with Docker
+#### 🐳 Step 2: Running Feijuca.Auth.Api with Docker
 
 Once your MongoDB instance is ready, you can run **Feijuca.Auth.Api** using Docker. You need to pass the MongoDB connection string as an environment variable to ensure the API can communicate with the database.
 
@@ -35,59 +32,111 @@ Run the following command to start the API:
 docker run -e ConnectionString="mongodb://<username>:<password>@<host>:<port>" coderaw/feijuca-auth-api:latest
 ```
 
+> **Connection string**: Note that you informed the connectionstring into a env variable and it will be used during Feijuca.Auth.Api execution.
+
+
 ---
 
-### 🛠️ Step 3: Inserting the realm configuration
+#### 🛠️ Step 3: Inserting the initial configurations using the api
 
-Once your Docker container is up and running with the correct configuration, you're ready to insert your Keycloak realm configuration.
+After accessing the URL where **Feijuca.Auth.Api** is running and appending `/swagger`, you will see all the available API endpoints.  
+However, this is only an endpoint definition. 🚧 **Before using these endpoints, if you try used, you will receive an error related to missing config**  
+This last configuration involves providing the **Master client id and secret** created in the `master` realm and defining whether the **Feijuca.Auth.Api** should be configured in a **new realm** or an **existing realm**. 
+
+⚠️ **Important Note:**  
+Do not confuse the steps! First, create a **master client** to manage all actions within the Keycloak instance.  
+Now, in this step, you will create a **client** to manage actions within the **new realm** you define or within an **existing realm**.  
 To insert the realm configuration, send an **HTTP POST** request to the `/api/v1/config` endpoint, with the following JSON body:
 
-##### Endpoint definition
-![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/bcpw5t2krnbqyfkvchnp.jpg "Endpoint definition")
+# [Configuring using existing realm](#tab/existing)
+🛠️ If you are already using Keycloak with a configured realm and wish to integrate it with Feijuca.Auth.Api, you'll be glad to know that the process is simple.
 
-##### POST
-##### /api/v1/config
-##### Summary:
+🖥️ Endpoint definition
+![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/conqyx0imgwmivjtzkwr "Endpoint definition")
 
-Inserts a new configuration into the system.
-
-##### Header
+🖥️ Body definition
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
-| Tenant | header | The tenant identifier used to filter the clients within a specific Keycloak realm. | Yes | string |
+| Realm Admin User | body | An email and password for a new user will need to be created within the realm. (Don’t worry, we don’t require access to your Keycloak Admin data). This user will be authorized to authenticate with Feijuca.Auth.Api and perform advanced actions. | Yes | object |
+| Master Client | body | The client id from the client that was created on realm master on the previosly steps. | Yes | object |
+| Master Client Secret | body | The client secret from the client that was created on realm master on the previosly steps. | Yes | object |
+| Server settings | body | The url where you keycloak is running. To consume the keycloak api, Feijuca needs this url. | Yes | object |
+| Realm | body | The realm name where the feijuca client will be created. | Yes | object |
 
-##### Body definition
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| Client | body | The client id related to the client that was created to manage operations in the realm. | Yes | string |
-| Secret | body | The client secret related to the client that was created to manage operations in the realm. | Yes | string |
-| Server settings | body | The url where you keycloak is running. | Yes | string |
-| Realm | body | The realm name (if you wanna use multitenancy concept, inform an array of this object), the audience name configured previosly and the issuer| Yes | object |
-
-##### Body example
+🖥️ Body example
 
 ```json
-{  
-  "client": {
-    "clientId": "your-client-id"
+{
+  "realmAdminUser": {
+    "email": "admin@feijuca-auth.com", -- Inform a new user
+    "password": "admin" --Inform a password
   },
-  "secrets": {
-    "clientSecret": "your-client-secret"
+  "masterClient": {
+    "clientId": "feijuca-auth-api" --Client created on master realm
+  },
+  "masterClientSecret": {
+    "clientSecret": "secret-retrieved-from-client" --Client created on master realm
   },
   "serverSettings": {
-    "url": "your-keycloak-url (from example https://localhost:8079)"
+    "url": "keycloak-url"
   },
   "realm": {
-    "name": "realm-name",
-    "audience": "audience-name",
-    "issuer": "same-url-defined-above/realms/realm-name-defined-above"
+    "name": "your-realm-where-feijuca-client-will-be-created"
   }
 }
 ```
 
-##### Responses
+🖥️ Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 201 | The configuration was successfully inserted. |
+| 400 | The request was invalid or could not be processed. |
+| 500 | An internal server error occurred during the processing of the request. |
+
+# [Configuring using a new realm](#tab/new)
+
+🛠️ If you are wanna use a new realm to configure Feijuca, the steps is the same, the only difference is that during the configurations a new realm will be created.
+
+
+🖥️ Endpoint definition
+![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/conqyx0imgwmivjtzkwr "Endpoint definition")
+
+🖥️ Body definition
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Realm Admin User | body | An email and password for a new user will need to be created within the realm. (Don’t worry, we don’t require access to your Keycloak Admin data). This user will be authorized to authenticate with Feijuca.Auth.Api and perform advanced actions. | Yes | object |
+| Master Client | body | The client id from the client that was created on realm master on the previosly steps. | Yes | object |
+| Master Client Secret | body | The client secret from the client that was created on realm master on the previosly steps. | Yes | object |
+| Server settings | body | The url where you keycloak is running. To consume the keycloak api, Feijuca needs this url. | Yes | object |
+| Realm | body | The realm name where the feijuca client will be created. | Yes | object |
+
+🖥️ Body example
+
+```json
+{
+  "realmAdminUser": {
+    "email": "admin@feijuca-auth.com", -- Inform a new user
+    "password": "admin" --Inform a password
+  },
+  "masterClient": {
+    "clientId": "feijuca-auth-api" --Client created on master realm
+  },
+  "masterClientSecret": {
+    "clientSecret": "secret-retrieved-from-client" --Client created on master realm
+  },
+  "serverSettings": {
+    "url": "keycloak-url"
+  },
+  "realm": {
+    "name": "your-realm-where-feijuca-client-will-be-created"
+  }
+}
+```
+
+🖥️ Responses
 
 | Code | Description |
 | ---- | ----------- |
@@ -97,37 +146,12 @@ Inserts a new configuration into the system.
 
 ---
 
-### ✅️ Step 4: Confirming if your changes was applied
 
-##### Endpoint definition
-![Endpoint definition](https://res.cloudinary.com/dbyrluup1/image/upload/gxxou30f5dmp5sb7mfwp.jpg "Endpoint definition")
+#### 🔐✅ Step 4: Reestart the container
 
-##### GET
-##### Summary:
+After completing the configuration, simply restart your container to apply the changes and enable the project to start with the updated settings.  
+Once restarted, you'll have full access to all endpoints and can seamlessly manage the various instances within your Keycloak realm. From there, you can begin managing users, groups, roles, and much more with ease.
 
-Retrieves the existing configuration settings.
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| Tenant | header | The tenant identifier used to filter the clients within a specific Keycloak realm. | Yes | string |
-
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | The operation was successful, and the configuration settings are returned. |
-| 400 | The request was invalid or could not be processed. |
-| 500 | An internal server error occurred during the processing of the request. |
-
----
-
-#### Every configs necessary thing is done! 🔐✅
-
-**After completing the configuration above, it will be necessary only to restart your container to make it possible for the project to start again and apply the configurations.**
-Now, you’ll be ready to access all endpoints and easily manage the various instances a Keycloak realm offers. You can now begin managing users, groups, roles, and more.
-
-## 👨‍🔧 Ready to the next steps? [Creating users](/docs/creatingUsers.html).
+### 👨‍🔧 Ready to the next steps? [Handling users](/docs/gettingUsers.html).
 
 

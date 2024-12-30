@@ -10,10 +10,11 @@ On the other hand, if your stack is built with **.NET**, you'll benefit from enh
 
 ### 🔧 Prerequisites
 - An instance of **Keycloak** server.
+- An instance of **mongodb** server (Feel free to contribute adding a connection related to your favourite db).
 
 ---
 
 ### 🖥️ Let's get started!
 
-- 🔧 **Want to use Feijuca.Auth.Api?** Check out the necessary configuration steps [here](/Feijuca.Auth/docs/whatIsFeijucaAuthApi.html).
+- 🔧 **Want to use Feijuca.Auth.Api?** Check out the necessary configuration steps [here](/Feijuca.Auth/docs/keycloakMandatoryConfigs.html).
 - 🏢 **Interested in the Feijuca.Auth.MultiTenancy concept?** Find the necessary configuration steps [here](/Feijuca.Auth/docs/keycloakMandatoryConfigs.html) _(Available soon)_.
