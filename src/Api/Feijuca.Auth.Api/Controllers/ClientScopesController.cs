@@ -1,5 +1,6 @@
 ﻿using Feijuca.Auth.Application.Commands.ClientScopes;
 using Feijuca.Auth.Application.Queries.ClientScopes;
+using Feijuca.Auth.Application.Requests.Client;
 using Feijuca.Auth.Application.Requests.ClientScopes;
 using Feijuca.Auth.Attributes;
 using MediatR;
@@ -17,7 +18,7 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [RequiredRole("Feijuca.ApiReader")]        
+        [RequiredRole("Feijuca.ApiReader")]
         public async Task<IActionResult> GetClientScopes(CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetClientScopesQuery(), cancellationToken);
@@ -39,6 +40,35 @@ namespace Feijuca.Auth.Api.Controllers
             }
 
             return BadRequest(result.Error);
+        }
+
+        /// <summary>
+        /// Add a client scope to the client.
+        /// </summary>
+        /// <returns>
+        /// A 200 OK status code along with the list of clients if the operation is successful;
+        /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
+        /// </returns>
+        /// <param name="addClientScopesRequest">The body containing client and scopes informations. </param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
+        /// <response code="200">The operation was successful, and the list of clients is returned.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="500">An internal server error occurred during the processing of the request.</response>
+        [HttpPost("assign-to-client")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiWriter")]
+        public async Task<IActionResult> AddClientScopeToClient([FromBody] AddClientScopeToClientRequest addClientScopesRequest, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new AddClientScopeToClientCommand(addClientScopesRequest), cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                return Created("/", true);
+            }
+
+            return BadRequest("Error when tried add client scope to the client. ");
         }
     }
 }
