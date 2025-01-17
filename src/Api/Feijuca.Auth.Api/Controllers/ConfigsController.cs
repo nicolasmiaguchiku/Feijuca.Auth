@@ -51,22 +51,6 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ConfigureNewRealm([FromBody] AddKeycloakSettingsRequest addKeycloakSettings, CancellationToken cancellationToken)
         {
-            var body = new KeycloakSettings
-            {
-                Client = new Client { ClientId = addKeycloakSettings.MasterClient.ClientId},
-                Secrets = new Secrets { ClientSecret = addKeycloakSettings.MasterClientSecret.ClientSecret},
-                ServerSettings = new ServerSettings { Url = addKeycloakSettings.ServerSettings.Url},
-                Realms = 
-                [
-                    new Realm {
-                    DefaultSwaggerTokenGeneration = true,
-                    Audience = Constants.FeijucaApiClientName,
-                    Issuer = addKeycloakSettings.ServerSettings.Url,
-                    Name = addKeycloakSettings.Realm.Name
-                }]
-            };
-
-            await _mediator.Send(new AddConfigCommand(body), cancellationToken);
             return await AddOrUpdateClientConfigs(addKeycloakSettings, true, cancellationToken);
         }
 
@@ -79,6 +63,9 @@ namespace Feijuca.Auth.Api.Controllers
                 // Configuração inicial
                 PrepareRealmConfiguration(addKeycloakSettings);
 
+                var keyCloakSettings = CreateKeycloakSettings(addKeycloakSettings);
+                await _mediator.Send(new AddConfigCommand(keyCloakSettings), cancellationToken);
+
                 if (includeRealm)
                 {
                     var addRealmRequest = new AddRealmRequest(addKeycloakSettings.Realm.Name!, "", addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration);
@@ -87,9 +74,7 @@ namespace Feijuca.Auth.Api.Controllers
                     {
                         return BadRequest("Failed to create realm.");
                     }
-                }
-
-                var keyCloakSettings = CreateKeycloakSettings(addKeycloakSettings);
+                }                
 
                 // Adiciona configurações básicas
                 var result = await ProcessBasicConfiguration(keyCloakSettings, cancellationToken);
@@ -150,8 +135,7 @@ namespace Feijuca.Auth.Api.Controllers
                 new(Constants.FeijucaApiClientName, Constants.FeijucaApiClientName, true)
             };
 
-            return await ProcessActionsAsync(
-                async () => await _mediator.Send(new AddConfigCommand(keyCloakSettings), cancellationToken),
+            return await ProcessActionsAsync(                
                 async () => await _mediator.Send(new AddClientCommand(clientBody), cancellationToken),
                 async () => await _mediator.Send(new AddClientScopesCommand(addClientScopes), cancellationToken));
         }
