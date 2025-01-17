@@ -22,6 +22,8 @@ using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Common;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Models;
+
 using Flurl;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +40,7 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddClientConfigs([FromBody] AddKeycloakSettingsRequest addKeycloakSettings, CancellationToken cancellationToken)
+        public async Task<IActionResult> ConfigureExistingRealm([FromBody] AddKeycloakSettingsRequest addKeycloakSettings, CancellationToken cancellationToken)
         {
             return await AddOrUpdateClientConfigs(addKeycloakSettings, false, cancellationToken);
         }
@@ -47,8 +49,24 @@ namespace Feijuca.Auth.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddClientAndRealmConfigs([FromBody] AddKeycloakSettingsRequest addKeycloakSettings, CancellationToken cancellationToken)
+        public async Task<IActionResult> ConfigureNewRealm([FromBody] AddKeycloakSettingsRequest addKeycloakSettings, CancellationToken cancellationToken)
         {
+            var body = new KeycloakSettings
+            {
+                Client = new Client { ClientId = addKeycloakSettings.MasterClient.ClientId},
+                Secrets = new Secrets { ClientSecret = addKeycloakSettings.MasterClientSecret.ClientSecret},
+                ServerSettings = new ServerSettings { Url = addKeycloakSettings.ServerSettings.Url},
+                Realms = 
+                [
+                    new Realm {
+                    DefaultSwaggerTokenGeneration = true,
+                    Audience = Constants.FeijucaApiClientName,
+                    Issuer = addKeycloakSettings.ServerSettings.Url,
+                    Name = addKeycloakSettings.Realm.Name
+                }]
+            };
+
+            await _mediator.Send(new AddConfigCommand(body), cancellationToken);
             return await AddOrUpdateClientConfigs(addKeycloakSettings, true, cancellationToken);
         }
 
