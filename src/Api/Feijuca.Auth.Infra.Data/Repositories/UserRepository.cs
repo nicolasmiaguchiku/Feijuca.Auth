@@ -113,7 +113,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             {
                 return Result<bool>.Success(true);
             }
+            var error = await response.Content.ReadAsStringAsync(cancellationToken);
 
+            UserErrors.SetTechnicalMessage(error);
             return Result<bool>.Failure(UserErrors.UserCreationError);
         }
 
