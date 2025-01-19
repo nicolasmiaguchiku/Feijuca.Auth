@@ -265,14 +265,13 @@ namespace Feijuca.Auth.Api.Controllers
 
             var userId = identity.FindFirst(ClaimTypes.NameIdentifier)!.Value;
             var username = identity.FindFirst("preferred_username")!.Value;
-            var email = identity.FindFirst(ClaimTypes.Email)!.Value;
             var fullName = identity.FindFirst("name")!.Value;
 
             var nameParts = fullName.Split(' ');
             var firstName = nameParts.FirstOrDefault();
             var lastName = nameParts.Length > 1 ? nameParts[^1] : "";
 
-            var userResponse = new UserResponse(Guid.Parse(userId), username, email, firstName!, lastName!, tenant);
+            var userResponse = new UserResponse(Guid.Parse(userId), username, username, firstName!, lastName!, tenant);
             return Ok(userResponse);
         }
 
