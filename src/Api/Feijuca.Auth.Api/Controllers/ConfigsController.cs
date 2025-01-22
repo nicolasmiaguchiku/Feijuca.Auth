@@ -22,8 +22,6 @@ using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Common;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
-using Feijuca.Auth.Models;
-
 using Flurl;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +34,18 @@ namespace Feijuca.Auth.Api.Controllers
     {
         private readonly IMediator _mediator = mediator;
 
+        /// <summary>
+        /// Use this endpoint when you have a realm and wish configure keycloak feijuca inside the realm.
+        /// </summary>
+        /// <returns>
+        /// A 200 OK status code along with the list of groups if the operation is successful;
+        /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
+        /// </returns>
+        /// <param name="addKeycloakSettings">The body of the configuration.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
+        /// <response code="200">The operation was successful, and the list of groups is returned.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpPost("existing-realm")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -45,6 +55,18 @@ namespace Feijuca.Auth.Api.Controllers
             return await AddOrUpdateClientConfigs(addKeycloakSettings, false, cancellationToken);
         }
 
+        /// <summary>
+        /// Use this endpoint when you do not have a realm and wish configure keycloak feijuca creating a new realm.
+        /// </summary>
+        /// <returns>
+        /// A 200 OK status code along with the list of groups if the operation is successful;
+        /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
+        /// </returns>
+        /// <param name="addKeycloakSettings">The body of the configuration.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
+        /// <response code="200">The operation was successful, and the list of groups is returned.</response>
+        /// <response code="400">The request was invalid or could not be processed.</response>
+        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpPost("new-realm")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -61,10 +83,14 @@ namespace Feijuca.Auth.Api.Controllers
                 tenantService.SetTenant(addKeycloakSettings.Realm.Name!);
 
                 // Configuração inicial
-                PrepareRealmConfiguration(addKeycloakSettings);
+                addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration = true;
+                addKeycloakSettings.Realm.Issuer = addKeycloakSettings.ServerSettings.Url
+                    .AppendPathSegment("realms")
+                    .AppendPathSegment(addKeycloakSettings.Realm.Name);
+                addKeycloakSettings.Realm.Audience = Constants.FeijucaApiClientName;
 
                 var keyCloakSettings = CreateKeycloakSettings(addKeycloakSettings);
-                await _mediator.Send(new AddConfigCommand(keyCloakSettings), cancellationToken);
+                await _mediator.Send(new AddOrUpdateConfigCommand(keyCloakSettings), cancellationToken);
 
                 if (includeRealm)
                 {
@@ -117,7 +143,7 @@ namespace Feijuca.Auth.Api.Controllers
                 Client = addKeycloakSettings.MasterClient,
                 Secrets = addKeycloakSettings.MasterClientSecret,
                 ServerSettings = addKeycloakSettings.ServerSettings,
-                Realms = new[] { addKeycloakSettings.Realm }
+                Realms = [addKeycloakSettings.Realm]
             };
         }
 

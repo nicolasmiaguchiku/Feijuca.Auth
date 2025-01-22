@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Config
 {
-    public record AddConfigCommand(KeycloakSettings Request) : IRequest<Result<bool>>;
+    public record AddOrUpdateConfigCommand(KeycloakSettings Request) : IRequest<Result<bool>>;
 }

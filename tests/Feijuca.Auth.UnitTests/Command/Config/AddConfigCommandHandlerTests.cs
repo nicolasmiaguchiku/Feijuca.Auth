@@ -13,18 +13,18 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Config
     {
         private readonly IFixture _fixture = new Fixture();
         private readonly Mock<IConfigRepository> _configRepositoryMock = new();
-        private readonly AddConfigCommandHandler _handler;
+        private readonly AddOrUpdateConfigCommandHandler _handler;
 
         public AddConfigCommandHandlerTests()
         {
-            _handler = new AddConfigCommandHandler(_configRepositoryMock.Object);
+            _handler = new AddOrUpdateConfigCommandHandler(_configRepositoryMock.Object);
         }
 
         [Fact]
         public async Task Given_ValidConfiguration_When_AddConfigAsync_Then_ShouldReturnSuccess()
         {
             // Arrange
-            var addConfigCommand = _fixture.Create<AddConfigCommand>();
+            var addConfigCommand = _fixture.Create<AddOrUpdateConfigCommand>();
             var cancellationToken = _fixture.Create<CancellationToken>();
 
             _configRepositoryMock
@@ -48,7 +48,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Config
         public async Task Given_InvalidConfiguration_When_AddConfigAsync_Then_ShouldReturnFailure()
         {
             // Arrange
-            var addConfigCommand = _fixture.Create<AddConfigCommand>();
+            var addConfigCommand = _fixture.Create<AddOrUpdateConfigCommand>();
             var cancellationToken = _fixture.Create<CancellationToken>();
 
             _configRepositoryMock
