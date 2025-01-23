@@ -100,7 +100,7 @@ namespace Feijuca.Auth.Api.Controllers
                     {
                         return BadRequest("Failed to create realm.");
                     }
-                }                
+                }
 
                 // Adiciona configurações básicas
                 var result = await ProcessBasicConfiguration(keyCloakSettings, cancellationToken);
@@ -125,15 +125,6 @@ namespace Feijuca.Auth.Api.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
             }
-        }
-
-        private static void PrepareRealmConfiguration(AddKeycloakSettingsRequest addKeycloakSettings)
-        {
-            addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration = true;
-            addKeycloakSettings.Realm.Issuer = addKeycloakSettings.ServerSettings.Url
-                .AppendPathSegment("realms")
-                .AppendPathSegment(addKeycloakSettings.Realm.Name);
-            addKeycloakSettings.Realm.Audience = Constants.FeijucaApiClientName;
         }
 
         private static KeycloakSettings CreateKeycloakSettings(AddKeycloakSettingsRequest addKeycloakSettings)
@@ -161,7 +152,7 @@ namespace Feijuca.Auth.Api.Controllers
                 new(Constants.FeijucaApiClientName, Constants.FeijucaApiClientName, true)
             };
 
-            return await ProcessActionsAsync(                
+            return await ProcessActionsAsync(
                 async () => await _mediator.Send(new AddClientCommand(clientBody), cancellationToken),
                 async () => await _mediator.Send(new AddClientScopesCommand(addClientScopes), cancellationToken));
         }
@@ -211,8 +202,8 @@ namespace Feijuca.Auth.Api.Controllers
                 addKeycloakSettings.RealmAdminUser.Email,
                 addKeycloakSettings.RealmAdminUser.Password,
                 addKeycloakSettings.RealmAdminUser.Email,
-                string.Empty,
-                string.Empty,
+                "Admin",
+                "Admin",
                 []);
 
             var userId = await _mediator.Send(new AddUserCommand(addUserRequest), cancellationToken);

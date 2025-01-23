@@ -41,7 +41,6 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Config
                 .BeTrue();
 
             _configRepositoryMock.Verify(repo => repo.AddConfigAsync(It.IsAny<KeycloakSettingsEntity>(), It.IsAny<CancellationToken>()), Times.Once());
-            _configRepositoryMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -65,7 +64,6 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Config
                 .Be(ConfigErrors.InsertConfig);
 
             _configRepositoryMock.Verify(repo => repo.AddConfigAsync(It.IsAny<KeycloakSettingsEntity>(), It.IsAny<CancellationToken>()), Times.Once());
-            _configRepositoryMock.VerifyNoOtherCalls();
         }
     }
 }

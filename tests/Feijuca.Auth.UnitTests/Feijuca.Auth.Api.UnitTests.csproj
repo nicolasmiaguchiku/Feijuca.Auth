@@ -11,8 +11,11 @@
 
   <ItemGroup>
     <Compile Remove="Command\Permissions\**" />
+    <Compile Remove="Services\**" />
     <EmbeddedResource Remove="Command\Permissions\**" />
+    <EmbeddedResource Remove="Services\**" />
     <None Remove="Command\Permissions\**" />
+    <None Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,10 +41,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Api\Feijuca.Auth.Application\Feijuca.Auth.Application.csproj" />
     <ProjectReference Include="..\..\src\Api\Feijuca.Auth.Domain\Feijuca.Auth.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

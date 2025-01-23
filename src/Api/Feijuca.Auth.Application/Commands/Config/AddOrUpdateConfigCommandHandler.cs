@@ -20,26 +20,30 @@ namespace Feijuca.Auth.Application.Commands.Config
                 {
                     return Result<bool>.Success(true);
                 }
+
+                return Result<bool>.Failure(ConfigErrors.InsertConfig);
             }
-
-            var newRealm = new Models.Realm
+            else
             {
-                Audience = request.Request.Realms!.First().Audience,
-                DefaultSwaggerTokenGeneration = false,
-                Issuer = request.Request.Realms!.First().Issuer,
-                Name = request.Request.Realms!.First().Name,
-            };
+                var newRealm = new Models.Realm
+                {
+                    Audience = request.Request.Realms!.First().Audience,
+                    DefaultSwaggerTokenGeneration = false,
+                    Issuer = request.Request.Realms!.First().Issuer,
+                    Name = request.Request.Realms!.First().Name,
+                };
 
-            existingConfig!.Realms = existingConfig.Realms!.Concat([newRealm]);
+                existingConfig!.Realms = existingConfig.Realms!.Concat([newRealm]);
 
-            result = await configRepository.UpdateRealmConfigAsync(existingConfig!.Id, existingConfig);
+                result = await configRepository.UpdateRealmConfigAsync(existingConfig!.Id, existingConfig);
 
-            if (result)
-            {
-                return Result<bool>.Success(true);
+                if (result)
+                {
+                    return Result<bool>.Success(true);
+                }
+
+                return Result<bool>.Failure(ConfigErrors.InsertConfig);
             }
-
-            return Result<bool>.Failure(ConfigErrors.InsertConfig);
         }
     }
 }
