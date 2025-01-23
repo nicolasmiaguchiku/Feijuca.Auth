@@ -131,8 +131,8 @@ namespace Feijuca.Auth.Api.Controllers
         {
             return new KeycloakSettings
             {
-                Client = addKeycloakSettings.MasterClient,
-                Secrets = addKeycloakSettings.MasterClientSecret,
+                Client = addKeycloakSettings.Client,
+                Secrets = addKeycloakSettings.ClientSecret,
                 ServerSettings = addKeycloakSettings.ServerSettings,
                 Realms = [addKeycloakSettings.Realm]
             };
