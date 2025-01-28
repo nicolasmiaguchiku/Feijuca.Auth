@@ -92,6 +92,7 @@ namespace Feijuca.Auth.Api.Controllers
                 var keyCloakSettings = CreateKeycloakSettings(addKeycloakSettings);
                 await _mediator.Send(new AddOrUpdateConfigCommand(keyCloakSettings), cancellationToken);
 
+                
                 if (includeRealm)
                 {
                     var addRealmRequest = new AddRealmRequest(addKeycloakSettings.Realm.Name!, "", addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration);
