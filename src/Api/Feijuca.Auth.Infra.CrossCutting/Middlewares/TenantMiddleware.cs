@@ -7,6 +7,14 @@ namespace Feijuca.Auth.Infra.CrossCutting.Middlewares
     {
         public async Task InvokeAsync(HttpContext context, ITenantService tenantService)
         {
+            var path = context.Request.Path.Value!;
+            var availableStartingUrls = new List<string> { "scalar", "openapi", "events", "favicon.ico" };
+            if (availableStartingUrls.Any(path.Contains))
+            {
+                await next(context);
+                return;
+            }
+
             var tenantId = context.Request.Headers["Tenant"].ToString();
 
             if (string.IsNullOrEmpty(tenantId))

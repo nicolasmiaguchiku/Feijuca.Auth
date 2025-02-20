@@ -9,7 +9,7 @@ var applicationSettings = builder.Configuration.GetSection("Settings").Get<Setti
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services
-    .AddApiAuthentication(applicationSettings)
+    .AddApiAuthentication(applicationSettings!)
     .AddEndpointsApiExplorer()
     .AddSwagger(applicationSettings!.ServerSettings);
 

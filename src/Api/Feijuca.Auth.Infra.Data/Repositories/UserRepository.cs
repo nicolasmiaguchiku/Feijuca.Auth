@@ -50,7 +50,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var keycloakUserContent = await response.Content.ReadAsStringAsync(cancellationToken);
             var users = JsonConvert.DeserializeObject<IEnumerable<User>>(keycloakUserContent)!;
 
-            return Result<IEnumerable<User>>.Success(users);
+            return Result<IEnumerable<User>>.Success(users
+                .OrderBy(a => a.FirstName)
+                .ThenBy(a => a.LastName));
         }
 
         public async Task<int> GetTotalAsync(CancellationToken cancellationToken)

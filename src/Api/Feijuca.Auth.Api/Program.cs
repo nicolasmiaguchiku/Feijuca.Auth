@@ -1,7 +1,11 @@
+using Coderaw.Settings.Transformers;
+
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Infra.CrossCutting.Extensions;
 using Feijuca.Auth.Infra.CrossCutting.Handlers;
 using Feijuca.Auth.Infra.CrossCutting.Middlewares;
+
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -20,6 +24,7 @@ builder.Services
     .AddRepositories()
     .AddValidators()
     .AddServices()
+    .AddOpenApi("v1", options => { options.AddDocumentTransformer<BearerSecuritySchemeTransformer>(); })
     .AddMongo(applicationSettings)
     .AddApiAuthentication(out KeycloakSettings KeycloakSettings)
     .AddEndpointsApiExplorer()
@@ -39,6 +44,9 @@ builder.Services
     .AddControllers();
 
 var app = builder.Build();
+
+app.MapOpenApi();
+app.MapScalarApiReference();
 
 app.UseCors("AllowAllOrigins")
    .UseExceptionHandler()
