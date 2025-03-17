@@ -16,13 +16,40 @@ namespace Feijuca.Auth.Application.Queries.Users
         {
             var result = await _userRepository.GetAllAsync(request.GetUsersRequest.ToUserFilters(), cancellationToken);
 
-            if (result.IsSuccess)
+            if (!result.IsSuccess)
             {
-                var totalUsers = await _userRepository.GetTotalAsync(cancellationToken);
-                return Result<PagedResult<UserResponse>>.Success(result.Response.ToUserResponse(request.GetUsersRequest.PageFilter, _tenantService.Tenant, totalUsers));
+                return Result<PagedResult<UserResponse>>.Failure(UserErrors.GetAllUsersError);
             }
 
-            return Result<PagedResult<UserResponse>>.Failure(UserErrors.GetAllUsersError);
+            var filteredUsers = result.Response.AsEnumerable();
+
+            if (request.GetUsersRequest.Usernames?.Any() ?? false)
+            {
+                filteredUsers = result.Response
+                    .Where(x => request.GetUsersRequest.Usernames.Any(filter => x.Username.Contains(filter, StringComparison.OrdinalIgnoreCase)));
+            }
+
+            if (request.GetUsersRequest.AttributeKeys?.Count() == request.GetUsersRequest.AttributeValues?.Count())
+            {
+                for (int i = 0; i < request.GetUsersRequest.AttributeKeys?.Count(); i++)
+                {
+                    var key = request.GetUsersRequest.AttributeKeys?.ElementAt(i);
+                    var value = request.GetUsersRequest.AttributeValues?.ElementAt(i);
+
+                    filteredUsers = filteredUsers
+                        .Where(u =>
+                        {
+                            u.Attributes.TryGetValue(key ?? "", out var values);
+                            return values?.Any(v => v.Contains(value ?? "", StringComparison.OrdinalIgnoreCase)) ?? false;
+                        });
+                }
+            }
+
+            var users = filteredUsers.ToList();
+            var totalUsers = users.Count;
+            return Result<PagedResult<UserResponse>>.Success(users.ToUserResponse(request.GetUsersRequest.PageFilter, _tenantService.Tenant, totalUsers));
         }
+
+
     }
 }

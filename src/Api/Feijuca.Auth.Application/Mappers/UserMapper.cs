@@ -70,7 +70,7 @@ namespace Feijuca.Auth.Application.Mappers
                 PageNumber = pageFilter.Page,
                 PageSize = pageFilter.PageSize,
                 Results = results.Select(x => x.ToResponse(tenant)),
-                TotalResults = totalResults
+                TotalResults = totalResults,
             };
         }
 
