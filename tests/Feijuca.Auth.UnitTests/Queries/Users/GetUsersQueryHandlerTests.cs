@@ -48,6 +48,7 @@ namespace Feijuca.Auth.Api.UnitTests.Queries.Users
                 .BeTrue();
 
             _userRepositoryMock.Verify(repo => repo.GetAllAsync(It.IsAny<UserFilters>(), It.IsAny<CancellationToken>()), Times.Once());
+            _userRepositoryMock.Verify(repo => repo.GetTotalAsync(It.IsAny<CancellationToken>()), Times.Once());
             _userRepositoryMock.VerifyNoOtherCalls();
         }
 

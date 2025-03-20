@@ -45,8 +45,8 @@ namespace Feijuca.Auth.Application.Queries.Users
                 }
             }
 
+            var totalUsers = await _userRepository.GetTotalAsync(cancellationToken);
             var users = filteredUsers.ToList();
-            var totalUsers = users.Count;
             return Result<PagedResult<UserResponse>>.Success(users.ToUserResponse(request.GetUsersRequest.PageFilter, _tenantService.Tenant, totalUsers));
         }
 
