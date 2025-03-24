@@ -1,4 +1,4 @@
-﻿using Feijuca.Auth.Application.Commands.Users;
+﻿using Feijuca.Auth.Application.Commands.User;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Feijuca.Auth.Infra.CrossCutting.Extensions

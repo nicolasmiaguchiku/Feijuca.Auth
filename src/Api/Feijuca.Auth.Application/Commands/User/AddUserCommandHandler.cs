@@ -3,7 +3,7 @@ using Feijuca.Auth.Application.Mappers;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
 
-namespace Feijuca.Auth.Application.Commands.Users
+namespace Feijuca.Auth.Application.Commands.User
 {
     public class AddUserCommandHandler(IUserRepository userRepository, ITenantService tenantService) : IRequestHandler<AddUserCommand, Result<Guid>>
     {

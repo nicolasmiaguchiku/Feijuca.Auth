@@ -7,7 +7,7 @@ using Feijuca.Auth.Application.Commands.Group;
 using Feijuca.Auth.Application.Commands.GroupRoles;
 using Feijuca.Auth.Application.Commands.GroupUser;
 using Feijuca.Auth.Application.Commands.Realm;
-using Feijuca.Auth.Application.Commands.Users;
+using Feijuca.Auth.Application.Commands.User;
 using Feijuca.Auth.Application.Queries.Clients;
 using Feijuca.Auth.Application.Queries.ClientScopes;
 using Feijuca.Auth.Application.Queries.Groups;

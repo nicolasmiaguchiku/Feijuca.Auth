@@ -1,4 +1,4 @@
-﻿using Feijuca.Auth.Application.Commands.Users;
+﻿using Feijuca.Auth.Application.Commands.User;
 using Feijuca.Auth.Application.Queries.Users;
 using Feijuca.Auth.Application.Requests.Auth;
 using Feijuca.Auth.Application.Requests.User;

@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using Feijuca.Auth.Application.Commands.Users;
+using Feijuca.Auth.Application.Commands.User;
 using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;

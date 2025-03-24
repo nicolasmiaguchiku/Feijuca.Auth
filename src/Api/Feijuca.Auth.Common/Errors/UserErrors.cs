@@ -41,6 +41,11 @@ namespace Feijuca.Auth.Common.Errors
             $"An error occurred while trying get all users. {TechnicalMessage}"
         );
 
+        public static Error GetUserError => new(
+            "User.GetUserError",
+            $"An error occurred while trying get user. {TechnicalMessage}"
+        );
+
         public static Error DeletionUserError => new(
             "Group.DeletionUserError",
             $"An error occurred while trying delete the user: {TechnicalMessage}"
