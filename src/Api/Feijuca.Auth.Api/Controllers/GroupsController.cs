@@ -24,9 +24,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
         /// </returns>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="200">The operation was successful, and the list of groups is returned.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -54,9 +51,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// </returns>
         /// <param name="id">The unique identifier of the group to be deleted.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="204">The group was successfully deleted.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpDelete]
         [Route("{id}", Name = nameof(DeleteGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -85,9 +79,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// </returns>
         /// <param name="addGroupRequest">An object of type <see cref="T:Feijuca.Auth.Common.Models.AddGroupRequest"/> containing the details of the group to be created.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="201">The group was successfully created.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

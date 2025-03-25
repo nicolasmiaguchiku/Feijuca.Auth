@@ -23,9 +23,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// otherwise, a 400 Bad Request status code with an error message, or a 500 Internal Server Error status code if something goes wrong.
         /// </returns>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="200">The operation was successful, and the list of clients is returned.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -52,9 +49,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// </returns>
         /// <param name="addClient">The body related to the client that will be created.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="200">The operation was successful, and the list of clients is returned.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

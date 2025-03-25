@@ -24,15 +24,12 @@ namespace Feijuca.Auth.Api.Controllers
         /// </returns>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <param name="name">The name of the realm.</param>
-        /// <response code="200">A list of roles associated with the clients in the specified realm.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpGet]
         [Route("export/{name}", Name = nameof(ExportRealm))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [RequiredRole("Feijuca.ApiReader")]        
+        [RequiredRole("Feijuca.ApiReader")]
         public async Task<IActionResult> ExportRealm([FromRoute] string name, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetRealmConfigurationQuery(name), cancellationToken);
@@ -54,9 +51,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// </returns>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <param name="realm">The name of the realm.</param>
-        /// <response code="200">A list of roles associated with the clients in the specified realm.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

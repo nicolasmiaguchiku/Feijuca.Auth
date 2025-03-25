@@ -26,8 +26,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="id">The unique identifier of the group to which the role will be added.</param>
         /// <param name="addRoleToGroup">An object of type <see cref="T:Feijuca.Auth.Common.Models.AddClientRoleToGroupRequest"/> containing the details of the role to be added to the group.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="201">The role was successfully added to the group.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
         [HttpPost("{id:guid}/role", Name = nameof(AddRoleToGroup))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -57,8 +55,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// <param name="groupid">The unique identifier of the group from which the role will be removed.</param>
         /// <param name="roleid">The unique identifier of the role to be removed from the group.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="204">The role was successfully removed from the group.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
         [HttpDelete("{groupid}/role/{roleid}", Name = nameof(RemoveRoleFromGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -88,8 +84,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// </returns>
         /// <param name="id">The unique identifier of the group whose roles are being retrieved.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="200">The roles associated with the group were successfully retrieved.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
         [HttpGet("{id:guid}/roles", Name = nameof(GetGroupRoles))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

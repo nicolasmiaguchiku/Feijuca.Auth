@@ -43,9 +43,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// </returns>
         /// <param name="addKeycloakSettings">The body of the configuration.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="200">The operation was successful, and the list of groups is returned.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpPost("existing-realm")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -64,9 +61,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// </returns>
         /// <param name="addKeycloakSettings">The body of the configuration.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="200">The operation was successful, and the list of groups is returned.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred during the processing of the request.</response>
         [HttpPost("new-realm")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -92,7 +86,7 @@ namespace Feijuca.Auth.Api.Controllers
                 var keyCloakSettings = CreateKeycloakSettings(addKeycloakSettings);
                 await _mediator.Send(new AddOrUpdateConfigCommand(keyCloakSettings), cancellationToken);
 
-                
+
                 if (includeRealm)
                 {
                     var addRealmRequest = new AddRealmRequest(addKeycloakSettings.Realm.Name!, "", addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration);

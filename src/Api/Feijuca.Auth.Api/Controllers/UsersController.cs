@@ -92,9 +92,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 202Accepted status code if the authentication is successful, along with the JWT token and user attributes was updated;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
-        /// <response code="201">Authentication was successful, and the JWT token and user attributes was updated.</response>
-        /// <response code="400">The request was invalid, such as incorrect credentials.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -123,11 +120,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 204 No Content status code if the user is successfully deleted;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
-        /// <response code="204">The user was deleted successfully.</response>
-        /// <response code="400">The request was invalid or the user could not be found.</response>
-        /// <response code="401">The request lacks valid authentication credentials.</response>
-        /// <response code="403">The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpDelete]
         [Route("{id}", Name = nameof(DeleteUser))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -156,11 +148,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 202 Accepted status code if the sessions are successfully revoked;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
-        /// <response code="202">The user sessions were revoked successfully.</response>
-        /// <response code="400">The request was invalid or the user could not be found.</response>
-        /// <response code="401">The request lacks valid authentication credentials.</response>
-        /// <response code="403">The request was understood, but the server is refusing to fulfill it due to insufficient permissions.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
         [Route("revoke-session", Name = nameof(RevokeUserSessions))]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
@@ -188,9 +175,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 200 OK status code if the logout is successful;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
-        /// <response code="200">The logout was successful.</response>
-        /// <response code="400">The request was invalid or the logout could not be processed.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
         [Route("logout", Name = nameof(Logout))]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -218,9 +202,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 200 OK status code if the authentication is successful, along with the JWT token and user details;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
-        /// <response code="200">Authentication was successful, and the JWT token and user details are returned.</response>
-        /// <response code="400">The request was invalid, such as incorrect credentials.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
         [Route("login", Name = nameof(Login))]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -247,9 +228,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 200 OK status code with the user's details if the token is successfully decoded;
         /// otherwise, a 400 Bad Request status code if the token is invalid or if the user is not authenticated.
         /// </returns>
-        /// <response code="200">The token was successfully decoded, returning user details.</response>
-        /// <response code="400">The request was invalid due to an issue with the token or user authentication.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpGet]
         [Route("decode-token", Name = nameof(DecodeToken))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserResponse))]
@@ -284,9 +262,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 200 OK status code with the new token and user details if the refresh operation is successful;
         /// otherwise, a 400 Bad Request status code if the refresh token is invalid or expired.
         /// </returns>
-        /// <response code="200">The refresh operation was successful, returning a new token and user details.</response>
-        /// <response code="400">The request was invalid due to an issue with the refresh token.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
         [Route("refresh-token", Name = nameof(RefreshToken))]
         [ProducesResponseType(StatusCodes.Status200OK)]

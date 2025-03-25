@@ -24,9 +24,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
-        /// <response code="200">A list of roles associated with the clients in the specified realm.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -53,9 +50,6 @@ namespace Feijuca.Auth.Api.Controllers
         /// A 201 Created status code if the role was successfully added;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
-        /// <response code="201">The role was created successfully.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

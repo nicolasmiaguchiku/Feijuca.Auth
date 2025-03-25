@@ -20,14 +20,11 @@ namespace Feijuca.Auth.Api.Controllers
         /// Adds a user to a specific group in the specified Keycloak realm.
         /// </summary>
         /// <returns>
-        /// A 204 No Content status code if the user is successfully added to the group; 
+        /// A 204 No Content status code if the user is successfully added to the group;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <param name="addUserToGroupRequest">An object of type <see cref="T:Feijuca.Auth.Common.Models.AddUserToGroupRequest"/> containing the user and group IDs for the operation.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="204">The user was successfully added to the group.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpPost("groups/users", Name = nameof(AddUserToGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -51,14 +48,11 @@ namespace Feijuca.Auth.Api.Controllers
         /// Retrieves all users present in a specific group within the specified Keycloak realm.
         /// </summary>
         /// <returns>
-        /// A 200 OK status code with a list of users in the group; 
+        /// A 200 OK status code with a list of users in the group;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <param name="usersGroup">An object of type <see cref="T:Feijuca.Auth.Common.Models.GetUsersGroupRequest"/> containing the necessary parameters to filter users in the group.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="200">The users in the group were successfully retrieved.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpGet("groups/users", Name = nameof(GetUsersInGroup))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -81,14 +75,11 @@ namespace Feijuca.Auth.Api.Controllers
         /// Removes a user from a specific group within the specified Keycloak realm.
         /// </summary>
         /// <returns>
-        /// A 204 No Content status code if the user is successfully removed from the group; 
+        /// A 204 No Content status code if the user is successfully removed from the group;
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         /// <param name="removeUserFromGroup">An object of type <see cref="T:Feijuca.Auth.Common.Models.RemoveUserFromGroupRequest"/> containing the user ID and group ID for the operation.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> used to observe cancellation requests for the operation.</param>
-        /// <response code="204">The user was successfully removed from the group.</response>
-        /// <response code="400">The request was invalid or could not be processed.</response>
-        /// <response code="500">An internal server error occurred while processing the request.</response>
         [HttpDelete("groups/users", Name = nameof(RemoveUserFromGroup))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

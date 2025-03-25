@@ -3,9 +3,9 @@ using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
 
-namespace Feijuca.Auth.Application.Commands.UserAttributes
+namespace Feijuca.Auth.Application.Queries.UserAttributes
 {
-    public class GetUserAttributeQueryHandler(IUserRepository userRepository, ITenantService tenantService) : IRequestHandler<GetUserAttributeQuery, Result<Dictionary<string, string[]>>>
+    public class GetUserAttributeQueryHandler(IUserRepository userRepository) : IRequestHandler<GetUserAttributeQuery, Result<Dictionary<string, string[]>>>
     {
         private readonly IUserRepository _userRepository = userRepository;
 
