@@ -1,4 +1,5 @@
 ﻿using Feijuca.Auth.Application.Commands.UserAttributes;
+using Feijuca.Auth.Application.Queries.UserAttributes;
 using Feijuca.Auth.Application.Requests.UsersAttributes;
 using Feijuca.Auth.Attributes;
 using MediatR;
@@ -15,7 +16,34 @@ namespace Feijuca.Auth.Api.Controllers
         /// <summary>
         /// Adds a new attribute to a user on the specified Keycloak realm.
         /// </summary>
-        /// <param name="userName">The username necessary to get an user.</param>
+        /// <param name="username">The username necessary to get attributes from an user.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
+        /// <returns>
+        /// A 200 Created status code if the user is successfully created;
+        /// otherwise, a 400 Bad Request status code with an error message.
+        /// </returns>
+        [HttpGet]
+        [EndpointDescription("This endpoint returns the attributes related to the an user.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("Feijuca.ApiReader")]
+        public async Task<IActionResult> GetUserAttributes([FromRoute] string username, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetUserAttributeQuery(username), cancellationToken);
+
+            if (result.IsSuccess)
+            {
+                return Ok(result.Response);
+            }
+
+            return BadRequest(result.Error);
+        }
+
+        /// <summary>
+        /// Adds a new attribute to a user on the specified Keycloak realm.
+        /// </summary>
+        /// <param name="username">The username necessary to get an user.</param>
         /// <param name="addUserAttributeRequest">The request object containing the necessary details to add attribute to the user.</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
         /// <returns>
@@ -23,14 +51,15 @@ namespace Feijuca.Auth.Api.Controllers
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         [HttpPost]
+        [EndpointDescription("This endpoint add new attributes related to the an existing user.")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> AddAtribute([FromRoute] string userName, AddUserAttributesRequest addUserAttributeRequest,
+        public async Task<IActionResult> AddAtribute([FromRoute] string username, AddUserAttributesRequest addUserAttributeRequest,
             CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddUserAttributeCommand(userName, addUserAttributeRequest), cancellationToken);
+            var result = await _mediator.Send(new AddUserAttributeCommand(username, addUserAttributeRequest), cancellationToken);
             return BadRequest(result.Error);
         }
 
@@ -45,11 +74,12 @@ namespace Feijuca.Auth.Api.Controllers
         /// otherwise, a 400 Bad Request status code with an error message.
         /// </returns>
         [HttpPatch]
+        [EndpointDescription("This endpoint update existing attributes related to the an existing user.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequiredRole("Feijuca.ApiWriter")]
-        public async Task<IActionResult> GetUserAttributes([FromRoute] string username, UpdateUserAttributeRequest updateUserAttributeRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateUserAttributes([FromRoute] string username, UpdateUserAttributeRequest updateUserAttributeRequest, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new UpdateUserAttributesCommand(username, updateUserAttributeRequest), cancellationToken);
 
