@@ -122,6 +122,11 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<Result<User>> GetAsync(string username, CancellationToken cancellationToken)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                return Result<User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
+            }
+
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
 
@@ -142,6 +147,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             {
                 return Result<User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
             }
+
             return Result<User>.Success(user[0]);
         }
 

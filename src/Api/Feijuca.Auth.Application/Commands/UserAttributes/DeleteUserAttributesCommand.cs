@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.UserAttributes
 {
-    public record UpdateUserAttributesCommand(string Username, UserAttributeRequest UpdateUserAttributeRequest) : IRequest<Result<bool>>;
+    public record DeleteUserAttributesCommand(string Username, IEnumerable<string> DeleteUserAttributeRequest) : IRequest<Result<bool>>;
 }

@@ -5,9 +5,9 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.UserAttributes
 {
-    public class UpdateUserAttributesCommandHandler(IUserRepository userRepository) : IRequestHandler<UpdateUserAttributesCommand, Result<Dictionary<string, string[]>>>
+    public class UpdateUserAttributesCommandHandler(IUserRepository userRepository) : IRequestHandler<UpdateUserAttributesCommand, Result<bool>>
     {
-        public async Task<Result<Dictionary<string, string[]>>> Handle(UpdateUserAttributesCommand request, CancellationToken cancellationToken)
+        public async Task<Result<bool>> Handle(UpdateUserAttributesCommand request, CancellationToken cancellationToken)
         {
             var user = await userRepository.GetAsync(request.Username, cancellationToken);
 
@@ -21,17 +21,16 @@ namespace Feijuca.Auth.Application.Commands.UserAttributes
                 }
             }
 
-
             user.Response.Attributes = oldAttributesUpdated;
 
             var result = await userRepository.UpdateUserAsync(user.Response.Id, user.Response, cancellationToken);
 
             if (result.IsSuccess)
             {
-                return Result<Dictionary<string, string[]>>.Success(oldAttributesUpdated);
+                return Result<bool>.Success(true);
             }
 
-            return Result<Dictionary<string, string[]>>.Failure(UserErrors.ErrorWhileAddedUserAttribute);
+            return Result<bool>.Failure(UserErrors.ErrorWhileAddedUserAttribute);
         }
     }
 }
