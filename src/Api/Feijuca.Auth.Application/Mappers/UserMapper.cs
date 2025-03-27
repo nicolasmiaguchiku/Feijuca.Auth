@@ -60,7 +60,7 @@ namespace Feijuca.Auth.Application.Mappers
         public static UserFilters ToUserFilters(this GetUsersGroupRequest getUsersRequest)
         {
             var pageFilter = new PageFilter(getUsersRequest.PageFilter.Page, getUsersRequest.PageFilter.PageSize);
-            return new UserFilters(pageFilter, [], getUsersRequest.Emails);
+            return new UserFilters(pageFilter, [], getUsersRequest.Usernames);
         }
 
         public static PagedResult<UserResponse> ToUserResponse(this IEnumerable<User> results, PageFilterRequest pageFilter, string tenant, int totalResults)

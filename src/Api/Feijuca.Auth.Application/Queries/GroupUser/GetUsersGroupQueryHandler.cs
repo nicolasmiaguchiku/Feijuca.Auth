@@ -24,13 +24,26 @@ namespace Feijuca.Auth.Application.Queries.GroupUser
                 var groupSearched = allGroupsResult.Response.FirstOrDefault(x => x.Id == request.GetUsersGroupRequest.GroupId);
                 if (groupSearched != null)
                 {
-                    var resultMembers = await _groupRepository.GetUsersInGroupAsync(
-                        groupSearched.Id,
-                        request.GetUsersGroupRequest.ToUserFilters(), cancellationToken);
-
-                    var usersInGroup = new UserGroupResponse(groupSearched.ToResponse(), resultMembers.Response.ToUsersResponse(_tenantService.Tenant));
                     var totalUsers = await _userRepository.GetTotalAsync(cancellationToken);
-                    var result = usersInGroup.ToResponse(request.GetUsersGroupRequest.PageFilter, totalUsers);
+
+                    var resultMembers = await _groupRepository.GetUsersInGroupAsync(
+                        groupSearched.Id,                        
+                        request.GetUsersGroupRequest.ToUserFilters(),
+                        totalUsers,
+                        cancellationToken);
+
+                    var filteredUsers = resultMembers.Response.AsEnumerable();
+
+                    if (request.GetUsersGroupRequest.Usernames?.Any() ?? false)
+                    {
+                        filteredUsers = resultMembers.Response
+                            .Where(x => request.GetUsersGroupRequest.Usernames.Any(filter => x.Username.Contains(filter, StringComparison.OrdinalIgnoreCase)));
+                    }
+
+                    var usersInGroup = new UserGroupResponse(groupSearched.ToResponse(), filteredUsers.ToUsersResponse(_tenantService.Tenant));
+
+                    var result = usersInGroup.ToResponse(request.GetUsersGroupRequest.PageFilter, filteredUsers.Count());
+
                     return Result<PagedResult<UserGroupResponse>>.Success(result);
                 }
             }

@@ -90,11 +90,11 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result.Failure(GroupErrors.DeletionGroupError);
         }
 
-        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string id, UserFilters userFilters, CancellationToken cancellationToken)
-        {
+        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string id, UserFilters userFilters, int totalUsers, CancellationToken cancellationToken)
+        {            
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
-            int first = (userFilters.PageFilter.PageNumber - 1) * userFilters.PageFilter.PageSize;
+            int first = (userFilters.PageFilter.PageNumber - 1) * totalUsers;
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -104,8 +104,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                     .AppendPathSegment(id)
                     .AppendPathSegment("members")
                     .SetQueryParam("first", first)
-                    .SetQueryParam("max", userFilters.PageFilter.PageSize)
-                    .SetCollectionQueryParam("username", userFilters.Usernames);
+                    .SetQueryParam("max", totalUsers);
 
             using var response = await httpClient.GetAsync(url, cancellationToken);
 

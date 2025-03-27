@@ -31,7 +31,7 @@ namespace Feijuca.Auth.Api.UnitTests.Queries.Users
             var userResult = Result<IEnumerable<User>>.Success(users);
 
             _userRepositoryMock
-                .Setup(repo => repo.GetAllAsync(It.IsAny<UserFilters>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.GetAllAsync(It.IsAny<UserFilters>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(userResult);
 
             _userRepositoryMock
@@ -47,7 +47,7 @@ namespace Feijuca.Auth.Api.UnitTests.Queries.Users
                 .Should()
                 .BeTrue();
 
-            _userRepositoryMock.Verify(repo => repo.GetAllAsync(It.IsAny<UserFilters>(), It.IsAny<CancellationToken>()), Times.Once());
+            _userRepositoryMock.Verify(repo => repo.GetAllAsync(It.IsAny<UserFilters>(), It.IsAny<int>(), It.IsAny<CancellationToken>()), Times.Once());
             _userRepositoryMock.Verify(repo => repo.GetTotalAsync(It.IsAny<CancellationToken>()), Times.Once());
             _userRepositoryMock.VerifyNoOtherCalls();
         }
@@ -60,8 +60,12 @@ namespace Feijuca.Auth.Api.UnitTests.Queries.Users
             var userResult = Result<IEnumerable<User>>.Failure(UserErrors.GetAllUsersError);
 
             _userRepositoryMock
-                .Setup(repo => repo.GetAllAsync(It.IsAny<UserFilters>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.GetAllAsync(It.IsAny<UserFilters>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(userResult);
+            
+            _userRepositoryMock
+                .Setup(repo => repo.GetTotalAsync(It.IsAny<CancellationToken>()))
+                .ReturnsAsync(_fixture.Create<int>());
 
             // Act
             var result = await _handler.Handle(usersQuery, cancellationToken);
@@ -72,7 +76,8 @@ namespace Feijuca.Auth.Api.UnitTests.Queries.Users
                 .Should()
                 .Be(UserErrors.GetAllUsersError);
 
-            _userRepositoryMock.Verify(repo => repo.GetAllAsync(It.IsAny<UserFilters>(), It.IsAny<CancellationToken>()), Times.Once());
+            _userRepositoryMock.Verify(repo => repo.GetAllAsync(It.IsAny<UserFilters>(), It.IsAny<int>(), It.IsAny<CancellationToken>()), Times.Once());
+            _userRepositoryMock.Verify(repo => repo.GetTotalAsync(It.IsAny<CancellationToken>()), Times.Once());
             _userRepositoryMock.VerifyNoOtherCalls();
         }
     }

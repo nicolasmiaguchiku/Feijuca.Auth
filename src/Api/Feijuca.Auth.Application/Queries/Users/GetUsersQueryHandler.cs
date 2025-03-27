@@ -14,7 +14,8 @@ namespace Feijuca.Auth.Application.Queries.Users
 
         public async Task<Result<PagedResult<UserResponse>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var result = await _userRepository.GetAllAsync(request.GetUsersRequest.ToUserFilters(), cancellationToken);
+            var totalUsers = await _userRepository.GetTotalAsync(cancellationToken);
+            var result = await _userRepository.GetAllAsync(request.GetUsersRequest.ToUserFilters(), totalUsers, cancellationToken);
 
             if (!result.IsSuccess)
             {
@@ -44,12 +45,9 @@ namespace Feijuca.Auth.Application.Queries.Users
                         });
                 }
             }
-
-            var totalUsers = await _userRepository.GetTotalAsync(cancellationToken);
+            
             var users = filteredUsers.ToList();
             return Result<PagedResult<UserResponse>>.Success(users.ToUserResponse(request.GetUsersRequest.PageFilter, _tenantService.Tenant, totalUsers));
         }
-
-
     }
 }

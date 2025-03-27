@@ -30,7 +30,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore
         };
 
-        public async Task<Result<IEnumerable<User>>> GetAllAsync(UserFilters userFilters, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<User>>> GetAllAsync(UserFilters userFilters, int totalUsers, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);

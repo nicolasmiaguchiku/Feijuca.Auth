@@ -17,6 +17,6 @@ namespace Feijuca.Auth.Application.Requests.GroupUsers
         public string GroupId { get; set; } = null!;
 
         [FromQuery]
-        public IEnumerable<string>? Emails { get; set; }
+        public IEnumerable<string>? Usernames { get; set; }
     }
 }
