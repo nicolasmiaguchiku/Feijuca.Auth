@@ -20,7 +20,7 @@ namespace Feijuca.Auth.Extensions
         {
             services
                 .AddSingleton<JwtSecurityTokenHandler>()
-                .AddScoped<IAuthService, AuthService>()
+                .AddScoped<ITenantService, TenantService>()
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddKeycloakWebApi(
                     options =>
