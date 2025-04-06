@@ -1,6 +1,7 @@
-﻿using Feijuca.Auth.Api.Tests.Models;
+﻿using Coderaw.Settings.Models;
+
+using Feijuca.Auth.Api.Tests.Models;
 using Feijuca.Auth.Extensions;
-using Feijuca.Auth.Models;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Feijuca.Auth.Api.Tests.Extensions;
@@ -11,7 +12,7 @@ public static class AuthExtension
     {
         services.AddHttpContextAccessor();
         services.AddSingleton<JwtSecurityTokenHandler>();
-        services.AddKeyCloakAuth(authSettings.Client, authSettings.ServerSettings, [authSettings.Realm]);
+        services.AddKeyCloakAuth(authSettings.KeycloakSettings.Client, authSettings.KeycloakSettings.ServerSettings, authSettings.KeycloakSettings.Realms);
         return services;
     }
 }

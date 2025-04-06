@@ -18,7 +18,6 @@ namespace Feijuca.Auth.Api.Tests.Controllers
 
 
         [HttpGet(Name = "GetWeatherForecast")]
-        [RequiredRole("Feijuca.ApiReader")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

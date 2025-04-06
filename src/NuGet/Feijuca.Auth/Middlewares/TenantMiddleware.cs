@@ -18,7 +18,7 @@ namespace Feijuca.Auth.Middlewares
             var tenant = tenantService.GetTenantFromToken();
             var user = tenantService.GetUserFromToken();
 
-            if (string.IsNullOrEmpty(tenant.Name) || user.Id != Guid.Empty)
+            if (string.IsNullOrEmpty(tenant.Name) || user.Id == Guid.Empty)
             {
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 context.Response.ContentType = "application/json";

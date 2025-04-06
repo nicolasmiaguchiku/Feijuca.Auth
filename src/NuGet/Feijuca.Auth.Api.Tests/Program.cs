@@ -1,5 +1,9 @@
+using Coderaw.Settings.Models;
+using Coderaw.Settings.Transformers;
 using Feijuca.Auth.Api.Tests.Extensions;
 using Feijuca.Auth.Api.Tests.Models;
+using Feijuca.Auth.Middlewares;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,19 +15,17 @@ builder.Services.AddControllers();
 builder.Services
     .AddApiAuthentication(applicationSettings!)
     .AddEndpointsApiExplorer()
-    .AddSwagger(applicationSettings!.ServerSettings);
+    .AddOpenApi("v1", options => { options.AddDocumentTransformer<BearerSecuritySchemeTransformer>(); });
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Feijuca.Tests.Api");
-    c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
-});
+app.MapOpenApi();
+app.MapScalarApiReference();
 
-app.UseHttpsRedirection()
-    .UseAuthorization();
+app.UseCors("AllowAllOrigins")
+   .UseHttpsRedirection()
+   .UseAuthorization()
+   .UseMiddleware<TenantMiddleware>();
 
 app.MapControllers();
 

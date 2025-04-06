@@ -16,7 +16,7 @@ namespace Feijuca.Auth.Services
         public Tenant GetTenantFromToken()
         {
             string jwtToken = GetToken();
-            if (string.IsNullOrEmpty(jwtToken))
+            if (!string.IsNullOrEmpty(jwtToken))
             {
                 var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
                 var tenantClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value!;
@@ -29,7 +29,7 @@ namespace Feijuca.Auth.Services
         public string GetInfoFromToken(string infoName)
         {
             string jwtToken = GetToken();
-            if (string.IsNullOrEmpty(jwtToken))
+            if (!string.IsNullOrEmpty(jwtToken))
             {
                 var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
                 var userClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == infoName)?.Value!;
@@ -42,7 +42,7 @@ namespace Feijuca.Auth.Services
         public User GetUserFromToken()
         {
             string jwtToken = GetToken();
-            if (string.IsNullOrEmpty(jwtToken))
+            if (!string.IsNullOrEmpty(jwtToken))
             {
                 var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
                 var userId = tokenInfos.Claims.FirstOrDefault(c => c.Type == "sub")?.Value!;
