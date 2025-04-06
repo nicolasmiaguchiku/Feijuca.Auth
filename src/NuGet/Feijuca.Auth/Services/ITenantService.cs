@@ -1,14 +1,16 @@
-﻿namespace Feijuca.Auth.Services
+﻿using Feijuca.Auth.Models;
+
+namespace Feijuca.Auth.Services
 {
     public interface ITenantService
     {
-        string Tenant { get; }
-        Guid UserId { get; }
+        Tenant Tenant { get; }
+        User User { get; }
 
         string GetInfoFromToken(string infoName);
-        string GetTenantFromToken();
-        Guid GetUserIdFromToken();
-        void SetTenant(string tenantId);
-        void SetUser(Guid userId);
+        Tenant GetTenantFromToken();
+        User GetUserFromToken();
+        void SetTenant(Tenant tenant);
+        void SetUser(User user);
     }
 }

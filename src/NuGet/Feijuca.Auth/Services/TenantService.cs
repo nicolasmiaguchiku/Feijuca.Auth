@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Feijuca.Auth.Models;
+using Microsoft.AspNetCore.Http;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Feijuca.Auth.Services
@@ -6,23 +7,23 @@ namespace Feijuca.Auth.Services
     public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurityTokenHandler jwtSecurityTokenHandler) : ITenantService
     {
 
-        private string _tenant = string.Empty;
-        private Guid _userId = Guid.Empty;
+        private Tenant _tenant = null!;
+        private User _userId = null!;
 
-        public string Tenant => _tenant;
-        public Guid UserId => _userId;
+        public Tenant Tenant => _tenant;
+        public User User => _userId;
 
-        public string GetTenantFromToken()
+        public Tenant GetTenantFromToken()
         {
             string jwtToken = GetToken();
             if (string.IsNullOrEmpty(jwtToken))
             {
                 var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
                 var tenantClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value!;
-                return tenantClaim;
+                return new Tenant(tenantClaim, tenantClaim);
             }
 
-            return string.Empty;
+            return new Tenant(string.Empty, string.Empty);
         }
 
         public string GetInfoFromToken(string infoName)
@@ -38,17 +39,18 @@ namespace Feijuca.Auth.Services
             return string.Empty;
         }
 
-        public Guid GetUserIdFromToken()
+        public User GetUserFromToken()
         {
             string jwtToken = GetToken();
             if (string.IsNullOrEmpty(jwtToken))
             {
                 var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
-                var userClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "sub")?.Value!;
-                return Guid.Parse(userClaim);
+                var userId = tokenInfos.Claims.FirstOrDefault(c => c.Type == "sub")?.Value!;
+                var userName = tokenInfos.Claims.FirstOrDefault(c => c.Type == "preferred_username")?.Value!;
+                return new User(Guid.Parse(userId), userName);
             }
 
-            return Guid.Empty;
+            return new User(Guid.Empty, string.Empty);
         }
 
         private string GetToken()
@@ -64,14 +66,14 @@ namespace Feijuca.Auth.Services
         }
 
 
-        public void SetTenant(string tenantId)
+        public void SetTenant(Tenant tenant)
         {
-            _tenant = tenantId;
+            _tenant = tenant;
         }
 
-        public void SetUser(Guid userId)
+        public void SetUser(User user)
         {
-            _userId = userId;
+            _userId = user;
         }
     }
 }
