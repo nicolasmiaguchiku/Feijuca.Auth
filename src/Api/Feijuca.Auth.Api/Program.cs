@@ -1,10 +1,8 @@
+using Coderaw.Settings.Extensions.Handlers;
 using Coderaw.Settings.Transformers;
-
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Infra.CrossCutting.Extensions;
-using Feijuca.Auth.Infra.CrossCutting.Handlers;
 using Feijuca.Auth.Infra.CrossCutting.Middlewares;
-
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
