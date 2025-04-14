@@ -12,6 +12,14 @@ namespace Feijuca.Auth.Extensions
 {
     public static class AuthExtensions
     {
+        public static IServiceCollection AddApiAuthentication(this IServiceCollection services, FeijucaAuthSettings settings)
+        {
+            services.AddHttpContextAccessor();
+            services.AddKeyCloakAuth(settings.Client, settings.ServerSettings, settings.Realms);
+
+            return services;
+        }
+
         public static IServiceCollection AddKeyCloakAuth(this IServiceCollection services,
             Client client,
             ServerSettings serverSettings,
