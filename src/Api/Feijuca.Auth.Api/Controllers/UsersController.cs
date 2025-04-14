@@ -75,8 +75,7 @@ namespace Feijuca.Auth.Api.Controllers
 
             if (result.IsSuccess)
             {
-                var response = Result<string>.Success("User created successfully");
-                return Created($"/api/v1/users", response.Response);
+                return Created($"/api/v1/users", result.Response);
             }
 
             return BadRequest(result.Error);
