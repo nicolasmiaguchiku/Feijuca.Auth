@@ -1,4 +1,5 @@
-using Feijuca.Auth.Middlewares;
+using Feijuca.Auth.Middlewares.TenantMiddleware;
+
 using Microsoft.AspNetCore.Builder;
 
 namespace Feijuca.Auth.Extensions;

@@ -1,4 +1,4 @@
-namespace Feijuca.Auth.Middlewares;
+namespace Feijuca.Auth.Middlewares.TenantMiddleware;
 
 public sealed record TenantMiddlewareOptions
 {
