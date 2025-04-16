@@ -1,4 +1,5 @@
 using Feijuca.Auth.Middlewares.TenantMiddleware;
+using Feijuca.Auth.Models;
 
 using Microsoft.AspNetCore.Builder;
 

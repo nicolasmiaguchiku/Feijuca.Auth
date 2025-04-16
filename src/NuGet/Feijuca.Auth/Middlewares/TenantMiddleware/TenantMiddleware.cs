@@ -1,5 +1,5 @@
-﻿using Feijuca.Auth.Services;
-
+﻿using Feijuca.Auth.Models;
+using Feijuca.Auth.Services;
 using Microsoft.AspNetCore.Http;
 
 namespace Feijuca.Auth.Middlewares.TenantMiddleware
@@ -7,9 +7,7 @@ namespace Feijuca.Auth.Middlewares.TenantMiddleware
     public class TenantMiddleware(RequestDelegate next, TenantMiddlewareOptions options)
     {
         private static readonly List<string> _defaultUrls = ["scalar", "openapi", "events", "favicon.ico"];
-        private readonly List<string> _availableUrls = _defaultUrls
-            .Union(options.AvailableUrls ?? Enumerable.Empty<string>(), StringComparer.OrdinalIgnoreCase)
-            .ToList();
+        private readonly List<string> _availableUrls = [.. _defaultUrls.Union(options.AvailableUrls ?? Enumerable.Empty<string>(), StringComparer.OrdinalIgnoreCase)];
 
 
         public async Task InvokeAsync(HttpContext context, ITenantService tenantService)
