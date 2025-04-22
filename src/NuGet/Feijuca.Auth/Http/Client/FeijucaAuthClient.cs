@@ -20,32 +20,32 @@ namespace Feijuca.Auth.Http.Client
             return Result<TokenDetailsResponse>.Success(result);
         }
 
-        public async Task<Result<KeycloakUser>> GetUserAsync(string userame, string jwtToken, CancellationToken cancellationToken)
+        public async Task<Result<UserResponse>> GetUserAsync(string userame, string jwtToken, CancellationToken cancellationToken)
         {
             var url = $"api/v1/users?Usernames={userame}";
-            var result = await GetAsync<PagedResult<KeycloakUser>>(url, jwtToken, cancellationToken);
+            var result = await GetAsync<PagedResult<UserResponse>>(url, jwtToken, cancellationToken);
 
-            if (!result?.Results?.Any() ?? false)
+            if (result.TotalResults == 0)
             {
-                return Result<KeycloakUser>.Failure(FeijucaErrors.GetUserErrors);
+                return Result<UserResponse>.Failure(FeijucaErrors.GetUserErrors);
             }
 
             var user = result?.Results.FirstOrDefault(x => x.Email == userame);
 
-            return Result<KeycloakUser>.Success(user!);
+            return Result<UserResponse>.Success(user!);
         }
 
-        public async Task<Result<PagedResult<KeycloakUser>>> GetUsersAsync(int maxUsers, string jwtToken, CancellationToken cancellationToken)
+        public async Task<Result<PagedResult<UserResponse>>> GetUsersAsync(int maxUsers, string jwtToken, CancellationToken cancellationToken)
         {
             var url = $"api/v1/users?PageFilter.Page=1&PageFilter.PageSize={maxUsers}";
-            var result = await GetAsync<PagedResult<KeycloakUser>>(url, jwtToken, cancellationToken);
+            var result = await GetAsync<PagedResult<UserResponse>>(url, jwtToken, cancellationToken);
 
             if (result.TotalResults <= 1)
             {
-                return Result<PagedResult<KeycloakUser>>.Failure(FeijucaErrors.GetUserErrors);
+                return Result<PagedResult<UserResponse>>.Failure(FeijucaErrors.GetUserErrors);
             }
 
-            return Result<PagedResult<KeycloakUser>>.Success(result);
+            return Result<PagedResult<UserResponse>>.Success(result);
         }
     }
 }

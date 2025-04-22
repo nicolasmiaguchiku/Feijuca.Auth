@@ -7,7 +7,7 @@ namespace Feijuca.Auth.Http.Client
     public interface IFeijucaAuthClient
     {
         Task<Result<TokenDetailsResponse>> LoginAsync(CancellationToken cancellationToken);
-        Task<Result<PagedResult<KeycloakUser>>> GetUsersAsync(int maxUsers, string jwtToken, CancellationToken cancellationToken);
-        Task<Result<KeycloakUser>> GetUserAsync(string userame, string jwtToken, CancellationToken cancellationToken);
+        Task<Result<PagedResult<UserResponse>>> GetUsersAsync(int maxUsers, string jwtToken, CancellationToken cancellationToken);
+        Task<Result<UserResponse>> GetUserAsync(string userame, string jwtToken, CancellationToken cancellationToken);
     }
 }

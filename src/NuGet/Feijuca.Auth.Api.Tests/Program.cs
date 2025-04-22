@@ -1,11 +1,28 @@
-using Coderaw.Settings.Models;
 using Coderaw.Settings.Transformers;
-
 using Feijuca.Auth.Api.Tests.Extensions;
 using Feijuca.Auth.Api.Tests.Models;
+using Feijuca.Auth.Http.Client;
 using Feijuca.Auth.Middlewares.TenantMiddleware;
-
 using Scalar.AspNetCore;
+
+
+var httpClientFeijuca = new HttpClient
+{
+    BaseAddress = new Uri("https://apis-feijuca-tokenmanager-api.ul0sru.easypanel.host")
+};
+
+
+httpClientFeijuca.DefaultRequestHeaders.Add("Tenant", "smartconsig");
+
+var feijucaCient = new FeijucaAuthClient(httpClientFeijuca);
+
+var token = await feijucaCient.LoginAsync(CancellationToken.None);
+
+var xx = await feijucaCient.GetUserAsync("teste@gmail.com", token.Data.AccessToken!, CancellationToken.None);
+
+var lll = 10;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
