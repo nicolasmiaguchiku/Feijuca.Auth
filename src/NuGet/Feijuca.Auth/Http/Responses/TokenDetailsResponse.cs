@@ -1,11 +1,13 @@
-﻿namespace Feijuca.Auth.Http.Responses
+﻿using Newtonsoft.Json;
+
+namespace Feijuca.Auth.Http.Responses
 {
     public record TokenDetailsResponse(
-        string? AccessToken,
-        int ExpiresIn,
-        int RefreshExpiresIn,
-        string? RefreshToken,
-        string? TokenType,
-        string? Scope
+        [property: JsonProperty("access_token")] string? AccessToken,
+        [property: JsonProperty("expires_in")] int ExpiresIn,
+        [property: JsonProperty("refresh_expires_in")] int RefreshExpiresIn,
+        [property: JsonProperty("refresh_token")] string? RefreshToken,
+        [property: JsonProperty("token_type")] string? TokenType,
+        [property: JsonProperty("scope")] string? Scope
         );
 }
