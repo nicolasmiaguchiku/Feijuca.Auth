@@ -5,6 +5,8 @@ using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Attributes;
 using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Http.Responses;
+
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -248,7 +250,7 @@ namespace Feijuca.Auth.Api.Controllers
             var firstName = nameParts.FirstOrDefault();
             var lastName = nameParts.Length > 1 ? nameParts[^1] : "";
 
-            var userResponse = new UserResponse(Guid.Parse(userId), username, username, firstName!, lastName!, tenant);
+            var userResponse = new UserResponse(Guid.Parse(userId), true, true, username, username, firstName!, lastName!, tenant, false, null!, null!, 0, 0, null, null);
             return Ok(userResponse);
         }
 
