@@ -8,7 +8,7 @@ using Scalar.AspNetCore;
 
 var httpClientFeijuca = new HttpClient
 {
-    BaseAddress = new Uri("https://apis-feijuca-tokenmanager-api.ul0sru.easypanel.host")
+    BaseAddress = new Uri("https://localhost:7018")
 };
 
 
@@ -18,7 +18,7 @@ var feijucaCient = new FeijucaAuthClient(httpClientFeijuca);
 
 var token = await feijucaCient.LoginAsync(CancellationToken.None);
 
-var xx = await feijucaCient.GetUserAsync("teste@gmail.com", token.Data.AccessToken!, CancellationToken.None);
+var xx = await feijucaCient.GetUserAsync("felipe.mattioli@coderaw.io", token.Data.AccessToken!, CancellationToken.None);
 
 var lll = 10;
 

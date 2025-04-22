@@ -215,7 +215,7 @@ namespace Feijuca.Auth.Extensions
                         {
                             p.RequireResourceRolesForClient(
                                 client.ClientId,
-                                policy.Roles!.ToArray());
+                                [.. policy.Roles!]);
                         });
                 }
             }
