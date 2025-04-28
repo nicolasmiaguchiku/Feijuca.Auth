@@ -1,8 +1,6 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-
+﻿
 namespace Feijuca.Auth.Domain.Entities
 {
-    [BsonIgnoreExtraElements]
     public class RealmEntity
     {
         public required string Realm { get; set; }
