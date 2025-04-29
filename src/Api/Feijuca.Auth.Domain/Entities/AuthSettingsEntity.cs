@@ -4,6 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Feijuca.Auth.Domain.Entities
 {
+    [BsonIgnoreExtraElements]
     public class KeycloakSettingsEntity : KeycloakSettings
     {
         [BsonId]
