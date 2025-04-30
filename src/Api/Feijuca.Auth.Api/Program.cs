@@ -29,17 +29,15 @@ builder.Services
     .AddSwagger(KeycloakSettings)
     .AddHttpClients()
     .ConfigureValidationErrorResponses()
+    .AddCors(options => options.AddPolicy("CorsPolicy",
+        builder =>
+        {
+            builder.AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .SetIsOriginAllowed((host) => true)
+                   .AllowCredentials();
+        }))
     .AddControllers();
-
-builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
-    builder =>
-    {
-        builder.AllowAnyHeader()
-               .AllowAnyMethod()
-               .WithOrigins("https://smartconsigv2.netlify.app")
-               .AllowCredentials();
-    }));
-
 
 var app = builder.Build();
 
