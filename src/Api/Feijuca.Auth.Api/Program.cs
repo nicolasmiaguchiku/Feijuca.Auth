@@ -29,16 +29,14 @@ builder.Services
     .AddSwagger(KeycloakSettings)
     .AddHttpClients()
     .ConfigureValidationErrorResponses()
-    .AddCors(options =>
-    {
-        options.AddPolicy("AllowAllOrigins", policy =>
+    .AddCors(options => options.AddPolicy("CorsPolicy",
+        builder =>
         {
-            policy
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-        });
-    })
+            builder.AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .SetIsOriginAllowed((host) => true)
+                   .AllowCredentials();
+        }))
     .AddControllers();
 
 var app = builder.Build();
@@ -46,7 +44,7 @@ var app = builder.Build();
 app.MapOpenApi();
 app.MapScalarApiReference();
 
-app.UseCors("AllowAllOrigins")
+app.UseCors("CorsPolicy")
    .UseExceptionHandler()
    .UseSwagger()
    .UseSwaggerUI(c =>
