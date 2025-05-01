@@ -72,9 +72,8 @@ namespace Feijuca.Auth.Extensions
                         return;
                     }
 
-                    var tenantNumber = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value;
-                    var tenantRealm = realms.FirstOrDefault(realm => realm.Name == tenantNumber);
-
+                    var tenantName = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value;
+                    var tenantRealm = realms.FirstOrDefault(realm => realm.Name == tenantName);
 
                     if (ValidateRealm(context, tenantRealm).Equals(false))
                     {

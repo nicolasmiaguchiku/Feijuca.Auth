@@ -13,7 +13,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>1.32.0</Version>
     <Authors>coderaw.io</Authors>
-    <PackageIcon>sky.png</PackageIcon>
+    <PackageIcon>black-white.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -30,7 +30,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\..\sky.png">
+    <None Include="..\..\..\black-white.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

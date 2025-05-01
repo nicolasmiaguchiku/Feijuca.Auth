@@ -1,27 +1,10 @@
 using Coderaw.Settings.Transformers;
 using Feijuca.Auth.Api.Tests.Extensions;
 using Feijuca.Auth.Api.Tests.Models;
+using Feijuca.Auth.Extensions;
 using Feijuca.Auth.Http.Client;
 using Feijuca.Auth.Middlewares.TenantMiddleware;
 using Scalar.AspNetCore;
-
-
-var httpClientFeijuca = new HttpClient
-{
-    BaseAddress = new Uri("https://localhost:7018")
-};
-
-
-httpClientFeijuca.DefaultRequestHeaders.Add("Tenant", "smartconsig");
-
-var feijucaCient = new FeijucaAuthClient(httpClientFeijuca);
-
-var token = await feijucaCient.LoginAsync(CancellationToken.None);
-
-var xx = await feijucaCient.GetUserAsync("felipe.mattioli@coderaw.io", token.Data.AccessToken!, CancellationToken.None);
-
-var lll = 10;
-
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,7 +27,10 @@ app.MapScalarApiReference();
 app.UseCors("AllowAllOrigins")
    .UseHttpsRedirection()
    .UseAuthorization()
-   .UseMiddleware<TenantMiddleware>();
+   .UseTenantMiddleware(options =>
+   {
+       options.AvailableUrls = ["webhook"];
+   });
 
 app.MapControllers();
 
