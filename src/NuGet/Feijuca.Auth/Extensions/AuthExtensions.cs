@@ -86,7 +86,7 @@ namespace Feijuca.Auth.Extensions
                         return;
                     }
 
-                    var tokenValidationParameters = await GetTokenValidationParameters(tenantRealm!);
+                    var tokenValidationParameters = await GetTokenValidationParameters(token);
                     var claims = new JwtSecurityTokenHandler().ValidateToken(token, tokenValidationParameters, out var _);
 
                     context.Principal = claims;
@@ -180,19 +180,25 @@ namespace Feijuca.Auth.Extensions
             return true;
         }
 
-        private static async Task<TokenValidationParameters> GetTokenValidationParameters(Realm tenantRealm)
+        private static async Task<TokenValidationParameters> GetTokenValidationParameters(string jwtToken)
         {
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.ReadJwtToken(jwtToken);
+
+            var issuer = token.Issuer;
+            var audience = token.Audiences.FirstOrDefault();
+
             using var httpClient = new HttpClient();
-            var jwksUrl = $"{tenantRealm.Issuer}/protocol/openid-connect/certs";
+            var jwksUrl = $"{issuer}/protocol/openid-connect/certs";
             var jwks = await httpClient.GetStringAsync(jwksUrl);
             var jsonWebKeySet = new JsonWebKeySet(jwks);
 
             return new TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = tenantRealm.Issuer,
+                ValidIssuer = issuer,
                 ValidateAudience = true,
-                ValidAudience = tenantRealm.Audience,
+                ValidAudience = audience,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKeys = jsonWebKeySet.Keys
