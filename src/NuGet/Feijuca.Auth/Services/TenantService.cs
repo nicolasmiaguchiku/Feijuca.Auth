@@ -20,10 +20,10 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
         {
             var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
             var tenantClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value!;
-            return new Tenant(tenantClaim, tenantClaim);
+            return new Tenant(tenantClaim);
         }
 
-        return new Tenant(string.Empty, string.Empty);
+        return new Tenant(string.Empty);
     }
 
     public string GetInfoFromToken(string infoName)
