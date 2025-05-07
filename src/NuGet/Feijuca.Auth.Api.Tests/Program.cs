@@ -2,8 +2,6 @@ using Coderaw.Settings.Transformers;
 using Feijuca.Auth.Api.Tests.Extensions;
 using Feijuca.Auth.Api.Tests.Models;
 using Feijuca.Auth.Extensions;
-using Feijuca.Auth.Http.Client;
-using Feijuca.Auth.Middlewares.TenantMiddleware;
 using Scalar.AspNetCore;
 
 

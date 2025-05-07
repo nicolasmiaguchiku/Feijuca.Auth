@@ -10,7 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace Feijuca.Auth.Extensions
 {
-    public static class AuthExtensions
+    public static class TenantAuthExtensions
     {
         public static IServiceCollection AddApiAuthentication(this IServiceCollection services, FeijucaAuthSettings settings)
         {

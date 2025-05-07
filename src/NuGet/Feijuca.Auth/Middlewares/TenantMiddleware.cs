@@ -2,7 +2,7 @@
 using Feijuca.Auth.Services;
 using Microsoft.AspNetCore.Http;
 
-namespace Feijuca.Auth.Middlewares.TenantMiddleware
+namespace Feijuca.Auth.Middlewares
 {
     public class TenantMiddleware(RequestDelegate next, TenantMiddlewareOptions options)
     {
