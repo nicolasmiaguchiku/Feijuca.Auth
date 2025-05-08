@@ -7,23 +7,31 @@ namespace Feijuca.Auth.Services;
 public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurityTokenHandler jwtSecurityTokenHandler) : ITenantService
 {
 
-    private Tenant _tenant = null!;
+    private IEnumerable<Tenant> _tenants = [];
     private User _userId = null!;
 
-    public Tenant Tenant => _tenant;
+    public IEnumerable<Tenant> Tenants => _tenants;
     public User User => _userId;
 
-    public Tenant GetTenantFromToken()
+    public IEnumerable<Tenant> GetTenantsFromToken()
     {
         string jwtToken = GetToken();
         if (!string.IsNullOrEmpty(jwtToken))
         {
             var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
             var tenantClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value!;
-            return new Tenant(tenantClaim.Split(','));
+
+            var tenants = tenantClaim.Split(',').SelectMany(x =>
+            {
+                return new List<Tenant> { new(x) };
+            });
+
+            return tenants;
+
+
         }
 
-        return new Tenant(["Invalid tenant"]);
+        return [];
     }
 
     public string GetInfoFromToken(string infoName)
@@ -65,9 +73,9 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
         return authorizationHeader["Bearer ".Length..];
     }
 
-    public void SetTenant(Tenant tenant)
+    public void SetTenants(IEnumerable<Tenant> tenants)
     {
-        _tenant = tenant;
+        _tenants = tenants;
     }
 
     public void SetUser(User user)

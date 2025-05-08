@@ -18,10 +18,10 @@ namespace Feijuca.Auth.Middlewares
                 return;
             }
 
-            var tenant = tenantService.GetTenantFromToken();
+            var tenants = tenantService.GetTenantsFromToken();
             var user = tenantService.GetUserFromToken();
 
-            if (tenant.Names.Contains("Invalid tenant") || user.Id == Guid.Empty)
+            if (!tenants.Any() || user.Id == Guid.Empty)
             {
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 context.Response.ContentType = "application/json";
@@ -32,7 +32,7 @@ namespace Feijuca.Auth.Middlewares
                 return;
             }
 
-            tenantService.SetTenant(tenant);
+            tenantService.SetTenants(tenants);
             tenantService.SetUser(user);
 
             await next(context);

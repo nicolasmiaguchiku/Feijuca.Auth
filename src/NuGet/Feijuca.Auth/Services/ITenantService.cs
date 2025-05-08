@@ -4,12 +4,17 @@ namespace Feijuca.Auth.Services;
 
 public interface ITenantService
 {
-    Tenant Tenant { get; }
+    IEnumerable<Tenant> Tenants { get; }
+
     User User { get; }
 
     string GetInfoFromToken(string infoName);
-    Tenant GetTenantFromToken();
+
+    IEnumerable<Tenant> GetTenantsFromToken();
+
     User GetUserFromToken();
-    void SetTenant(Tenant tenant);
+
+    void SetTenants(IEnumerable<Tenant> tenants);
+
     void SetUser(User user);
 }
