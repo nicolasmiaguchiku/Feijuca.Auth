@@ -20,10 +20,10 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
         {
             var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
             var tenantClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value!;
-            return new Tenant(tenantClaim);
+            return new Tenant(tenantClaim.Split(','));
         }
 
-        return new Tenant(string.Empty);
+        return new Tenant(["Invalid tenant"]);
     }
 
     public string GetInfoFromToken(string infoName)
@@ -64,7 +64,6 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
 
         return authorizationHeader["Bearer ".Length..];
     }
-
 
     public void SetTenant(Tenant tenant)
     {

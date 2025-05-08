@@ -9,7 +9,6 @@ namespace Feijuca.Auth.Middlewares
         private static readonly List<string> _defaultUrls = ["scalar", "openapi", "events", "favicon.ico"];
         private readonly List<string> _availableUrls = [.. _defaultUrls.Union(options.AvailableUrls ?? Enumerable.Empty<string>(), StringComparer.OrdinalIgnoreCase)];
 
-
         public async Task InvokeAsync(HttpContext context, ITenantService tenantService)
         {
             var path = context.Request.Path.Value!;
@@ -22,7 +21,7 @@ namespace Feijuca.Auth.Middlewares
             var tenant = tenantService.GetTenantFromToken();
             var user = tenantService.GetUserFromToken();
 
-            if (string.IsNullOrEmpty(tenant.Name) || user.Id == Guid.Empty)
+            if (tenant.Names.Contains("Invalid tenant") || user.Id == Guid.Empty)
             {
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 context.Response.ContentType = "application/json";
