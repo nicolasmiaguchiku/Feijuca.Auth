@@ -6,7 +6,6 @@ namespace Feijuca.Auth.Services;
 
 public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurityTokenHandler jwtSecurityTokenHandler) : ITenantService
 {
-
     private IEnumerable<Tenant> _tenants = [];
     private User _userId = null!;
 
