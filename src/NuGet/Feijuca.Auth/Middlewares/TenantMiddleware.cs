@@ -19,7 +19,6 @@ namespace Feijuca.Auth.Middlewares
             }
 
             var tenants = tenantService.GetTenants();
-            var tenant = tenantService.GetTenant();
             var user = tenantService.GetUser();
 
             if (!tenants.Any() || user.Id == Guid.Empty)
@@ -34,7 +33,6 @@ namespace Feijuca.Auth.Middlewares
             }
 
             tenantService.SetTenants(tenants);
-            tenantService.SetTenant(tenant);
             tenantService.SetUser(user);
 
             await next(context);

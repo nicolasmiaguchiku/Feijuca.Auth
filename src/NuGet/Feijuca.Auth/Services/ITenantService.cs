@@ -21,6 +21,4 @@ public interface ITenantService
     void SetTenants(IEnumerable<Tenant> tenants);
 
     void SetUser(User user);
-
-    void SetTenant(Tenant tenant);
 }
