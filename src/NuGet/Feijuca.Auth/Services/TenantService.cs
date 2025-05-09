@@ -6,13 +6,19 @@ namespace Feijuca.Auth.Services;
 
 public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurityTokenHandler jwtSecurityTokenHandler) : ITenantService
 {
-    private IEnumerable<Tenant> _tenants = [];
     private User _userId = null!;
 
-    public IEnumerable<Tenant> Tenants => _tenants;
+    private Tenant _tenant = null!;
+
+    private IEnumerable<Tenant> _tenants = [];
+
     public User User => _userId;
 
-    public IEnumerable<Tenant> GetTenantsFromToken()
+    public Tenant Tenant => _tenant;
+
+    public IEnumerable<Tenant> Tenants => _tenants;
+
+    public IEnumerable<Tenant> GetTenants()
     {
         string jwtToken = GetToken();
         if (!string.IsNullOrEmpty(jwtToken))
@@ -26,14 +32,12 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
             });
 
             return tenants;
-
-
         }
 
         return [];
     }
 
-    public string GetInfoFromToken(string infoName)
+    public string GetInfo(string infoName)
     {
         string jwtToken = GetToken();
         if (!string.IsNullOrEmpty(jwtToken))
@@ -46,7 +50,7 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
         return string.Empty;
     }
 
-    public User GetUserFromToken()
+    public User GetUser()
     {
         string jwtToken = GetToken();
         if (!string.IsNullOrEmpty(jwtToken))
@@ -80,5 +84,23 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
     public void SetUser(User user)
     {
         _userId = user;
+    }
+
+    public Tenant GetTenant()
+    {
+        string jwtToken = GetToken();
+        if (!string.IsNullOrEmpty(jwtToken))
+        {
+            var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
+            var tenantClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value!;
+            return new Tenant(tenantClaim);
+        }
+
+        return new Tenant("Invalid tenant");
+    }
+
+    public void SetTenant(Tenant tenant)
+    {
+        _tenant = tenant;
     }
 }

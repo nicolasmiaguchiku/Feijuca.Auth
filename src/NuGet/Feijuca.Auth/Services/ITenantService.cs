@@ -6,15 +6,21 @@ public interface ITenantService
 {
     IEnumerable<Tenant> Tenants { get; }
 
+    Tenant Tenant { get; }
+
     User User { get; }
 
-    string GetInfoFromToken(string infoName);
+    string GetInfo(string infoName);
 
-    IEnumerable<Tenant> GetTenantsFromToken();
+    IEnumerable<Tenant> GetTenants();
 
-    User GetUserFromToken();
+    Tenant GetTenant();
+
+    User GetUser();
 
     void SetTenants(IEnumerable<Tenant> tenants);
 
     void SetUser(User user);
+
+    void SetTenant(Tenant tenant);
 }
