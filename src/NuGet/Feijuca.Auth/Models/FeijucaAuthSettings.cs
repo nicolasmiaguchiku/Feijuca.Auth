@@ -5,7 +5,7 @@
         public required Client Client { get; set; }
         public required Secrets? Secrets { get; set; }
         public required ServerSettings ServerSettings { get; set; }
-        public required List<Realm> Realms { get; init; }
+        public required IEnumerable<Realm> Realms { get; init; }
         public required ClientScopes? ClientScopes { get; set; }
     }
 }
