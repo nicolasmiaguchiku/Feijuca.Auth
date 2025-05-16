@@ -78,9 +78,6 @@ namespace Feijuca.Auth.Api.Controllers
 
                 // Configuração inicial
                 addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration = true;
-                addKeycloakSettings.ServerSettings.Url
-                    .AppendPathSegment("realms")
-                    .AppendPathSegment(addKeycloakSettings.Realm.Name);
                 addKeycloakSettings.Realm.Audience = Constants.FeijucaApiClientName;
 
                 var keyCloakSettings = CreateKeycloakSettings(addKeycloakSettings);
