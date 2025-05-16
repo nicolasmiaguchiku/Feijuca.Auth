@@ -1,8 +1,7 @@
 ﻿namespace Feijuca.Auth.Models
 {
-    public class Tenant(string name, string number)
+    public class Tenant(string name)
     {
         public string Name { get; set; } = name;
-        public string Number { get; set; } = number;
     }
 }

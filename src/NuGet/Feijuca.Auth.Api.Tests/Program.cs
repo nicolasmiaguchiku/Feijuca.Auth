@@ -1,9 +1,9 @@
-using Coderaw.Settings.Models;
 using Coderaw.Settings.Transformers;
 using Feijuca.Auth.Api.Tests.Extensions;
 using Feijuca.Auth.Api.Tests.Models;
-using Feijuca.Auth.Middlewares;
+using Feijuca.Auth.Extensions;
 using Scalar.AspNetCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +25,10 @@ app.MapScalarApiReference();
 app.UseCors("AllowAllOrigins")
    .UseHttpsRedirection()
    .UseAuthorization()
-   .UseMiddleware<TenantMiddleware>();
+   .UseTenantMiddleware(options =>
+   {
+       options.AvailableUrls = ["webhook"];
+   });
 
 app.MapControllers();
 

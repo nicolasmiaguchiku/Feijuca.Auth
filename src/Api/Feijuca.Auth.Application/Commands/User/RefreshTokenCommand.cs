@@ -1,5 +1,5 @@
-﻿using Feijuca.Auth.Application.Responses;
-using Feijuca.Auth.Common.Models;
+﻿using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Http.Responses;
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.User

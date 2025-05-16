@@ -6,6 +6,7 @@ using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
+using Feijuca.Auth.Http.Responses;
 
 namespace Feijuca.Auth.Application.Mappers
 {
@@ -28,7 +29,33 @@ namespace Feijuca.Auth.Application.Mappers
 
         public static IEnumerable<UserResponse> ToUsersResponse(this IEnumerable<User> users, string tenant)
         {
-            return users.Select(x => new UserResponse(x.Id, x.Username, x.Email, x.FirstName ?? "", x.LastName!, tenant, x.Attributes));
+            return users.Select(x => new UserResponse(x.Id, 
+                x.Enabled, 
+                x.EmailVerified,
+                x.Username, 
+                x.Email, 
+                x.FirstName ?? "", 
+                x.LastName!, 
+                tenant, 
+                x.Totp, 
+                x.DisableableCredentialTypes, 
+                x.RequiredActions, 
+                x.NotBefore, 
+                x.CreatedTimestamp,
+                x.Access?.ToAcess(), 
+                x.Attributes));
+        }
+
+        public static Http.Responses.Access ToAcess(this Domain.Entities.Access access)
+        {
+            return new Http.Responses.Access
+            {
+                Impersonate = access.Impersonate,
+                Manage = access.Manage,
+                ManageGroupMembership = access.ManageGroupMembership,
+                MapRoles = access.MapRoles,
+                View = access.View,
+            };
         }
 
         public static User ToLoginUserDomain(this LoginUserRequest loginUserRequest)
@@ -38,15 +65,13 @@ namespace Feijuca.Auth.Application.Mappers
 
         public static Result<TokenDetailsResponse> ToTokenResponse(this Result<TokenDetails> tokenDetails)
         {
-            var tokenDetailsResponse = new TokenDetailsResponse
-            {
-                AccessToken = tokenDetails.Response.Access_Token,
-                ExpiresIn = tokenDetails.Response.Expires_In,
-                RefreshToken = tokenDetails.Response.Refresh_Token,
-                RefreshExpiresIn = tokenDetails.Response.Refresh_Expires_In,
-                TokenType = tokenDetails.Response.Token_Type,
-                Scope = tokenDetails.Response.Scope
-            };
+            var tokenDetailsResponse = new TokenDetailsResponse(
+                tokenDetails.Response.Access_Token,
+                tokenDetails.Response.Expires_In,
+                tokenDetails.Response.Refresh_Expires_In,
+                tokenDetails.Response.Refresh_Token,
+                tokenDetails.Response.Token_Type,
+                tokenDetails.Response.Scope);
 
             return Result<TokenDetailsResponse>.Success(tokenDetailsResponse);
         }
@@ -77,11 +102,19 @@ namespace Feijuca.Auth.Application.Mappers
         public static UserResponse ToResponse(this User user, string tenant)
         {
             return new UserResponse(user.Id,
+                user.Enabled,
+                user.EmailVerified,
                 user.Username,
                 user.Email,
                 user.FirstName ?? "",
-                user.LastName ?? "",
+                user.LastName!,
                 tenant,
+                user.Totp,
+                user.DisableableCredentialTypes,
+                user.RequiredActions,
+                user.NotBefore,
+                user.CreatedTimestamp,
+                user.Access?.ToAcess(),
                 user.Attributes);
         }
     }
