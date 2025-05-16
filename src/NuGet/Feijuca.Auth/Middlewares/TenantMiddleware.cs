@@ -29,6 +29,7 @@ namespace Feijuca.Auth.Middlewares
                 var response = new { error = "Jwt token authorization header is required." };
 
                 await context.Response.WriteAsJsonAsync(response);
+
                 return;
             }
 
