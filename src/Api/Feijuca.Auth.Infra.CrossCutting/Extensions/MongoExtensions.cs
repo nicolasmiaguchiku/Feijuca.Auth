@@ -20,7 +20,7 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
             services.AddSingleton(sp =>
             {
                 var mongoClient = sp.GetService<IMongoClient>();
-                var db = mongoClient!.GetDatabase("Feijuca");
+                var db = mongoClient!.GetDatabase(mongoSettings.DatabaseName);
 
                 return db;
             });

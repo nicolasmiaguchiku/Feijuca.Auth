@@ -12,7 +12,8 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 
             if (!env.IsDevelopment())
             {
-                settings.ConnectionString = GetEnvironmentVariables("ConnectionString");
+                settings.ConnectionString = GetEnvironmentVariables("Feijuca_ConnectionString");
+                settings.DatabaseName = GetEnvironmentVariables("Feijuca_DatabaseName");
             }
 
             return settings!;
