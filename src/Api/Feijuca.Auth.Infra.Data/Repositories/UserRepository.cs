@@ -1,15 +1,11 @@
 ﻿using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Extensions;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
-
 using Flurl;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-
 using System.Text;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
@@ -107,6 +103,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                     .AppendPathSegment(_tenantService.Tenant)
                     .AppendPathSegment("users");
 
+            user.CreatedTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             var json = JsonConvert.SerializeObject(user, Settings);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
             using var response = await httpClient.PostAsync(url, httpContent, cancellationToken);
