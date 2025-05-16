@@ -27,7 +27,6 @@ namespace Feijuca.Auth.Domain.Services
                 {
                     Name = realm.Realm,
                     Audience = realm.Realm,
-                    Issuer = config.ServerSettings.Url.AppendPathSegment(realm.Realm),
                     DefaultSwaggerTokenGeneration = realm.DefaultSwaggerTokenGeneration
                 });
 

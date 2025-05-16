@@ -29,7 +29,6 @@ namespace Feijuca.Auth.Application.Commands.Config
                 {
                     Audience = request.Request.Realms!.First().Audience,
                     DefaultSwaggerTokenGeneration = false,
-                    Issuer = request.Request.Realms!.First().Issuer,
                     Name = request.Request.Realms!.First().Name,
                 };
 
