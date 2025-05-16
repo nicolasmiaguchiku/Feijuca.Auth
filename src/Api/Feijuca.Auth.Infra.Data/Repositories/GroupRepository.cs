@@ -4,17 +4,16 @@ using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Services;
+
 using Flurl;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class GroupRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService) : BaseRepository(httpClientFactory), IGroupRepository
+    public class GroupRepository(IHttpClientFactory httpClientFactory, IAuthRepository _authRepository, ITenantService _tenantService) : BaseRepository(httpClientFactory), IGroupRepository
     {
-        private readonly IAuthRepository _authRepository = authRepository;
-        private readonly ITenantService _tenantService = tenantService;
-
         public async Task<Result<IEnumerable<Group>>> GetAllAsync(CancellationToken cancellationToken)
         {
             var tokenDetailsResult = await _authRepository.GetAccessTokenAsync(cancellationToken);
@@ -26,7 +25,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 var url = httpClient.BaseAddress
                         .AppendPathSegment("admin")
                         .AppendPathSegment("realms")
-                        .AppendPathSegment(_tenantService.Tenant)
+                        .AppendPathSegment(_tenantService.Tenant.Name)
                         .AppendPathSegment("groups");
 
                 using var response = await httpClient.GetAsync(url, cancellationToken);
@@ -47,7 +46,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("groups");
 
             var group = new
@@ -76,7 +75,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("groups")
                     .AppendPathSegment(id);
 
@@ -99,7 +98,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("groups")
                     .AppendPathSegment(id)
                     .AppendPathSegment("members")

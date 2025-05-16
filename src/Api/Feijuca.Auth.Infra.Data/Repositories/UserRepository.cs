@@ -3,6 +3,7 @@ using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Services;
 using Flurl;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -36,7 +37,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var urlGetUsers = httpClient.BaseAddress
                 .AppendPathSegment("admin")
                 .AppendPathSegment("realms")
-                .AppendPathSegment(_tenantService.Tenant)
+                .AppendPathSegment(_tenantService.Tenant.Name)
                 .AppendPathSegment("users")
                 .SetQueryParam("first", first)
                 .SetQueryParam("max", totalUsers);
@@ -58,7 +59,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var urlGetUsers = httpClient.BaseAddress
                 .AppendPathSegment("admin")
                 .AppendPathSegment("realms")
-                .AppendPathSegment(_tenantService.Tenant)
+                .AppendPathSegment(_tenantService.Tenant.Name)
                 .AppendPathSegment("users")
                 .SetQueryParam("first", 0)
                 .SetQueryParam("max", 99999);
@@ -78,7 +79,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")
                 .AppendPathSegment("realms")
-                .AppendPathSegment(_tenantService.Tenant)
+                .AppendPathSegment(_tenantService.Tenant.Name)
                 .AppendPathSegment("users")
                 .AppendPathSegment(id);
 
@@ -100,7 +101,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("users");
 
             user.CreatedTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -130,7 +131,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("users");
 
             url = url.SetQueryParam("username", username);
@@ -156,7 +157,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("users")
                     .AppendPathSegment(id)
                     .AppendPathSegment("reset-password");
@@ -191,7 +192,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 .ToString()
                 .AppendPathSegment("admin")
                 .AppendPathSegment("realms")
-                .AppendPathSegment(_tenantService.Tenant)
+                .AppendPathSegment(_tenantService.Tenant.Name)
                 .AppendPathSegment("users")
                 .AppendPathSegment(userId);
 
@@ -225,7 +226,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                 .ToString()
                 .AppendPathSegment("admin")
                 .AppendPathSegment("realms")
-                .AppendPathSegment(_tenantService.Tenant)
+                .AppendPathSegment(_tenantService.Tenant.Name)
                 .AppendPathSegment("users")
                 .AppendPathSegment(id)
                 .AppendPathSegment("logout");
@@ -246,7 +247,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
 
             var urlGetToken = httpClient.BaseAddress.AppendPathSegment("realms")
-                .AppendPathSegment(_tenantService.Tenant)
+                .AppendPathSegment(_tenantService.Tenant.Name)
                 .AppendPathSegment("protocol")
                 .AppendPathSegment("openid-connect")
                 .AppendPathSegment("token");
@@ -281,7 +282,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
 
             var urlGetToken = httpClient.BaseAddress.AppendPathSegment("realms")
-                .AppendPathSegment(_tenantService.Tenant)
+                .AppendPathSegment(_tenantService.Tenant.Name)
                 .AppendPathSegment("protocol")
                 .AppendPathSegment("openid-connect")
                 .AppendPathSegment("logout");
@@ -310,7 +311,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
 
             var urlGetToken = httpClient.BaseAddress.AppendPathSegment("realms")
-                .AppendPathSegment(_tenantService.Tenant)
+                .AppendPathSegment(_tenantService.Tenant.Name)
                 .AppendPathSegment("protocol")
                 .AppendPathSegment("openid-connect")
                 .AppendPathSegment("token");
@@ -347,7 +348,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("users")
                     .AppendPathSegment(id);
 

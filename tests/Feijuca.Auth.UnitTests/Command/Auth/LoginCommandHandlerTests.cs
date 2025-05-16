@@ -4,6 +4,7 @@ using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Services;
 using FluentAssertions;
 using Moq;
 
@@ -13,11 +14,12 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Auth
     {
         private readonly IFixture _fixture = new Fixture();
         private readonly Mock<IUserRepository> userRepository = new();
+        private readonly Mock<ITenantService> tenantServiceMock = new();
         private readonly LoginCommandHandler _handler;
 
         public LoginCommandHandlerTests()
         {
-            _handler = new LoginCommandHandler(userRepository.Object);
+            _handler = new LoginCommandHandler(userRepository.Object, tenantServiceMock.Object);
         }
 
         [Fact]

@@ -2,6 +2,8 @@
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Services;
+
 using Flurl;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -10,11 +12,9 @@ using System.Text;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class GroupRolesRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService)
+    public class GroupRolesRepository(IHttpClientFactory httpClientFactory, IAuthRepository _authRepository, ITenantService _tenantService)
         : BaseRepository(httpClientFactory), IGroupRolesRepository
     {
-        private readonly IAuthRepository _authRepository = authRepository;
-        private readonly ITenantService _tenantService = tenantService;
 
         public async Task<Result<bool>> AddClientRoleToGroupAsync(string groupId, string clientId, Guid roleId, string roleName, CancellationToken cancellationToken)
         {
@@ -24,7 +24,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("groups")
                     .AppendPathSegment(groupId)
                     .AppendPathSegment("role-mappings")
@@ -56,7 +56,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("groups")
                     .AppendPathSegment(groupId)
                     .AppendPathSegment("role-mappings");
@@ -86,7 +86,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("groups")
                     .AppendPathSegment(groupId)
                     .AppendPathSegment("role-mappings")

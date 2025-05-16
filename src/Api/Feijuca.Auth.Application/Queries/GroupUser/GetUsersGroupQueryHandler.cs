@@ -4,6 +4,7 @@ using Feijuca.Auth.Application.Mappers;
 using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
+using Feijuca.Auth.Services;
 
 namespace Feijuca.Auth.Application.Queries.GroupUser
 {
@@ -40,7 +41,7 @@ namespace Feijuca.Auth.Application.Queries.GroupUser
                             .Where(x => request.GetUsersGroupRequest.Usernames.Any(filter => x.Username.Contains(filter, StringComparison.OrdinalIgnoreCase)));
                     }
 
-                    var usersInGroup = new UserGroupResponse(groupSearched.ToResponse(), filteredUsers.ToUsersResponse(_tenantService.Tenant));
+                    var usersInGroup = new UserGroupResponse(groupSearched.ToResponse(), filteredUsers.ToUsersResponse(_tenantService.Tenant.Name));
 
                     var result = usersInGroup.ToResponse(request.GetUsersGroupRequest.PageFilter, filteredUsers.Count());
 

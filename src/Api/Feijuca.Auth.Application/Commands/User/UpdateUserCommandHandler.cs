@@ -1,6 +1,8 @@
 ﻿using Feijuca.Auth.Application.Mappers;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Services;
+
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.User
@@ -9,7 +11,7 @@ namespace Feijuca.Auth.Application.Commands.User
     {
         public async Task<Result<bool>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = request.UserRequest.ToDomain(tenantService.Tenant);
+            var user = request.UserRequest.ToDomain(tenantService.Tenant.Name);
             var result = await _userRepository.UpdateUserAsync(request.Id, user, cancellationToken);
             return result;
         }

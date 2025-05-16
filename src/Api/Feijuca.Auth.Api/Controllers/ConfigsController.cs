@@ -21,16 +21,15 @@ using Feijuca.Auth.Application.Requests.Role;
 using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Common;
 using Feijuca.Auth.Common.Models;
-using Feijuca.Auth.Domain.Interfaces;
-using Flurl;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Feijuca.Auth.Application.Mappers;
 
 namespace Feijuca.Auth.Api.Controllers
 {
     [Route("api/v1/configs")]
     [ApiController]
-    public class ConfigsController(IMediator mediator, ITenantService tenantService) : ControllerBase
+    public class ConfigsController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
 
@@ -72,65 +71,35 @@ namespace Feijuca.Auth.Api.Controllers
 
         private async Task<IActionResult> AddOrUpdateClientConfigs(AddKeycloakSettingsRequest addKeycloakSettings, bool includeRealm, CancellationToken cancellationToken)
         {
-            try
+            await _mediator.Send(new AddOrUpdateConfigCommand(addKeycloakSettings.ToMapper()), cancellationToken);
+
+            if (includeRealm)
             {
-                tenantService.SetTenant(addKeycloakSettings.Realm.Name!);
-
-                // Configuração inicial
-                addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration = true;
-                addKeycloakSettings.Realm.Audience = Constants.FeijucaApiClientName;
-
-                var keyCloakSettings = CreateKeycloakSettings(addKeycloakSettings);
-                await _mediator.Send(new AddOrUpdateConfigCommand(keyCloakSettings), cancellationToken);
-
-
-                if (includeRealm)
+                var addRealmRequest = new AddRealmRequest(addKeycloakSettings.Realm.Name!, "", addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration);
+                var realmResult = await _mediator.Send(new AddRealmsCommand([addRealmRequest]), cancellationToken);
+                if (realmResult.IsFailure)
                 {
-                    var addRealmRequest = new AddRealmRequest(addKeycloakSettings.Realm.Name!, "", addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration);
-                    var realmResult = await _mediator.Send(new AddRealmsCommand([addRealmRequest]), cancellationToken);
-                    if (realmResult.IsFailure)
-                    {
-                        return BadRequest("Failed to create realm.");
-                    }
+                    return BadRequest("Failed to create realm.");
                 }
-
-                // Adiciona configurações básicas
-                var result = await ProcessBasicConfiguration(keyCloakSettings, cancellationToken);
-                if (result.IsFailure)
-                {
-                    return BadRequest("Failed when tried added basic configurations.");
-                }
-
-                // Configurações adicionais
-                result = await ProcessAdditionalConfiguration(cancellationToken);
-                if (result.IsFailure)
-                {
-                    return BadRequest("Error while adding default configurations.");
-                }
-
-                // Configurações de usuários e grupos
-                await ProcessUserAndGroupConfiguration(addKeycloakSettings, cancellationToken);
-
-                return Created("/api/v1/config", "Initial configs created successfully!");
             }
-            catch (Exception ex)
+
+            var clientAndClientScopeResult = await HandleClientScopesRolesGroupRole(addKeycloakSettings, cancellationToken);
+            if (clientAndClientScopeResult.IsFailure)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+                return BadRequest("Failed when tried added basic configurations.");
             }
+
+            return Created("/api/v1/config", "Initial configs created successfully!");
+
         }
 
-        private static KeycloakSettings CreateKeycloakSettings(AddKeycloakSettingsRequest addKeycloakSettings)
-        {
-            return new KeycloakSettings
-            {
-                Client = addKeycloakSettings.Client,
-                Secrets = addKeycloakSettings.ClientSecret,
-                ServerSettings = addKeycloakSettings.ServerSettings,
-                Realms = [addKeycloakSettings.Realm]
-            };
-        }
-
-        private async Task<Result> ProcessBasicConfiguration(KeycloakSettings keyCloakSettings, CancellationToken cancellationToken)
+        /// <summary>
+        /// This method is creating all basic configuration to Keycloak works, it is creating Client, client scope, adding client scope to client, creating group and client role
+        /// </summary>
+        /// <param name="keyCloakSettings"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        private async Task<Result> HandleClientScopesRolesGroupRole(AddKeycloakSettingsRequest keyCloakSettings, CancellationToken cancellationToken)
         {
             var clientBody = new AddClientRequest
             {
@@ -144,13 +113,15 @@ namespace Feijuca.Auth.Api.Controllers
                 new(Constants.FeijucaApiClientName, Constants.FeijucaApiClientName, true)
             };
 
-            return await ProcessActionsAsync(
+            var result = await ProcessActionsAsync(
                 async () => await _mediator.Send(new AddClientCommand(clientBody), cancellationToken),
                 async () => await _mediator.Send(new AddClientScopesCommand(addClientScopes), cancellationToken));
-        }
 
-        private async Task<Result> ProcessAdditionalConfiguration(CancellationToken cancellationToken)
-        {
+            if (result.IsFailure)
+            {
+                return Result.Failure(result.Error);
+            }
+
             var clientScopes = await _mediator.Send(new GetClientScopesQuery(), cancellationToken);
             var clients = await _mediator.Send(new GetAllClientsQuery(), cancellationToken);
             var clientScope = clientScopes.FirstOrDefault(x => x.Name == Constants.FeijucaApiClientName)!;
@@ -165,20 +136,19 @@ namespace Feijuca.Auth.Api.Controllers
                 new(feijucaClient.Id, Constants.FeijucaRoleWriterName, "Role related to the action to write data on the realm.")
             };
 
-            return await ProcessActionsAsync(
+            var result2 = await ProcessActionsAsync(
                 async () => await _mediator.Send(new AddClientScopeToClientCommand(addClientScopeToClientRequest), cancellationToken),
                 async () => await _mediator.Send(new AddGroupCommand(groupRequest), cancellationToken),
                 async () => await _mediator.Send(new AddClientRoleCommand(addRolesRequest), cancellationToken),
                 async () => await _mediator.Send(new AddClientScopeAudienceProtocolMapperCommand(clientScope.Id), cancellationToken));
-        }
 
-        private async Task ProcessUserAndGroupConfiguration(AddKeycloakSettingsRequest addKeycloakSettings, CancellationToken cancellationToken)
-        {
-            var clients = await _mediator.Send(new GetAllClientsQuery(), cancellationToken);
-            var feijucaClient = clients.FirstOrDefault(x => x.ClientId == Constants.FeijucaApiClientName)!;
+            if (result2.IsFailure)
+            {
+                return Result.Failure(result2.Error);
+            }
 
             var clientRoles = await _mediator.Send(new GetClientRolesQuery(), cancellationToken);
-            var groups = await _mediator.Send(new GetAllGroupsQuery(), cancellationToken);
+            var groups = await _mediator.Send(new GetAllGroupsQuery(false), cancellationToken);
 
             var feijucaGroup = groups.Response.FirstOrDefault(x => x.Name == Constants.FeijucaGroupName);
             var feijucaRoles = clientRoles.Response.FirstOrDefault(x => x.Id == feijucaClient.Id)!.Roles;
@@ -191,9 +161,9 @@ namespace Feijuca.Auth.Api.Controllers
             }
 
             var addUserRequest = new AddUserRequest(
-                addKeycloakSettings.RealmAdminUser.Email,
-                addKeycloakSettings.RealmAdminUser.Password,
-                addKeycloakSettings.RealmAdminUser.Email,
+                keyCloakSettings.RealmAdminUser.Email,
+                keyCloakSettings.RealmAdminUser.Password,
+                keyCloakSettings.RealmAdminUser.Email,
                 "Admin",
                 "Admin",
                 []);
@@ -201,8 +171,9 @@ namespace Feijuca.Auth.Api.Controllers
             var userId = await _mediator.Send(new AddUserCommand(addUserRequest), cancellationToken);
 
             await _mediator.Send(new AddUserToGroupCommand(userId.Response, Guid.Parse(feijucaGroup!.Id)), cancellationToken);
-        }
 
+            return Result.Success();
+        }
 
         private static async Task<Result> ProcessActionsAsync(params Func<Task<Result>>[] actions)
         {

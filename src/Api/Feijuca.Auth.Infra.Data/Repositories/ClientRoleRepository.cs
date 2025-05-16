@@ -2,17 +2,15 @@
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Services;
 using Flurl;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class ClientRoleRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository, ITenantService tenantService) : BaseRepository(httpClientFactory), IClientRoleRepository
+    public class ClientRoleRepository(IHttpClientFactory httpClientFactory, IAuthRepository _authRepository, ITenantService _tenantService) : BaseRepository(httpClientFactory), IClientRoleRepository
     {
-        private readonly IAuthRepository _authRepository = authRepository;
-        private readonly ITenantService _tenantService = tenantService;
-
         public async Task<Result<IEnumerable<Role>>> GetRolesForClientAsync(string clientId, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
@@ -21,7 +19,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("clients")
                     .AppendPathSegment(clientId)
                     .AppendPathSegment("roles");
@@ -40,7 +38,6 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result<IEnumerable<Role>>.Failure(RoleErrors.GetRoleErrors);
         }
 
-
         public async Task<Result<bool>> AddClientRoleAsync(string clientId, string name, string description, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
@@ -49,7 +46,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("clients")
                     .AppendPathSegment(clientId)
                     .AppendPathSegment("roles");

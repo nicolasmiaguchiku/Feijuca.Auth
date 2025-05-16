@@ -31,7 +31,7 @@ namespace Feijuca.Auth.Api.Controllers
         [RequiredRole("Feijuca.ApiReader")]
         public async Task<IActionResult> GetGroups(CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetAllGroupsQuery(), cancellationToken);
+            var result = await _mediator.Send(new GetAllGroupsQuery(true), cancellationToken);
 
             if (result.IsSuccess)
             {

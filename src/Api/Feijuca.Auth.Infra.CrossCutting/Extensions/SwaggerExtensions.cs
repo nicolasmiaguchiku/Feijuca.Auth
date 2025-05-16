@@ -35,7 +35,6 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
                         }
                     });
 
-                    c.OperationFilter<TenantHeaderFilter>();
                     c.OperationFilter<AuthorizeCheckOperationFilter>();
                     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Feijuca.Auth.Api.xml"));
                 });

@@ -195,6 +195,7 @@ public class UsersController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Authenticates a user and returns a valid JWT token along with user details.
     /// </summary>
+    /// <param name="tenant">The tenant name related to the realm.</param>
     /// <param name="loginUserRequest">The request containing the user's login credentials.</param>
     /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
     /// <returns>
@@ -206,10 +207,10 @@ public class UsersController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Login([FromBody] LoginUserRequest loginUserRequest,
+    public async Task<IActionResult> Login([FromHeader] string tenant, [FromBody] LoginUserRequest loginUserRequest,
         CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new LoginCommand(loginUserRequest), cancellationToken);
+        var result = await _mediator.Send(new LoginCommand(tenant, loginUserRequest), cancellationToken);
 
         if (result.IsSuccess)
         {

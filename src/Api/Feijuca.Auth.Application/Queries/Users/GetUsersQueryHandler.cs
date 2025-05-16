@@ -5,14 +5,12 @@ using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
 using Feijuca.Auth.Http.Responses;
+using Feijuca.Auth.Services;
 
 namespace Feijuca.Auth.Application.Queries.Users
 {
-    public class GetUsersQueryHandler(IUserRepository userRepository, ITenantService tenantService) : IRequestHandler<GetUsersQuery, Result<PagedResult<UserResponse>>>
+    public class GetUsersQueryHandler(IUserRepository _userRepository, ITenantService _tenantService) : IRequestHandler<GetUsersQuery, Result<PagedResult<UserResponse>>>
     {
-        private readonly IUserRepository _userRepository = userRepository;
-        private readonly ITenantService _tenantService = tenantService;
-
         public async Task<Result<PagedResult<UserResponse>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
             var totalUsers = await _userRepository.GetTotalAsync(cancellationToken);
@@ -48,7 +46,7 @@ namespace Feijuca.Auth.Application.Queries.Users
             }
             
             var users = filteredUsers.ToList();
-            return Result<PagedResult<UserResponse>>.Success(users.ToUserResponse(request.GetUsersRequest.PageFilter, _tenantService.Tenant, totalUsers));
+            return Result<PagedResult<UserResponse>>.Success(users.ToUserResponse(request.GetUsersRequest.PageFilter, _tenantService.Tenant.Name, totalUsers));
         }
     }
 }

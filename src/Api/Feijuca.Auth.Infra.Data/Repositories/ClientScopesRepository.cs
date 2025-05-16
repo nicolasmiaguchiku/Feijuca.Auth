@@ -1,6 +1,7 @@
 ﻿using Feijuca.Auth.Common;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Services;
 using Flurl;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
@@ -19,7 +20,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")
                 .AppendPathSegment("realms")
-                .AppendPathSegment(tenantService.Tenant)
+                .AppendPathSegment(tenantService.Tenant.Name)
                 .AppendPathSegment("client-scopes")
                 .AppendPathSegment($"{clientScopeId}")
                 .AppendPathSegment($"protocol-mappers")
@@ -55,7 +56,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")
                 .AppendPathSegment("realms")
-                .AppendPathSegment(tenantService.Tenant)
+                .AppendPathSegment(tenantService.Tenant.Name)
                 .AppendPathSegment("client-scopes");
 
             var clientScope = new
@@ -94,7 +95,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")
                 .AppendPathSegment("realms")
-                .AppendPathSegment(tenantService.Tenant)
+                .AppendPathSegment(tenantService.Tenant.Name)
                 .AppendPathSegment("clients")
                 .AppendPathSegment(clientId)
                 .AppendPathSegment(isOptional ? "optional-client-scopes" : "default-client-scopes")
@@ -117,7 +118,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")
                 .AppendPathSegment("realms")
-                .AppendPathSegment(tenantService.Tenant)
+                .AppendPathSegment(tenantService.Tenant.Name)
                 .AppendPathSegment("client-scopes");
 
             using var response = await httpClient.GetAsync(url, cancellationToken);

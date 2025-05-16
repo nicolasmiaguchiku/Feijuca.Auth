@@ -1,6 +1,7 @@
 using Coderaw.Settings.Extensions.Handlers;
 using Coderaw.Settings.Transformers;
 using Feijuca.Auth.Common.Models;
+using Feijuca.Auth.Extensions;
 using Feijuca.Auth.Infra.CrossCutting.Extensions;
 using Feijuca.Auth.Infra.CrossCutting.Middlewares;
 using Feijuca.Auth.Middlewares;
@@ -60,7 +61,7 @@ app.UseCors("AllowAllOrigins")
 if (KeycloakSettings?.Realms?.Any() ?? false)
 {
     app.UseAuthorization()
-       .UseMiddleware<TenantMiddleware>();
+       .UseTenantMiddleware(x => x.AvailableUrls = ["login", "new-realm", "existing-realm"]);
 }
 
 app.UseHttpsRedirection()

@@ -2,6 +2,7 @@
 using Feijuca.Auth.Application.Mappers;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
+using Feijuca.Auth.Services;
 
 namespace Feijuca.Auth.Application.Commands.User
 {
@@ -11,7 +12,7 @@ namespace Feijuca.Auth.Application.Commands.User
 
         public async Task<Result<Guid>> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            var user = request.AddUserRequest.ToDomain(tenantService.Tenant);
+            var user = request.AddUserRequest.ToDomain(tenantService.Tenant.Name);
             var result = await _userRepository.CreateAsync(user, cancellationToken);
 
             if (result.IsSuccess)

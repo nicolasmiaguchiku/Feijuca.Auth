@@ -3,6 +3,7 @@ using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Services;
 using Flurl;
 using Newtonsoft.Json;
 using System.Text;
@@ -10,12 +11,9 @@ using System.Text;
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
     public class ClientRepository(IHttpClientFactory httpClientFactory, 
-        IAuthRepository authRepository, 
-        ITenantService tenantService) : BaseRepository(httpClientFactory), IClientRepository
+        IAuthRepository _authRepository, 
+        ITenantService _tenantService) : BaseRepository(httpClientFactory), IClientRepository
     {
-        private readonly IAuthRepository _authRepository = authRepository;
-        private readonly ITenantService _tenantService = tenantService;
-
         public async Task<bool> CreateClientAsync(ClientEntity client, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
@@ -24,7 +22,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                    .AppendPathSegment("admin")
                    .AppendPathSegment("realms")
-                   .AppendPathSegment(_tenantService.Tenant)
+                   .AppendPathSegment(_tenantService.Tenant.Name)
                    .AppendPathSegment("clients");
 
             var clientConfig = new
@@ -63,7 +61,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("clients")
                     .AppendQueryParam("clientId", clientId);
 
@@ -87,7 +85,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant)
+                    .AppendPathSegment(_tenantService.Tenant.Name)
                     .AppendPathSegment("clients");
 
             using var response = await httpClient.GetAsync(url, cancellationToken);
