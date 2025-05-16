@@ -18,7 +18,8 @@ namespace Feijuca.Auth.Application.Queries.Groups
 
             if (result.IsSuccess)
             {
-                return Result<IEnumerable<GroupResponse>>.Success(result.Response.ToResponse());
+                var results = result.Response.Where(x => x.Name != "feijuca-auth-api");
+                return Result<IEnumerable<GroupResponse>>.Success(results.ToResponse());
             }
 
             return Result<IEnumerable<GroupResponse>>.Failure(GroupErrors.CreationGroupError);
