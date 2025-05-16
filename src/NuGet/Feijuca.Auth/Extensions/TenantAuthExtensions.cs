@@ -10,8 +10,16 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace Feijuca.Auth.Extensions
 {
-    public static class AuthExtensions
+    public static class TenantAuthExtensions
     {
+        public static IServiceCollection AddApiAuthentication(this IServiceCollection services, FeijucaAuthSettings settings)
+        {
+            services.AddHttpContextAccessor();
+            services.AddKeyCloakAuth(settings.Client, settings.ServerSettings, settings.Realms);
+
+            return services;
+        }
+
         public static IServiceCollection AddKeyCloakAuth(this IServiceCollection services,
             Client client,
             ServerSettings serverSettings,
@@ -64,9 +72,8 @@ namespace Feijuca.Auth.Extensions
                         return;
                     }
 
-                    var tenantNumber = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value;
-                    var tenantRealm = realms.FirstOrDefault(realm => realm.Name == tenantNumber);
-
+                    var tenantName = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value;
+                    var tenantRealm = realms.FirstOrDefault(realm => realm.Name == tenantName);
 
                     if (ValidateRealm(context, tenantRealm).Equals(false))
                     {
@@ -78,7 +85,7 @@ namespace Feijuca.Auth.Extensions
                         return;
                     }
 
-                    var tokenValidationParameters = await GetTokenValidationParameters(tenantRealm!);
+                    var tokenValidationParameters = await GetTokenValidationParameters(token);
                     var claims = new JwtSecurityTokenHandler().ValidateToken(token, tokenValidationParameters, out var _);
 
                     context.Principal = claims;
@@ -172,19 +179,25 @@ namespace Feijuca.Auth.Extensions
             return true;
         }
 
-        private static async Task<TokenValidationParameters> GetTokenValidationParameters(Realm tenantRealm)
+        private static async Task<TokenValidationParameters> GetTokenValidationParameters(string jwtToken)
         {
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.ReadJwtToken(jwtToken);
+
+            var issuer = token.Issuer;
+            var audience = token.Audiences.FirstOrDefault();
+
             using var httpClient = new HttpClient();
-            var jwksUrl = $"{tenantRealm.Issuer}/protocol/openid-connect/certs";
+            var jwksUrl = $"{issuer}/protocol/openid-connect/certs";
             var jwks = await httpClient.GetStringAsync(jwksUrl);
             var jsonWebKeySet = new JsonWebKeySet(jwks);
 
             return new TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = tenantRealm.Issuer,
+                ValidIssuer = issuer,
                 ValidateAudience = true,
-                ValidAudience = tenantRealm.Audience,
+                ValidAudience = audience,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKeys = jsonWebKeySet.Keys
@@ -207,7 +220,7 @@ namespace Feijuca.Auth.Extensions
                         {
                             p.RequireResourceRolesForClient(
                                 client.ClientId,
-                                policy.Roles!.ToArray());
+                                [.. policy.Roles!]);
                         });
                 }
             }

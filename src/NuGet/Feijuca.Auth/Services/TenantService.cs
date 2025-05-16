@@ -6,27 +6,19 @@ namespace Feijuca.Auth.Services;
 
 public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurityTokenHandler jwtSecurityTokenHandler) : ITenantService
 {
-
-    private Tenant _tenant = null!;
     private User _userId = null!;
 
-    public Tenant Tenant => _tenant;
+    private Tenant _tenant = null!;
+
+    private IEnumerable<Tenant> _tenants = [];
+
     public User User => _userId;
 
-    public Tenant GetTenantFromToken()
-    {
-        string jwtToken = GetToken();
-        if (!string.IsNullOrEmpty(jwtToken))
-        {
-            var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
-            var tenantClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value!;
-            return new Tenant(tenantClaim, tenantClaim);
-        }
+    public Tenant Tenant => _tenant;
 
-        return new Tenant(string.Empty, string.Empty);
-    }
+    public IEnumerable<Tenant> Tenants => _tenants;
 
-    public string GetInfoFromToken(string infoName)
+    public string GetInfo(string infoName)
     {
         string jwtToken = GetToken();
         if (!string.IsNullOrEmpty(jwtToken))
@@ -39,7 +31,7 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
         return string.Empty;
     }
 
-    public User GetUserFromToken()
+    public User GetUser()
     {
         string jwtToken = GetToken();
         if (!string.IsNullOrEmpty(jwtToken))
@@ -65,14 +57,46 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
         return authorizationHeader["Bearer ".Length..];
     }
 
-
-    public void SetTenant(Tenant tenant)
+    public void SetTenants(IEnumerable<Tenant> tenants)
     {
-        _tenant = tenant;
+        _tenants = tenants;
+        _tenant = tenants.First();
     }
 
     public void SetUser(User user)
     {
         _userId = user;
+    }
+
+    public Tenant GetTenant()
+    {
+        string jwtToken = GetToken();
+        if (!string.IsNullOrEmpty(jwtToken))
+        {
+            var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
+            var tenantClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value!;
+            return new Tenant(tenantClaim);
+        }
+
+        return new Tenant("Invalid tenant");
+    }
+
+    public IEnumerable<Tenant> GetTenants()
+    {
+        string jwtToken = GetToken();
+        if (!string.IsNullOrEmpty(jwtToken))
+        {
+            var tokenInfos = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
+            var tenantClaim = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value!;
+
+            var tenants = tenantClaim.Split(',').SelectMany(x =>
+            {
+                return new List<Tenant> { new(x) };
+            });
+
+            return tenants;
+        }
+
+        return [];
     }
 }

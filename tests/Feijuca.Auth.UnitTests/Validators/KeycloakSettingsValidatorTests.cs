@@ -25,7 +25,6 @@ namespace Feijuca.Auth.Api.UnitTests.Validators
                     {
                         Name = null!,
                         Audience = null!,
-                        Issuer = null!
                     } ]
             };
 
@@ -57,7 +56,6 @@ namespace Feijuca.Auth.Api.UnitTests.Validators
                     {
                         Name = null!,
                         Audience = null!,
-                        Issuer = null!
                     } ]
             };
 
