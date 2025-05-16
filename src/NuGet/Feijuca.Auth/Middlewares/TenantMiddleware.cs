@@ -6,7 +6,7 @@ namespace Feijuca.Auth.Middlewares
 {
     public class TenantMiddleware(RequestDelegate next, TenantMiddlewareOptions options)
     {
-        private static readonly List<string> _defaultUrls = ["scalar", "openapi", "events", "favicon.ico"];
+        private static readonly List<string> _defaultUrls = ["scalar", "openapi", "events", "favicon.ico", "swagger"];
         private readonly List<string> _availableUrls = [.. _defaultUrls.Union(options.AvailableUrls ?? Enumerable.Empty<string>(), StringComparer.OrdinalIgnoreCase)];
 
         public async Task InvokeAsync(HttpContext context, ITenantService tenantService)
