@@ -93,7 +93,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result<bool>.Failure(UserErrors.DeletionUserError);
         }
 
-        public async Task<Result<bool>> CreateAsync(User user, CancellationToken cancellationToken)
+        public async Task<Result<bool>> CreateAsync(string tenant, User user, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
@@ -101,12 +101,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(user.Attributes
-                        .FirstOrDefault(x => x.Key == "tenant").Value
-                        .FirstOrDefault())
+                    .AppendPathSegment(tenant)
                     .AppendPathSegment("users");
-
-            user.CreatedTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            
             var json = JsonConvert.SerializeObject(user, Settings);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
             using var response = await httpClient.PostAsync(url, httpContent, cancellationToken);
@@ -120,7 +117,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result<bool>.Failure(UserErrors.UserCreationError);
         }
 
-        public async Task<Result<User>> GetAsync(string username, CancellationToken cancellationToken)
+        public async Task<Result<User>> GetAsync(string tenant, string username, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(username))
             {
@@ -133,7 +130,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant.Name)
+                    .AppendPathSegment(tenant)
                     .AppendPathSegment("users");
 
             url = url.SetQueryParam("username", username);
@@ -151,7 +148,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result<User>.Success(user[0]);
         }
 
-        public async Task<Result<bool>> ResetPasswordAsync(Guid id, string password, CancellationToken cancellationToken)
+        public async Task<Result<bool>> ResetPasswordAsync(Guid id, string tenant, string password, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
@@ -159,7 +156,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant.Name)
+                    .AppendPathSegment(tenant)
                     .AppendPathSegment("users")
                     .AppendPathSegment(id)
                     .AppendPathSegment("reset-password");

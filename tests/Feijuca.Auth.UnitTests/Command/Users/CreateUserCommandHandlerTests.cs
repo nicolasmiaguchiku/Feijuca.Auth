@@ -4,6 +4,8 @@ using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Services;
+
 using FluentAssertions;
 using Moq;
 
@@ -29,7 +31,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Users
             var cancellationToken = _fixture.Create<CancellationToken>();
 
             _userRepositoryMock
-                .Setup(repo => repo.CreateAsync(It.IsAny<User>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.CreateAsync(It.IsAny<string>(), It.IsAny<User>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(createUserResult);
 
             // Act
@@ -41,7 +43,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Users
                 .Should()
                 .Be(UserErrors.UserCreationError);
 
-            _userRepositoryMock.Verify(repo => repo.CreateAsync(It.IsAny<User>(), It.IsAny<CancellationToken>()), Times.Once);
+            _userRepositoryMock.Verify(repo => repo.CreateAsync(It.IsAny<string>(), It.IsAny<User>(), It.IsAny<CancellationToken>()), Times.Once);
             _userRepositoryMock.VerifyNoOtherCalls();
         }
 
@@ -62,15 +64,15 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Users
             var cancellationToken = _fixture.Create<CancellationToken>();
 
             _userRepositoryMock
-                .Setup(repo => repo.CreateAsync(It.IsAny<User>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.CreateAsync(It.IsAny<string>(), It.IsAny<User>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(createUserResult);
 
             _userRepositoryMock
-                .Setup(repo => repo.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.GetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(getUserResult);
 
             _userRepositoryMock
-                .Setup(repo => repo.ResetPasswordAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.ResetPasswordAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(resetPasswordResult);
 
             // Act
@@ -82,9 +84,9 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Users
                 .Should()
                 .Be(UserErrors.WrongPasswordDefinition);
 
-            _userRepositoryMock.Verify(repo => repo.CreateAsync(It.IsAny<User>(), It.IsAny<CancellationToken>()), Times.Once);
-            _userRepositoryMock.Verify(repo => repo.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
-            _userRepositoryMock.Verify(repo => repo.ResetPasswordAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
+            _userRepositoryMock.Verify(repo => repo.CreateAsync(It.IsAny<string>(), It.IsAny<User>(), It.IsAny<CancellationToken>()), Times.Once);
+            _userRepositoryMock.Verify(repo => repo.GetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
+            _userRepositoryMock.Verify(repo => repo.ResetPasswordAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
             _userRepositoryMock.VerifyNoOtherCalls();
         }
 
@@ -105,15 +107,15 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Users
             var cancellationToken = _fixture.Create<CancellationToken>();
 
             _userRepositoryMock
-                .Setup(repo => repo.CreateAsync(It.IsAny<User>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.CreateAsync(It.IsAny<string>(), It.IsAny<User>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(createUserResult);
 
             _userRepositoryMock
-                .Setup(repo => repo.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.GetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(getUserResult);
 
             _userRepositoryMock
-                .Setup(repo => repo.ResetPasswordAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.ResetPasswordAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(resetPasswordResult);
 
             // Act
@@ -125,9 +127,9 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Users
                 .Should()
                 .BeTrue();
 
-            _userRepositoryMock.Verify(repo => repo.CreateAsync(It.IsAny<User>(), It.IsAny<CancellationToken>()), Times.Once);
-            _userRepositoryMock.Verify(repo => repo.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
-            _userRepositoryMock.Verify(repo => repo.ResetPasswordAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
+            _userRepositoryMock.Verify(repo => repo.CreateAsync(It.IsAny<string>(), It.IsAny<User>(), It.IsAny<CancellationToken>()), Times.Once);
+            _userRepositoryMock.Verify(repo => repo.GetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
+            _userRepositoryMock.Verify(repo => repo.ResetPasswordAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
             _userRepositoryMock.VerifyNoOtherCalls();
         }
     }

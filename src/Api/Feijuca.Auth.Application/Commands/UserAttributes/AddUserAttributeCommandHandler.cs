@@ -1,15 +1,17 @@
 ﻿using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Services;
+
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.UserAttributes
 {
-    public class AddUserAttributeCommandHandler(IUserRepository userRepository) : IRequestHandler<AddUserAttributeCommand, Result<bool>>
+    public class AddUserAttributeCommandHandler(IUserRepository userRepository, ITenantService tenantService) : IRequestHandler<AddUserAttributeCommand, Result<bool>>
     {
         public async Task<Result<bool>> Handle(AddUserAttributeCommand request, CancellationToken cancellationToken)
         {
-            var user = await userRepository.GetAsync(request.UserName, cancellationToken);
+            var user = await userRepository.GetAsync(tenantService.Tenant.Name, request.UserName, cancellationToken);
             if (user.IsSuccess)
             {
                 var userNewAttributes = user.Response.Attributes;

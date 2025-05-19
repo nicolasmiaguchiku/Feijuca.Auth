@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Feijuca.Auth.Models;
+
+using Newtonsoft.Json;
 
 namespace Feijuca.Auth.Domain.Entities
 {
@@ -47,6 +49,7 @@ namespace Feijuca.Auth.Domain.Entities
             Username = userName;
             LastName = lastName;
             Attributes = attributes;
+            CreatedTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         }
     }
 }
