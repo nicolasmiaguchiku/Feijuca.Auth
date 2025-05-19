@@ -11,8 +11,9 @@ namespace Feijuca.Auth.Middlewares
 
         public async Task InvokeAsync(HttpContext context, ITenantService tenantService)
         {
+            var token = tenantService.GetToken();
             var path = context.Request.Path.Value!;
-            if (_availableUrls.Exists(path.Contains))
+            if (_availableUrls.Exists(path.Contains) && string.IsNullOrEmpty(token))
             {
                 await next(context);
                 return;

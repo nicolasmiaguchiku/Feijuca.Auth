@@ -45,7 +45,7 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
         return new User(Guid.Empty, string.Empty);
     }
 
-    private string GetToken()
+    public string GetToken()
     {
         var authorizationHeader = httpContextAccessor.HttpContext?.Request.Headers.Authorization.FirstOrDefault();
 

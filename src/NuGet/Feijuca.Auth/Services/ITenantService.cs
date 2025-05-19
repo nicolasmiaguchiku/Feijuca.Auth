@@ -18,6 +18,8 @@ public interface ITenantService
 
     User GetUser();
 
+    string GetToken();
+
     void SetTenants(IEnumerable<Tenant> tenants);
 
     void SetUser(User user);
