@@ -2,7 +2,6 @@
 using Feijuca.Auth.Application.Mappers;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
-using Feijuca.Auth.Services;
 
 namespace Feijuca.Auth.Application.Commands.User
 {
