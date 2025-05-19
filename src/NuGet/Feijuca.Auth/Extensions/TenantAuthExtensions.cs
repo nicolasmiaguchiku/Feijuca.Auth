@@ -73,7 +73,7 @@ public static class TenantAuthExtensions
                 }
 
                 var tenantName = tokenInfos.Claims.FirstOrDefault(c => c.Type == "tenant")?.Value;
-                var tenantRealm = realms.FirstOrDefault(realm => realm.Name == tenantName);
+                var tenantRealm = realms.FirstOrDefault(realm => realm.Name!.Contains(tenantName!, StringComparison.OrdinalIgnoreCase));
 
                 if (ValidateRealm(context, tenantRealm).Equals(false))
                 {
