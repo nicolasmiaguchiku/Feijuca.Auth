@@ -55,6 +55,7 @@ public class UsersController(IMediator mediator) : ControllerBase
     /// </summary>
     /// <param name="addUserRequest">The request object containing the necessary details to create the user.</param>
     /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
+    /// <param name="tenant">The tenant that the user belongs to.</param>
     /// <returns>
     /// A 201 Created status code if the user is successfully created;
     /// otherwise, a 400 Bad Request status code with an error message.
@@ -68,10 +69,10 @@ public class UsersController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateUser([FromBody] AddUserRequest addUserRequest,
+    public async Task<IActionResult> CreateUser([FromHeader] string tenant, [FromBody] AddUserRequest addUserRequest,
         CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new AddUserCommand(addUserRequest), cancellationToken);
+        var result = await _mediator.Send(new AddUserCommand(tenant, addUserRequest), cancellationToken);
 
         if (result.IsSuccess)
         {
