@@ -101,7 +101,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
-                    .AppendPathSegment(_tenantService.Tenant.Name)
+                    .AppendPathSegment(user.Attributes
+                        .FirstOrDefault(x => x.Key == "tenant").Value
+                        .FirstOrDefault())
                     .AppendPathSegment("users");
 
             user.CreatedTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
