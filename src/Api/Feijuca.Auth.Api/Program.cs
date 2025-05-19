@@ -4,8 +4,6 @@ using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Extensions;
 using Feijuca.Auth.Infra.CrossCutting.Extensions;
 using Feijuca.Auth.Infra.CrossCutting.Middlewares;
-using Feijuca.Auth.Middlewares;
-
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
