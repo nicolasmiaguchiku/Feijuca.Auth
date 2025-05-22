@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.User
 {
-    public record RefreshTokenCommand(string RefreshToken) : IRequest<Result<TokenDetailsResponse>>;
+    public record RefreshTokenCommand(string Tenant, string RefreshToken) : IRequest<Result<TokenDetailsResponse>>;
 }

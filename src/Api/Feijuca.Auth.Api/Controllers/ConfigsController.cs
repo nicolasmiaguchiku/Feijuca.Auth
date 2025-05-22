@@ -168,7 +168,7 @@ namespace Feijuca.Auth.Api.Controllers
                 "Admin",
                 []);
 
-            var userId = await _mediator.Send(new AddUserCommand(keyCloakSettings.Realm.Name ?? "No tenant", addUserRequest), cancellationToken);
+            var userId = await _mediator.Send(new AddUserCommand(keyCloakSettings.Realm.Name ?? "No Tenant", addUserRequest), cancellationToken);
 
             await _mediator.Send(new AddUserToGroupCommand(userId.Response, Guid.Parse(feijucaGroup!.Id)), cancellationToken);
 

@@ -16,10 +16,10 @@ namespace Feijuca.Auth.Application.Mappers
         {
             var atributtes = new Dictionary<string, string[]>
             {
-                { "tenant", [tenant] }
+                { "Tenant", [tenant] }
             };
 
-            foreach (var item in userRequest.Attributes?.Where(x => x.Key != "tenant") ?? [])
+            foreach (var item in userRequest.Attributes?.Where(x => x.Key != "Tenant") ?? [])
             {
                 atributtes.Add(item.Key, item.Value);
             }

@@ -305,12 +305,12 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result<bool>.Failure(UserErrors.SignOutError);
         }
 
-        public async Task<Result<TokenDetails>> RefreshTokenAsync(string refreshToken, CancellationToken cancellationToken)
+        public async Task<Result<TokenDetails>> RefreshTokenAsync(string tenant, string refreshToken, CancellationToken cancellationToken)
         {
             using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
 
             var urlGetToken = httpClient.BaseAddress.AppendPathSegment("realms")
-                .AppendPathSegment(_tenantService.Tenant.Name)
+                .AppendPathSegment(tenant)
                 .AppendPathSegment("protocol")
                 .AppendPathSegment("openid-connect")
                 .AppendPathSegment("token");

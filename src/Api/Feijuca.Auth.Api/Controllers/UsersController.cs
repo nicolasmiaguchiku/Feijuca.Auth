@@ -55,7 +55,7 @@ public class UsersController(IMediator mediator) : ControllerBase
     /// </summary>
     /// <param name="addUserRequest">The request object containing the necessary details to create the user.</param>
     /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
-    /// <param name="tenant">The tenant that the user belongs to.</param>
+    /// <param name="tenant">The Tenant that the user belongs to.</param>
     /// <returns>
     /// A 201 Created status code if the user is successfully created;
     /// otherwise, a 400 Bad Request status code with an error message.
@@ -196,7 +196,7 @@ public class UsersController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Authenticates a user and returns a valid JWT token along with user details.
     /// </summary>
-    /// <param name="tenant">The tenant name related to the realm.</param>
+    /// <param name="tenant">The Tenant name related to the realm.</param>
     /// <param name="loginUserRequest">The request containing the user's login credentials.</param>
     /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
     /// <returns>
@@ -258,6 +258,7 @@ public class UsersController(IMediator mediator) : ControllerBase
     /// Refreshes a valid JWT token and returns the new token along with user details.
     /// </summary>
     /// <param name="request">The request containing the refresh token.</param>
+    /// <param name="tenant">The request containing the refresh token.</param>
     /// <param name="cancellationToken">A token that can be used to signal cancellation of the operation.</param>
     /// <returns>
     /// A 200 OK status code with the new token and user details if the refresh operation is successful;
@@ -268,11 +269,10 @@ public class UsersController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Authorize]
-    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request,
+    public async Task<IActionResult> RefreshToken([FromHeader] string tenant, [FromBody] RefreshTokenRequest request,
         CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new RefreshTokenCommand(request.RefreshToken), cancellationToken);
+        var result = await _mediator.Send(new RefreshTokenCommand(tenant, request.RefreshToken), cancellationToken);
 
         if (result.IsSuccess)
         {

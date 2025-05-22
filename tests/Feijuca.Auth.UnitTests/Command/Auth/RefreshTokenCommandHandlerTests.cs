@@ -30,7 +30,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Auth
             var refreshTokenResult = Result<TokenDetails>.Success(tokenDetails);
 
             _userRepositoryMock
-                .Setup(repo => repo.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(refreshTokenResult);
 
             // Act
@@ -42,7 +42,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Auth
                 .Should()
                 .BeTrue();
 
-            _userRepositoryMock.Verify(repo => repo.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once());
+            _userRepositoryMock.Verify(repo => repo.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once());
             _userRepositoryMock.VerifyNoOtherCalls();
         }
 
@@ -52,11 +52,10 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Auth
             // Arrange
             var refreshTokenCommand = _fixture.Create<RefreshTokenCommand>();
             var cancellationToken = _fixture.Create<CancellationToken>();
-            var tokenDetails = _fixture.Create<TokenDetails>();
             var refreshTokenResult = Result<TokenDetails>.Failure(UserErrors.InvalidRefreshToken);
 
             _userRepositoryMock
-                .Setup(repo => repo.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Setup(repo => repo.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(refreshTokenResult);
 
             // Act
@@ -68,7 +67,7 @@ namespace Feijuca.Auth.Api.UnitTests.Command.Auth
                 .Should()
                 .Be(UserErrors.InvalidRefreshToken);
 
-            _userRepositoryMock.Verify(repo => repo.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once());
+            _userRepositoryMock.Verify(repo => repo.RefreshTokenAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once());
             _userRepositoryMock.VerifyNoOtherCalls();
         }
     }
