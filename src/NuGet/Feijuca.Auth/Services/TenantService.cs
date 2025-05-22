@@ -62,19 +62,19 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
         _tenants = tenants;
         _tenant = tenants.First();
     }
+    
+    public void SetTenant(Tenant tenant)
+    {
+        _tenant = tenant;
+    }
 
     public void SetUser(User user)
     {
         _userId = user;
     }
 
-    public Tenant GetTenant(bool jobExecution = false)
+    public Tenant GetTenant()
     {
-        if (jobExecution)
-        {
-            return _tenant;
-        }
-
         string jwtToken = GetToken();
         if (!string.IsNullOrEmpty(jwtToken))
         {
@@ -86,13 +86,8 @@ public class TenantService(IHttpContextAccessor httpContextAccessor, JwtSecurity
         return new Tenant("Invalid tenant");
     }
 
-    public IEnumerable<Tenant> GetTenants(bool jobExecution = false)
+    public IEnumerable<Tenant> GetTenants()
     {
-        if (jobExecution)
-        {
-            return _tenants;
-        }
-
         string jwtToken = GetToken();
         if (!string.IsNullOrEmpty(jwtToken))
         {
