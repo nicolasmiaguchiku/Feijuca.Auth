@@ -6,7 +6,6 @@ using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Services;
-
 using FluentAssertions;
 using Moq;
 
