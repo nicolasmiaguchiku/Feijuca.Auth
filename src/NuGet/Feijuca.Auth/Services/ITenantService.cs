@@ -18,7 +18,7 @@ public interface ITenantService
 
     void SetTenant(Tenant tenant);
 
-    internal User GetUser();
+    User GetUser();
 
     string GetToken();
 
