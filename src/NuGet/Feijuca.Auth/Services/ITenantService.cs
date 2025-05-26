@@ -12,9 +12,9 @@ public interface ITenantService
 
     string GetInfo(string infoName);
 
-    internal IEnumerable<Tenant> GetTenants();
+    IEnumerable<Tenant> GetTenants();
 
-    internal Tenant GetTenant();
+    Tenant GetTenant();
 
     void SetTenant(Tenant tenant);
 
