@@ -10,7 +10,7 @@ namespace Feijuca.Auth.Http.Client
     {
         public async Task<Result<TokenDetailsResponse>> LoginAsync(CancellationToken cancellationToken)
         {
-            var result = await PostAsync<LoginUserRequest, TokenDetailsResponse>("api/v1/users/login", new LoginUserRequest("hangfire@coderaw.io", "hangfire@coderaw"), cancellationToken);
+            var result = await PostAsync<LoginUserRequest, TokenDetailsResponse>("users/login", new LoginUserRequest("hangfire@coderaw.io", "hangfire@coderaw"), cancellationToken);
 
             if (string.IsNullOrEmpty(result.AccessToken))
             {
@@ -22,7 +22,7 @@ namespace Feijuca.Auth.Http.Client
 
         public async Task<Result<UserResponse>> GetUserAsync(string userame, string jwtToken, CancellationToken cancellationToken)
         {
-            var url = $"api/v1/users?Usernames={userame}";
+            var url = $"users?Usernames={userame}";
             var result = await GetAsync<PagedResult<UserResponse>>(url, jwtToken, cancellationToken);
 
             if (result.TotalResults == 0)
@@ -37,7 +37,7 @@ namespace Feijuca.Auth.Http.Client
 
         public async Task<Result<PagedResult<UserResponse>>> GetUsersAsync(int maxUsers, string jwtToken, CancellationToken cancellationToken)
         {
-            var url = $"api/v1/users?PageFilter.Page=1&PageFilter.PageSize={maxUsers}";
+            var url = $"users?PageFilter.Page=1&PageFilter.PageSize={maxUsers}";
             var result = await GetAsync<PagedResult<UserResponse>>(url, jwtToken, cancellationToken);
 
             if (result.TotalResults <= 1)
