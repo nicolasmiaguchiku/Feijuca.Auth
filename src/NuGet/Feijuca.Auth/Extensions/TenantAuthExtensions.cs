@@ -34,8 +34,6 @@ public static class TenantAuthExtensions
                 options =>
                 {
                     options.Resource = client.ClientId;
-                    options.AuthServerUrl = serverSettings.Url;
-                    options.VerifyTokenAudience = true;
                 },
                 options =>
                 {
@@ -58,7 +56,8 @@ public static class TenantAuthExtensions
         {
             try
             {
-                var tokenJwt = context.Request.Headers.Authorization.FirstOrDefault();
+                var tokenJwt = context.Request.Headers.Authorization.FirstOrDefault() ?? context.Request.Query["access_token"].FirstOrDefault();
+
                 if (IsTokenValid(context, tokenJwt).Equals(false))
                 {
                     return;
