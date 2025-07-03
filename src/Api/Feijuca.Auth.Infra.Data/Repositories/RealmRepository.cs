@@ -32,7 +32,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var resut = await httpClient.PostAsync(url, content, cancellationToken);
             if (resut.IsSuccessStatusCode)
             {
-                return true;
+                return await UpdateRealmUnmanagedAttributePolicyAsync(realm.Realm, cancellationToken);
             }
 
             return false;
@@ -59,6 +59,37 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             return "";
+        }
+
+        public async Task<bool> UpdateRealmUnmanagedAttributePolicyAsync(string realmName, CancellationToken cancellationToken)
+        {
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+
+            var url = httpClient.BaseAddress
+                       .AppendPathSegment("admin")
+                       .AppendPathSegment("realms")
+                       .AppendPathSegment(realmName)
+                       .AppendPathSegment("users")
+                       .AppendPathSegment("profile");
+
+            var responseGet = await httpClient.GetAsync(url, cancellationToken);
+            if (!responseGet.IsSuccessStatusCode)
+                return false;
+
+            var jsonCurrentProfile = await responseGet.Content.ReadAsStringAsync(cancellationToken);
+
+            dynamic profile = JsonConvert.DeserializeObject<dynamic>(jsonCurrentProfile)!;
+
+            profile.unmanagedAttributePolicy = "ENABLED";
+
+            var jsonUpdatedProfile = JsonConvert.SerializeObject(profile);
+
+            var content = new StringContent(jsonUpdatedProfile, Encoding.UTF8, "application/json");
+
+            var responsePut = await httpClient.PutAsync(url, content, cancellationToken);
+
+            return responsePut.IsSuccessStatusCode;
         }
     }
 }

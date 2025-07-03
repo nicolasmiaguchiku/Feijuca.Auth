@@ -37,9 +37,10 @@ Meet the amazing people who helped build **Feijuca.Auth**! Connect with them on 
 | **Name**          |                                                                                                                                                                      |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Felipe Mattioli   | <a href="https://www.linkedin.com/in/felipemattioli/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/> </a>             |
-| Matheus Madureira | <a href="https://www.linkedin.com/in/madureiracode//" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/> </a>             |
+| Richard Garcia 	| <a href="https://www.linkedin.com/in/richard-garcia-a15403271/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/> </a>             |
 | Wesley Souza      | <a href="https://www.linkedin.com/in/weslleyms/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/> </a>                  |
 | Matheus Galvão    | <a href="https://www.linkedin.com/in/matheu-sandregalvaodasilva/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/> </a> |
+| Gabriel Sant'ana    | <a href="https://www.linkedin.com/in/matheu-sandregalvaodasilva/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/> </a> |
 
 We’re grateful for everyone’s hard work and contributions!
 

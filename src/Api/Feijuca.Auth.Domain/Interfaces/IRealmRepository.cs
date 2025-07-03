@@ -6,5 +6,6 @@ namespace Feijuca.Auth.Domain.Interfaces
     {
         Task<string> GetRealmConfigAsync(string name, CancellationToken cancellationToken);
         Task<bool> CreateRealmAsync(RealmEntity realm, CancellationToken cancellationToken);
+        Task<bool> UpdateRealmUnmanagedAttributePolicyAsync(string realmName, CancellationToken cancellationToken);
     }
 }

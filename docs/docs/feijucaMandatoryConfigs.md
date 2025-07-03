@@ -60,8 +60,8 @@ To insert this realm configuration, send an **HTTP POST** request to the `/api/v
 
 #### 🛠️ Step 4: Inserting the configurations
 
-> **Existing realm:** If you already have a realm and want to configure Feijuca there, no problem — it’s fully supported.  
-> **New realm:** If you want to create a new realm, you can do that as well.
+> **Existing realm:** If you already have a realm and want to configure Feijuca there, no problem — it’s fully supported. Use configs/existing-realm  to do that.
+> **New realm:** If you want to create a new realm, you can do that as well. Use configs/new-realm  to do that.
 
 
 🖥️ Body example
