@@ -15,14 +15,12 @@ public static class TenantAuthExtensions
     public static IServiceCollection AddApiAuthentication(this IServiceCollection services, FeijucaAuthSettings settings)
     {
         services.AddHttpContextAccessor();
-        services.AddKeyCloakAuth(settings.Client, settings.ServerSettings, settings.Realms);
+        services.AddKeyCloakAuth(settings.Realms);
 
         return services;
     }
 
     public static IServiceCollection AddKeyCloakAuth(this IServiceCollection services,
-        Client client,
-        ServerSettings serverSettings,
         IEnumerable<Realm> realms,
         IEnumerable<Policy>? policies = null)
     {
@@ -33,7 +31,7 @@ public static class TenantAuthExtensions
             .AddKeycloakWebApi(
                 options =>
                 {
-                    options.Resource = client.ClientId;
+                    options.Resource = "feijuca-auth-api";
                 },
                 options =>
                 {
@@ -45,7 +43,7 @@ public static class TenantAuthExtensions
                     };
                 });
 
-        ConfigureAuthorization(services, client, policies);
+        ConfigureAuthorization(services, policies);
 
         return services;
     }
@@ -203,7 +201,7 @@ public static class TenantAuthExtensions
         };
     }
 
-    private static void ConfigureAuthorization(IServiceCollection services, Client client, IEnumerable<Policy>? policySettings)
+    private static void ConfigureAuthorization(IServiceCollection services, IEnumerable<Policy>? policySettings)
     {
         services
            .AddAuthorization()
@@ -218,7 +216,7 @@ public static class TenantAuthExtensions
                     .AddPolicy(policy.Name, p =>
                     {
                         p.RequireResourceRolesForClient(
-                            client.ClientId,
+                            "feijuca-auth-api",
                             [.. policy.Roles!]);
                     });
             }

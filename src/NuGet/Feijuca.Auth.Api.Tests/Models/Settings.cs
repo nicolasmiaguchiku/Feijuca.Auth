@@ -6,6 +6,6 @@ namespace Feijuca.Auth.Api.Tests.Models
 {
     public class Settings
     {
-        public required FeijucaAuthSettings KeycloakSettings { get; set; }
+        public required IEnumerable<Realm> Realms { get; set; }
     }
 }

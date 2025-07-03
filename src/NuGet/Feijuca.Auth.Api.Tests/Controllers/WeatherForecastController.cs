@@ -1,6 +1,4 @@
-using Feijuca.Auth.Api.Tests;
 using Feijuca.Auth.Attributes;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,8 +14,8 @@ namespace Feijuca.Auth.Api.Tests.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         ];
 
-
         [HttpGet(Name = "GetWeatherForecast")]
+        [RequiredRole("GetDailyOperation")]
         public IEnumerable<WeatherForecast> Get()
         {
             return [.. Enumerable.Range(1, 5).Select(index => new WeatherForecast
