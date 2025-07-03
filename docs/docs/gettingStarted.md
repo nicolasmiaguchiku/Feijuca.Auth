@@ -1,20 +1,29 @@
 ### 💡 Considerations
 
-This project is specifically designed for applications that adhere to the current **.NET supported versions**. However, the **Feijuca.Auth.Api** module can be accessed from any programming language, as it processes calls against **Keycloak**.
+**Feijuca.Auth** is designed to work seamlessly with applications built on supported .NET versions, offering native integration and developer-friendly features through its NuGet package. This package provides out-of-the-box capabilities to protect your APIs and simplify authentication workflows within .NET environments.
 
-If you intend to use only the API module (for creating users, managing groups, sessions, and tokens), you can do so without having **.NET** in your technology stack, as it is a RESTful API. 
+However, the underlying **Feijuca.Auth.Api** module is built as a thin wrapper over Keycloak’s REST endpoints. This means that any application — regardless of programming language — can interact with Feijuca.Auth by making HTTP requests to manage users, groups, sessions, and tokens. You don’t need .NET in your stack to benefit from these capabilities.
 
-On the other hand, if your stack is built with **.NET**, you'll benefit from enhanced capabilities and integration options. As you progress through the documentation, you'll gain a better understanding of these advantages.
+## Summary
+
+- ✅ If you're using **.NET**, you can leverage the **NuGet package** for deeper integration and streamlined security.
+- 🌐 If you're using **another language**, you can still interact with the **Feijuca.Auth API** directly as a RESTful interface to Keycloak.
+
+As you continue through the documentation, you’ll see how each usage scenario is supported and how to get the most out of the platform depending on your tech stack.
 
 ---
 
 ### 🔧 Prerequisites
-- An instance of **Keycloak** server.
-- An instance of **mongodb** server (Feel free to contribute adding a connection related to your favourite db).
+
+- An instance of a **Keycloak** server.
+- An instance of a **MongoDB** server.  
+  _(No worries — [MongoDB Atlas](https://www.mongodb.com/atlas/database) offers a free tier you can use to get started. Feel free to contribute by adding support for your favorite database!)_
 
 ---
 
-### 🖥️ Let's get started!
+### 🖥️ Let's Get Started!
 
-- 🔧 **Want to use Feijuca.Auth.Api?** Check out the necessary configuration steps [here](/Feijuca.Auth/docs/keycloakMandatoryConfigs.html).
-- 🏢 **Interested in the Feijuca.Auth.MultiTenancy concept?** Find the necessary configuration steps [here](/Feijuca.Auth/docs/keycloakMandatoryConfigs.html) _(Available soon)_.
+- Click **[Here ➡️](/Feijuca.Auth/docs/keycloakMandatoryConfigs.html)** to continue and begin setting up your environment.
+
+
+
