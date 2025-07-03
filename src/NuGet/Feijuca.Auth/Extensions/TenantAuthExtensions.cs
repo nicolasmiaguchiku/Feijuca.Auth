@@ -12,10 +12,10 @@ namespace Feijuca.Auth.Extensions;
 
 public static class TenantAuthExtensions
 {
-    public static IServiceCollection AddApiAuthentication(this IServiceCollection services, FeijucaAuthSettings settings)
+    public static IServiceCollection AddApiAuthentication(this IServiceCollection services, IEnumerable<Realm> realms)
     {
         services.AddHttpContextAccessor();
-        services.AddKeyCloakAuth(settings.Realms);
+        services.AddKeyCloakAuth(realms);
 
         return services;
     }
@@ -78,6 +78,11 @@ public static class TenantAuthExtensions
                 }
 
                 if (IsTokenValidAudience(context, tokenInfos).Equals(false))
+                {
+                    return;
+                }
+
+                if (ValidateIssuer(context, token, tenantRealm!.Issuer!).Equals(false))
                 {
                     return;
                 }
@@ -170,9 +175,29 @@ public static class TenantAuthExtensions
         {
             context.HttpContext.Items["AuthError"] = "Invalid audience, please configure an audience mapper on your realm!";
             context.HttpContext.Items["AuthStatusCode"] = 403;
-            context.Fail("Token expired");
+            context.Fail("Invalid audience!");
             return false;
         }
+
+        return true;
+    }
+    
+    
+    private static bool ValidateIssuer(MessageReceivedContext context, string jwtToken, string configIssuer)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var token = handler.ReadJwtToken(jwtToken);
+
+        var issuer = token.Issuer;
+
+        if (configIssuer != issuer)
+        {
+            context.HttpContext.Items["AuthError"] = "Invalid issuer, please configure an issuer mapper on your realm!";
+            context.HttpContext.Items["AuthStatusCode"] = 403;
+            context.Fail("Invalid issuer!");
+            return false;
+        }
+
         return true;
     }
 
