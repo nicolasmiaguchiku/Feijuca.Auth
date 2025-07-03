@@ -63,7 +63,6 @@ To insert this realm configuration, send an **HTTP POST** request to the `/api/v
 > **Existing realm:** If you already have a realm and want to configure Feijuca there, no problem — it’s fully supported. Use configs/existing-realm  to do that.
 > **New realm:** If you want to create a new realm, you can do that as well. Use configs/new-realm  to do that.
 
-
 🖥️ Body example
 
 ```bash
@@ -107,6 +106,18 @@ curl https://localhost:7018/api/v1/configs/new-realm \
 After completing the configuration, simply restart your container to apply the changes and enable the project to start with the updated settings.  
 Once restarted, you'll have full access to all endpoints and can seamlessly manage the various instances within your Keycloak realm. From there, you can begin managing users, groups, roles, and much more with ease.
 
-### 👨‍🔧 Ready to the next steps? [Handling users](/docs/gettingUsers.html).
+
+#### 👨‍🔧 Ready to the next steps?
+
+Click next to continue reading the docs. After this, you will see only question endpoints.
+
+All configuration steps are now complete! You can confidently use the endpoints as needed, managing your Keycloak realm smoothly and securely.
+
+**If you encounter any issues, please feel free to reach out anytime:**
+
+✉️ Email: felipe-mattioli98@hotmail.com  
+🔗 LinkedIn: [https://www.linkedin.com/in/felipemattioli/](https://www.linkedin.com/in/felipemattioli/)
+
+
 
 
