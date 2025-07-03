@@ -1,8 +1,5 @@
 - name: Getting started
-  href: gettingStarted.md
-
-- name: Feijuca.Auth.Api
-  href: keycloakMandatoryConfigs.md
+  href: gettingStarted.md  
   items:
     - name: Setting up
       href: keycloakMandatoryConfigs.md
@@ -11,6 +8,16 @@
           href: keycloakMandatoryConfigs.md
         - name: Mandatory configs - Feijuca.Auth.Api
           href: feijucaMandatoryConfigs.md
+          
+- name: Feijuca.Auth - Authentication & Authorization Setup
+  href: configuringApplicationMultiTenancy.md
+  items:
+    - name: Configuring Application
+      href: configuringApplicationMultiTenancy.md
+      
+ - name: Feijuca.Auth.Api - REST API Management
+   href: configuringApplicationMultiTenancy.md     
+   items:    
     - name: Handling Users
       href: gettingUsers.md
       items:
@@ -71,8 +78,4 @@
       items:
         - name: Getting clients
           href: gettingClient.md
-- name: Feijuca.Auth - Multi-tenancy concept
-  href: configuringApplicationMultiTenancy.md
-  items:
-    - name: Configuring Application
-      href: configuringApplicationMultiTenancy.md
+
