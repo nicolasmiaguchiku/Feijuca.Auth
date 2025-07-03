@@ -1,15 +1,51 @@
-### 💡 Considerations
+## 🔒 Feijuca.Auth — Auth & RBAC Made Simple for .NET
 
-**Feijuca.Auth** is designed to work seamlessly with applications built on supported .NET versions, offering native integration and developer-friendly features through its NuGet package. This package provides out-of-the-box capabilities to protect your APIs and simplify authentication workflows within .NET environments.
+**Feijuca.Auth** is a robust and flexible solution tailored for applications running on supported .NET versions, providing seamless integration via a dedicated NuGet package. With developer-oriented features, it simplifies authentication and authorization by offering native capabilities to secure your APIs through both token validation and role-based access control (RBAC).
 
-However, the underlying **Feijuca.Auth.Api** module is built as a thin wrapper over Keycloak’s REST endpoints. This means that any application — regardless of programming language — can interact with Feijuca.Auth by making HTTP requests to manage users, groups, sessions, and tokens. You don’t need .NET in your stack to benefit from these capabilities.
+Once integrated, Feijuca.Auth enables you to **protect API endpoints effortlessly**, automatically handling:
 
-## Summary
+- **401 Unauthorized** responses for requests missing a valid token.
+- **403 Forbidden** responses when the token is present but lacks the required permissions.
 
-- ✅ If you're using **.NET**, you can leverage the **NuGet package** for deeper integration and streamlined security.
-- 🌐 If you're using **another language**, you can still interact with the **Feijuca.Auth API** directly as a RESTful interface to Keycloak.
+In addition to standard secured routes, **custom public routes** can also be defined using the provided middleware — allowing developers to explicitly expose certain endpoints **without requiring authentication**, offering fine-grained control over access behavior.
 
-As you continue through the documentation, you’ll see how each usage scenario is supported and how to get the most out of the platform depending on your tech stack.
+---
+
+### ⚙️ How It Works in .NET Projects
+
+When you install the `Feijuca.Auth` NuGet package in a .NET project, it acts as the execution layer that connects your application to Keycloak’s authorization logic. This package enables:
+
+- Middleware-based protection for controllers and endpoints.
+- Token decoding and validation.
+- Attribute-based role enforcement directly within your codebase.
+
+> ✅ **Important**: To make this authorization system function correctly, you must also use the **Feijuca.Auth.Api** module.
+
+This secondary module serves as a thin wrapper over Keycloak's REST API, allowing any system (not just .NET) to interact with Keycloak more cleanly. With it, you can:
+
+- Create and manage user groups.
+- Define roles and permissions.
+- Assign roles to groups and users.
+- And more.
+
+This separation ensures a clean distinction between:
+
+| Module              | Responsibility                                             |
+|---------------------|-------------------------------------------------------------|
+| `Feijuca.Auth`      | Enforces rules in your .NET application (middleware, tokens, attributes) |
+| `Feijuca.Auth.Api`  | Manages rules, users, groups, roles and much more via HTTP endpoints  |
+
+---
+
+### 🧭 Summary
+
+- ✅ **Using .NET?** Use the NuGet package for seamless route protection, token inspection, and custom middleware configurations.
+- 🌐 **Using another language?** Interact with Feijuca.Auth through the REST API — no .NET required.
+- 🔐 Whether you need clearer definitions for Keycloak endpoints or a complete RBAC system, **Feijuca.Auth is designed to be your end-to-end solution** for authentication and authorization.
+
+---
+
+Need help? Check out the configuration docs or reach out directly.
 
 ---
 

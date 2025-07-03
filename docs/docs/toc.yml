@@ -1,23 +1,24 @@
-- name: Getting started
+- name: Setting up
   href: gettingStarted.md  
-  items:
-    - name: Setting up
+  items:    
+    - name: Mandatory configs - Keycloak realm
       href: keycloakMandatoryConfigs.md
-      items:
-        - name: Mandatory configs - Keycloak realm
-          href: keycloakMandatoryConfigs.md
-        - name: Mandatory configs - Feijuca.Auth.Api
-          href: feijucaMandatoryConfigs.md
+    - name: Mandatory configs - Feijuca.Auth.Api
+      href: feijucaMandatoryConfigs.md
           
-- name: Feijuca.Auth - Authentication & Authorization Setup
+- name: Authentication & Authorization Setup
   href: configuringApplicationMultiTenancy.md
   items:
-    - name: Configuring Application
+    - name: Integration in .NET Project
+      href: configuringApplicationMultiTenancy.md
+    - name: Protecting endpoints
+      href: Securing API Endpoints
+    - name: Feijuca.Auth Http Client
       href: configuringApplicationMultiTenancy.md
       
- - name: Feijuca.Auth.Api - REST API Management
-   href: configuringApplicationMultiTenancy.md     
-   items:    
+- name: REST API Management
+  href: configuringApplicationMultiTenancy.md     
+  items:    
     - name: Handling Users
       href: gettingUsers.md
       items:
@@ -78,4 +79,3 @@
       items:
         - name: Getting clients
           href: gettingClient.md
-
