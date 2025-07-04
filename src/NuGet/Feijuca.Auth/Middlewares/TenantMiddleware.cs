@@ -1,19 +1,18 @@
-﻿using Feijuca.Auth.Models;
-using Feijuca.Auth.Services;
+﻿using Feijuca.Auth.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 
 namespace Feijuca.Auth.Middlewares
 {
-    public class TenantMiddleware(RequestDelegate next, TenantMiddlewareOptions options)
+    public class TenantMiddleware(RequestDelegate next)
     {
-        private static readonly List<string> _defaultUrls = ["scalar", "openapi", "events", "favicon.ico", "swagger"];
-        private readonly List<string> _availableUrls = [.. _defaultUrls.Union(options.AvailableUrls ?? Enumerable.Empty<string>(), StringComparer.OrdinalIgnoreCase)];
 
         public async Task InvokeAsync(HttpContext context, ITenantService tenantService)
         {
-            var token = tenantService.GetToken();
-            var path = context.Request.Path.Value!;
-            if (_availableUrls.Exists(path.Contains) && string.IsNullOrEmpty(token))
+            var endpoint = context.GetEndpoint();
+            var hasAuthorize = endpoint?.Metadata?.GetMetadata<AuthorizeAttribute>() != null;
+
+            if (!hasAuthorize)
             {
                 await next(context);
                 return;

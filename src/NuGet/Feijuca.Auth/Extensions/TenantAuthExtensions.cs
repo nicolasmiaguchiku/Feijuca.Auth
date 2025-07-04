@@ -54,6 +54,15 @@ public static class TenantAuthExtensions
         {
             try
             {
+                var endpoint = context.HttpContext.GetEndpoint();
+
+                var hasAuthorize = endpoint?.Metadata?.GetMetadata<Microsoft.AspNetCore.Authorization.AuthorizeAttribute>() != null;
+                if (!hasAuthorize)
+                {
+                    context.NoResult();
+                    return;
+                }
+
                 var tokenJwt = context.Request.Headers.Authorization.FirstOrDefault() ?? context.Request.Query["access_token"].FirstOrDefault();
 
                 if (IsTokenValid(context, tokenJwt).Equals(false))
@@ -132,6 +141,7 @@ public static class TenantAuthExtensions
         {
             context.HttpContext.Items["AuthError"] = "Invalid JWT token!";
             context.HttpContext.Items["AuthStatusCode"] = 401;
+            context.Fail("Invalid JWT token!");
             return false;
         }
 
@@ -148,7 +158,7 @@ public static class TenantAuthExtensions
             {
                 context.Response.StatusCode = 401;
                 context.HttpContext.Items["AuthError"] = "Token has expired.";
-                context.Fail("Token expired");
+                context.Fail("Token has expired.");
                 return false;
             }
         }

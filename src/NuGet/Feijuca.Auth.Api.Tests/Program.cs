@@ -21,6 +21,9 @@ var app = builder.Build();
 app.MapOpenApi();
 app.MapScalarApiReference();
 
+app.UseHttpsRedirection()
+   .UseAuthorization()
+   .UseTenantMiddleware();
 
 app.MapControllers();
 

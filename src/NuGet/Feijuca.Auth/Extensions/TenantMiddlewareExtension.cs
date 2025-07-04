@@ -7,11 +7,8 @@ namespace Feijuca.Auth.Extensions;
 
 public static class TenantMiddlewareExtensions
 {
-    public static IApplicationBuilder UseTenantMiddleware(this IApplicationBuilder app, Action<TenantMiddlewareOptions> configure)
+    public static IApplicationBuilder UseTenantMiddleware(this IApplicationBuilder app)
     {
-        var options = new TenantMiddlewareOptions();
-        configure(options);
-
-        return app.UseMiddleware<TenantMiddleware>(options);
+        return app.UseMiddleware<TenantMiddleware>();
     }
 }

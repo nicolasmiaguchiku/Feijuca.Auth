@@ -14,7 +14,6 @@ namespace Feijuca.Auth.Api.Tests.Controllers
         ];
 
         [HttpGet(Name = "GetWeatherForecast")]
-        [RequiredRole("GetDailyOperation")]
         [Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
