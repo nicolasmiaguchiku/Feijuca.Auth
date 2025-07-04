@@ -59,7 +59,7 @@ app.UseCors("AllowAllOrigins")
 if (KeycloakSettings?.Realms?.Any() ?? false)
 {
     app.UseAuthorization()
-       .UseTenantMiddleware(x => x.AvailableUrls = ["users", "login", "new-realm", "existing-realm"]);
+       .UseTenantMiddleware();
 }
 
 app.UseHttpsRedirection()

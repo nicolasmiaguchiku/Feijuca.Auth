@@ -20,7 +20,7 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 
             if (serverSettings is not null)
             {
-                services.AddKeyCloakAuth(serverSettings.Client, serverSettings.ServerSettings, serverSettings.Realms ?? []);
+                services.AddKeyCloakAuth(serverSettings.Realms ?? []);
 
                 return services;
             }
