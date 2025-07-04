@@ -44,6 +44,8 @@ To perform operations such as creating users, groups, realms, clients, roles, gr
   - Group and role management
   - Realm and client creation
 
+> Remember to click on Filter by realm roles to see the right option to be added.
+
 ![Add service role to the client](https://res.cloudinary.com/dbyrluup1/image/upload/vlsnxeyrqqtcctood0ve "Add service role to the client")
 
 ---
