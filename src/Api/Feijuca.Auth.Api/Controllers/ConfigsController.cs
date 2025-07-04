@@ -24,6 +24,7 @@ using Feijuca.Auth.Common.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Feijuca.Auth.Application.Mappers;
+using Feijuca.Auth.Application.Commands.ClientScopeMapper;
 
 namespace Feijuca.Auth.Api.Controllers
 {
@@ -140,7 +141,8 @@ namespace Feijuca.Auth.Api.Controllers
                 async () => await _mediator.Send(new AddClientScopeToClientCommand(addClientScopeToClientRequest), cancellationToken),
                 async () => await _mediator.Send(new AddGroupCommand(groupRequest), cancellationToken),
                 async () => await _mediator.Send(new AddClientRoleCommand(addRolesRequest), cancellationToken),
-                async () => await _mediator.Send(new AddClientScopeAudienceProtocolMapperCommand(clientScope.Id), cancellationToken));
+                async () => await _mediator.Send(new AddClientScopeAudienceProtocolMapperCommand(clientScope.Id), cancellationToken),
+                async () => await _mediator.Send(new AddClientScopeMapperCommand(clientScopes.FirstOrDefault(x => x.Name == "profile")!.Id, "tenant", "tenant"), cancellationToken));
 
             if (result2.IsFailure)
             {

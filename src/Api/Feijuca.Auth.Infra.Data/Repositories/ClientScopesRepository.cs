@@ -37,8 +37,8 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                     { "id.token.claim", "true" },
                     { "access.token.claim", "true" },
                     { "claim.name", "aud" },
-                    { "userinfo.token.claim", "false" }, 
-                    { "access.token.introspection", "true" }, 
+                    { "userinfo.token.claim", "false" },
+                    { "access.token.introspection", "true" },
                     { "lightweight.access.token.claim", "false" }
                 }
             };
@@ -47,6 +47,43 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<bool> AddUserPropertyMapperAsync(string clientScopeId, string userPropertyName, string claimName, CancellationToken cancellationToken)
+        {
+            var tokenDetails = await authRepository.GetAccessTokenAsync(cancellationToken);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+
+            var url = httpClient.BaseAddress
+                .AppendPathSegment("admin")
+                .AppendPathSegment("realms")
+                .AppendPathSegment(tenantService.Tenant.Name)
+                .AppendPathSegment("client-scopes")
+                .AppendPathSegment(clientScopeId)
+                .AppendPathSegment("protocol-mappers")
+                .AppendPathSegment("models");
+
+            var userPropertyMapper = new
+            {
+                name = $"{claimName}-mapper",  // Nome amigável para o mapper
+                protocol = "openid-connect",
+                protocolMapper = "oidc-usermodel-property-mapper",
+                consentRequired = false,
+                config = new Dictionary<string, string>
+                {
+                    { "user.attribute", userPropertyName },
+                    { "claim.name", claimName },
+                    { "jsonType.label", "String" },
+                    { "id.token.claim", "true" },
+                    { "access.token.claim", "true" },
+                    { "userinfo.token.claim", "true" }
+                }
+            };
+
+            var response = await httpClient.PostAsJsonAsync(url, userPropertyMapper, cancellationToken);
+
+            return response.IsSuccessStatusCode;
+        }
+
 
         public async Task<bool> AddClientScopesAsync(ClientScopesEntity clientScopesEntity, CancellationToken cancellationToken)
         {
@@ -86,7 +123,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<bool> AddClientScopeToClientAsync(string clientId,
             string clientScopeId,
-            bool isOptional, 
+            bool isOptional,
             CancellationToken cancellationToken)
         {
             var tokenDetails = await authRepository.GetAccessTokenAsync(cancellationToken);
