@@ -51,39 +51,53 @@ builder.Services.AddApiAuthentication(applicationSettings.Realms);
 This method will:
 
 - Automatically register all necessary **JWT authentication** and **authorization** services.
-- Load your configured realms and validate tokens issued by them.
+- Load your configured realms and validate tokens issued by them when it arrives to your api.
 
-> 💡 You should ensure that `applicationSettings.Realms` contains the same configuration from your `appsettings.json`.
+> 💡 I recommend you create a class called Settings and map the appsettings.json on this class, you can merge your personal appsettings config and also add the Realm array that is required for Feijuca. For example:
 
-
----
-
-### 🛡️ Step 4: Configure Public (Unprotected) Routes
-
-By default, **Feijuca.Auth** will protect all your API routes with authentication and authorization.
-
-However, in some cases — like webhooks or public endpoints — you might want certain routes to be accessible **without requiring a token**.  
-To support this, you can use the provided middleware.
-
-Add the following to your `Program.cs` file:
-
-```csharp
-app.UseTenantMiddleware(options =>
+```json
 {
-    options.AvailableUrls = ["webhook"];
-});
+  "Settings": {
+    "Realms": [
+      {
+        "Name": "smartconsig",
+        "Issuer": "https://services-keycloak.ul0sru.easypanel.host/realms/smartconsig"
+      }
+    ]
+  }
+}
+
 ```
 
-This tells **Feijuca** to **ignore authentication and authorization** for any route that contains `"webhook"` in its path.
+```csharp
+public class Settings
+{
+    public required IEnumerable<Realm> Realms { get; set; }
+}
+```
 
-✅ Use this when you need external systems to send requests without authentication.
+```csharp
+var applicationSettings = builder.Configuration.GetSection("Settings").Get<Settings>();
+```
 
 ---
 
-Alternatively, you can also use the `[AllowAnonymous]` or `[Authorize]` attributes in your controllers to control access per endpoint, as you're used to in .NET.
+### 🛡 Reviewing the Changes
+
+With these simple changes, you'll be able to add a security layer to your API using **Feijuca.Auth**.  
+
+For a practical example of how to configure it, check out this [sample Program.cs](https://github.com/fmattioli/Feijuca.Auth/blob/main/src/NuGet/Feijuca.Auth.Api.Tests/Program.cs) in the **Feijuca.Auth** repository on GitHub.
 
 ---
 
-Once this is done, your setup is complete! 🎉
+### 🔒 Next Steps: Protecting Your Endpoints
 
-Click **Next** to learn how to protect your endpoints — the process is very familiar if you’ve worked with `.NET` before.
+In the next step, we will dive deeper into securing your API endpoints.  
+You will learn how to properly handle authentication and authorization by:
+
+- Returning a **401 Unauthorized** response when the request contains an invalid or missing token, ensuring only authenticated users can access protected resources.
+- Returning a **403 Forbidden** response when a user is authenticated but lacks the necessary permissions to access a particular endpoint, enforcing fine-grained access control.
+
+Additionally, we'll explore best practices to implement these protections seamlessly in your .NET API using Feijuca.Auth, so you can provide a secure and robust experience for your users.
+
+Let's go enhance your application's trustworthiness and with a easily way!
