@@ -91,10 +91,10 @@ public static class TenantAuthExtensions
                     return;
                 }
 
-                //if (ValidateIssuer(context, token, tenantRealm!.Issuer!).Equals(false))
-                //{
-                //    return;
-                //}
+                if (ValidateIssuer(context, token, tenantRealm!.Issuer!).Equals(false))
+                {
+                    return;
+                }
 
                 var tokenValidationParameters = await GetTokenValidationParameters(token);
                 var claims = new JwtSecurityTokenHandler().ValidateToken(token, tokenValidationParameters, out var _);
