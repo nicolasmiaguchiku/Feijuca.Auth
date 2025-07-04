@@ -21,13 +21,6 @@ var app = builder.Build();
 app.MapOpenApi();
 app.MapScalarApiReference();
 
-app.UseCors("AllowAllOrigins")
-   .UseHttpsRedirection()
-   .UseAuthorization()
-   .UseTenantMiddleware(options =>
-   {
-       options.AvailableUrls = ["webhook"];
-   });
 
 app.MapControllers();
 

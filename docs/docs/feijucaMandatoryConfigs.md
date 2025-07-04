@@ -38,7 +38,7 @@ Use the following command to start the API:
 ```bash
 docker run \
   -e ConnectionString="mongodb://<username>:<password>@<host>:<port>" \
-  -e DatabaseName="feijuca-auth" \
+  -e DatabaseName="FeijucaAuth" \
   coderaw/feijuca-auth-api:latest
 ```
 
@@ -49,8 +49,8 @@ docker run \
 
 #### 🛠️ Step 3: Inserting the Initial Configurations Using the API
 
-After accessing the URL where **Feijuca.Auth.Api** is running and appending `/swagger` or `/scalar`, you will see all the available API endpoints.  
-However, on this moment these are only definitions of the endpoints. 
+After accessing the URL where **Feijuca.Auth.Api** is running by adding `/swagger` or `/scalar` to the url, you will see all the available API endpoints.  
+However, on this moment these are only definitions of the endpoints is not possible use them before do the below configs. 
 
 🚧 **Before you can use them, if you try to make a request now, you'll receive an error due to missing configuration.**
 
@@ -60,7 +60,8 @@ To insert this realm configuration, send an **HTTP POST** request to the `/api/v
 
 #### 🛠️ Step 4: Inserting the configurations
 
-> **Existing realm:** If you already have a realm and want to configure Feijuca there, no problem — it’s fully supported. Use configs/existing-realm  to do that.
+> **Existing realm:** If you already have a realm and want to configure Feijuca there, no problem — it’s fully supported. Use configs/existing-realm  to do that. Configuring above a existing realm enables you use the default configuration that you already have on your Keycloak instance.
+
 > **New realm:** If you want to create a new realm, you can do that as well. Use configs/new-realm  to do that.
 
 🖥️ Body example

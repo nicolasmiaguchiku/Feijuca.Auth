@@ -7,7 +7,7 @@
       href: feijucaMandatoryConfigs.md
           
 - name: Authentication & Authorization Setup
-  href: configuringApplicationMultiTenancy.md
+  href: configuringOnYourProject.md
   items:
     - name: Integration in .NET Project
       href: configuringApplicationMultiTenancy.md

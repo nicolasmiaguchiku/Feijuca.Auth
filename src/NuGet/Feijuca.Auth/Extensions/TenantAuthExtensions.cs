@@ -181,8 +181,8 @@ public static class TenantAuthExtensions
 
         return true;
     }
-    
-    
+
+
     private static bool ValidateIssuer(MessageReceivedContext context, string jwtToken, string configIssuer)
     {
         var handler = new JwtSecurityTokenHandler();

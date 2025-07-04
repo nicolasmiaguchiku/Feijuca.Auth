@@ -39,8 +39,8 @@ This separation ensures a clean distinction between:
 
 ### 🧭 Summary
 
-- ✅ **Using .NET?** Use the NuGet package for seamless route protection, token inspection, and custom middleware configurations.
-- 🌐 **Using another language?** Interact with Feijuca.Auth through the REST API — no .NET required.
+- ✅ **Using .NET?** Use both NuGet package for seamless route protection, token inspection, and custom middleware configurations and use REST API to handle actions on Keycloak.
+- 🌐 **Using another language?** Interact with Feijuca.Auth through the REST API to handle actions on Keycloak.
 - 🔐 Whether you need clearer definitions for Keycloak endpoints or a complete RBAC system, **Feijuca.Auth is designed to be your end-to-end solution** for authentication and authorization.
 
 ---

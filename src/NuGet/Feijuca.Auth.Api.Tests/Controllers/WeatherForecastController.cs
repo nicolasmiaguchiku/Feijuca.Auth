@@ -6,7 +6,6 @@ namespace Feijuca.Auth.Api.Tests.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class WeatherForecastController() : ControllerBase
     {
         private static readonly string[] Summaries =
@@ -16,6 +15,7 @@ namespace Feijuca.Auth.Api.Tests.Controllers
 
         [HttpGet(Name = "GetWeatherForecast")]
         [RequiredRole("GetDailyOperation")]
+        [Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
             return [.. Enumerable.Range(1, 5).Select(index => new WeatherForecast
