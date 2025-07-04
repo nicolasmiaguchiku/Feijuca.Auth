@@ -141,7 +141,7 @@ jobs:
 
       - name: Build Docker image
         if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
-        run: docker build -t "coderaw/feijuca-auth-api:$VERSION" .
+        run: docker build -t "fmattioli/feijuca-auth-api:$VERSION" .
   
       - name: Login to Docker Hub
         if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
