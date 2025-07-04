@@ -12,7 +12,7 @@
     <PackageTags>keycloak, authorization, auth, jwt</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>1.53.0</Version>
-    <PackageIcon>black-white.png</PackageIcon>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -29,7 +29,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\..\black-white.png">
+    <None Include="..\..\..\icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

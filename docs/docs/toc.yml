@@ -7,17 +7,18 @@
       href: feijucaMandatoryConfigs.md
           
 - name: Authentication & Authorization Setup
-  href: configuringOnYourProject.md
   items:
-    - name: Integration in .NET Project
-      href: configuringApplicationMultiTenancy.md
-    - name: Protecting endpoints
-      href: Securing API Endpoints
-    - name: Feijuca.Auth Http Client
-      href: configuringApplicationMultiTenancy.md
-      
+    - name: Integrate Feijuca.Auth
+      href: configuringOnYourProject.md
+    - name: Protect API Endpoints
+      href: securingApiEndpoints.md
+    - name: Using Multi-tenancy concept
+      href: multiTenancyConcept.md            
+    - name: Feijuca.Auth HTTP Client
+      href: feijucaHttpClient.md
+   
 - name: REST API Management
-  href: configuringApplicationMultiTenancy.md     
+  href: endpointsDocumentation.md     
   items:    
     - name: Handling Users
       href: gettingUsers.md

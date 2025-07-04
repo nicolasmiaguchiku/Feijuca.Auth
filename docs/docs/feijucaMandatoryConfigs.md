@@ -85,7 +85,8 @@ curl https://localhost:7018/api/v1/configs/new-realm \
     "url": "" --Here you have to put the URL where your Keycloak instance is running, e.g. https://localhost:port
   },
   "realm": {
-    "name": -- Choose a new realm name or set an existing one
+    "name": -- Choose a new realm name or set an existing one,
+	"issuer": "serverSettings-url/realmname"
   }
 }'
 
