@@ -10,11 +10,11 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
     {
         public static IServiceCollection AddSwagger(this IServiceCollection services, KeycloakSettings? keycloakSettings)
         {
-            var realmName = keycloakSettings?.Realms?.FirstOrDefault(x => x.DefaultSwaggerTokenGeneration)?.Name ?? "";            
+            var realmName = keycloakSettings?.Realms?.FirstOrDefault(x => x.DefaultSwaggerTokenGeneration)?.Name ?? "";
 
             if (keycloakSettings is not null && !string.IsNullOrEmpty(realmName))
             {
-                var url = keycloakSettings?.ServerSettings.Url
+                var url = keycloakSettings.ServerSettings.Url
                     .AppendPathSegment("realms")
                     .AppendPathSegment(realmName)
                     .AppendPathSegment($"/protocol/openid-connect/token");
@@ -23,15 +23,27 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
                 {
                     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Feijuca.Auth.Api", Version = "v1" });
 
-                    c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                     {
-                        Type = SecuritySchemeType.OAuth2,
-                        Flows = new OpenApiOAuthFlows
+                        Description = "Inform a token JWT valid following format: Bearer {token}",
+                        Name = "Authorization",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "Bearer"
+                    });
+
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
                         {
-                            Password = new OpenApiOAuthFlow
+                            new OpenApiSecurityScheme
                             {
-                                TokenUrl = new Uri(url),
-                            }
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            Array.Empty<string>()
                         }
                     });
 

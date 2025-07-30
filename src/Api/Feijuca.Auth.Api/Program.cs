@@ -45,7 +45,7 @@ builder.Services
 var app = builder.Build();
 
 app.MapOpenApi();
-app.MapScalarApiReference();
+app.MapScalarApiReference(options => options.Servers = []);
 
 app.UseCors("AllowAllOrigins")
    .UseExceptionHandler()
@@ -53,7 +53,6 @@ app.UseCors("AllowAllOrigins")
    .UseSwaggerUI(c =>
    {
        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Feijuca.Auth.Api");
-       c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
    });
 
 if (KeycloakSettings?.Realms?.Any() ?? false)
