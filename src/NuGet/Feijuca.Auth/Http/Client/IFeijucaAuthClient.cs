@@ -1,5 +1,5 @@
-﻿using Coderaw.Settings.Http;
-using Coderaw.Settings.Models;
+﻿using Mattioli.Configurations.Http;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Http.Responses;
 
 namespace Feijuca.Auth.Http.Client
