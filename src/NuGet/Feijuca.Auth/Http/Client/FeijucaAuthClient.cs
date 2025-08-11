@@ -20,6 +20,19 @@ namespace Feijuca.Auth.Http.Client
             return Result<TokenDetailsResponse>.Success(result);
         }
 
+        public async Task<Result<TokenDetailsResponse>> AuthenticateUserAsync(string username, string password, CancellationToken cancellationToken)
+        {
+            var result = await PostAsync<LoginUserRequest, TokenDetailsResponse>("api/v1/users/login", new LoginUserRequest(username, password), cancellationToken);
+
+            if (string.IsNullOrEmpty(result.AccessToken))
+            {
+                return Result<TokenDetailsResponse>.Failure(FeijucaErrors.GenerateTokenError);
+            }
+
+            return Result<TokenDetailsResponse>.Success(result);
+        }
+
+
         public async Task<Result<UserResponse>> GetUserAsync(string userame, string jwtToken, CancellationToken cancellationToken)
         {
             var url = $"users?Usernames={userame}";
