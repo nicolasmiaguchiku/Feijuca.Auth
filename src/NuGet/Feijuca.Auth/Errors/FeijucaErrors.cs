@@ -1,4 +1,4 @@
-﻿using Coderaw.Settings.Models;
+﻿using Mattioli.Configurations.Models;
 
 namespace Feijuca.Auth.Errors
 {

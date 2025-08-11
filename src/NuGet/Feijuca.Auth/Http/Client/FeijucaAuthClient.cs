@@ -1,5 +1,5 @@
-﻿using Coderaw.Settings.Http;
-using Coderaw.Settings.Models;
+﻿using Mattioli.Configurations.Http;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Errors;
 using Feijuca.Auth.Http.Requests;
 using Feijuca.Auth.Http.Responses;
@@ -19,6 +19,19 @@ namespace Feijuca.Auth.Http.Client
 
             return Result<TokenDetailsResponse>.Success(result);
         }
+
+        public async Task<Result<TokenDetailsResponse>> AuthenticateUserAsync(string username, string password, CancellationToken cancellationToken)
+        {
+            var result = await PostAsync<LoginUserRequest, TokenDetailsResponse>("users/login", new LoginUserRequest(username, password), cancellationToken);
+
+            if (string.IsNullOrEmpty(result.AccessToken))
+            {
+                return Result<TokenDetailsResponse>.Failure(FeijucaErrors.GenerateTokenError);
+            }
+
+            return Result<TokenDetailsResponse>.Success(result);
+        }
+
 
         public async Task<Result<UserResponse>> GetUserAsync(string userame, string jwtToken, CancellationToken cancellationToken)
         {
