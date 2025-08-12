@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Application.Mappers;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Http.Responses;
 using Feijuca.Auth.Models;
@@ -16,7 +16,7 @@ namespace Feijuca.Auth.Application.Commands.User
 
             var result = await userRepository.LoginAsync(request.LoginUser.Username, request.LoginUser.Password, cancellationToken);
 
-            return result.IsSuccess ? Result<TokenDetailsResponse>.Success(result.Response.ToTokenDetailResponse()) : Result<TokenDetailsResponse>.Failure(result.Error);
+            return result.IsSuccess ? Result<TokenDetailsResponse>.Success(result.Data.ToTokenDetailResponse()) : Result<TokenDetailsResponse>.Failure(result.Error);
         }
     }
 }

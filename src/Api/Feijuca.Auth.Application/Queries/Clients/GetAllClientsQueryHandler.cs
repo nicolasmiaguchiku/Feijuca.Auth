@@ -14,7 +14,7 @@ namespace Feijuca.Auth.Application.Queries.Clients
 
             if (clientsResult.IsSuccess)
             {
-                var clients = clientsResult.Response.Select(x => new ClientResponse(x.Enabled, x.Id, x.ClientId));
+                var clients = clientsResult.Data.Select(x => new ClientResponse(x.Enabled, x.Id, x.ClientId));
                 return clients;
             }
 

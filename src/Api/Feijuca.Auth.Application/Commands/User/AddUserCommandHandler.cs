@@ -1,4 +1,4 @@
-﻿using Feijuca.Auth.Common.Models;
+﻿using Mattioli.Configurations.Models;
 using Feijuca.Auth.Application.Mappers;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
@@ -17,11 +17,11 @@ namespace Feijuca.Auth.Application.Commands.User
             if (result.IsSuccess)
             {
                 var keycloakUser = await _userRepository.GetAsync(request.Tenant, user.Username, cancellationToken);
-                result = await _userRepository.ResetPasswordAsync(keycloakUser.Response.Id, request.Tenant, user.Password, cancellationToken);
+                result = await _userRepository.ResetPasswordAsync(keycloakUser.Data.Id, request.Tenant, user.Password, cancellationToken);
 
                 if (result.IsSuccess)
                 {
-                    return Result<Guid>.Success(keycloakUser.Response.Id);
+                    return Result<Guid>.Success(keycloakUser.Data.Id);
                 }
             }
 

@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Services;
@@ -14,7 +14,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<IEnumerable<Role>>> GetRolesForClientAsync(string clientId, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -41,7 +41,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<bool>> AddClientRoleAsync(string clientId, string name, string description, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")

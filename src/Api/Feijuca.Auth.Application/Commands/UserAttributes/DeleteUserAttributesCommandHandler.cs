@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Services;
 using MediatR;
@@ -12,17 +12,17 @@ namespace Feijuca.Auth.Application.Commands.UserAttributes
         {
             var user = await userRepository.GetAsync(tenantService.Tenant.Name, request.Username, cancellationToken);
 
-            if (user?.Response == null)
+            if (user?.Data == null)
             {
                 return Result<bool>.Failure(UserErrors.ErrorWhileAddedUserAttribute);
             }
 
             foreach (var key in request.DeleteUserAttributeRequest)
             {
-                user.Response.Attributes.Remove(key);
+                user.Data.Attributes.Remove(key);
             }
 
-            var result = await userRepository.UpdateUserAsync(user.Response.Id, user.Response, cancellationToken);
+            var result = await userRepository.UpdateUserAsync(user.Data.Id, user.Data, cancellationToken);
 
             if (result.IsSuccess)
             {

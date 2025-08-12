@@ -1,5 +1,6 @@
-﻿using Feijuca.Auth.Common.Models;
+﻿using Mattioli.Configurations.Models;
 using FluentValidation;
+using Feijuca.Auth.Common.Models;
 
 namespace Feijuca.Auth.Application.Validators
 {

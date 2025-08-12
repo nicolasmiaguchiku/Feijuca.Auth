@@ -1,5 +1,4 @@
-﻿using Feijuca.Auth.Common.Models;
-using Feijuca.Auth.Application.Requests.Auth;
+﻿using Feijuca.Auth.Application.Requests.Auth;
 using Feijuca.Auth.Application.Requests.GroupUsers;
 using Feijuca.Auth.Application.Requests.Pagination;
 using Feijuca.Auth.Application.Requests.User;
@@ -7,6 +6,7 @@ using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Http.Responses;
+using Mattioli.Configurations.Models;
 
 namespace Feijuca.Auth.Application.Mappers
 {
@@ -29,20 +29,20 @@ namespace Feijuca.Auth.Application.Mappers
 
         public static IEnumerable<UserResponse> ToUsersResponse(this IEnumerable<User> users, string tenant)
         {
-            return users.Select(x => new UserResponse(x.Id, 
-                x.Enabled, 
+            return users.Select(x => new UserResponse(x.Id,
+                x.Enabled,
                 x.EmailVerified,
-                x.Username, 
-                x.Email, 
-                x.FirstName ?? "", 
-                x.LastName!, 
-                tenant, 
-                x.Totp, 
-                x.DisableableCredentialTypes, 
-                x.RequiredActions, 
-                x.NotBefore, 
+                x.Username,
+                x.Email,
+                x.FirstName ?? "",
+                x.LastName!,
+                tenant,
+                x.Totp,
+                x.DisableableCredentialTypes,
+                x.RequiredActions,
+                x.NotBefore,
                 x.CreatedTimestamp,
-                x.Access?.ToAcess(), 
+                x.Access?.ToAcess(),
                 x.Attributes));
         }
 
@@ -66,12 +66,12 @@ namespace Feijuca.Auth.Application.Mappers
         public static Result<TokenDetailsResponse> ToTokenResponse(this Result<TokenDetails> tokenDetails)
         {
             var tokenDetailsResponse = new TokenDetailsResponse(
-                tokenDetails.Response.Access_Token,
-                tokenDetails.Response.Expires_In,
-                tokenDetails.Response.Refresh_Expires_In,
-                tokenDetails.Response.Refresh_Token,
-                tokenDetails.Response.Token_Type,
-                tokenDetails.Response.Scope);
+                tokenDetails.Data.Access_Token,
+                tokenDetails.Data.Expires_In,
+                tokenDetails.Data.Refresh_Expires_In,
+                tokenDetails.Data.Refresh_Token,
+                tokenDetails.Data.Token_Type,
+                tokenDetails.Data.Scope);
 
             return Result<TokenDetailsResponse>.Success(tokenDetailsResponse);
         }

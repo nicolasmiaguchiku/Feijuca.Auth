@@ -1,5 +1,5 @@
 using Feijuca.Auth.Common.Models;
-using Feijuca.Auth.Models;
+using Mattioli.Configurations.Models;
 using MediatR;
 
 namespace Feijuca.Auth.Application.Queries.Config

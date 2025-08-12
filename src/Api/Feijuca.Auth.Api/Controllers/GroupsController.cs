@@ -2,7 +2,7 @@
 using Feijuca.Auth.Application.Queries.Groups;
 using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Attributes;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +35,7 @@ namespace Feijuca.Auth.Api.Controllers
 
             if (result.IsSuccess)
             {
-                return Ok(result.Response);
+                return Ok(result.Data);
             }
 
             var responseError = Result<string>.Failure(result.Error);

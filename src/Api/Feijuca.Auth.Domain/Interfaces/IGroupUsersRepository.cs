@@ -1,4 +1,4 @@
-﻿using Feijuca.Auth.Common.Models;
+﻿using Mattioli.Configurations.Models;
 
 namespace Feijuca.Auth.Domain.Interfaces
 {

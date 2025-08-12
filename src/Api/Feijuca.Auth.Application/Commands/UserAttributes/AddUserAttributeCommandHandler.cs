@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Services;
 
@@ -14,15 +14,15 @@ namespace Feijuca.Auth.Application.Commands.UserAttributes
             var user = await userRepository.GetAsync(tenantService.Tenant.Name, request.UserName, cancellationToken);
             if (user.IsSuccess)
             {
-                var userNewAttributes = user.Response.Attributes;
+                var userNewAttributes = user.Data.Attributes;
                 foreach (var item in request.AddUserAttributesRequest.Attributes)
                 {
                     userNewAttributes.TryAdd(item.Key, item.Value);
                 }
 
-                user.Response.Attributes = userNewAttributes;
+                user.Data.Attributes = userNewAttributes;
 
-                var result = await userRepository.UpdateUserAsync(user.Response.Id, user.Response, cancellationToken);
+                var result = await userRepository.UpdateUserAsync(user.Data.Id, user.Data, cancellationToken);
 
                 if (result.IsSuccess)
                 {

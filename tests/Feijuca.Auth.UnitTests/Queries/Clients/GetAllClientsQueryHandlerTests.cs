@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using Feijuca.Auth.Application.Queries.Clients;
 using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
 using FluentAssertions;

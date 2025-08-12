@@ -1,9 +1,9 @@
 ﻿using Feijuca.Auth.Application.Mappers;
-using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
+using Feijuca.Auth.Application.Responses;
 
 namespace Feijuca.Auth.Application.Queries.Groups
 {
@@ -19,11 +19,11 @@ namespace Feijuca.Auth.Application.Queries.Groups
             {
                 if (request.NotDisplayInternalGroups)
                 {
-                    var results = result.Response.Where(x => x.Name != "feijuca-auth-api");
+                    var results = result.Data.Where(x => x.Name != "feijuca-auth-api");
                     return Result<IEnumerable<GroupResponse>>.Success(results.ToResponse());
                 }
 
-                return Result<IEnumerable<GroupResponse>>.Success(result.Response.ToResponse());
+                return Result<IEnumerable<GroupResponse>>.Success(result.Data.ToResponse());
             }
 
             return Result<IEnumerable<GroupResponse>>.Failure(GroupErrors.CreationGroupError);

@@ -60,7 +60,7 @@ public class ClientsController(IMediator mediator) : ControllerBase
 
         if (result.IsSuccess)
         {
-            return Created("/", result.Response);
+            return Created("/", result.Data);
         }
 
         return BadRequest("Error while tried created client.");

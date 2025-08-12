@@ -34,7 +34,7 @@ namespace Feijuca.Auth.Api.Controllers
 
             if (result.IsSuccess)
             {
-                return Ok(result.Response);
+                return Ok(result.Data);
             }
 
             return BadRequest(result.Error);

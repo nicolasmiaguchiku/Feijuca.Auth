@@ -3,12 +3,13 @@ using Feijuca.Auth.Application.Queries.Users;
 using Feijuca.Auth.Application.Requests.Auth;
 using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Attributes;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Http.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Feijuca.Auth.Http.Responses;
 
 namespace Feijuca.Auth.Api.Controllers;
 
@@ -44,7 +45,7 @@ public class UsersController(IMediator mediator) : ControllerBase
 
         if (result.IsSuccess)
         {
-            return Ok(result.Response);
+            return Ok(result.Data);
         }
 
         return BadRequest(result.Error);
@@ -76,7 +77,7 @@ public class UsersController(IMediator mediator) : ControllerBase
 
         if (result.IsSuccess)
         {
-            return Created($"/api/v1/users", result.Response);
+            return Created($"/api/v1/users", result.Data);
         }
 
         return BadRequest(result.Error);
@@ -105,7 +106,7 @@ public class UsersController(IMediator mediator) : ControllerBase
         if (result.IsSuccess)
         {
             var response = Result<bool>.Success(true);
-            return Accepted(response.Response);
+            return Accepted(response.Data);
         }
 
         return BadRequest(result.Error);
@@ -215,8 +216,8 @@ public class UsersController(IMediator mediator) : ControllerBase
 
         if (result.IsSuccess)
         {
-            var response = Result<TokenDetailsResponse>.Success(result.Response);
-            return Ok(response.Response);
+            var response = Result<TokenDetailsResponse>.Success(result.Data);
+            return Ok(response.Data);
         }
 
         return BadRequest(result.Error);
@@ -276,7 +277,7 @@ public class UsersController(IMediator mediator) : ControllerBase
 
         if (result.IsSuccess)
         {
-            return Ok(result.Response);
+            return Ok(result.Data);
         }
 
         return BadRequest(result.Error);

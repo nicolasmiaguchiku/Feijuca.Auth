@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Services;
 
@@ -20,7 +20,7 @@ namespace Feijuca.Auth.Application.Queries.UserAttributes
                 return Result<Dictionary<string, string[]>>.Failure(UserErrors.GetAllUsersError);
             }
 
-            var attributes = result.Response.Attributes;
+            var attributes = result.Data.Attributes;
             return Result<Dictionary<string, string[]>>.Success(attributes);
         }
 

@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Application.Requests.UsersAttributes;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.UserAttributes

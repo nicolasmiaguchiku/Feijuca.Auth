@@ -1,8 +1,9 @@
 ﻿using AutoFixture;
 using Feijuca.Auth.Application.Validators;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Models;
 using FluentAssertions;
+using Feijuca.Auth.Common.Models;
 
 namespace Feijuca.Auth.Api.UnitTests.Validators
 {

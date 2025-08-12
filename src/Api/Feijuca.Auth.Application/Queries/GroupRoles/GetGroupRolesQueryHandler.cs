@@ -1,9 +1,9 @@
 ﻿using Feijuca.Auth.Application.Mappers;
-using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
+using Feijuca.Auth.Application.Responses;
 
 namespace Feijuca.Auth.Application.Queries.GroupRoles
 {
@@ -17,7 +17,7 @@ namespace Feijuca.Auth.Application.Queries.GroupRoles
 
             if (groupsRolesResult.IsSuccess)
             {
-                return Result<IEnumerable<GroupRolesResponse>>.Success(groupsRolesResult.Response.ToResponse());
+                return Result<IEnumerable<GroupRolesResponse>>.Success(groupsRolesResult.Data.ToResponse());
             }
 
             return Result<IEnumerable<GroupRolesResponse>>.Failure(GroupErrors.GetUsersInGroupsError);

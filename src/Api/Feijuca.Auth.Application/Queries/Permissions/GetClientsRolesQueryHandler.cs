@@ -1,8 +1,8 @@
 ﻿using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
-using Feijuca.Auth.Application.Responses;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
+using Feijuca.Auth.Application.Responses;
 
 namespace Feijuca.Auth.Application.Queries.Permissions
 {
@@ -17,13 +17,13 @@ namespace Feijuca.Auth.Application.Queries.Permissions
             if (result.IsSuccess)
             {
                 var roleResponse = new List<ClientRoleResponse>();
-                foreach (var client in result.Response)
+                foreach (var client in result.Data)
                 {
                     var rolesResult = await _roleRepository.GetRolesForClientAsync(client.Id, cancellationToken);
 
                     if (rolesResult.IsSuccess)
                     {
-                        var rolesResponse = rolesResult.Response.Select(x => new RoleResponse(x.Id, x.Name, x.Description ?? "", false, false, string.Empty));
+                        var rolesResponse = rolesResult.Data.Select(x => new RoleResponse(x.Id, x.Name, x.Description ?? "", false, false, string.Empty));
                         roleResponse.Add(new ClientRoleResponse(client.ClientId, client.Id, rolesResponse));
                     }
                 }

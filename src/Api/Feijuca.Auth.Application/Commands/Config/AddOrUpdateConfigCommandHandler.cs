@@ -1,7 +1,7 @@
 ﻿using Feijuca.Auth.Application.Mappers;
 using Feijuca.Auth.Common;
 using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Models;
 using Feijuca.Auth.Services;

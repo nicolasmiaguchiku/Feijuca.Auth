@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
 
@@ -19,8 +19,8 @@ public class AddClientRoleToGroupCommandHandler(IGroupRepository groupRepository
 
         if (groupsResult.IsSuccess && rolesResult.IsSuccess)
         {
-            var group = groupsResult.Response.FirstOrDefault(x => x.Id == request.GroupId);
-            var role = rolesResult.Response.FirstOrDefault(x => x.Id == request.AddRoleToGroupRequest.RoleId);
+            var group = groupsResult.Data.FirstOrDefault(x => x.Id == request.GroupId);
+            var role = rolesResult.Data.FirstOrDefault(x => x.Id == request.AddRoleToGroupRequest.RoleId);
 
             if (group != null && role != null)
             {

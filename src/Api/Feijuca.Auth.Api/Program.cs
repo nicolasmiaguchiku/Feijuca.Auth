@@ -1,9 +1,8 @@
-using Coderaw.Settings.Extensions.Handlers;
-using Coderaw.Settings.Transformers;
-using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Extensions;
 using Feijuca.Auth.Infra.CrossCutting.Extensions;
 using Feijuca.Auth.Infra.CrossCutting.Middlewares;
+using Mattioli.Configurations.Extensions.Handlers;
+using Mattioli.Configurations.Transformers;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +24,7 @@ builder.Services
     .AddServices()
     .AddOpenApi("v1", options => { options.AddDocumentTransformer<BearerSecuritySchemeTransformer>(); })
     .AddMongo(applicationSettings)
-    .AddApiAuthentication(out KeycloakSettings KeycloakSettings)
+    .AddApiAuthentication(out Feijuca.Auth.Common.Models.KeycloakSettings KeycloakSettings)
     .AddEndpointsApiExplorer()
     .AddSwagger(KeycloakSettings)
     .AddHttpClients()

@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using Feijuca.Auth.Application.Queries.GroupUser;
 using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
@@ -110,7 +110,7 @@ namespace Feijuca.Auth.Api.UnitTests.Queries.GroupUser
                 .BeTrue();
 
             result
-                .Response
+                .Data
                 .Should()
                 .NotBeNull();
 

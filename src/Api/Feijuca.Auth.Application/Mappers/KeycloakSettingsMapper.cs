@@ -1,5 +1,6 @@
 ﻿using Feijuca.Auth.Application.Requests.Config;
 using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 
 namespace Feijuca.Auth.Application.Mappers
 {

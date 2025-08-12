@@ -1,24 +1,23 @@
-﻿using Feijuca.Auth.Common;
-using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+﻿using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Services;
 using Flurl;
+using Mattioli.Configurations.Models;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
-    public class ClientRepository(IHttpClientFactory httpClientFactory, 
-        IAuthRepository _authRepository, 
+    public class ClientRepository(IHttpClientFactory httpClientFactory,
+        IAuthRepository _authRepository,
         ITenantService _tenantService) : BaseRepository(httpClientFactory), IClientRepository
     {
         public async Task<bool> CreateClientAsync(ClientEntity client, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
 
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
             var url = httpClient.BaseAddress
                    .AppendPathSegment("admin")
                    .AppendPathSegment("realms")
@@ -56,8 +55,8 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<ClientEntity>> GetClientAsync(string clientId, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
-            
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
                     .AppendPathSegment("realms")
@@ -80,7 +79,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<IEnumerable<ClientEntity>>> GetClientsAsync(CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")

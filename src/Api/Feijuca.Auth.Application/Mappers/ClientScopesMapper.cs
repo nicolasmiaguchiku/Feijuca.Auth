@@ -1,6 +1,6 @@
 ﻿using Feijuca.Auth.Application.Requests.ClientScopes;
-using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Domain.Entities;
+using Feijuca.Auth.Application.Responses;
 
 namespace Feijuca.Auth.Application.Mappers
 {

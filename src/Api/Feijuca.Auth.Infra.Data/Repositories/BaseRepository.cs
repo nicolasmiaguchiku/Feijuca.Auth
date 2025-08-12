@@ -1,4 +1,4 @@
-﻿using Feijuca.Auth.Common.Models;
+﻿using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using System.Net.Http.Headers;
 using System.Threading;

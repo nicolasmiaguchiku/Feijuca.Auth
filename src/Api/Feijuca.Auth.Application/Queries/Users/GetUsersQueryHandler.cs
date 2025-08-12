@@ -1,11 +1,11 @@
 ﻿using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Application.Mappers;
-using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
 using Feijuca.Auth.Http.Responses;
 using Feijuca.Auth.Services;
+using Feijuca.Auth.Application.Responses;
 
 namespace Feijuca.Auth.Application.Queries.Users
 {
@@ -21,11 +21,11 @@ namespace Feijuca.Auth.Application.Queries.Users
                 return Result<PagedResult<UserResponse>>.Failure(UserErrors.GetAllUsersError);
             }
 
-            var filteredUsers = result.Response.AsEnumerable();
+            var filteredUsers = result.Data.AsEnumerable();
 
             if (request.GetUsersRequest.Usernames?.Any() ?? false)
             {
-                filteredUsers = result.Response
+                filteredUsers = result.Data
                     .Where(x => request.GetUsersRequest.Usernames.Any(filter => x.Username.Contains(filter, StringComparison.OrdinalIgnoreCase)));
             }
 

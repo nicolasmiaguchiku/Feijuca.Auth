@@ -1,7 +1,7 @@
 ﻿using Feijuca.Auth.Application.Mappers;
-using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
+using Feijuca.Auth.Application.Responses;
 
 namespace Feijuca.Auth.Application.Queries.ClientScopes
 {

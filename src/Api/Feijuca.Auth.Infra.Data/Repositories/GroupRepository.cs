@@ -1,6 +1,6 @@
 ﻿using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Extensions;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
@@ -20,7 +20,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
             if (tokenDetailsResult.IsSuccess)
             {
-                using var httpClient = CreateHttpClientWithHeaders(tokenDetailsResult.Response.Access_Token);
+                using var httpClient = CreateHttpClientWithHeaders(tokenDetailsResult.Data.Access_Token);
 
                 var url = httpClient.BaseAddress
                         .AppendPathSegment("admin")
@@ -41,7 +41,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result> CreateAsync(string name, Dictionary<string, string[]> attributes, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -70,7 +70,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result> DeleteAsync(string id, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -92,7 +92,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string id, UserFilters userFilters, int totalUsers, CancellationToken cancellationToken)
         {            
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
             int first = (userFilters.PageFilter.PageNumber - 1) * totalUsers;
 
             var url = httpClient.BaseAddress

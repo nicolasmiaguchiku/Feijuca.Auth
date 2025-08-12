@@ -20,7 +20,7 @@ using Feijuca.Auth.Application.Requests.Realm;
 using Feijuca.Auth.Application.Requests.Role;
 using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Common;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Feijuca.Auth.Application.Mappers;
@@ -72,25 +72,33 @@ namespace Feijuca.Auth.Api.Controllers
 
         private async Task<IActionResult> AddOrUpdateClientConfigs(AddKeycloakSettingsRequest addKeycloakSettings, bool includeRealm, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new AddOrUpdateConfigCommand(addKeycloakSettings.ToMapper()), cancellationToken);
-
-            if (includeRealm)
+            try
             {
-                var addRealmRequest = new AddRealmRequest(addKeycloakSettings.Realm.Name!.ToLower(), "", addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration);
-                var realmResult = await _mediator.Send(new AddRealmsCommand([addRealmRequest]), cancellationToken);
-                if (realmResult.IsFailure)
+                await _mediator.Send(new AddOrUpdateConfigCommand(addKeycloakSettings.ToMapper()), cancellationToken);
+
+                if (includeRealm)
                 {
-                    return BadRequest("Failed to create realm.");
+                    var addRealmRequest = new AddRealmRequest(addKeycloakSettings.Realm.Name!.ToLower(), "", addKeycloakSettings.Realm.DefaultSwaggerTokenGeneration);
+                    var realmResult = await _mediator.Send(new AddRealmsCommand([addRealmRequest]), cancellationToken);
+                    if (realmResult.IsFailure)
+                    {
+                        return BadRequest("Failed to create realm.");
+                    }
                 }
-            }
 
-            var clientAndClientScopeResult = await HandleClientScopesRolesGroupRole(addKeycloakSettings, cancellationToken);
-            if (clientAndClientScopeResult.IsFailure)
+                var clientAndClientScopeResult = await HandleClientScopesRolesGroupRole(addKeycloakSettings, cancellationToken);
+                if (clientAndClientScopeResult.IsFailure)
+                {
+                    return BadRequest("Failed when tried added basic configurations.");
+                }
+
+                return Created("/api/v1/config", "Initial configs created successfully!");
+            }
+            catch
             {
-                return BadRequest("Failed when tried added basic configurations.");
+                await _mediator.Send(new DeleteRealmCommand(addKeycloakSettings.Realm.Name!), cancellationToken);
+                throw;
             }
-
-            return Created("/api/v1/config", "Initial configs created successfully!");
 
         }
 
@@ -152,8 +160,8 @@ namespace Feijuca.Auth.Api.Controllers
             var clientRoles = await _mediator.Send(new GetClientRolesQuery(), cancellationToken);
             var groups = await _mediator.Send(new GetAllGroupsQuery(false), cancellationToken);
 
-            var feijucaGroup = groups.Response.FirstOrDefault(x => x.Name == Constants.FeijucaGroupName);
-            var feijucaRoles = clientRoles.Response.FirstOrDefault(x => x.Id == feijucaClient.Id)!.Roles;
+            var feijucaGroup = groups.Data.FirstOrDefault(x => x.Name == Constants.FeijucaGroupName);
+            var feijucaRoles = clientRoles.Data.FirstOrDefault(x => x.Id == feijucaClient.Id)!.Roles;
 
             foreach (var roleName in new[] { Constants.FeijucaRoleReadName, Constants.FeijucaRoleWriterName })
             {
@@ -172,7 +180,7 @@ namespace Feijuca.Auth.Api.Controllers
 
             var userId = await _mediator.Send(new AddUserCommand(keyCloakSettings.Realm.Name ?? "No Tenant", addUserRequest), cancellationToken);
 
-            await _mediator.Send(new AddUserToGroupCommand(userId.Response, Guid.Parse(feijucaGroup!.Id)), cancellationToken);
+            await _mediator.Send(new AddUserToGroupCommand(userId.Data, Guid.Parse(feijucaGroup!.Id)), cancellationToken);
 
             return Result.Success();
         }

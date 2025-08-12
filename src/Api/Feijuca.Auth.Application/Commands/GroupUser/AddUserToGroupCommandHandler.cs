@@ -1,4 +1,4 @@
-﻿using Feijuca.Auth.Common.Models;
+﻿using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using MediatR;
 
@@ -14,7 +14,7 @@ namespace Feijuca.Auth.Application.Commands.GroupUser
 
             if (result.IsSuccess)
             {
-                return Result<bool>.Success(result.Response);
+                return Result<bool>.Success(result.Data);
             }
 
             return Result<bool>.Failure(result.Error);

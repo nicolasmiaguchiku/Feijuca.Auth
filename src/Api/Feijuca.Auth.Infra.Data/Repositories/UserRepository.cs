@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Common.Errors;
-using Feijuca.Auth.Common.Models;
+using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
@@ -30,7 +30,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<IEnumerable<User>>> GetAllAsync(UserFilters userFilters, int totalUsers, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             int first = (userFilters.PageFilter.PageNumber - 1) * userFilters.PageFilter.PageSize;
 
@@ -54,7 +54,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<int> GetTotalAsync(CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var urlGetUsers = httpClient.BaseAddress
                 .AppendPathSegment("admin")
@@ -74,7 +74,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<bool>> DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")
@@ -96,7 +96,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<bool>> CreateAsync(string tenant, User user, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -125,7 +125,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -151,7 +151,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<bool>> ResetPasswordAsync(Guid id, string tenant, string password, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -185,7 +185,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result> SendEmailVerificationAsync(string userId, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress!
                 .ToString()
@@ -219,7 +219,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<bool>> RevokeSessionsAsync(Guid id, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress!
                 .ToString()
@@ -256,8 +256,8 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var requestData = new FormUrlEncodedContent(
             [
                 new KeyValuePair<string, string>("grant_type", "password"),
-                new KeyValuePair<string, string>("client_id", client.Response.ClientId),
-                new KeyValuePair<string, string>("client_secret", client.Response.Secret),
+                new KeyValuePair<string, string>("client_id", client.Data.ClientId),
+                new KeyValuePair<string, string>("client_secret", client.Data.Secret),
                 new KeyValuePair<string, string>("username", username),
                 new KeyValuePair<string, string>("password", password)
             ]);
@@ -290,9 +290,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
             var requestData = new FormUrlEncodedContent(
             [
-                new KeyValuePair<string, string>("client_id", client.Response.ClientId),
+                new KeyValuePair<string, string>("client_id", client.Data.ClientId),
                 new KeyValuePair<string, string>("refresh_token", refreshToken),
-                new KeyValuePair<string, string>("client_secret", client.Response.Secret)
+                new KeyValuePair<string, string>("client_secret", client.Data.Secret)
             ]);
 
             var response = await httpClient.PostAsync(urlGetToken, requestData, cancellationToken);
@@ -320,8 +320,8 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var requestData = new FormUrlEncodedContent(
             [
                 new KeyValuePair<string, string>("grant_type", "refresh_token"),
-                new KeyValuePair<string, string>("client_id", client.Response.ClientId),
-                new KeyValuePair<string, string>("client_secret", client.Response.Secret),
+                new KeyValuePair<string, string>("client_id", client.Data.ClientId),
+                new KeyValuePair<string, string>("client_secret", client.Data.Secret),
                 new KeyValuePair<string, string>("refresh_token", refreshToken),
             ]);
 
@@ -342,7 +342,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<bool>> UpdateUserAsync(Guid id, User user, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")

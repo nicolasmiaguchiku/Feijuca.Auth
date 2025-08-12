@@ -13,7 +13,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<bool> CreateRealmAsync(RealmEntity realm, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                    .AppendPathSegment("admin")
@@ -38,10 +38,26 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return false;
         }
 
+        public async Task<bool> DeleteRealmAsync(string name, CancellationToken cancellationToken)
+        {
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
+            var url = httpClient.BaseAddress
+                .AppendPathSegment("admin")
+                .AppendPathSegment("realms")
+                .AppendPathSegment(name);
+
+            using var response = await httpClient.DeleteAsync(url, cancellationToken);
+
+            return response.IsSuccessStatusCode;
+        }
+
+
         public async Task<string> GetRealmConfigAsync(string name, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                     .AppendPathSegment("admin")
@@ -64,7 +80,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<bool> UpdateRealmUnmanagedAttributePolicyAsync(string realmName, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                        .AppendPathSegment("admin")

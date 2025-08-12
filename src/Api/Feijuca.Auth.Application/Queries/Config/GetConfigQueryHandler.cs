@@ -1,6 +1,7 @@
 ﻿using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Common.Models;
 using Feijuca.Auth.Domain.Interfaces;
+using Mattioli.Configurations.Models;
 using MediatR;
 
 namespace Feijuca.Auth.Application.Queries.Config

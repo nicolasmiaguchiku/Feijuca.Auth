@@ -15,7 +15,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<bool> AddAudienceMapperAsync(string clientScopeId, CancellationToken cancellationToken)
         {
             var tokenDetails = await authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")
@@ -51,7 +51,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<bool> AddUserPropertyMapperAsync(string clientScopeId, string userPropertyName, string claimName, CancellationToken cancellationToken)
         {
             var tokenDetails = await authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")
@@ -66,7 +66,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             {
                 name = $"{claimName}-mapper",  // Nome amigável para o mapper
                 protocol = "openid-connect",
-                protocolMapper = "oidc-usermodel-property-mapper",
+                protocolMapper = "oidc-usermodel-attribute-mapper", //when wish create property type instead of attribute type use oidc-usermodel-property-mapper
                 consentRequired = false,
                 config = new Dictionary<string, string>
                 {
@@ -88,7 +88,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<bool> AddClientScopesAsync(ClientScopesEntity clientScopesEntity, CancellationToken cancellationToken)
         {
             var tokenDetails = await authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")
@@ -127,7 +127,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             CancellationToken cancellationToken)
         {
             var tokenDetails = await authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")
@@ -150,7 +150,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<IEnumerable<ClientScopeEntity>> GetClientScopesAsync(CancellationToken cancellationToken)
         {
             var tokenDetails = await authRepository.GetAccessTokenAsync(cancellationToken);
-            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Response.Access_Token);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
                 .AppendPathSegment("admin")

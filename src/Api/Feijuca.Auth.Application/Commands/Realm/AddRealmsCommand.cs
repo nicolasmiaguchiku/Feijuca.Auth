@@ -1,6 +1,5 @@
 ﻿using Feijuca.Auth.Application.Requests.Realm;
-using Feijuca.Auth.Common.Models;
-
+using Mattioli.Configurations.Models;
 using MediatR;
 
 namespace Feijuca.Auth.Application.Commands.Realm
