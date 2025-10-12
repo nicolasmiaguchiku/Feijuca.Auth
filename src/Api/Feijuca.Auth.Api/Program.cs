@@ -46,15 +46,13 @@ builder.Services
 if (!string.IsNullOrEmpty(applicationSettings.MltSettings.OpenTelemetryColectorUrl))
 {
     builder.Services.AddOpenTelemetry(applicationSettings.MltSettings);
+    builder.ConfigureTelemetryAndLogging(applicationSettings);
 }
-
-builder.ConfigureTelemetryAndLogging(applicationSettings);
 
 var app = builder.Build();
 
 app.MapOpenApi();
 app.MapScalarApiReference(options => options.Servers = []);
-
 app.UseCors("AllowAllOrigins")
    .UseExceptionHandler()
    .UseSwagger()

@@ -6,29 +6,24 @@ using Microsoft.AspNetCore.Builder;
 
 namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 {
-    public static class MltSettingsExtensions
+    public static class TelemetryExtensions
     {
-        public static bool IsValidForSentry(this MltSettings? mlt)
-        => mlt is not null &&
-        !string.IsNullOrWhiteSpace(mlt.Dsn) &&
-        !string.IsNullOrWhiteSpace(mlt.ApplicationName);
+        public static bool IsValidForSentry(this MltSettings? mlt) => mlt is { Dsn: not null or "", ApplicationName: not null or "" };
 
-        public static bool IsValidForSerilog(this MltSettings? mlt, SeqSettings? seq)
-        => mlt is not null && seq is not null &&
-        !string.IsNullOrWhiteSpace(mlt.OpenTelemetryColectorUrl) &&
-        !string.IsNullOrWhiteSpace(mlt.ApplicationName) &&
-        !string.IsNullOrWhiteSpace(seq.Url);
-    }
+        public static bool IsValidForSerilog(this MltSettings? mlt, SeqSettings? seq) =>
+            mlt is { OpenTelemetryColectorUrl: not null or "", ApplicationName: not null or "" }
+            && seq is { Url: not null or "" };
 
-    public static class MltAndLoggingExtensions
-    {
-        public static WebApplicationBuilder ConfigureTelemetryAndLogging(this WebApplicationBuilder builder, Settings applicationSettings)
+        public static WebApplicationBuilder ConfigureTelemetryAndLogging(
+            this WebApplicationBuilder builder,
+            Settings applicationSettings)
         {
-            var mlt = applicationSettings.MltSettings;
-            var seq = applicationSettings.SeqSettings;
-
-            if (mlt is null)
+            if (applicationSettings.MltSettings is not { } mlt)
+            {
                 return builder;
+            }
+
+            var seq = applicationSettings.SeqSettings;
 
             if (mlt.IsValidForSentry())
             {
@@ -37,11 +32,7 @@ namespace Feijuca.Auth.Infra.CrossCutting.Extensions
 
             if (mlt.IsValidForSerilog(seq))
             {
-                builder.Host.UseSerilog(
-                mlt.OpenTelemetryColectorUrl!,
-                mlt.ApplicationName!,
-                seq!.Url!
-                );
+                builder.Host.UseSerilog(mlt.OpenTelemetryColectorUrl, mlt.ApplicationName, seq.Url);
             }
 
             return builder;
