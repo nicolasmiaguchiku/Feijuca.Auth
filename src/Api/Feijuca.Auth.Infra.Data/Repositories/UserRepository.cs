@@ -14,8 +14,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
     public class UserRepository(IClientRepository clientRepository,
         IHttpClientFactory httpClientFactory,
         IAuthRepository authRepository,
-        ITenantService tenantService)
-        : BaseRepository(httpClientFactory), IUserRepository
+        ITenantService tenantService) : BaseRepository(httpClientFactory), IUserRepository
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly IAuthRepository _authRepository = authRepository;
@@ -245,7 +244,8 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         {
             using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
 
-            var urlGetToken = httpClient.BaseAddress.AppendPathSegment("realms")
+            var urlGetToken = httpClient.BaseAddress
+                .AppendPathSegment("realms")
                 .AppendPathSegment(_tenantService.Tenant.Name)
                 .AppendPathSegment("protocol")
                 .AppendPathSegment("openid-connect")
@@ -280,7 +280,8 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         {
             using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
 
-            var urlGetToken = httpClient.BaseAddress.AppendPathSegment("realms")
+            var urlGetToken = httpClient.BaseAddress
+                .AppendPathSegment("realms")
                 .AppendPathSegment(_tenantService.Tenant.Name)
                 .AppendPathSegment("protocol")
                 .AppendPathSegment("openid-connect")
@@ -342,6 +343,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         public async Task<Result<bool>> UpdateUserAsync(Guid id, User user, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
+
             using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
 
             var url = httpClient.BaseAddress
