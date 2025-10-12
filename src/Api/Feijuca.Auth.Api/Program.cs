@@ -29,8 +29,7 @@ builder.Services
     .AddApiAuthentication(out KeycloakSettings KeycloakSettings)
     .AddEndpointsApiExplorer()
     .AddSwagger(KeycloakSettings)
-    .AddHttpClients()
-    .AddOpenTelemetry(applicationSettings.MltSettings)
+    .AddHttpClients()    
     .ConfigureValidationErrorResponses()
     .AddCors(options =>
     {
@@ -43,6 +42,11 @@ builder.Services
         });
     })
     .AddControllers();
+
+if (!string.IsNullOrEmpty(applicationSettings.MltSettings.OpenTelemetryColectorUrl))
+{
+    builder.Services.AddOpenTelemetry(applicationSettings.MltSettings);
+}
 
 builder.ConfigureTelemetryAndLogging(applicationSettings);
 
