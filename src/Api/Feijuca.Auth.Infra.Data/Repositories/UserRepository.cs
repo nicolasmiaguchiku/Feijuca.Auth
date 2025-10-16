@@ -1,10 +1,10 @@
 ﻿using Feijuca.Auth.Common.Errors;
-using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Services;
 using Flurl;
+using Mattioli.Configurations.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Text;
@@ -102,7 +102,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
                     .AppendPathSegment("realms")
                     .AppendPathSegment(tenant)
                     .AppendPathSegment("users");
-            
+
             var json = JsonConvert.SerializeObject(user, Settings);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
             using var response = await httpClient.PostAsync(url, httpContent, cancellationToken);
@@ -242,6 +242,23 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
         public async Task<Result<TokenDetails>> LoginAsync(string username, string password, CancellationToken cancellationToken)
         {
+            var userResult = await GetAsync(_tenantService.Tenant.Name, username, cancellationToken);
+
+            var userId = userResult.Data.Id;
+
+            var userSessionsResult = await GetUserSessionsAsync(userId, _tenantService.Tenant.Name, cancellationToken);
+
+            if (userSessionsResult.IsSuccess && userSessionsResult.Data.Any())
+            {
+                var sessionsToRevoke = userSessionsResult.Data
+                    .OrderByDescending(s => s.LastAccess)
+                    .Skip(1)
+                    .ToList();
+
+                foreach (var session in sessionsToRevoke)
+                    await RevokeSessionsAsync(Guid.Parse(session.Id!), cancellationToken);
+            }
+
             using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
 
             var urlGetToken = httpClient.BaseAddress
@@ -365,6 +382,32 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var responseMessage = await response.Content.ReadAsStringAsync(cancellationToken);
             UserErrors.SetTechnicalMessage(responseMessage);
             return Result<bool>.Failure(UserErrors.InvalidRefreshToken);
+        }
+
+        public async Task<Result<IEnumerable<KeycloakSession>>> GetUserSessionsAsync(Guid id, string tenant, CancellationToken cancellationToken)
+        {
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
+            var url = httpClient.BaseAddress
+                .AppendPathSegment("admin")
+                .AppendPathSegment("realms")
+                .AppendPathSegment(tenant)
+                .AppendPathSegment("users")
+                .AppendPathSegment(id)
+                .AppendPathSegment("sessions");
+
+            using var response = await httpClient.GetAsync(url, cancellationToken);
+            var content = await response.Content.ReadAsStringAsync(cancellationToken);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                UserErrors.SetTechnicalMessage(content);
+                return Result<IEnumerable<KeycloakSession>>.Failure(UserErrors.GetUserSessionsError);
+            }
+
+            var sessions = JsonConvert.DeserializeObject<IEnumerable<KeycloakSession>>(content)!;
+            return Result<IEnumerable<KeycloakSession>>.Success(sessions);
         }
     }
 }

@@ -61,6 +61,11 @@ namespace Feijuca.Auth.Common.Errors
             $"An error occurred while trying add an attribute to the user. {TechnicalMessage}"
         );
 
+        public static Error GetUserSessionsError => new(
+            "User.GetUserSessionsError",
+            $"An error occurred while trying to get sessions an the user. {TechnicalMessage}"
+        );
+
         public static void SetTechnicalMessage(string technicalMessage)
         {
             TechnicalMessage = technicalMessage;
