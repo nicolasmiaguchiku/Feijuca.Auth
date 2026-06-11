@@ -1,9 +1,8 @@
 ﻿using Feijuca.Auth.Errors;
+using Feijuca.Auth.Http.BaseHttp;
 using Feijuca.Auth.Http.Requests;
 using Feijuca.Auth.Http.Responses;
-using Mattioli.Configurations.Http;
-using Mattioli.Configurations.Models;
-using Newtonsoft.Json.Linq;
+using Feijuca.Auth.Models;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
