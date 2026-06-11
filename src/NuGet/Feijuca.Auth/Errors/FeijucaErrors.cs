@@ -1,4 +1,4 @@
-﻿using Mattioli.Configurations.Models;
+﻿using Feijuca.Auth.Models;
 
 namespace Feijuca.Auth.Errors;
 
@@ -13,4 +13,3 @@ public static class FeijucaErrors
     public static readonly Error CreateUserError = new("CreateUserError", "An error occured while create new group");
     public static readonly Error AddUserToGroupError = new("AddUserToGroupError", "An error occured while to add user in group");
 }
-

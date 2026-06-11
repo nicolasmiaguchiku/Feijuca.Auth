@@ -1,7 +1,6 @@
-﻿using Mattioli.Configurations.Http;
-using Mattioli.Configurations.Models;
-using Feijuca.Auth.Http.Responses;
+﻿using Feijuca.Auth.Http.Responses;
 using Feijuca.Auth.Http.Requests;
+using Feijuca.Auth.Models;
 
 namespace Feijuca.Auth.Http.Client;
 
