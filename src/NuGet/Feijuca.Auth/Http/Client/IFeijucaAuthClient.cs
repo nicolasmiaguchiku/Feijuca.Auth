@@ -15,5 +15,6 @@ public interface IFeijucaAuthClient
     Task<Result<string>> CreateGroupAsync(CreateGroupRequest request, CancellationToken cancellationToken);
     Task<Result<Guid>> CreateUserAsync(CreateUserRequest request, string tenant, CancellationToken cancellationToken);
     Task<Result> AddUserToGroupAsync(AddUserToGroupRequest request, CancellationToken cancellationToken);
+    Task<Result> UpdateGroupNameAsync(Guid groupId, UpdateGroupNameRequest request, CancellationToken cancellationToken);
     void SetToken(string token);
 }
