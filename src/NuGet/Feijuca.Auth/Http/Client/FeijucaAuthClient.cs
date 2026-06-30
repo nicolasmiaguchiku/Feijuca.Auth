@@ -174,6 +174,27 @@ namespace Feijuca.Auth.Http.Client
         }
 
         /// <summary>
+        /// Update name from group.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Success Result when group name was updated sucessfully</returns>
+        /// <returns>Failure Result when group name wasn't updated sucessfully</returns>
+        public async Task<Result> UpdateGroupNameAsync(Guid groupId, UpdateGroupNameRequest request, CancellationToken cancellationToken)
+        {
+            var response = await _httpClient.PatchAsJsonAsync($"groups/{groupId}/update-group-name", request, cancellationToken);
+            var content = await response.Content.ReadAsStringAsync(cancellationToken);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = JsonSerializer.Deserialize<Error>(content, _serializer);
+                return Result.Failure(error ?? FeijucaErrors.UpdateGroupNameError);
+            }
+
+            return Result.Success();
+        }
+
+        /// <summary>
         /// Sets the bearer token used in authenticated requests.
         /// </summary>
         /// <param name="jwtToken">JWT bearer token.</param>
