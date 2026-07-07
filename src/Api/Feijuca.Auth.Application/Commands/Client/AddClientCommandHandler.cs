@@ -7,19 +7,19 @@ using Mattioli.Configurations.Models;
 
 namespace Feijuca.Auth.Application.Commands.Client
 {
-    public class AddClientCommandHandler(IClientRepository clientRepository, ITenantProvider tenantService) : ICommandHandler<AddClientCommand, Result<bool>>
+    public class AddClientCommandHandler(IClientRepository clientRepository, ITenantProvider tenantService) : ICommandHandler<AddClientCommand, Result>
     {
-        public async Task<Result<bool>> HandleAsync(AddClientCommand request, CancellationToken cancellationToken)
+        public async Task<Result> HandleAsync(AddClientCommand request, CancellationToken cancellationToken)
         {
             var client = request.AddClientRequest.ToClientEntity();
             var result = await clientRepository.CreateClientAsync(client, tenantService.Tenant.Name, cancellationToken);
 
-            if (result == null)
+            if (result.IsFailure)
             {
-                return Result<bool>.Success(true);
+                return Result.Failure(ClientErrors.CreateClientError);
             }
 
-            return Result<bool>.Failure(ClientErrors.CreateClientError);
+            return Result.Success();
         }
     }
 }

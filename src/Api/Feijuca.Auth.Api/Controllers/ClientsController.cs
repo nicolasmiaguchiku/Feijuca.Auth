@@ -59,7 +59,7 @@ public class ClientsController(ICommandMediator commandMediator, IQueryMediator 
 
         if (result.IsSuccess)
         {
-            return Created("/", result.Data);
+            return Created();
         }
 
         return BadRequest("Error while tried created client.");
