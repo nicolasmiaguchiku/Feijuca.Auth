@@ -40,7 +40,7 @@ public class ClientsController(ICommandMediator commandMediator, IQueryMediator 
     }
 
     /// <summary>
-    /// Recovers all clients registered in the realm.
+    /// Creates a new client in the realm.
     /// </summary>
     /// <returns>
     /// A 200 OK status code along with the list of clients if the operation is successful;
@@ -59,7 +59,7 @@ public class ClientsController(ICommandMediator commandMediator, IQueryMediator 
 
         if (result.IsSuccess)
         {
-            return Created("/", result.Data);
+            return Created();
         }
 
         return BadRequest("Error while tried created client.");

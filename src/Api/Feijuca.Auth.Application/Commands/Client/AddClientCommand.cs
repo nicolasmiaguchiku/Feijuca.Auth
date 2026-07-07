@@ -4,5 +4,5 @@ using Mattioli.Configurations.Models;
 
 namespace Feijuca.Auth.Application.Commands.Client
 {
-    public record AddClientCommand(AddClientRequest AddClientRequest) : ICommand<Result<bool>>;
+    public record AddClientCommand(AddClientRequest AddClientRequest) : ICommand<Result>;
 }
