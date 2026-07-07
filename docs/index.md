@@ -41,6 +41,10 @@ Meet the amazing people behind **Feijuca.Auth**! Connect with them on LinkedIn:
 | Wesley Souza       | <a href="https://www.linkedin.com/in/weslleyms/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/></a>                   |
 | Matheus Galvão     | <a href="https://www.linkedin.com/in/matheu-sandregalvaodasilva/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/></a>     |
 | Gabriel Sant'ana   | <a href="https://www.linkedin.com/in/matheu-sandregalvaodasilva/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/></a>     |
+|Miguel Totti   | <a href="https://www.linkedin.com/in/miguel-totti/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/></a>     |
+|Victoria Dantas  | <a href="www.linkedin.com/in/victória-dantas-892a46359" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/></a>     |
+|Arthur Azevedo   | <a href="https://www.linkedin.com/in/arthurazevedo18/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/></a>     |
+|Gabriel Henrique   | <a href="https://www.linkedin.com/in/gabriel-hbf-dev" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20"/></a>     |
 
 We’re thankful for all the contributors who help make **Feijuca.Auth** better every day!
 
