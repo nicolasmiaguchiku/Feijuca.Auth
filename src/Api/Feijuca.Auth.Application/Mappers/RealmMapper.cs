@@ -14,6 +14,7 @@ namespace Feijuca.Auth.Application.Mappers
                 Realm = addRealmRequest.Name,
                 DisplayName = addRealmRequest.Description,
                 Enabled = true,
+                Attributes = []
             };
         }
 
@@ -24,7 +25,8 @@ namespace Feijuca.Auth.Application.Mappers
                     issuer.AppendPathSegment("realms").AppendPathSegment(r.Realm),
                     r.Realm,
                     r.DisplayName ?? string.Empty,
-                    r.Enabled
+                    r.Enabled,
+                    r.Attributes
                     ));
         }
     }
