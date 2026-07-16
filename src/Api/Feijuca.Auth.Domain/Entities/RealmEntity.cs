@@ -6,5 +6,6 @@
         public string? DisplayName { get; set; }
         public bool Enabled { get; set; }
         public required Dictionary<string, string> Attributes { get; set; }
+        public required Dictionary<string, string> BrowserSecurityHeaders { get; set; }
     }
 }

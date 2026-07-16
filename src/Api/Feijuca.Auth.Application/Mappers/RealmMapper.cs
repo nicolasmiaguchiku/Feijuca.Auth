@@ -14,7 +14,8 @@ namespace Feijuca.Auth.Application.Mappers
                 Realm = addRealmRequest.Name,
                 DisplayName = addRealmRequest.Description,
                 Enabled = true,
-                Attributes = []
+                Attributes = [],
+                BrowserSecurityHeaders = []
             };
         }
 
