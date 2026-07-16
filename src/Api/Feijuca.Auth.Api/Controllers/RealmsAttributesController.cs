@@ -39,4 +39,31 @@ public class RealmsAttributesController(ICommandMediator commandMediator) : Cont
 
         return BadRequest(result.Error);
     }
+
+    /// <summary>
+    /// Updates attributes for the specified Keycloak realm.
+    /// </summary>
+    /// <param name="updateRealmAttributeRequest">The request object containing the necessary details to update attributes for the realm.</param>
+    /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to signal cancellation for the operation.</param>
+    /// <returns>
+    /// A 204 No Content status code if the realm attributes are successfully updated;
+    /// otherwise, a 400 Bad Request status code with an error message.
+    /// </returns>
+    [HttpPatch]
+    [EndpointDescription("This endpoint update existing attributes related to the an existing realm.")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [RequiredRole("Feijuca.ApiWriter")]
+    public async Task<IActionResult> UpdateAttributes([FromBody] UpdateRealmAttributesRequest updateRealmAttributeRequest, CancellationToken cancellationToken)
+    {
+        var result = await commandMediator.SendAsync(new UpdateRealmAttributesCommand(updateRealmAttributeRequest), cancellationToken);
+
+        if (result.IsSuccess)
+        {
+            return NoContent();
+        }
+
+        return BadRequest(result.Error);
+    }
 }
