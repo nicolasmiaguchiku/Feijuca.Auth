@@ -6,6 +6,11 @@ namespace Feijuca.Auth.Common.Errors
     {
         public static string TechnicalMessage { get; private set; } = "";
 
+        public static void SetTechnicalMessage(string technicalMessage)
+        {
+            TechnicalMessage = technicalMessage;
+        }
+
         public static Error CreateRealmError => new(
             "Realm.CreateRealmError",
             $"An error occurred while trying create a realm. {TechnicalMessage}"
@@ -29,6 +34,16 @@ namespace Feijuca.Auth.Common.Errors
         public static Error ReplicateRealmError => new(
             "Realm.ReplicateRealmError",
             $"An error occurred while trying replicate the realm. {TechnicalMessage}"
+        );
+
+        public static Error InvalidRealmNameError => new(
+            "Realm.InvalidRealmNameError",
+            $"Realm name is invalid. {TechnicalMessage}"
+        );
+
+        public static Error NotFoundError => new(
+            "Realm.NotFoundError",
+            $"Realm with provided name was not found. {TechnicalMessage}"
         );
     }
 }

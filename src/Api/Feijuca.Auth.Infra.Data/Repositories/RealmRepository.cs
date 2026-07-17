@@ -1,7 +1,11 @@
-﻿using Feijuca.Auth.Domain.Entities;
+﻿using Feijuca.Auth.Common.Errors;
+using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Models;
 using Flurl;
+using Mattioli.Configurations.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Net.Http.Json;
 using System.Text;
 
@@ -10,6 +14,12 @@ namespace Feijuca.Auth.Infra.Data.Repositories
     public class RealmRepository(IHttpClientFactory httpClientFactory, IAuthRepository authRepository) : BaseRepository(httpClientFactory), IRealmRepository
     {
         private readonly IAuthRepository _authRepository = authRepository;
+
+        private static readonly JsonSerializerSettings _settings = new()
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore
+        };
 
         public async Task<IEnumerable<RealmEntity>> GetAllAsync(CancellationToken cancellationToken)
         {
@@ -25,6 +35,33 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             var realms = JsonConvert.DeserializeObject<IEnumerable<RealmEntity>>(keycloakRealmContent)!;
 
             return realms.Where(x => x.Realm != "master") ?? [];
+        }
+
+        public async Task<Result<RealmEntity>> GetAsync(string name, CancellationToken cancellationToken)
+        {
+            if (string.IsNullOrEmpty(name) || name == "master")
+            {
+                return Result<RealmEntity>.Failure(RealmErrors.InvalidRealmNameError);
+            }
+
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
+            var url = httpClient.BaseAddress
+                .AppendPathSegment("admin")
+                .AppendPathSegment("realms")
+                .AppendPathSegment(name);
+
+            using var response = await httpClient.GetAsync(url, cancellationToken);
+            var keycloakRealmContent = await response.Content.ReadAsStringAsync(cancellationToken);
+            var realm = JsonConvert.DeserializeObject<RealmEntity>(keycloakRealmContent)!;
+
+            if (realm is null)
+            {
+                return Result<RealmEntity>.Failure(RealmErrors.NotFoundError);
+            }
+
+            return Result<RealmEntity>.Success(realm);
         }
 
         public async Task<bool> CreateRealmAsync(RealmEntity realm, CancellationToken cancellationToken)
@@ -53,6 +90,30 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             }
 
             return false;
+        }
+
+        public async Task<Result> UpdateRealmAsync(string name, RealmEntity realm, CancellationToken cancellationToken)
+        {
+            var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
+            using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
+            var url = httpClient.BaseAddress
+                .AppendPathSegment("admin")
+                .AppendPathSegment("realms")
+                .AppendPathSegment(name);
+
+            var json = JsonConvert.SerializeObject(realm, _settings);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            using var response = await httpClient.PutAsync(url, content, cancellationToken);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return Result.Success();
+            }
+
+            var responseMessage = await response.Content.ReadAsStringAsync(cancellationToken);
+            RealmErrors.SetTechnicalMessage(responseMessage);
+            return Result.Failure(RealmErrors.UpdateRealmError);
         }
 
         public async Task<bool> DeleteRealmAsync(string name, CancellationToken cancellationToken)
