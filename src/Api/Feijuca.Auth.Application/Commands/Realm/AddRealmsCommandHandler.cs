@@ -1,6 +1,6 @@
 ﻿using Feijuca.Auth.Application.Mappers;
 using Feijuca.Auth.Common.Errors;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using LiteBus.Commands.Abstractions;
 

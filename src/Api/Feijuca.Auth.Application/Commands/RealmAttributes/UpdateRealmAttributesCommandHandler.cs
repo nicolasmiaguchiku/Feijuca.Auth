@@ -1,7 +1,7 @@
 ﻿using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Providers;
 using LiteBus.Commands.Abstractions;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 
 namespace Feijuca.Auth.Application.Commands.RealmAttributes;
 

@@ -5,7 +5,7 @@ using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Models;
 using Feijuca.Auth.Providers;
 using FluentAssertions;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Moq;
 
 namespace Feijuca.Auth.Api.UnitTests.Command.GroupUser

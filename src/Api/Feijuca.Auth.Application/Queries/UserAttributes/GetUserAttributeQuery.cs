@@ -1,5 +1,5 @@
 ﻿using LiteBus.Queries.Abstractions;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 
 namespace Feijuca.Auth.Application.Queries.UserAttributes
 {

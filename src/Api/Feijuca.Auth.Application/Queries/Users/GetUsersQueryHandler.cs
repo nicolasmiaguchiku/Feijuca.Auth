@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Common.Errors;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Feijuca.Auth.Application.Mappers;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Http.Responses;
@@ -9,16 +9,16 @@ using LiteBus.Queries.Abstractions;
 
 namespace Feijuca.Auth.Application.Queries.Users
 {
-    public class GetUsersQueryHandler(IUserRepository _userRepository, ITenantProvider _tenantService) : IQueryHandler<GetUsersQuery, Result<PagedResult<UserResponse>>>
+    public class GetUsersQueryHandler(IUserRepository _userRepository, ITenantProvider _tenantService) : IQueryHandler<GetUsersQuery, Result<Responses.PagedResult<UserResponse>>>
     {
-        public async Task<Result<PagedResult<UserResponse>>> HandleAsync(GetUsersQuery request, CancellationToken cancellationToken)
+        public async Task<Result<Responses.PagedResult<UserResponse>>> HandleAsync(GetUsersQuery request, CancellationToken cancellationToken)
         {
             var totalUsers = await _userRepository.GetTotalAsync(cancellationToken);
             var result = await _userRepository.GetAllAsync(request.GetUsersRequest.ToUserFilters(), totalUsers, cancellationToken);
 
             if (!result.IsSuccess)
             {
-                return Result<PagedResult<UserResponse>>.Failure(UserErrors.GetAllUsersError);
+                return Result<Responses.PagedResult<UserResponse>>.Failure(UserErrors.GetAllUsersError);
             }
 
             var filteredUsers = result.Data.AsEnumerable();
@@ -46,7 +46,7 @@ namespace Feijuca.Auth.Application.Queries.Users
             }
             
             var users = filteredUsers.ToList();
-            return Result<PagedResult<UserResponse>>.Success(users.ToUserResponse(request.GetUsersRequest.PageFilter, _tenantService.Tenant.Name, totalUsers));
+            return Result<Responses.PagedResult<UserResponse>>.Success(users.ToUserResponse(request.GetUsersRequest.PageFilter, _tenantService.Tenant.Name, totalUsers));
         }
     }
 }

@@ -2,7 +2,7 @@
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
 using Flurl;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 
 namespace Feijuca.Auth.Domain.Services
 {

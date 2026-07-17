@@ -25,7 +25,7 @@ public static class AuthExtension
             return services;
         }
 
-        services.TryAddScoped<ITenantProvider, TenanatProvider>();
+        services.TryAddScoped<ITenantProvider, TenantProvider>();
         services.TryAddSingleton<JwtSecurityTokenHandler>();
 
         return services;

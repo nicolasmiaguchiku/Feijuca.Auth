@@ -4,7 +4,7 @@ using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
 using FluentAssertions;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Moq;
 
 namespace Feijuca.Auth.Api.UnitTests.Queries.Groups

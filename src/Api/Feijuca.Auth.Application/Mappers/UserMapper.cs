@@ -1,18 +1,18 @@
 ﻿using Feijuca.Auth.Application.Requests.Auth;
 using Feijuca.Auth.Application.Requests.GroupUsers;
 using Feijuca.Auth.Application.Requests.Pagination;
-using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Application.Responses;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Http.Responses;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
+using Feijuca.Auth.Application.Requests.User;
 
 namespace Feijuca.Auth.Application.Mappers
 {
     public static class UserMapper
     {
-        public static User ToDomain(this AddUserRequest userRequest, string tenant)
+        public static Domain.Entities.User ToDomain(this AddUserRequest userRequest, string tenant)
         {
             var atributtes = new Dictionary<string, string[]>
             {
@@ -24,10 +24,10 @@ namespace Feijuca.Auth.Application.Mappers
                 atributtes.Add(item.Key, item.Value);
             }
 
-            return new User(userRequest.Username, userRequest.Password, userRequest.Email!, userRequest.FirstName!, userRequest.LastName!, atributtes);
+            return new Domain.Entities.User(userRequest.Username, userRequest.Password, userRequest.Email!, userRequest.FirstName!, userRequest.LastName!, atributtes);
         }
 
-        public static IEnumerable<UserResponse> ToUsersResponse(this IEnumerable<User> users, string tenant)
+        public static IEnumerable<UserResponse> ToUsersResponse(this IEnumerable<Domain.Entities.User> users, string tenant)
         {
             return users.Select(x => new UserResponse(x.Id,
                 x.Enabled,
@@ -58,9 +58,9 @@ namespace Feijuca.Auth.Application.Mappers
             };
         }
 
-        public static User ToLoginUserDomain(this LoginUserRequest loginUserRequest)
+        public static Domain.Entities.User ToLoginUserDomain(this LoginUserRequest loginUserRequest)
         {
-            return new User(loginUserRequest.Username, loginUserRequest.Password);
+            return new Domain.Entities.User(loginUserRequest.Username, loginUserRequest.Password);
         }
 
         public static Result<TokenDetailsResponse> ToTokenResponse(this Result<TokenDetails> tokenDetails)
@@ -88,9 +88,9 @@ namespace Feijuca.Auth.Application.Mappers
             return new UserFilters(pageFilter, [], getUsersRequest.Usernames);
         }
 
-        public static PagedResult<UserResponse> ToUserResponse(this IEnumerable<User> results, PageFilterRequest pageFilter, string tenant, int totalResults)
+        public static Responses.PagedResult<UserResponse> ToUserResponse(this IEnumerable<Domain.Entities.User> results, PageFilterRequest pageFilter, string tenant, int totalResults)
         {
-            return new PagedResult<UserResponse>
+            return new Responses.PagedResult<UserResponse>
             {
                 PageNumber = pageFilter.Page,
                 PageSize = pageFilter.PageSize,
@@ -99,7 +99,7 @@ namespace Feijuca.Auth.Application.Mappers
             };
         }
 
-        public static UserResponse ToResponse(this User user, string tenant)
+        public static UserResponse ToResponse(this Domain.Entities.User user, string tenant)
         {
             return new UserResponse(user.Id,
                 user.Enabled,

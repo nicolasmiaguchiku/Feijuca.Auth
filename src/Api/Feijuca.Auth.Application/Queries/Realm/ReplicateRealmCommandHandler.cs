@@ -4,7 +4,7 @@ using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Providers;
 using LiteBus.Commands.Abstractions;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 
 namespace Feijuca.Auth.Application.Queries.Realm
 {
@@ -69,7 +69,7 @@ namespace Feijuca.Auth.Application.Queries.Realm
 
                         if (string.IsNullOrEmpty(result))
                         {
-                            return Result<bool>.Failure(RealmErrors.ReplicateRealmError);
+                            continue;
                         }
 
                         await clientScopesRepository.AddClientScopeToClientAsync(targetTenantClientCreated.Id,
@@ -124,14 +124,14 @@ namespace Feijuca.Auth.Application.Queries.Realm
             }
         }
 
-        private async Task AssociateUserToTheGroupAsync(string targetTenant, string adminGroupId, User user, CancellationToken cancellationToken)
+        private async Task AssociateUserToTheGroupAsync(string targetTenant, string adminGroupId, Domain.Entities.User user, CancellationToken cancellationToken)
         {
             await groupUsersRepository.AddUserToGroupAsync(user.Id, targetTenant, Guid.Parse(adminGroupId), cancellationToken);
         }
 
-        private async Task<User> CreateUserAsync(ReplicateRealmCommand request, string targetTenant, CancellationToken cancellationToken)
+        private async Task<Domain.Entities.User> CreateUserAsync(ReplicateRealmCommand request, string targetTenant, CancellationToken cancellationToken)
         {
-            var user = new User(request.ReplicateRealmRequest.ReplicationConfigurationRequest.AdminUser.Username,
+            var user = new Domain.Entities.User(request.ReplicateRealmRequest.ReplicationConfigurationRequest.AdminUser.Username,
                 request.ReplicateRealmRequest.ReplicationConfigurationRequest.AdminUser.Password,
                 request.ReplicateRealmRequest.ReplicationConfigurationRequest.AdminUser.Username,
                 request.ReplicateRealmRequest.ReplicationConfigurationRequest.AdminUser.Username,

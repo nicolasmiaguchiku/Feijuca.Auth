@@ -3,7 +3,7 @@ using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Models;
 using Flurl;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Json;

@@ -24,7 +24,7 @@ using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Common;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Feijuca.Auth.Api.Controllers

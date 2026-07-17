@@ -4,19 +4,19 @@ using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Providers;
 using LiteBus.Queries.Abstractions;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 
 namespace Feijuca.Auth.Application.Queries.GroupUser
 {
     public class GetUsersGroupQueryHandler(IGroupRepository groupRepository,
         IUserRepository userRepository,
-        ITenantProvider tenantService) : IQueryHandler<GetUsersGroupQuery, Result<PagedResult<UserGroupResponse>>>
+        ITenantProvider tenantService) : IQueryHandler<GetUsersGroupQuery, Result<Responses.PagedResult<UserGroupResponse>>>
     {
         private readonly IGroupRepository _groupRepository = groupRepository;
         private readonly IUserRepository _userRepository = userRepository;
         private readonly ITenantProvider _tenantProvider = tenantService;
 
-        public async Task<Result<PagedResult<UserGroupResponse>>> HandleAsync(GetUsersGroupQuery request, CancellationToken cancellationToken = default)
+        public async Task<Result<Responses.PagedResult<UserGroupResponse>>> HandleAsync(GetUsersGroupQuery request, CancellationToken cancellationToken = default)
         {
             var allGroupsResult = await _groupRepository.GetAllAsync(cancellationToken);
 
@@ -45,11 +45,11 @@ namespace Feijuca.Auth.Application.Queries.GroupUser
 
                     var result = usersInGroup.ToResponse(request.GetUsersGroupRequest.PageFilter, filteredUsers.Count());
 
-                    return Result<PagedResult<UserGroupResponse>>.Success(result);
+                    return Result<Responses.PagedResult<UserGroupResponse>>.Success(result);
                 }
             }
 
-            return Result<PagedResult<UserGroupResponse>>.Failure(GroupErrors.GetUsersInGroupsError);
+            return Result<Responses.PagedResult<UserGroupResponse>>.Failure(GroupErrors.GetUsersInGroupsError);
         }
     }
 }

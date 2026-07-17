@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Application.Mappers;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Http.Responses;
 using LiteBus.Commands.Abstractions;

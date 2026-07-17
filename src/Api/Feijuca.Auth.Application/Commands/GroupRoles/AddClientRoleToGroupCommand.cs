@@ -1,4 +1,4 @@
-﻿using Mattioli.Configurations.Models;
+﻿using Feijuca.Auth.Models;
 using Feijuca.Auth.Application.Requests.GroupRoles;
 using LiteBus.Commands.Abstractions;
 

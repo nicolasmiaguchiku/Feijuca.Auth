@@ -1,6 +1,6 @@
 ﻿using Feijuca.Auth.Http.Responses;
 using LiteBus.Commands.Abstractions;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 
 namespace Feijuca.Auth.Application.Commands.User
 {

@@ -1,5 +1,5 @@
 ﻿using Feijuca.Auth.Domain.Entities;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 
 namespace Feijuca.Auth.Domain.Interfaces
 {

@@ -4,7 +4,7 @@ using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Providers;
 using Flurl;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Text;
@@ -26,7 +26,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore
         };
 
-        public async Task<Result<IEnumerable<User>>> GetAllAsync(UserFilters userFilters, int totalUsers, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<Domain.Entities.User>>> GetAllAsync(UserFilters userFilters, int totalUsers, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -43,9 +43,9 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
             using var response = await httpClient.GetAsync(urlGetUsers, cancellationToken);
             var keycloakUserContent = await response.Content.ReadAsStringAsync(cancellationToken);
-            var users = JsonConvert.DeserializeObject<IEnumerable<User>>(keycloakUserContent)!;
+            var users = JsonConvert.DeserializeObject<IEnumerable<Domain.Entities.User>>(keycloakUserContent)!;
 
-            return Result<IEnumerable<User>>.Success(users
+            return Result<IEnumerable<Domain.Entities.User>>.Success(users
                 .OrderBy(a => a.FirstName)
                 .ThenBy(a => a.LastName));
         }
@@ -65,7 +65,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
 
             using var response = await httpClient.GetAsync(urlGetUsers, cancellationToken);
             var keycloakUserContent = await response.Content.ReadAsStringAsync(cancellationToken);
-            var users = JsonConvert.DeserializeObject<IEnumerable<User>>(keycloakUserContent)!;
+            var users = JsonConvert.DeserializeObject<IEnumerable<Domain.Entities.User>>(keycloakUserContent)!;
 
             return users.Count();
         }
@@ -92,7 +92,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result<bool>.Failure(UserErrors.DeletionUserError);
         }
 
-        public async Task<Result<string>> CreateAsync(User user, CancellationToken cancellationToken)
+        public async Task<Result<string>> CreateAsync(Domain.Entities.User user, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -129,11 +129,11 @@ namespace Feijuca.Auth.Infra.Data.Repositories
         }
 
 
-        public async Task<Result<User>> GetAsync(string username, CancellationToken cancellationToken)
+        public async Task<Result<Domain.Entities.User>> GetAsync(string username, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(username))
             {
-                return Result<User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
+                return Result<Domain.Entities.User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
             }
 
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
@@ -150,21 +150,21 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             using var response = await httpClient.GetAsync(url, cancellationToken);
             var keycloakUserContent = await response.Content.ReadAsStringAsync(cancellationToken);
 
-            var user = JsonConvert.DeserializeObject<List<User>>(keycloakUserContent)!;
+            var user = JsonConvert.DeserializeObject<List<Domain.Entities.User>>(keycloakUserContent)!;
 
             if (user.Count == 0)
             {
-                return Result<User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
+                return Result<Domain.Entities.User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
             }
 
-            return Result<User>.Success(user[0]);
+            return Result<Domain.Entities.User>.Success(user[0]);
         }
 
-        public async Task<Result<User>> GetAsync(string username, string tenant, CancellationToken cancellationToken)
+        public async Task<Result<Domain.Entities.User>> GetAsync(string username, string tenant, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(username))
             {
-                return Result<User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
+                return Result<Domain.Entities.User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
             }
 
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
@@ -181,14 +181,14 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             using var response = await httpClient.GetAsync(url, cancellationToken);
             var keycloakUserContent = await response.Content.ReadAsStringAsync(cancellationToken);
 
-            var user = JsonConvert.DeserializeObject<List<User>>(keycloakUserContent)!;
+            var user = JsonConvert.DeserializeObject<List<Domain.Entities.User>>(keycloakUserContent)!;
 
             if (user.Count == 0)
             {
-                return Result<User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
+                return Result<Domain.Entities.User>.Failure(UserErrors.InvalidUserNameOrPasswordError);
             }
 
-            return Result<User>.Success(user[0]);
+            return Result<Domain.Entities.User>.Success(user[0]);
         }
 
         public async Task<Result<bool>> ResetPasswordAsync(Guid id, string password, CancellationToken cancellationToken)
@@ -467,7 +467,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result<TokenDetails>.Failure(UserErrors.InvalidRefreshToken);
         }
 
-        public async Task<Result<bool>> UpdateUserAsync(Guid id, User user, CancellationToken cancellationToken)
+        public async Task<Result<bool>> UpdateUserAsync(Guid id, Domain.Entities.User user, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
 

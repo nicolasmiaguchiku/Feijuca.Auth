@@ -4,11 +4,10 @@ using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
 using Feijuca.Auth.Providers;
 using Flurl;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Text;
-using User = Feijuca.Auth.Domain.Entities.User;
 
 namespace Feijuca.Auth.Infra.Data.Repositories
 {
@@ -170,7 +169,7 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             return Result.Failure(GroupErrors.DeletionGroupError);
         }
 
-        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(string id, UserFilters userFilters, int totalUsers, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<Domain.Entities.User>>> GetUsersInGroupAsync(string id, UserFilters userFilters, int totalUsers, CancellationToken cancellationToken)
         {            
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             using var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -191,12 +190,12 @@ namespace Feijuca.Auth.Infra.Data.Repositories
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
-                var users = JsonConvert.DeserializeObject<IEnumerable<User>>(responseContent);
+                var users = JsonConvert.DeserializeObject<IEnumerable<Domain.Entities.User>>(responseContent);
 
-                return Result<IEnumerable<User>>.Success(users!);
+                return Result<IEnumerable<Domain.Entities.User>>.Success(users!);
             }
 
-            return Result<IEnumerable<User>>.Failure(GroupErrors.GetUsersInGroupsError);
+            return Result<IEnumerable<Domain.Entities.User>>.Failure(GroupErrors.GetUsersInGroupsError);
         }
     }
 }

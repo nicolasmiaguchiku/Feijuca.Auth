@@ -1,9 +1,9 @@
 ﻿using AutoFixture;
 using Feijuca.Auth.Application.Commands.User;
 using Feijuca.Auth.Common.Errors;
-using Mattioli.Configurations.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Interfaces;
+using Feijuca.Auth.Models;
 using Feijuca.Auth.Providers;
 using FluentAssertions;
 using Moq;

@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using Feijuca.Auth.Application.Queries.GroupUser;
 using Feijuca.Auth.Common.Errors;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
@@ -86,7 +86,7 @@ namespace Feijuca.Auth.Api.UnitTests.Queries.GroupUser
                                 .Create();
 
             var groupsResult = Result<IEnumerable<Group>>.Success([group]);
-            var usersResult = Result<IEnumerable<User>>.Success(_fixture.CreateMany<User>(5));
+            var usersResult = Result<IEnumerable<Feijuca.Auth.Domain.Entities.User>>.Success(_fixture.CreateMany<Feijuca.Auth.Domain.Entities.User>(5));
 
             _groupRepositoryMock
                 .Setup(repo => repo.GetAllAsync(It.IsAny<CancellationToken>()))

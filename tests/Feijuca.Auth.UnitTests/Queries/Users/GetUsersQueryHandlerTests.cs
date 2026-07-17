@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using Feijuca.Auth.Application.Queries.Users;
 using Feijuca.Auth.Common.Errors;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Feijuca.Auth.Domain.Entities;
 using Feijuca.Auth.Domain.Filters;
 using Feijuca.Auth.Domain.Interfaces;
@@ -28,8 +28,8 @@ namespace Feijuca.Auth.Api.UnitTests.Queries.Users
         {
             var usersQuery = _fixture.Create<GetUsersQuery>();
             var cancellationToken = _fixture.Create<CancellationToken>();
-            var users = _fixture.CreateMany<User>();
-            var userResult = Result<IEnumerable<User>>.Success(users);
+            var users = _fixture.CreateMany<Feijuca.Auth.Domain.Entities.User>();
+            var userResult = Result<IEnumerable<Feijuca.Auth.Domain.Entities.User>>.Success(users);
 
             _userRepositoryMock
                 .Setup(repo => repo.GetAllAsync(It.IsAny<UserFilters>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
@@ -58,7 +58,7 @@ namespace Feijuca.Auth.Api.UnitTests.Queries.Users
         {
             var usersQuery = _fixture.Create<GetUsersQuery>();
             var cancellationToken = _fixture.Create<CancellationToken>();
-            var userResult = Result<IEnumerable<User>>.Failure(UserErrors.GetAllUsersError);
+            var userResult = Result<IEnumerable<Feijuca.Auth.Domain.Entities.User>>.Failure(UserErrors.GetAllUsersError);
 
             _userRepositoryMock
                 .Setup(repo => repo.GetAllAsync(It.IsAny<UserFilters>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))

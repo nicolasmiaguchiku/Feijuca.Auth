@@ -5,7 +5,7 @@ using Feijuca.Auth.Application.Requests.User;
 using Feijuca.Auth.Attributes;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

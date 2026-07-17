@@ -2,7 +2,7 @@
 using Feijuca.Auth.Application.Commands.User;
 using Feijuca.Auth.Common.Errors;
 using Feijuca.Auth.Domain.Interfaces;
-using Mattioli.Configurations.Models;
+using Feijuca.Auth.Models;
 using Moq;
 
 namespace Feijuca.Auth.Api.UnitTests.Command.Users
