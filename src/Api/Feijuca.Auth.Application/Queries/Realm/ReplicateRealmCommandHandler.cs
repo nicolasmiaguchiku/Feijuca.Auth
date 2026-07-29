@@ -16,12 +16,19 @@ namespace Feijuca.Auth.Application.Queries.Realm
         IGroupRepository groupRepository,
         IGroupUsersRepository groupUsersRepository,
         IGroupRolesRepository groupRolesRepository,
+        IRealmRepository realmRepository,
         ITenantProvider tenantProvider) : ICommandHandler<ReplicateRealmCommand, Result<bool>>
     {
         public async Task<Result<bool>> HandleAsync(ReplicateRealmCommand request, CancellationToken cancellationToken)
         {
             var targetTenant = request.ReplicateRealmRequest.Tenant;
             var originTenant = tenantProvider.Tenant.Name;
+
+            var attributesReplicated = await ReplicateRealmAttributesAsync(originTenant, targetTenant, cancellationToken);
+            if (!attributesReplicated)
+            {
+                return Result<bool>.Failure(RealmErrors.ReplicateRealmError);
+            }
 
             string adminGroupId = "";
             if (request.ReplicateRealmRequest!.ReplicationConfigurationRequest.AdminUser.Username != string.Empty)
@@ -93,6 +100,34 @@ namespace Feijuca.Auth.Application.Queries.Realm
             }
 
             return Result<bool>.Success(true);
+        }
+
+        private async Task<bool> ReplicateRealmAttributesAsync(string originTenant, string targetTenant, CancellationToken cancellationToken)
+        {
+            var originRealm = await realmRepository.GetAsync(originTenant, cancellationToken);
+            if (!originRealm.IsSuccess)
+            {
+                return false;
+            }
+
+            if (originRealm.Data.Attributes is not { Count: > 0 })
+            {
+                return true;
+            }
+
+            var targetRealm = await realmRepository.GetAsync(targetTenant, cancellationToken);
+            if (!targetRealm.IsSuccess)
+            {
+                return false;
+            }
+
+            // Preserva os demais campos do realm de destino (ex.: BrowserSecurityHeaders),
+            // sobrescrevendo apenas os atributos com os do realm de origem.
+            targetRealm.Data.Attributes = originRealm.Data.Attributes;
+
+            var updateResult = await realmRepository.UpdateRealmAsync(targetTenant, targetRealm.Data, cancellationToken);
+
+            return updateResult.IsSuccess;
         }
 
         private async Task AssociatedRulesToTheClientAsync(string targetTenant, string originTenant, ClientEntity client, string clientId, CancellationToken cancellationToken)
