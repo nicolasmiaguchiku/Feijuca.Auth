@@ -121,8 +121,6 @@ namespace Feijuca.Auth.Application.Queries.Realm
                 return false;
             }
 
-            // Preserva os demais campos do realm de destino (ex.: BrowserSecurityHeaders),
-            // sobrescrevendo apenas os atributos com os do realm de origem.
             targetRealm.Data.Attributes = originRealm.Data.Attributes;
 
             var updateResult = await realmRepository.UpdateRealmAsync(targetTenant, targetRealm.Data, cancellationToken);
