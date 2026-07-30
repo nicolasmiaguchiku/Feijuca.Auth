@@ -24,7 +24,7 @@ namespace Feijuca.Auth.Application.Queries.Realm
             var targetTenant = request.ReplicateRealmRequest.Tenant;
             var originTenant = tenantProvider.Tenant.Name;
 
-            var attributesReplicated = await ReplicateRealmAttributesAsync(originTenant, targetTenant, cancellationToken);
+            var attributesReplicated = await ReplicateRealmAttributesAsync(targetTenant, cancellationToken);
             if (!attributesReplicated)
             {
                 return Result<bool>.Failure(RealmErrors.ReplicateRealmError);
@@ -102,26 +102,21 @@ namespace Feijuca.Auth.Application.Queries.Realm
             return Result<bool>.Success(true);
         }
 
-        private async Task<bool> ReplicateRealmAttributesAsync(string originTenant, string targetTenant, CancellationToken cancellationToken)
+        private async Task<bool> ReplicateRealmAttributesAsync(string targetTenant, CancellationToken cancellationToken)
         {
-            var originRealm = await realmRepository.GetAsync(originTenant, cancellationToken);
-            if (!originRealm.IsSuccess)
-            {
-                return false;
-            }
-
-            if (originRealm.Data.Attributes is not { Count: > 0 })
-            {
-                return true;
-            }
-
             var targetRealm = await realmRepository.GetAsync(targetTenant, cancellationToken);
             if (!targetRealm.IsSuccess)
             {
                 return false;
             }
 
-            targetRealm.Data.Attributes = originRealm.Data.Attributes;
+            var attributes = targetRealm.Data.Attributes ?? new Dictionary<string, string>();
+            foreach (var replicableAttribute in Constants.ReplicableRealmAttributes)
+            {
+                attributes[replicableAttribute.Key] = replicableAttribute.Value;
+            }
+
+            targetRealm.Data.Attributes = attributes;
 
             var updateResult = await realmRepository.UpdateRealmAsync(targetTenant, targetRealm.Data, cancellationToken);
 
